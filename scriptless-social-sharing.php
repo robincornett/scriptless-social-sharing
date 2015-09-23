@@ -93,5 +93,5 @@ function scriptlesssocialsharing_make_buttons() {
 
 function scriptlesssocialsharing_heading() {
 	$heading = apply_filters( 'scriptlesssocialsharing_heading', __( 'Share this post:', 'scriptless-social-sharing' ) );
-	return apply_filters( 'scriptlesssocialsharing_heading', $heading );
+	return '<h3>' . $heading . '</h3>';
 }
