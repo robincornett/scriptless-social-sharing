@@ -1,0 +1,12 @@
+{
+  "name": "simple-social-sharing",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-2.0",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.0.4"
+  }
+}

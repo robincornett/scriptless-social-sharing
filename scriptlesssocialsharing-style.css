@@ -1,0 +1,113 @@
+.scriptlesssocialsharing-buttons {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.scriptlesssocialsharing-buttons .button {
+  border-right: 3px solid white;
+  color: white;
+  display: table-cell;
+  padding: 12px 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.scriptlesssocialsharing-buttons .button:last-of-type {
+  border-right: none;
+}
+
+.scriptlesssocialsharing-buttons .button:before {
+  display: inline-block;
+  font: normal normal normal 20px FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  font-size: 20px;
+}
+
+.scriptlesssocialsharing-buttons .sss-name {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+  margin-left: 8px;
+}
+
+.scriptlesssocialsharing-buttons .twitter {
+  background-color: #00aced;
+  background-color: rgba(0, 172, 237, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .twitter:before {
+  content: '\f099';
+}
+
+.scriptlesssocialsharing-buttons .twitter:hover {
+  background-color: #00aced;
+}
+
+.scriptlesssocialsharing-buttons .facebook {
+  background-color: #3b5998;
+  background-color: rgba(59, 89, 152, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .facebook:before {
+  content: '\f09a';
+}
+
+.scriptlesssocialsharing-buttons .facebook:hover {
+  background-color: #3b5998;
+}
+
+.scriptlesssocialsharing-buttons .google {
+  background-color: #dd4b39;
+  background-color: rgba(221, 75, 57, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .google:before {
+  content: '\f0d5';
+}
+
+.scriptlesssocialsharing-buttons .google:hover {
+  background-color: #dd4b39;
+}
+
+.scriptlesssocialsharing-buttons .pinterest {
+  background-color: #cb2027;
+  background-color: rgba(203, 32, 39, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .pinterest:before {
+  content: '\f0d2';
+}
+
+.scriptlesssocialsharing-buttons .pinterest:hover {
+  background-color: #cb2027;
+}
+
+.scriptlesssocialsharing-buttons .linkedin {
+  background-color: #007bb6;
+  background-color: rgba(0, 123, 182, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .linkedin:before {
+  content: '\f0e1';
+}
+
+.scriptlesssocialsharing-buttons .linkedin:hover {
+  background-color: #007bb6;
+}
+
+@media only screen and (min-width: 800px) {
+  .scriptlesssocialsharing-buttons .sss-name {
+    position: relative;
+    height: auto;
+    width: auto;
+  }
+}

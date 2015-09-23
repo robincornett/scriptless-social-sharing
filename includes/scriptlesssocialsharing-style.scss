@@ -1,0 +1,119 @@
+@mixin fontawesome($size) {
+	display: inline-block;
+	font: normal normal normal $size/1 FontAwesome;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transform: translate(0, 0);
+	font-size: $size;
+}
+
+@mixin screen-reader-text {
+	position: absolute;
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	width: 1px;
+	border: 0;
+	overflow: hidden;
+}
+
+.scriptlesssocialsharing-buttons {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+
+	.button {
+		border-right: 3px solid white;
+		color: white;
+		display: table-cell;
+		padding: 12px 0;
+		text-align: center;
+		text-decoration: none;
+
+		&:last-of-type {
+			border-right: none;
+		}
+
+		&:before {
+			@include fontawesome(20px);
+		}
+	}
+
+	.sss-name {
+		@include screen-reader-text;
+		margin-left: 8px;
+	}
+
+	.twitter {
+		background-color: #00aced;
+		background-color: rgba(0,172,237,.8);
+
+		&:before {
+			content: '\f099';
+		}
+
+		&:hover {
+			background-color: #00aced;
+		}
+	}
+
+	.facebook {
+		background-color: #3b5998;
+		background-color: rgba(59,89,152,.8);
+
+		&:before {
+			content: '\f09a';
+		}
+
+		&:hover {
+			background-color: #3b5998;
+		}
+	}
+
+	.google {
+		background-color: #dd4b39;
+		background-color: rgba(221,75,57,.8);
+
+		&:before {
+			content: '\f0d5';
+		}
+
+		&:hover {
+			background-color: #dd4b39;
+		}
+	}
+
+	.pinterest {
+		background-color: #cb2027;
+		background-color: rgba(203,32,39,.8);
+
+		&:before {
+			content: '\f0d2';
+		}
+
+		&:hover {
+			background-color: #cb2027;
+		}
+	}
+
+	.linkedin {
+		background-color: #007bb6;
+		background-color: rgba(0,123,182,.8);
+
+		&:before {
+			content: '\f0e1';
+		}
+
+		&:hover {
+			background-color: #007bb6;
+		}
+	}
+}
+
+@media only screen and (min-width: 800px) {
+	.scriptlesssocialsharing-buttons .sss-name {
+		position: relative;
+		height: auto;
+		width: auto
+	}
+}
