@@ -71,6 +71,7 @@ function scriptlesssocialsharing_make_buttons() {
 	$image_url      = isset( $image_source ) ? $image_source[0] : '';
 	$image          = $image_url ? sprintf( '&media=%s', $image_url ) : '';
 	$description    = get_the_excerpt();
+	$description    = str_replace( ' ', '+', $description );
 
 	$buttons = array(
 		'twitter' => array(
