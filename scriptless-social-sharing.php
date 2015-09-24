@@ -29,6 +29,9 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Enqueue CSS files
+ */
 add_action( 'wp_enqueue_scripts', 'scriptlesssocialsharing_style' );
 function scriptlesssocialsharing_style() {
 	$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'scriptlesssocialsharing-style.css' );
@@ -42,6 +45,9 @@ function scriptlesssocialsharing_style() {
 	}
 }
 
+/**
+ * Add buttons to the_content filter
+ */
 add_filter( 'the_content', 'scriptlesssocialsharing_do_buttons', 50 );
 function scriptlesssocialsharing_do_buttons( $content ) {
 
@@ -64,24 +70,14 @@ function scriptlesssocialsharing_do_buttons( $content ) {
 	return $content . $output;
 }
 
+/**
+ * Create the default buttons
+ * @return array array of buttons/attributes
+ */
 function scriptlesssocialsharing_make_buttons() {
 
-	$title          = the_title_attribute( 'echo=0' );
-	$featured_image = get_post_thumbnail_id();
-	$image_source   = $featured_image ? wp_get_attachment_image_src( $featured_image, 'large', true ) : '';
-	$image_url      = $image_source ? $image_source[0] : '';
-	$description    = has_excerpt() ? get_the_excerpt() : '';
-	$description    = $description ? str_replace( ' ', '+', $description ) : '';
-	$attributes     = array(
-		'title'       => str_replace( ' ', '+', $title ),
-		'permalink'   => get_the_permalink(),
-		'twitter'     => scriptlesssocialsharing_twitter_handle() ? '&via=' . scriptlesssocialsharing_twitter_handle() : '',
-		'home'        => home_url(),
-		'image'       => $image_url ? sprintf( '&media=%s', $image_url ) : '',
-		'description' => $description ? '&summary=' . $description : '',
-	);
-
-	$buttons = array(
+	$attributes = scriptlesssocialsharing_attributes();
+	$buttons    = array(
 		'twitter' => array(
 			'name'  => 'twitter',
 			'title' => 'Twitter',
@@ -112,10 +108,65 @@ function scriptlesssocialsharing_make_buttons() {
 	return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
 }
 
+/**
+ * create URL attributes for buttons
+ * @return array attributes
+ */
+function scriptlesssocialsharing_attributes() {
+	$title       = the_title_attribute( 'echo=0' );
+	$twitter     = scriptlesssocialsharing_twitter_handle();
+	$image_url   = scriptlesssocialsharing_featuredimage();
+	$description = scriptlesssocialsharing_description();
+	$attributes  = array(
+		'title'       => str_replace( ' ', '+', $title ),
+		'permalink'   => get_the_permalink(),
+		'twitter'     => $twitter ? sprintf( '&via=%s', $twitter ) : '',
+		'home'        => home_url(),
+		'image'       => $image_url ? sprintf( '&media=%s', $image_url ) : '',
+		'description' => $description ? sprintf( '&summary=%s', $description ) : '',
+	);
+	return $attributes;
+}
+
+/**
+ * retrieve the featured image
+ * @return string if there is a featured image, return the URL
+ */
+function scriptlesssocialsharing_featuredimage() {
+	if ( ! has_post_thumbnail() ) {
+		return;
+	}
+	$featured_image = get_post_thumbnail_id();
+	$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
+	$image_url      = $image_source[0];
+	return $image_url;
+}
+
+/**
+ * get the post excerpt
+ * @return string excerpt formatted for URL
+ */
+function scriptlesssocialsharing_description() {
+	if ( ! has_excerpt() ) {
+		return;
+	}
+	$description = get_the_excerpt();
+	$description = str_replace( ' ', '+', $description );
+	return $description;
+}
+
+/**
+ * add twitter handle to URL
+ * @return string twitter handle (default is empty)
+ */
 function scriptlesssocialsharing_twitter_handle() {
 	return apply_filters( 'scriptlesssocialsharing_twitter_handle', '' );
 }
 
+/**
+ * Modify the heading above the buttons
+ * @return string heading
+ */
 function scriptlesssocialsharing_heading() {
 	$heading = apply_filters( 'scriptlesssocialsharing_heading', __( 'Share this post:', 'scriptless-social-sharing' ) );
 	return '<h3>' . $heading . '</h3>';
