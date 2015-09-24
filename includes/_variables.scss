@@ -1,0 +1,47 @@
+@mixin fontawesome($size) {
+  display: inline-block;
+  font: normal normal normal $size/1 FontAwesome;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  font-size: $size;
+}
+
+@mixin screen-reader-text {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+$socialColours:
+(
+        facebook: #3b5998,
+        twitter: #00aced,
+        google: #dd4b39,
+        linkedin: #007bb6,
+        youtube: #bb0000,
+        instagram: #517fa4,
+        pinterest: #cb2027,
+        flickr: #ff0084,
+        tumblr: #32506d,
+        forusquare: #0072b1,
+        dribbble: #ea4c89,
+        vine: #00bf8f
+);
+
+@function get-social-media-colour($colour) {
+
+  @if map-has-key($socialColours, $colour) {
+    $colour: map-get($socialColours, $colour);
+  } @else {
+    @if type-of($colour) != colour {
+      @error "Invalid colour name: `#{$colour}`.";
+    }
+  }
+
+  @return $colour;
+}
