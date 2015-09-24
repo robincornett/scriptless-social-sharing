@@ -24,6 +24,11 @@
  * GitHub Branch:     master
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 add_action( 'wp_enqueue_scripts', 'scriptlesssocialsharing_style' );
 function scriptlesssocialsharing_style() {
 	$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'scriptlesssocialsharing-style.css' );
@@ -52,7 +57,7 @@ function scriptlesssocialsharing_make_buttons() {
 	$title          = the_title_attribute( 'echo=0' );
 	$title          = str_replace( ' ', '+', $title );
 	$permalink      = get_the_permalink();
-	$twitter        = apply_filters( 'scriptlesssocialsharing_twitter_handle', 'robincornett' );
+	$twitter        = apply_filters( 'scriptlesssocialsharing_twitter_handle', 'twitter' );
 	$home           = home_url();
 	$featured_image = get_post_thumbnail_id();
 	$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
