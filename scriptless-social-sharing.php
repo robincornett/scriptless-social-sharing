@@ -54,6 +54,7 @@ function scriptlesssocialsharing_do_buttons( $content ) {
 	foreach ( $buttons as $button ) {
 		$output .= sprintf( '<a class="button %s" target="_blank" href="%s"><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), esc_attr( $button['title'] ) );
 	}
+	$output .= '</div>';
 
 	return $content . $output;
 }
