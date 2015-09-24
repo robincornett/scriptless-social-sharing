@@ -45,8 +45,12 @@ function scriptlesssocialsharing_style() {
 add_filter( 'the_content', 'scriptlesssocialsharing_do_buttons', 50 );
 function scriptlesssocialsharing_do_buttons( $content ) {
 
+	if ( ! is_singular( 'post' ) ) {
+		return $content;
+	}
+
 	$buttons = scriptlesssocialsharing_make_buttons();
-	if ( ! is_singular( 'post' ) && ! $buttons ) {
+	if ( ! $buttons ) {
 		return $content;
 	}
 
@@ -64,16 +68,17 @@ function scriptlesssocialsharing_make_buttons() {
 
 	$title          = the_title_attribute( 'echo=0' );
 	$featured_image = get_post_thumbnail_id();
-	$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
-	$image_url      = isset( $image_source ) ? $image_source[0] : '';
-	$description    = get_the_excerpt();
+	$image_source   = $featured_image ? wp_get_attachment_image_src( $featured_image, 'large', true ) : '';
+	$image_url      = $image_source ? $image_source[0] : '';
+	$description    = has_excerpt() ? get_the_excerpt() : '';
+	$description    = $description ? str_replace( ' ', '+', $description ) : '';
 	$attributes     = array(
 		'title'       => str_replace( ' ', '+', $title ),
 		'permalink'   => get_the_permalink(),
 		'twitter'     => scriptlesssocialsharing_twitter_handle() ? '&via=' . scriptlesssocialsharing_twitter_handle() : '',
 		'home'        => home_url(),
 		'image'       => $image_url ? sprintf( '&media=%s', $image_url ) : '',
-		'description' => str_replace( ' ', '+', $description ),
+		'description' => $description ? '&summary=' . $description : '',
 	);
 
 	$buttons = array(
@@ -100,7 +105,7 @@ function scriptlesssocialsharing_make_buttons() {
 		'linkedin' => array(
 			'name'  => 'linkedin',
 			'title' => 'Linkedin',
-			'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s&summary=%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
+			'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
 		),
 	);
 
