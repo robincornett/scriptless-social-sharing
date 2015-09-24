@@ -16,24 +16,15 @@
 		&:last-of-type {
 			border-right: none;
 		}
-
-		&:before {
-			@include fontawesome(20px);
-		}
 	}
 
 	.sss-name {
 		@include screen-reader-text;
-		margin-left: 8px;
 	}
 
 	.twitter {
 		background-color: get-social-media-colour(twitter);
 		background-color: rgba(0,172,237,.8);
-
-		&:before {
-			content: '\f099';
-		}
 
 		&:hover {
 			background-color: get-social-media-colour(twitter);
@@ -44,10 +35,6 @@
 		background-color: get-social-media-colour(facebook);
 		background-color: rgba(59,89,152,.8);
 
-		&:before {
-			content: '\f09a';
-		}
-
 		&:hover {
 			background-color: get-social-media-colour(facebook);
 		}
@@ -56,10 +43,6 @@
 	.google {
 		background-color: get-social-media-colour(google);
 		background-color: rgba(221,75,57,.8);
-
-		&:before {
-			content: '\f0d5';
-		}
 
 		&:hover {
 			background-color: get-social-media-colour(google);
@@ -70,10 +53,6 @@
 		background-color: get-social-media-colour(pinterest);
 		background-color: rgba(203,32,39,.8);
 
-		&:before {
-			content: '\f0d2';
-		}
-
 		&:hover {
 			background-color: get-social-media-colour(pinterest);
 		}
@@ -82,10 +61,6 @@
 	.linkedin {
 		background-color: get-social-media-colour(linkedin);
 		background-color: rgba(0,123,182,.8);
-
-		&:before {
-			content: '\f0e1';
-		}
 
 		&:hover {
 			background-color: get-social-media-colour(linkedin);

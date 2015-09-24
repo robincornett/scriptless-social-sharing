@@ -1,3 +1,7 @@
+
+$fa-font-path: "../fonts" !default;
+$fa-version: "4.4.0" !default;
+
 @mixin fontawesome($size) {
   display: inline-block;
   font: normal normal normal $size/1 FontAwesome;

@@ -56,3 +56,11 @@ function rgc_test_remove( $buttons ) {
     return $buttons;
 }
 ```
+
+### I don't want to use FontAwesome.
+
+Filter:
+
+```php
+add_filter( 'scriptlesssocialsharing_fontawesome', '__return_false' );
+```
