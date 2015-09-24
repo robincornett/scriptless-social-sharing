@@ -32,13 +32,14 @@ if ( ! defined( 'WPINC' ) ) {
 add_action( 'wp_enqueue_scripts', 'scriptlesssocialsharing_style' );
 function scriptlesssocialsharing_style() {
 	$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'scriptlesssocialsharing-style.css' );
-	wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.0', 'screen' );
+	if ( $css_file ) {
+		wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.0', 'screen' );
+	}
 
 	$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'scriptlesssocialsharing-fontawesome.css' );
-	if ( ! $fa_file ) {
-		return;
+	if ( $fa_file ) {
+		wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
 	}
-	wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
 }
 
 add_filter( 'the_content', 'scriptlesssocialsharing_do_buttons', 50 );
