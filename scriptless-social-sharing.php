@@ -63,46 +63,52 @@ function scriptlesssocialsharing_do_buttons( $content ) {
 function scriptlesssocialsharing_make_buttons() {
 
 	$title          = the_title_attribute( 'echo=0' );
-	$title          = str_replace( ' ', '+', $title );
-	$permalink      = get_the_permalink();
-	$twitter        = apply_filters( 'scriptlesssocialsharing_twitter_handle', 'twitter' );
-	$home           = home_url();
 	$featured_image = get_post_thumbnail_id();
 	$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
 	$image_url      = isset( $image_source ) ? $image_source[0] : '';
-	$image          = $image_url ? sprintf( '&media=%s', $image_url ) : '';
 	$description    = get_the_excerpt();
-	$description    = str_replace( ' ', '+', $description );
+	$attributes     = array(
+		'title'       => str_replace( ' ', '+', $title ),
+		'permalink'   => get_the_permalink(),
+		'twitter'     => scriptlesssocialsharing_twitter_handle() ? '&via=' . scriptlesssocialsharing_twitter_handle() : '',
+		'home'        => home_url(),
+		'image'       => $image_url ? sprintf( '&media=%s', $image_url ) : '',
+		'description' => str_replace( ' ', '+', $description ),
+	);
 
 	$buttons = array(
 		'twitter' => array(
 			'name'  => 'twitter',
 			'title' => 'Twitter',
-			'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s&via=%s', $title, $permalink, $twitter ),
+			'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $attributes['title'], $attributes['permalink'], $attributes['twitter'] ),
 		),
 		'facebook' => array(
 			'name'  => 'facebook',
 			'title' => 'Facebook',
-			'url'   => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $permalink ),
+			'url'   => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] ),
 		),
 		'google' => array(
 			'name'  => 'google',
 			'title' => 'Google+',
-			'url'   => sprintf( 'https://plus.google.com/share?url=%s', $permalink ),
+			'url'   => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
 		),
 		'pinterest' => array(
 			'name'  => 'pinterest',
 			'title' => 'Pinterest',
-			'url'   => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $permalink, $title, $image ),
+			'url'   => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
 		),
 		'linkedin' => array(
 			'name'  => 'linkedin',
 			'title' => 'Linkedin',
-			'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s&summary=%s&source=%s', $permalink, $title, strip_tags( $description ), $home ),
+			'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s&summary=%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
 		),
 	);
 
-	return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons );
+	return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
+}
+
+function scriptlesssocialsharing_twitter_handle() {
+	return apply_filters( 'scriptlesssocialsharing_twitter_handle', '' );
 }
 
 function scriptlesssocialsharing_heading() {
