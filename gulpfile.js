@@ -12,7 +12,7 @@ gulp.task('sass', function () {
         browsers: ['last 5 versions'],
         cascade: false
     }))
-    .pipe(gulp.dest(''))
+    .pipe(gulp.dest('includes/css'))
     .pipe(notify({ message: 'Your sass is fine.' }));
 });
 
