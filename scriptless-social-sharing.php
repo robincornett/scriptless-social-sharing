@@ -103,6 +103,11 @@ function scriptlesssocialsharing_make_buttons() {
 			'title' => 'Linkedin',
 			'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
 		),
+		'email' => array(
+			'name'  => 'email',
+			'title' => 'Email',
+			'url'   => sprintf( 'mailto:?body=%s%s&subject=%s%s', scriptlesssocialsharing_email_body() , $attributes['permalink'], scriptlesssocialsharing_email_subject(), $attributes['title'] ),
+		),
 	);
 
 	return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
@@ -118,7 +123,7 @@ function scriptlesssocialsharing_attributes() {
 	$image_url   = scriptlesssocialsharing_featuredimage();
 	$description = scriptlesssocialsharing_description();
 	$attributes  = array(
-		'title'       => str_replace( ' ', '+', $title ),
+		'title'       => scriptlesssocialsharing_replace( $title ),
 		'permalink'   => get_the_permalink(),
 		'twitter'     => $twitter ? sprintf( '&via=%s', $twitter ) : '',
 		'home'        => home_url(),
@@ -151,7 +156,7 @@ function scriptlesssocialsharing_description() {
 		return;
 	}
 	$description = get_the_excerpt();
-	$description = str_replace( ' ', '+', $description );
+	$description = scriptlesssocialsharing_replace( $description );
 	return $description;
 }
 
@@ -170,4 +175,18 @@ function scriptlesssocialsharing_twitter_handle() {
 function scriptlesssocialsharing_heading() {
 	$heading = apply_filters( 'scriptlesssocialsharing_heading', __( 'Share this post:', 'scriptless-social-sharing' ) );
 	return '<h3>' . $heading . '</h3>';
+}
+
+function scriptlesssocialsharing_replace( $string ) {
+	return str_replace( ' ', '+', $string );
+}
+
+function scriptlesssocialsharing_email_subject() {
+	$subject = apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing: ', 'scriptless-social-sharing' ) );
+	return scriptlesssocialsharing_replace( $subject );
+}
+
+function scriptlesssocialsharing_email_body() {
+	$body = apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link: ', 'scriptless-social-sharing' ) );
+	return scriptlesssocialsharing_replace( $body );
 }
