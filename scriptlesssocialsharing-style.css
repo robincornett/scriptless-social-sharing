@@ -71,6 +71,15 @@
   background-color: #007bb6;
 }
 
+.scriptlesssocialsharing-buttons .email {
+  background-color: #333333;
+  background-color: rgba(51, 51, 51, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .email:hover {
+  background-color: #333333;
+}
+
 @media only screen and (min-width: 800px) {
   .scriptlesssocialsharing-buttons .sss-name {
     position: relative;

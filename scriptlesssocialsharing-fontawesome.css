@@ -43,3 +43,7 @@
 .scriptlesssocialsharing-buttons .linkedin:before {
   content: '\f0e1';
 }
+
+.scriptlesssocialsharing-buttons .email:before {
+  content: '\f0e0';
+}

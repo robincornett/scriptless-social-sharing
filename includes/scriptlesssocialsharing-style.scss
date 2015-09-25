@@ -23,47 +23,50 @@
 	}
 
 	.twitter {
-		background-color: get-social-media-colour(twitter);
-		background-color: rgba(0,172,237,.8);
+		@include color-opacity($twitter,.8);
 
 		&:hover {
-			background-color: get-social-media-colour(twitter);
+			@include color-opacity($twitter,1);
 		}
 	}
 
 	.facebook {
-		background-color: get-social-media-colour(facebook);
-		background-color: rgba(59,89,152,.8);
+		@include color-opacity($facebook,.8);
 
 		&:hover {
-			background-color: get-social-media-colour(facebook);
+			@include color-opacity($facebook,1);
 		}
 	}
 
 	.google {
-		background-color: get-social-media-colour(google);
-		background-color: rgba(221,75,57,.8);
+		@include color-opacity($google,.8);
 
 		&:hover {
-			background-color: get-social-media-colour(google);
+			@include color-opacity($google,1);
 		}
 	}
 
 	.pinterest {
-		background-color: get-social-media-colour(pinterest);
-		background-color: rgba(203,32,39,.8);
+		@include color-opacity($pinterest,.8);
 
 		&:hover {
-			background-color: get-social-media-colour(pinterest);
+			@include color-opacity($pinterest,1);
 		}
 	}
 
 	.linkedin {
-		background-color: get-social-media-colour(linkedin);
-		background-color: rgba(0,123,182,.8);
+		@include color-opacity($linkedin,.8);
 
 		&:hover {
-			background-color: get-social-media-colour(linkedin);
+			@include color-opacity($linkedin,1);
+		}
+	}
+
+	.email {
+		@include color-opacity($email,.8);
+
+		&:hover {
+			@include color-opacity($email,1);
 		}
 	}
 }
