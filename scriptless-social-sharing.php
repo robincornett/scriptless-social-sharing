@@ -106,7 +106,7 @@ function scriptlesssocialsharing_make_buttons() {
 		'email' => array(
 			'name'  => 'email',
 			'title' => 'Email',
-			'url'   => sprintf( 'mailto:?body=%s%s&subject=%s%s', scriptlesssocialsharing_email_body() , $attributes['permalink'], scriptlesssocialsharing_email_subject(), $attributes['title'] ),
+			'url'   => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', scriptlesssocialsharing_email_body() , $attributes['permalink'], scriptlesssocialsharing_email_subject(), $attributes['title'] ),
 		),
 	);
 
@@ -177,16 +177,29 @@ function scriptlesssocialsharing_heading() {
 	return '<h3>' . $heading . '</h3>';
 }
 
+/**
+ * replace spaces in a string with + for URLs
+ * @param  string $string passed through from another source
+ * @return string         same string, just + instead of spaces
+ */
 function scriptlesssocialsharing_replace( $string ) {
 	return str_replace( ' ', '+', $string );
 }
 
+/**
+ * subject line for the email button
+ * @return string can be modified via filter
+ */
 function scriptlesssocialsharing_email_subject() {
-	$subject = apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing: ', 'scriptless-social-sharing' ) );
+	$subject = apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing:', 'scriptless-social-sharing' ) );
 	return scriptlesssocialsharing_replace( $subject );
 }
 
+/**
+ * body text for the email button
+ * @return string can be modified via filter
+ */
 function scriptlesssocialsharing_email_body() {
-	$body = apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link: ', 'scriptless-social-sharing' ) );
+	$body = apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ) );
 	return scriptlesssocialsharing_replace( $body );
 }
