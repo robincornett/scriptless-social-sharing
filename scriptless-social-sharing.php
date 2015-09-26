@@ -46,3 +46,28 @@ $scriptlesssocialsharing = new ScriptlessSocialSharing();
 
 // Run the plugin
 $scriptlesssocialsharing->run();
+
+
+if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
+	function scriptlesssocialsharing_do_buttons() {
+		return apply_filters( 'scriptlesssocialsharing_get_buttons', false );
+	}
+}
+
+add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
+function scriptlesssocialsharing_print_buttons( $content ) {
+	if ( ! is_singular( 'post' ) ) {
+		return $content;
+	}
+	$buttons = scriptlesssocialsharing_do_buttons();
+	return $content . $buttons;
+}
+
+/**
+ * example function showing how easy it is to add buttons to any single entry, rather than
+ * using the_content filter. This would add buttons at the beginning of any post/page.
+ */
+// add_action( 'genesis_entry_content', 'scriptlesssocialsharing_buttons_entry_content', 5 );
+function scriptlesssocialsharing_buttons_entry_content() {
+	echo scriptlesssocialsharing_do_buttons();
+}

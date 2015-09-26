@@ -20,7 +20,7 @@ class ScriptlessSocialSharing {
 
 	public function run() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
-		add_filter( 'the_content', array( $this, 'do_buttons' ), 50 );
+		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ) );
 	}
 
 	/**
@@ -39,27 +39,29 @@ class ScriptlessSocialSharing {
 	}
 
 	/**
-	 * Add buttons to the_content filter
+	 * Return buttons
 	 */
-	public function do_buttons( $content ) {
+	public function do_buttons() {
 
-		if ( ! is_singular( 'post' ) ) {
-			return $content;
+		if ( ! is_singular() || is_feed() ) {
+			return;
 		}
 
 		$buttons = $this->make_buttons();
 		if ( ! $buttons ) {
-			return $content;
+			return;
 		}
 
-		$output  = $this->heading();
+		$output  = '<div class="scriptlesssocialsharing">';
+		$output .= $this->heading();
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
 			$output .= sprintf( '<a class="button %s" target="_blank" href="%s"><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), esc_attr( $button['title'] ) );
 		}
 		$output .= '</div>';
+		$output .= '</div>';
 
-		return $content . $output;
+		return $output;
 	}
 
 	/**
