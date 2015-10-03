@@ -27,6 +27,9 @@ class ScriptlessSocialSharing {
 	 * Enqueue CSS files
 	 */
 	public function load_styles() {
+		if ( false === $this->can_do_buttons() ) {
+			return;
+		}
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
 		if ( $css_file ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.0', 'screen' );
@@ -38,7 +41,7 @@ class ScriptlessSocialSharing {
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
 		if ( $fa_file ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
+			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
 		}
 	}
 
@@ -47,7 +50,7 @@ class ScriptlessSocialSharing {
 	 */
 	public function do_buttons() {
 
-		if ( ! is_singular() || is_feed() ) {
+		if ( ! $this->can_do_buttons() ) {
 			return;
 		}
 
@@ -66,6 +69,19 @@ class ScriptlessSocialSharing {
 		$output .= '</div>';
 
 		return $output;
+	}
+
+	/**
+	 * Function to decide whether buttons can be output or not
+	 * @param  boolean $cando default true
+	 * @return boolean         false if not a singular post (can be modified for other content types)
+	 */
+	protected function can_do_buttons( $cando = true ) {
+		$post_types = apply_filters( 'scriptlesssocialsharing_post_types', array( 'post' ) );
+		if ( ! is_singular( $post_types ) || is_feed() ) {
+			$cando = false;
+		}
+		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
 
 	/**
