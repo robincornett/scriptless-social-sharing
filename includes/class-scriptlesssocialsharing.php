@@ -31,6 +31,10 @@ class ScriptlessSocialSharing {
 		if ( $css_file ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.0', 'screen' );
 		}
+		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
+		if ( $fontawesome ) {
+			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), '4.4.0' );
+		}
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
 		if ( $fa_file ) {
