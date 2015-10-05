@@ -26,51 +26,13 @@
 		@include screen-reader-text;
 	}
 
-	.twitter {
-		@include color-opacity($twitter,.8);
+	@each $socialnetwork, $color, $glyph in $social {
+		.#{$socialnetwork} {
+			@include color-opacity($color,.8);
 
-		&:hover {
-			@include color-opacity($twitter,1);
-		}
-	}
-
-	.facebook {
-		@include color-opacity($facebook,.8);
-
-		&:hover {
-			@include color-opacity($facebook,1);
-		}
-	}
-
-	.google {
-		@include color-opacity($google,.8);
-
-		&:hover {
-			@include color-opacity($google,1);
-		}
-	}
-
-	.pinterest {
-		@include color-opacity($pinterest,.8);
-
-		&:hover {
-			@include color-opacity($pinterest,1);
-		}
-	}
-
-	.linkedin {
-		@include color-opacity($linkedin,.8);
-
-		&:hover {
-			@include color-opacity($linkedin,1);
-		}
-	}
-
-	.email {
-		@include color-opacity($email,.8);
-
-		&:hover {
-			@include color-opacity($email,1);
+			&:hover {
+				@include color-opacity($color,1);
+			}
 		}
 	}
 }

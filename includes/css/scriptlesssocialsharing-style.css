@@ -30,6 +30,15 @@
   overflow: hidden;
 }
 
+.scriptlesssocialsharing-buttons .email {
+  background-color: #333333;
+  background-color: rgba(51, 51, 51, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .email:hover {
+  background-color: #333333;
+}
+
 .scriptlesssocialsharing-buttons .twitter {
   background-color: #00aced;
   background-color: rgba(0, 172, 237, 0.8);
@@ -48,13 +57,13 @@
   background-color: #3b5998;
 }
 
-.scriptlesssocialsharing-buttons .google {
-  background-color: #dd4b39;
-  background-color: rgba(221, 75, 57, 0.8);
+.scriptlesssocialsharing-buttons .linkedin {
+  background-color: #007bb6;
+  background-color: rgba(0, 123, 182, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .google:hover {
-  background-color: #dd4b39;
+.scriptlesssocialsharing-buttons .linkedin:hover {
+  background-color: #007bb6;
 }
 
 .scriptlesssocialsharing-buttons .pinterest {
@@ -66,22 +75,13 @@
   background-color: #cb2027;
 }
 
-.scriptlesssocialsharing-buttons .linkedin {
-  background-color: #007bb6;
-  background-color: rgba(0, 123, 182, 0.8);
+.scriptlesssocialsharing-buttons .google {
+  background-color: #dd4b39;
+  background-color: rgba(221, 75, 57, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .linkedin:hover {
-  background-color: #007bb6;
-}
-
-.scriptlesssocialsharing-buttons .email {
-  background-color: #333333;
-  background-color: rgba(51, 51, 51, 0.8);
-}
-
-.scriptlesssocialsharing-buttons .email:hover {
-  background-color: #333333;
+.scriptlesssocialsharing-buttons .google:hover {
+  background-color: #dd4b39;
 }
 
 @media only screen and (min-width: 800px) {
