@@ -40,12 +40,12 @@
 }
 
 .scriptlesssocialsharing-buttons .twitter {
-  background-color: #00aced;
-  background-color: rgba(0, 172, 237, 0.8);
+  background-color: #55acee;
+  background-color: rgba(85, 172, 238, 0.8);
 }
 
 .scriptlesssocialsharing-buttons .twitter:hover {
-  background-color: #00aced;
+  background-color: #55acee;
 }
 
 .scriptlesssocialsharing-buttons .facebook {
@@ -58,30 +58,30 @@
 }
 
 .scriptlesssocialsharing-buttons .linkedin {
-  background-color: #007bb6;
-  background-color: rgba(0, 123, 182, 0.8);
+  background-color: #0077b5;
+  background-color: rgba(0, 119, 181, 0.8);
 }
 
 .scriptlesssocialsharing-buttons .linkedin:hover {
-  background-color: #007bb6;
+  background-color: #0077b5;
 }
 
 .scriptlesssocialsharing-buttons .pinterest {
-  background-color: #cb2027;
-  background-color: rgba(203, 32, 39, 0.8);
+  background-color: #bd081c;
+  background-color: rgba(189, 8, 28, 0.8);
 }
 
 .scriptlesssocialsharing-buttons .pinterest:hover {
-  background-color: #cb2027;
+  background-color: #bd081c;
 }
 
 .scriptlesssocialsharing-buttons .google {
-  background-color: #dd4b39;
-  background-color: rgba(221, 75, 57, 0.8);
+  background-color: #dc4e41;
+  background-color: rgba(220, 78, 65, 0.8);
 }
 
 .scriptlesssocialsharing-buttons .google:hover {
-  background-color: #dd4b39;
+  background-color: #dc4e41;
 }
 
 @media only screen and (min-width: 800px) {
