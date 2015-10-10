@@ -56,7 +56,8 @@ if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
 
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 function scriptlesssocialsharing_print_buttons( $content ) {
-	if ( ! is_singular( 'post' ) ) {
+	$post_types = apply_filters( 'scriptlesssocialsharing_post_types', array( 'post' ) );
+	if ( ! is_singular( $post_types ) ) {
 		return $content;
 	}
 	$buttons = scriptlesssocialsharing_do_buttons();
@@ -69,5 +70,5 @@ function scriptlesssocialsharing_print_buttons( $content ) {
  */
 // add_action( 'genesis_entry_content', 'scriptlesssocialsharing_buttons_entry_content', 5 );
 function scriptlesssocialsharing_buttons_entry_content() {
-	echo scriptlesssocialsharing_do_buttons();
+	echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
 }
