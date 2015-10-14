@@ -77,6 +77,9 @@ class ScriptlessSocialSharing {
 	 * @return boolean         false if not a singular post (can be modified for other content types)
 	 */
 	protected function can_do_buttons( $cando = true ) {
+		if ( ! is_main_query() ) {
+			return false;
+		}
 		$post_types = apply_filters( 'scriptlesssocialsharing_post_types', array( 'post' ) );
 		if ( ! is_singular( $post_types ) || is_feed() ) {
 			$cando = false;
