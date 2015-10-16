@@ -95,32 +95,32 @@ class ScriptlessSocialSharing {
 
 		$attributes = $this->attributes();
 		$buttons    = array(
-			'twitter' => array(
+			array(
 				'name'  => 'twitter',
 				'title' => 'Twitter',
 				'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $attributes['title'], $attributes['permalink'], $attributes['twitter'] ),
 			),
-			'facebook' => array(
+			array(
 				'name'  => 'facebook',
 				'title' => 'Facebook',
 				'url'   => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] ),
 			),
-			'google' => array(
+			array(
 				'name'  => 'google',
 				'title' => 'Google+',
 				'url'   => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
 			),
-			'pinterest' => array(
+			array(
 				'name'  => 'pinterest',
 				'title' => 'Pinterest',
 				'url'   => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
 			),
-			'linkedin' => array(
+			array(
 				'name'  => 'linkedin',
 				'title' => 'Linkedin',
 				'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
 			),
-			'email' => array(
+			array(
 				'name'  => 'email',
 				'title' => 'Email',
 				'url'   => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $this->email_body() , $attributes['permalink'], $this->email_subject(), $attributes['title'] ),
