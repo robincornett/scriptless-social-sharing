@@ -123,7 +123,7 @@ class ScriptlessSocialSharing {
 			'email' => array(
 				'name'  => 'email',
 				'title' => 'Email',
-				'url'   => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $this->email_body() , $attributes['permalink'], $this->email_subject(), $attributes['title'] ),
+				'url'   => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] ),
 			),
 		);
 
@@ -140,12 +140,14 @@ class ScriptlessSocialSharing {
 		$image_url   = $this->featured_image();
 		$description = $this->description();
 		$attributes  = array(
-			'title'       => $this->replace( $title ),
-			'permalink'   => get_the_permalink(),
-			'twitter'     => $twitter ? sprintf( '&via=%s', $twitter ) : '',
-			'home'        => home_url(),
-			'image'       => $image_url ? sprintf( '&media=%s', $image_url ) : '',
-			'description' => $description ? sprintf( '&summary=%s', $description ) : '',
+			'title'         => $this->replace( $title ),
+			'permalink'     => get_the_permalink(),
+			'twitter'       => $twitter ? sprintf( '&via=%s', $twitter ) : '',
+			'home'          => home_url(),
+			'image'         => $image_url ? sprintf( '&media=%s', $image_url ) : '',
+			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
+			'email_body'    => $this->email_body(),
+			'email_subject' => $this->email_subject(),
 		);
 		return $attributes;
 	}
