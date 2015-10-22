@@ -138,12 +138,11 @@ class ScriptlessSocialSharing {
 	 * @return array attributes
 	 */
 	protected function attributes() {
-		$title       = the_title_attribute( 'echo=0' );
 		$twitter     = $this->twitter_handle();
 		$image_url   = $this->featured_image();
 		$description = $this->description();
 		$attributes  = array(
-			'title'         => $this->replace( $title ),
+			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'twitter'       => $twitter ? sprintf( '&via=%s', $twitter ) : '',
 			'home'          => home_url(),
@@ -153,6 +152,14 @@ class ScriptlessSocialSharing {
 			'email_subject' => $this->email_subject(),
 		);
 		return $attributes;
+	}
+
+	/**
+	 * set the post title for sharing
+	 * @return string uses Yoast title if it exists, post title otherwise
+	 */
+	protected function title() {
+		return apply_filters( 'scriptlesssocialsharing_posttitle', the_title_attribute( 'echo=0' ) );
 	}
 
 	/**
