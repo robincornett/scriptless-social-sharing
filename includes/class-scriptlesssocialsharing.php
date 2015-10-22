@@ -64,7 +64,7 @@ class ScriptlessSocialSharing {
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
 			$data_pin = 'pinterest' === $button['name'] ? ' data-pin-no-hover="true" data-pin-do="skip"' : '';
-			$output  .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), $button['url'], $data_pin, $button['title'] );
+			$output  .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), $this->replace( $button['url'] ), $data_pin, $button['title'] );
 		}
 		$output .= '</div>';
 		$output .= '</div>';
@@ -180,13 +180,11 @@ class ScriptlessSocialSharing {
 	 * get the post excerpt
 	 * @return string excerpt formatted for URL
 	 */
-	protected function description() {
-		if ( ! has_excerpt() ) {
-			return;
+	protected function description( $description = '' ) {
+		if ( has_excerpt() ) {
+			$description = get_the_excerpt();
 		}
-		$description = get_the_excerpt();
-		$description = $this->replace( $description );
-		return $description;
+		return apply_filters( 'scriptlesssocialsharing_description', $description );
 	}
 
 	/**
@@ -220,8 +218,7 @@ class ScriptlessSocialSharing {
 	 * @return string can be modified via filter
 	 */
 	protected function email_subject() {
-		$subject = apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing:', 'scriptless-social-sharing' ) );
-		return $this->replace( $subject );
+		return apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing:', 'scriptless-social-sharing' ) );
 	}
 
 	/**
@@ -229,7 +226,6 @@ class ScriptlessSocialSharing {
 	 * @return string can be modified via filter
 	 */
 	protected function email_body() {
-		$body = apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ) );
-		return $this->replace( $body );
+		return apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ) );
 	}
 }
