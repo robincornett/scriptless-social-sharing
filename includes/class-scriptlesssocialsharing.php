@@ -94,12 +94,14 @@ class ScriptlessSocialSharing {
 	 */
 	protected function make_buttons() {
 
-		$attributes = $this->attributes();
+		$attributes    = $this->attributes();
+		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
+		$twitter_title = $yoast ? $yoast : $attributes['title'];
 		$buttons    = array(
 			'twitter' => array(
 				'name'  => 'twitter',
 				'title' => 'Twitter',
-				'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $attributes['title'], $attributes['permalink'], $attributes['twitter'] ),
+				'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] ),
 			),
 			'facebook' => array(
 				'name'  => 'facebook',
