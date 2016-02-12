@@ -13,7 +13,7 @@
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           0.1.1
+ * Version:           1.0.0
  * Author:            Robin Cornett
  * Author URI:        http://robincornett.com
  * Text Domain:       scriptless-social-sharing
@@ -33,6 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'class-scriptlesssocialsharing',
+		'class-scriptlesssocialsharing-settings',
 	);
 
 	foreach ( $files as $file ) {
@@ -42,7 +43,10 @@ function scriptlesssocialsharing_require() {
 scriptlesssocialsharing_require();
 
 // Instantiate main class
-$scriptlesssocialsharing = new ScriptlessSocialSharing();
+$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings();
+$scriptlesssocialsharing = new ScriptlessSocialSharing(
+	$scriptlesssocialsharingsettings
+);
 
 // Run the plugin
 $scriptlesssocialsharing->run();

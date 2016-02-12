@@ -64,3 +64,11 @@ Filter:
 ```php
 add_filter( 'scriptlesssocialsharing_fontawesome', '__return_false' );
 ```
+
+## Changelog
+
+### 1.0.0
+* Added a settings page.
+
+### 0.1.0
+* Initial release on Github

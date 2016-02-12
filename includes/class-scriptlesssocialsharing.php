@@ -18,7 +18,22 @@ if ( ! defined( 'WPINC' ) ) {
 
 class ScriptlessSocialSharing {
 
+	/**
+	 * @var $settings ScriptlessSocialSharingSettings
+	 */
+	protected $settings;
+
+	/**
+	 * @var $setting ScriptlessSocialSharingSettings->get_setting
+	 */
+	protected $setting;
+
+	public function __construct( $settings ) {
+		$this->settings = $settings;
+	}
+
 	public function run() {
+		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
 		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ) );
 	}
@@ -30,17 +45,19 @@ class ScriptlessSocialSharing {
 		if ( false === $this->can_do_buttons() ) {
 			return;
 		}
+
+		$this->setting = $this->settings->get_setting();
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
-		if ( $css_file ) {
+		if ( $css_file && $this->setting['styles']['plugin'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.1', 'screen' );
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
-		if ( $fontawesome ) {
+		if ( $fontawesome && $this->setting['styles']['font'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), '4.4.0' );
 		}
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
-		if ( $fa_file ) {
+		if ( $fa_file && $this->setting['styles']['font_css'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
 		}
 	}
@@ -55,6 +72,7 @@ class ScriptlessSocialSharing {
 		}
 
 		$buttons = $this->make_buttons();
+
 		if ( ! $buttons ) {
 			return;
 		}
@@ -64,7 +82,7 @@ class ScriptlessSocialSharing {
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
 			$data_pin = 'pinterest' === $button['name'] ? ' data-pin-no-hover="true" data-pin-do="skip"' : '';
-			$output  .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), $this->replace( $button['url'] ), $data_pin, $button['title'] );
+			$output .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), $this->replace( $button['url'] ), $data_pin, $button['label'] );
 		}
 		$output .= '</div>';
 		$output .= '</div>';
@@ -99,36 +117,32 @@ class ScriptlessSocialSharing {
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
 		$buttons    = array(
 			'twitter' => array(
-				'name'  => 'twitter',
-				'title' => 'Twitter',
-				'url'   => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] ),
+				'url' => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] ),
 			),
 			'facebook' => array(
-				'name'  => 'facebook',
-				'title' => 'Facebook',
-				'url'   => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] ),
+				'url' => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] ),
 			),
 			'google' => array(
-				'name'  => 'google',
-				'title' => 'Google+',
-				'url'   => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
+				'url' => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
 			),
 			'pinterest' => array(
-				'name'  => 'pinterest',
-				'title' => 'Pinterest',
-				'url'   => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
+				'url' => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
 			),
 			'linkedin' => array(
-				'name'  => 'linkedin',
-				'title' => 'Linkedin',
-				'url'   => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
+				'url' => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
 			),
 			'email' => array(
-				'name'  => 'email',
-				'title' => 'Email',
-				'url'   => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] ),
+				'url' => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] ),
 			),
 		);
+		$buttons = array_merge_recursive( $this->settings->get_networks(), $buttons );
+
+		$settings_buttons = $this->setting['buttons'];
+		foreach ( $settings_buttons as $settings_button => $value ) {
+			if ( ! $value ) {
+				unset( $buttons[$settings_button] );
+			}
+		}
 
 		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
 	}
@@ -192,7 +206,9 @@ class ScriptlessSocialSharing {
 	 * @return string twitter handle (default is empty)
 	 */
 	protected function twitter_handle() {
-		return apply_filters( 'scriptlesssocialsharing_twitter_handle', '' );
+		$handle = $this->setting['twitter_handle'];
+
+		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $handle );
 	}
 
 	/**
@@ -200,7 +216,8 @@ class ScriptlessSocialSharing {
 	 * @return string heading
 	 */
 	protected function heading() {
-		$heading = apply_filters( 'scriptlesssocialsharing_heading', __( 'Share this post:', 'scriptless-social-sharing' ) );
+		$heading = $this->setting['heading'];
+		$heading = apply_filters( 'scriptlesssocialsharing_heading', $heading );
 		return '<h3>' . $heading . '</h3>';
 	}
 
@@ -218,7 +235,9 @@ class ScriptlessSocialSharing {
 	 * @return string can be modified via filter
 	 */
 	protected function email_subject() {
-		return apply_filters( 'scriptlesssocialsharing_email_subject', __( 'A post worth sharing:', 'scriptless-social-sharing' ) );
+		$subject = $this->setting['email_subject'];
+
+		return apply_filters( 'scriptlesssocialsharing_email_subject', $subject );
 	}
 
 	/**
