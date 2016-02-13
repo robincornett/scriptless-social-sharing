@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Scriptless Social Sharing
  *

@@ -34,8 +34,18 @@ class ScriptlessSocialSharing {
 
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
+		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
 		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ) );
+	}
+
+	/**
+	 * Set up text domain for translations
+	 *
+	 * @since 1.0.0
+	 */
+	public function load_textdomain() {
+		load_plugin_textdomain( 'scriptless-social-sharing', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
 	}
 
 	/**

@@ -1,0 +1,135 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Scriptless Social Sharing\n"
+"POT-Creation-Date: 2016-02-13 09:45-0500\n"
+"PO-Revision-Date: 2016-02-13 09:43-0500\n"
+"Last-Translator: \n"
+"Language-Team: Robin Cornett <hello@robincornett.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: scriptless-social-sharing.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: includes/class-scriptlesssocialsharing-settings.php:36
+msgid "Scriptless Social Sharing Settings"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/class-scriptlesssocialsharing-settings.php:37
+msgid "Scriptless Social Sharing"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:90
+msgid "Share this post:"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:100
+msgid "A post worth sharing:"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:118
+msgid "General Settings"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:149
+msgid "Plugin Styles"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:158
+msgid "Heading"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:165
+msgid "Buttons"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:172
+msgid "Twitter Handle"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:179
+msgid "Email Subject"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:204
+msgid ""
+"Scriptless Social Sharing tries to be helpful, but you can also disable "
+"whatever you need."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:333
+msgid "Load the main stylesheet? (colors and layout)"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:337
+msgid "Load Font Awesome? (just the font)"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:341
+msgid "Use plugin Font Awesome CSS? (adds the icons to the buttons)"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:374
+msgid "Twitter"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:378
+msgid "Facebook"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:382
+msgid "Google+"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:386
+msgid "Pinterest"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:390
+msgid "Linkedin"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:394
+msgid "Email"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:405
+msgid "Heading above sharing buttons"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:413
+msgid "The post title will be appended to whatever you add here."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:428
+msgid "Something unexpected happened. Please try again."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing.php:258
+msgid "I read this post and wanted to share it with you. Here's the link:"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/robincornett/scriptless-social-sharing"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "A scriptless plugin to add sharing buttons."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Robin Cornett"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://robincornett.com"
+msgstr ""
