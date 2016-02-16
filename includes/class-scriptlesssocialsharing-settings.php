@@ -98,6 +98,7 @@ class ScriptlessSocialSharingSettings {
 			),
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
+			'post_types'     => $this->get_post_types(),
 		);
 
 		$setting = get_option( $this->page, $defaults );
@@ -181,6 +182,13 @@ class ScriptlessSocialSharingSettings {
 				'section'  => 'general',
 				'args'     => array( 'setting' => 'email_subject' ),
 			),
+			array(
+				'id'       => 'post_types',
+				'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
+				'callback' => 'pick_post_types',
+				'section'  => 'general',
+				'args'     => array( 'setting' => 'post_types' ),
+			),
 		);
 
 		foreach ( $this->fields as $field ) {
@@ -213,7 +221,7 @@ class ScriptlessSocialSharingSettings {
 	public function do_checkbox( $args ) {
 		$setting = $this->get_checkbox_setting( $args );
 		printf( '<input type="hidden" name="%s[%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ) );
-		printf( '<label for="%1$s[%2$s]"><input type="checkbox" name="%1$s[%2$s]" id="%1$s[%2$s]" value="1" %3$s class="code" />%4$s</label>',
+		printf( '<label for="%1$s[%2$s]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s]" id="%1$s[%2$s]" value="1" %3$s class="code" />%4$s</label>',
 			esc_attr( $this->page ),
 			esc_attr( $args['setting'] ),
 			checked( 1, esc_attr( $setting ), false ),
@@ -231,7 +239,14 @@ class ScriptlessSocialSharingSettings {
 	protected function get_checkbox_setting( $args ) {
 		$setting = isset( $this->setting[ $args['setting'] ] ) ? $this->setting[ $args['setting'] ] : 0;
 		if ( isset( $args['setting_name'] ) ) {
-			$setting = $this->setting[ $args['setting_name'] ][ $args['name'] ];
+			if ( isset( $this->setting[ $args['setting_name'] ][ $args['name'] ] ) ) {
+				$setting = $this->setting[ $args['setting_name'] ][ $args['name'] ];
+			}
+			if ( 'post_types' === $args['setting_name'] ) {
+				if ( 'post' === $args['name'] ) {
+//					$setting = 1;
+				}
+			}
 		}
 		return $setting;
 	}
@@ -357,7 +372,6 @@ class ScriptlessSocialSharingSettings {
 				'name'         => $network['name'],
 			);
 			$this->do_checkbox( $network_args );
-			echo '<br />';
 		}
 
 	}
@@ -395,6 +409,37 @@ class ScriptlessSocialSharingSettings {
 			),
 		);
 		return apply_filters( 'scriptlesssocialsharing_networks', $networks );
+	}
+
+	/**
+	 * Callback to pick which post types should include sharing buttons.
+	 * @param $args
+	 */
+	public function pick_post_types( $args ) {
+		$output   = 'objects';
+		$built_in = array(
+			'public'   => true,
+			'_builtin' => true,
+		);
+		$built_in_types = get_post_types( $built_in, $output );
+		unset( $built_in_types['attachment'] );
+		$custom_args = array(
+			'public'   => true,
+			'_builtin' => false,
+		);
+		$custom_types = get_post_types( $custom_args, $output );
+		$post_types   = array_merge( $built_in_types, $custom_types );
+
+		foreach ( $post_types as $post_type ) {
+			$checked = isset( $this->setting['post_types'] ) && in_array( $post_type->name, $this->setting['post_types'], true ) ? $post_type->name : '';
+			printf( '<label for="%1$s[%2$s][]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s][]" id="%3$s" value="%3$s" %4$s class="code" />%5$s</label>',
+				esc_attr( $this->page ),
+				esc_attr( $args['setting'] ),
+				esc_attr( $post_type->name ),
+				checked( $post_type->name, $checked, false ),
+				esc_attr( $post_type->labels->name )
+			);
+		}
 	}
 
 	/**
@@ -454,6 +499,10 @@ class ScriptlessSocialSharingSettings {
 		$styles = $this->get_styles();
 		foreach ( $styles as $style ) {
 			$new_value['styles'][ $style['name'] ] = $this->one_zero( $new_value['styles'][ $style['name'] ] );
+		}
+
+		foreach ( $new_value['post_types'] as $post_type ) {
+			esc_attr( $post_type );
 		}
 
 		return $new_value;

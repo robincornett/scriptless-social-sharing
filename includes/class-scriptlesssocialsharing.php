@@ -16,6 +16,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Class ScriptlessSocialSharing
+ * main plugin class
+ */
 class ScriptlessSocialSharing {
 
 	/**
@@ -28,10 +32,18 @@ class ScriptlessSocialSharing {
 	 */
 	protected $setting;
 
+	/**
+	 * ScriptlessSocialSharing constructor.
+	 *
+	 * @param $settings
+	 */
 	public function __construct( $settings ) {
 		$this->settings = $settings;
 	}
 
+	/**
+	 * Run all the things.
+	 */
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -46,6 +58,35 @@ class ScriptlessSocialSharing {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'scriptless-social-sharing', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
+	}
+
+	/**
+	 * Get the post types that can display the buttons.
+	 * @return mixed
+	 */
+	public function get_post_types() {
+		$post_types = array( 'post' );
+		$setting = $this->settings->get_setting();
+		if ( isset( $setting['post_types'] ) ) {
+			$post_types = $setting['post_types'];
+		}
+		return apply_filters( 'scriptlesssocialsharing_post_types', $post_types );
+	}
+
+	/**
+	 * Function to decide whether buttons can be output or not
+	 * @param  boolean $cando default true
+	 * @return boolean         false if not a singular post (can be modified for other content types)
+	 */
+	protected function can_do_buttons( $cando = true ) {
+		if ( ! is_main_query() ) {
+			return false;
+		}
+		$post_types = $this->get_post_types();
+		if ( ! is_singular( $post_types ) || is_feed() ) {
+			$cando = false;
+		}
+		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
 
 	/**
@@ -98,22 +139,6 @@ class ScriptlessSocialSharing {
 		$output .= '</div>';
 
 		return $output;
-	}
-
-	/**
-	 * Function to decide whether buttons can be output or not
-	 * @param  boolean $cando default true
-	 * @return boolean         false if not a singular post (can be modified for other content types)
-	 */
-	protected function can_do_buttons( $cando = true ) {
-		if ( ! is_main_query() ) {
-			return false;
-		}
-		$post_types = apply_filters( 'scriptlesssocialsharing_post_types', array( 'post' ) );
-		if ( ! is_singular( $post_types ) || is_feed() ) {
-			$cando = false;
-		}
-		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
 
 	/**

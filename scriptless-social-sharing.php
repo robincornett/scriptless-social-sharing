@@ -51,18 +51,12 @@ $scriptlesssocialsharing = new ScriptlessSocialSharing(
 $scriptlesssocialsharing->run();
 
 
-if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
-	function scriptlesssocialsharing_do_buttons() {
-		return apply_filters( 'scriptlesssocialsharing_get_buttons', false );
-	}
+function scriptlesssocialsharing_do_buttons() {
+	return apply_filters( 'scriptlesssocialsharing_get_buttons', false );
 }
 
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 function scriptlesssocialsharing_print_buttons( $content ) {
-	$post_types = apply_filters( 'scriptlesssocialsharing_post_types', array( 'post' ) );
-	if ( ! is_singular( $post_types ) ) {
-		return $content;
-	}
 	$buttons = scriptlesssocialsharing_do_buttons();
 	return $content . $buttons;
 }
