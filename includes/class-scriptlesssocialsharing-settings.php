@@ -98,7 +98,7 @@ class ScriptlessSocialSharingSettings {
 			),
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
-			'post_types'     => $this->get_post_types(),
+			'post_types'     => array( 'post' ),
 		);
 
 		$setting = get_option( $this->page, $defaults );
