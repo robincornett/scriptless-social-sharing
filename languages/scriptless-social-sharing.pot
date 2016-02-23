@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Scriptless Social Sharing\n"
-"POT-Creation-Date: 2016-02-13 09:45-0500\n"
+"Project-Id-Version: Scriptless Social Sharing 1.0.0\n"
+"POT-Creation-Date: 2016-02-23 17:31-0500\n"
 "PO-Revision-Date: 2016-02-13 09:43-0500\n"
 "Last-Translator: \n"
 "Language-Team: Robin Cornett <hello@robincornett.com>\n"
@@ -15,9 +15,10 @@ msgstr ""
 "X-Poedit-WPHeader: scriptless-social-sharing.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SearchPath-0: ..\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
 
 #: includes/class-scriptlesssocialsharing-settings.php:36
 msgid "Scriptless Social Sharing Settings"
@@ -28,93 +29,145 @@ msgstr ""
 msgid "Scriptless Social Sharing"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:90
+#: includes/class-scriptlesssocialsharing-settings.php:91
 msgid "Share this post:"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:100
+#: includes/class-scriptlesssocialsharing-settings.php:101
 msgid "A post worth sharing:"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:118
+#: includes/class-scriptlesssocialsharing-settings.php:120
 msgid "General Settings"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:149
+#: includes/class-scriptlesssocialsharing-settings.php:151
+#: includes/class-scriptlesssocialsharing-settings.php:563
 msgid "Plugin Styles"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:158
+#: includes/class-scriptlesssocialsharing-settings.php:160
+#: includes/class-scriptlesssocialsharing-settings.php:568
 msgid "Heading"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:165
+#: includes/class-scriptlesssocialsharing-settings.php:167
+#: includes/class-scriptlesssocialsharing-settings.php:573
 msgid "Buttons"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:172
+#: includes/class-scriptlesssocialsharing-settings.php:174
+#: includes/class-scriptlesssocialsharing-settings.php:578
 msgid "Twitter Handle"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:179
+#: includes/class-scriptlesssocialsharing-settings.php:181
+#: includes/class-scriptlesssocialsharing-settings.php:583
 msgid "Email Subject"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:204
+#: includes/class-scriptlesssocialsharing-settings.php:188
+#: includes/class-scriptlesssocialsharing-settings.php:557
+msgid "Content Types"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:213
 msgid ""
 "Scriptless Social Sharing tries to be helpful, but you can also disable "
 "whatever you need."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:333
+#: includes/class-scriptlesssocialsharing-settings.php:349
 msgid "Load the main stylesheet? (colors and layout)"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:337
+#: includes/class-scriptlesssocialsharing-settings.php:353
 msgid "Load Font Awesome? (just the font)"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:341
+#: includes/class-scriptlesssocialsharing-settings.php:357
 msgid "Use plugin Font Awesome CSS? (adds the icons to the buttons)"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:374
+#: includes/class-scriptlesssocialsharing-settings.php:389
 msgid "Twitter"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:378
+#: includes/class-scriptlesssocialsharing-settings.php:393
 msgid "Facebook"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:382
+#: includes/class-scriptlesssocialsharing-settings.php:397
 msgid "Google+"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:386
+#: includes/class-scriptlesssocialsharing-settings.php:401
 msgid "Pinterest"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:390
+#: includes/class-scriptlesssocialsharing-settings.php:405
 msgid "Linkedin"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:394
+#: includes/class-scriptlesssocialsharing-settings.php:409
 msgid "Email"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:405
+#: includes/class-scriptlesssocialsharing-settings.php:451
 msgid "Heading above sharing buttons"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:413
+#: includes/class-scriptlesssocialsharing-settings.php:459
+#: includes/class-scriptlesssocialsharing-settings.php:553
+msgid "Do not include the @ -- just the user name."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:467
 msgid "The post title will be appended to whatever you add here."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-settings.php:428
+#: includes/class-scriptlesssocialsharing-settings.php:482
 msgid "Something unexpected happened. Please try again."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing.php:258
+#: includes/class-scriptlesssocialsharing-settings.php:545
+msgid ""
+"SSS loads three style related items: 1) the main stylesheet to handle the "
+"button layouts and colors; 2) Font Awesome (the font itself); and 3) a "
+"small Font Awesome related stylesheet to add the icons to the buttons."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:546
+msgid ""
+"You can use as much or as little of the plugin styles as you like. For "
+"example, if your site already loads Font Awesome, don't load it again here."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:548
+msgid "This is the heading above the sharing buttons."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:550
+msgid ""
+"Pick which social network buttons you would like to show. Custom buttons "
+"can be added via a filter."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:552
+msgid "The Twitter username you want to be credited for each tweet/post."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:555
+msgid "The post/page title will be added to the subject."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-settings.php:558
+msgid ""
+"By default, sharing buttons are added only to posts, but you can add them "
+"to any custom content types on your site."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing.php:283
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
