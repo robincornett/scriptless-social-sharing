@@ -1,6 +1,6 @@
 # Scriptless Social Sharing
 
-This plugin adds dead simple social sharing buttons to the end of posts. There are no settings, so any changes need to be done using filters.
+This plugin adds dead simple social sharing buttons to the end of posts.
 
 ## Installation
 
@@ -21,6 +21,10 @@ Using git, browse to your `/wp-content/plugins/` directory and clone this reposi
 
 Then go to your Plugins screen and click __Activate__.
 
+## Screenshots
+![Screenshot of the Scriptless Social Sharing Settings Page](https://github.com/robincornett/scriptless-social-sharing/blob/master/assets/screenshot-1.png)  
+_Screenshot of the Scriptless Social Sharing Settings Page._
+
 ## Frequently Asked Questions
 
 ### What if I want to change...
@@ -33,25 +37,38 @@ The social sharing buttons are added to the end of your post content using `the_
 
 ```php
 remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
-add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 5 );
+add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
+function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
+	$buttons = scriptlesssocialsharing_do_buttons();
+    	return $buttons . $content;
+}
+```
+
+### Can I add sharing buttons to posts on archive pages?
+
+Yes. First, you have to tell the plugin that it can, in fact, run, even on the relevant archive page:
+
+```
+add_filter( 'scriptlesssocialsharing_can_do_buttons', 'prefix_add_buttons_archives' );
+function prefix_add_buttons_archives( $cando = '' ) {
+    if ( is_home() || is_tax() || is_category() ) {
+        $cando = true;
+    }
+    return $cando;
+}
+```
+
+Then you can add the buttons to the individual posts:
+
+```
+add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 function prefix_scriptlesssocialsharing_buttons_entry_content() {
-	echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
+    $cando = prefix_add_buttons_archives();
+    if ( $cando ) {
+        echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
+    }
 }
 ```
-
-### I'd like to add sharing buttons to a different content type.
-
-Scriptless Social Sharing adds buttons to posts only. You can change this easily with a simple filter:
-
-```php
-add_filter( 'scriptlesssocialsharing_post_types', 'prefix_add_download_buttons' );
-function prefix_add_download_buttons( $post_types ) {
-	$post_types[] = 'download';
-	return $post_types;
-}
-```
-
-This example adds buttons to the download post type (Easy Digital Downloads) as well as to posts.
 
 ## Changelog
 
