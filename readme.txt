@@ -19,6 +19,8 @@ This plugin adds sharing links using the most basic methods provided by each net
 
 There is a small settings page, so you can make decisions about which content types should have sharing buttons, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
+Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisography.com/).
+
 == Installation ==
 
 1. Upload the entire `scriptless-social-sharing` folder to your `/wp-content/plugins` directory.
