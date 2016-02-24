@@ -161,7 +161,7 @@ class ScriptlessSocialSharing {
 				'url' => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
 			),
 			'pinterest' => array(
-				'url' => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
+				'url' => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
 			),
 			'linkedin' => array(
 				'url' => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
@@ -188,14 +188,13 @@ class ScriptlessSocialSharing {
 	 */
 	protected function attributes() {
 		$twitter     = $this->twitter_handle();
-		$image_url   = $this->featured_image();
 		$description = $this->description();
 		$attributes  = array(
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'twitter'       => $twitter ? sprintf( '&via=%s', $twitter ) : '',
 			'home'          => home_url(),
-			'image'         => $image_url ? sprintf( '&media=%s', $image_url ) : '',
+			'image'         => $this->featured_image(),
 			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
@@ -216,13 +215,35 @@ class ScriptlessSocialSharing {
 	 * @return string if there is a featured image, return the URL
 	 */
 	protected function featured_image() {
-		if ( ! has_post_thumbnail() ) {
-			return;
-		}
-		$featured_image = get_post_thumbnail_id();
+		$featured_image = has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
 		$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
-		$image_url      = $image_source[0];
+		$image_url      = is_array( $image_source ) ? $image_source[0] : '';
 		return $image_url;
+	}
+
+	/**
+	 * If there is no featured image, use the first image attached to the post/page as the fallback.
+	 * @return bool
+	 */
+	protected function get_fallback_image() {
+		$image_ids = array_keys(
+			get_children(
+				array(
+					'post_parent'    => get_the_ID(),
+					'post_type'      => 'attachment',
+					'post_mime_type' => 'image',
+					'orderby'        => 'menu_order',
+					'order'          => 'ASC',
+					'numberposts'    => 1,
+				)
+			)
+		);
+
+		if ( isset( $image_ids[0] ) ) {
+			return $image_ids[0];
+		}
+
+		return false;
 	}
 
 	/**
