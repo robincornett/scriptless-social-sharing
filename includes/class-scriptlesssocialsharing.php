@@ -216,9 +216,7 @@ class ScriptlessSocialSharing {
 	 */
 	protected function featured_image() {
 		$featured_image = has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
-		$image_source   = wp_get_attachment_image_src( $featured_image, 'large', true );
-		$image_url      = is_array( $image_source ) ? $image_source[0] : '';
-		return $image_url;
+		return wp_get_attachment_image_url( $featured_image, 'large' );
 	}
 
 	/**
