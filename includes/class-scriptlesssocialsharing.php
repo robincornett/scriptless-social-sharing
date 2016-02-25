@@ -132,8 +132,9 @@ class ScriptlessSocialSharing {
 		$output .= $this->heading();
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
+			$url      = 'email' === $button['name'] ? $button['url'] : $this->replace( $button['url'] );
 			$data_pin = 'pinterest' === $button['name'] ? ' data-pin-no-hover="true" data-pin-do="skip"' : '';
-			$output .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), $this->replace( $button['url'] ), $data_pin, $button['label'] );
+			$output .= sprintf( '<a class="button %s" target="_blank" href="%s"%s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $url ), $data_pin, $button['label'] );
 		}
 		$output .= '</div>';
 		$output .= '</div>';
