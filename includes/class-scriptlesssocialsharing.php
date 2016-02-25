@@ -179,6 +179,9 @@ class ScriptlessSocialSharing {
 				unset( $buttons[$settings_button] );
 			}
 		}
+		if ( ! $attributes['image'] ) {
+			unset( $buttons['pinterest'] );
+		}
 
 		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
 	}
