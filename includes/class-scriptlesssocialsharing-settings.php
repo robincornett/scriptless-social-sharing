@@ -243,11 +243,6 @@ class ScriptlessSocialSharingSettings {
 			if ( isset( $this->setting[ $args['setting_name'] ][ $args['name'] ] ) ) {
 				$setting = $this->setting[ $args['setting_name'] ][ $args['name'] ];
 			}
-			if ( 'post_types' === $args['setting_name'] ) {
-				if ( 'post' === $args['name'] ) {
-//					$setting = 1;
-				}
-			}
 		}
 		return $setting;
 	}
