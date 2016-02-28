@@ -264,6 +264,9 @@ class ScriptlessSocialSharing {
 	protected function heading() {
 		$heading = $this->setting['heading'];
 		$heading = apply_filters( 'scriptlesssocialsharing_heading', $heading );
+		if ( ! $heading ) {
+			return '';
+		}
 		return '<h3>' . $heading . '</h3>';
 	}
 
