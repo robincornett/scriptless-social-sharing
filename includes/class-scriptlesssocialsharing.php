@@ -152,32 +152,20 @@ class ScriptlessSocialSharing {
 		$attributes    = $this->attributes();
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
-		$buttons    = array(
-			'twitter' => array(
-				'url' => sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] ),
-			),
-			'facebook' => array(
-				'url' => sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] ),
-			),
-			'google' => array(
-				'url' => sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] ),
-			),
-			'pinterest' => array(
-				'url' => sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $attributes['title'], $attributes['image'] ),
-			),
-			'linkedin' => array(
-				'url' => sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] ),
-			),
-			'email' => array(
-				'url' => sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] ),
-			),
-		);
-		$buttons = array_merge_recursive( $this->settings->get_networks(), $buttons );
+
+		// Add URLs to the array of buttons
+		$buttons                     = $this->settings->get_networks();
+		$buttons['twitter']['url']   = sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] );
+		$buttons['facebook']['url']  = sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] );
+		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] );
+		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $attributes['title'], $attributes['image'] );
+		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
+		$buttons['email']['url']     = sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 
 		$settings_buttons = $this->setting['buttons'];
 		foreach ( $settings_buttons as $settings_button => $value ) {
 			if ( ! $value ) {
-				unset( $buttons[$settings_button] );
+				unset( $buttons[ $settings_button ] );
 			}
 		}
 		if ( ! $attributes['image'] ) {
@@ -280,6 +268,9 @@ class ScriptlessSocialSharing {
 	protected function heading() {
 		$heading = $this->setting['heading'];
 		$heading = apply_filters( 'scriptlesssocialsharing_heading', $heading );
+		if ( ! $heading ) {
+			return '';
+		}
 		return '<h3>' . $heading . '</h3>';
 	}
 
