@@ -98,18 +98,19 @@ class ScriptlessSocialSharing {
 		}
 
 		$this->setting = $this->settings->get_setting();
+		$version = '1.0.0';
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
 		if ( $css_file && $this->setting['styles']['plugin'] ) {
-			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), '0.1.1', 'screen' );
+			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $version, 'screen' );
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
 		if ( $fontawesome && $this->setting['styles']['font'] ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', array(), '4.4.0' );
+			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.4.0' );
 		}
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
 		if ( $fa_file && $this->setting['styles']['font_css'] ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), '0.1.0', 'screen' );
+			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $version, 'screen' );
 		}
 	}
 
@@ -250,6 +251,9 @@ class ScriptlessSocialSharing {
 
 	/**
 	 * get the post excerpt
+	 *
+	 * @param string $description
+	 *
 	 * @return string excerpt formatted for URL
 	 */
 	protected function description( $description = '' ) {
