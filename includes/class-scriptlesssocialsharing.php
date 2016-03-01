@@ -30,7 +30,7 @@ class ScriptlessSocialSharing {
 	/**
 	 * @var string current plugin version
 	 */
-	protected $version = '1.0.1';
+	protected $version = '1.0.2';
 
 	/**
 	 * @var $setting ScriptlessSocialSharingSettings->get_setting

@@ -76,6 +76,9 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 ## Changelog
 
+### 1.0.2
+* Fix CSS for buttons
+
 ### 1.0.1
 * add a fallback image method
 * bugfix: don't add Pinterest button if there is no image

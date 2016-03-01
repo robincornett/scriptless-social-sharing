@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -72,10 +72,13 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-initial WordPress repository release
+= 1.0.2 =
+Minor CSS fixes
 
 == Changelog ==
+
+= 1.0.2 =
+* Fix CSS for buttons
 
 = 1.0.1 =
 * add a fallback image method
