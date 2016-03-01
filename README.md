@@ -70,7 +70,15 @@ function prefix_scriptlesssocialsharing_buttons_entry_content() {
 }
 ```
 
+### Some posts are missing the Pinterest button. Why is that?
+
+Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
+
 ## Changelog
+
+### 1.0.1
+* add a fallback image method
+* bugfix: don't add Pinterest button if there is no image
 
 ### 1.0.0
 * Added a settings page.

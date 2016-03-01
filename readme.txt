@@ -3,9 +3,9 @@
 Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
-Requires at least: 3.1
+Requires at least: 4.1
 Tested up to: 4.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -62,16 +62,24 @@ Then you can add the buttons to the individual posts (this example works only wi
 		}
 	}
 
+= Some posts are missing the Pinterest button. Why is that? =
+
+Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
+
 == Screenshots ==
 
 1. Screenshot of the plugin settings in Settings > Scriptless Social Sharing.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-initial release
+= 1.0.1 =
+initial WordPress repository release
 
 == Changelog ==
+
+= 1.0.1 =
+* add a fallback image method
+* bugfix: don't add Pinterest button if there is no image
 
 = 1.0.0 =
 * Added a settings page
