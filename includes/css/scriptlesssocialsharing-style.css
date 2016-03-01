@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.scriptlesssocialsharing-buttons .button {
+.scriptlesssocialsharing-buttons a.button {
   border: none;
   border-radius: 0;
   color: white;
@@ -30,57 +30,57 @@
   overflow: hidden;
 }
 
-.scriptlesssocialsharing-buttons .email {
+.scriptlesssocialsharing-buttons .button.email {
   background-color: #333333;
   background-color: rgba(51, 51, 51, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .email:hover {
+.scriptlesssocialsharing-buttons .button.email:hover {
   background-color: #333333;
 }
 
-.scriptlesssocialsharing-buttons .twitter {
+.scriptlesssocialsharing-buttons .button.twitter {
   background-color: #55acee;
   background-color: rgba(85, 172, 238, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .twitter:hover {
+.scriptlesssocialsharing-buttons .button.twitter:hover {
   background-color: #55acee;
 }
 
-.scriptlesssocialsharing-buttons .facebook {
+.scriptlesssocialsharing-buttons .button.facebook {
   background-color: #3b5998;
   background-color: rgba(59, 89, 152, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .facebook:hover {
+.scriptlesssocialsharing-buttons .button.facebook:hover {
   background-color: #3b5998;
 }
 
-.scriptlesssocialsharing-buttons .linkedin {
+.scriptlesssocialsharing-buttons .button.linkedin {
   background-color: #0077b5;
   background-color: rgba(0, 119, 181, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .linkedin:hover {
+.scriptlesssocialsharing-buttons .button.linkedin:hover {
   background-color: #0077b5;
 }
 
-.scriptlesssocialsharing-buttons .pinterest {
+.scriptlesssocialsharing-buttons .button.pinterest {
   background-color: #bd081c;
   background-color: rgba(189, 8, 28, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .pinterest:hover {
+.scriptlesssocialsharing-buttons .button.pinterest:hover {
   background-color: #bd081c;
 }
 
-.scriptlesssocialsharing-buttons .google {
+.scriptlesssocialsharing-buttons .button.google {
   background-color: #dc4e41;
   background-color: rgba(220, 78, 65, 0.8);
 }
 
-.scriptlesssocialsharing-buttons .google:hover {
+.scriptlesssocialsharing-buttons .button.google:hover {
   background-color: #dc4e41;
 }
 

@@ -12,7 +12,7 @@
 	table-layout: fixed;
 	width: 100%;
 
-	.button {
+	a.button {
 		border: none;
 		border-radius: 0;
 		color: white;
@@ -27,7 +27,7 @@
 	}
 
 	@each $socialnetwork, $color, $glyph in $social {
-		.#{$socialnetwork} {
+		.button.#{$socialnetwork} {
 			@include color-opacity($color,.8);
 
 			&:hover {
