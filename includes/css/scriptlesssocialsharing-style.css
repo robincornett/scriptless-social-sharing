@@ -1,8 +1,11 @@
 .scriptlesssocialsharing {
+  box-sizing: border-box;
   margin: 18px auto;
 }
 
 .scriptlesssocialsharing-buttons {
+  border-collapse: separate;
+  border-spacing: 3px;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -11,16 +14,11 @@
 .scriptlesssocialsharing-buttons .button {
   border: none;
   border-radius: 0;
-  border-right: 3px solid white;
   color: white;
   display: table-cell;
   padding: 12px 0;
   text-align: center;
   text-decoration: none;
-}
-
-.scriptlesssocialsharing-buttons .button:last-of-type {
-  border-right: none;
 }
 
 .scriptlesssocialsharing-buttons .sss-name {
