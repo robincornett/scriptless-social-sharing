@@ -53,7 +53,7 @@ class ScriptlessSocialSharing {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
-		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ) );
+		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ), 10, 2 );
 	}
 
 	/**
@@ -120,21 +120,28 @@ class ScriptlessSocialSharing {
 
 	/**
 	 * Return buttons
+	 *
+	 * @param string $output
+	 * @param bool $heading set the bool to false to output buttons with no heading
+	 *
+	 * @return string|void
 	 */
-	public function do_buttons() {
+	public function do_buttons( $output, $heading = true ) {
 
 		if ( ! $this->can_do_buttons() ) {
-			return;
+			return '';
 		}
 
 		$buttons = $this->make_buttons();
 
 		if ( ! $buttons ) {
-			return;
+			return '';
 		}
 
-		$output  = '<div class="scriptlesssocialsharing">';
-		$output .= $this->heading();
+		$output = '<div class="scriptlesssocialsharing">';
+		if ( $heading ) {
+			$output .= $this->heading();
+		}
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
 			$url      = 'email' === $button['name'] ? $button['url'] : $this->replace( $button['url'] );

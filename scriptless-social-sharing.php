@@ -51,8 +51,8 @@ $scriptlesssocialsharing = new ScriptlessSocialSharing(
 $scriptlesssocialsharing->run();
 
 
-function scriptlesssocialsharing_do_buttons() {
-	return apply_filters( 'scriptlesssocialsharing_get_buttons', false );
+function scriptlesssocialsharing_do_buttons( $heading = true ) {
+	return apply_filters( 'scriptlesssocialsharing_get_buttons', false, $heading );
 }
 
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
