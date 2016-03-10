@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.4
-Stable tag: 1.0.2
+Stable tag: 1.1.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -37,7 +37,8 @@ The social sharing buttons are added to the end of your post content using `the_
 	add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
 	function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
 		$buttons = scriptlesssocialsharing_do_buttons();
-			return $buttons . $content;
+		// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
+		return $buttons . $content;
 	}
 
 = Can I add sharing buttons to posts on archive pages? =
@@ -72,10 +73,15 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-= 1.0.2 =
-Minor CSS fixes
+1.1.0 includes new filters for modifying output, plus more specific CSS to avoid theme conflicts.
 
 == Changelog ==
+
+= 1.1.0 =
+* added: filter to disable heading on output
+* added: filter for the post fallback image (because pinterest)
+* fixed: made CSS a bit more specific to avoid theme conflicts
+
 
 = 1.0.2 =
 * Fix CSS for buttons

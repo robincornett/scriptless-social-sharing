@@ -40,7 +40,8 @@ remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
 function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
 	$buttons = scriptlesssocialsharing_do_buttons();
-    	return $buttons . $content;
+	// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
+   	return $buttons . $content;
 }
 ```
 
@@ -75,6 +76,11 @@ function prefix_scriptlesssocialsharing_buttons_entry_content() {
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
 ## Changelog
+
+### 1.1.0
+* added: filter to disable heading on output
+* added: filter for the post fallback image (because pinterest)
+* fixed: made CSS a bit more specific to avoid theme conflicts
 
 ### 1.0.2
 * Fix CSS for buttons
