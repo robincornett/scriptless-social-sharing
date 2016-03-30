@@ -22,6 +22,8 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class ScriptlessSocialSharing {
 
+	protected $post_meta;
+
 	/**
 	 * @var $settings ScriptlessSocialSharingSettings
 	 */
@@ -42,8 +44,9 @@ class ScriptlessSocialSharing {
 	 *
 	 * @param $settings
 	 */
-	public function __construct( $settings ) {
-		$this->settings = $settings;
+	public function __construct( $post_meta, $settings ) {
+		$this->post_meta = $post_meta;
+		$this->settings  = $settings;
 	}
 
 	/**
@@ -52,6 +55,8 @@ class ScriptlessSocialSharing {
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'admin_menu', array( $this->post_meta, 'add_meta_box' ) );
+		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
 		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ), 10, 2 );
 	}
@@ -62,7 +67,7 @@ class ScriptlessSocialSharing {
 	 * @since 1.0.0
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'scriptless-social-sharing', false, dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/' );
+		load_plugin_textdomain( 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -90,6 +95,10 @@ class ScriptlessSocialSharing {
 		$post_types = $this->get_post_types();
 		if ( ! is_singular( $post_types ) || is_feed() ) {
 			$cando = false;
+		}
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? 1 : '';
+		if ( $is_disabled ) {
+			return false;
 		}
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
