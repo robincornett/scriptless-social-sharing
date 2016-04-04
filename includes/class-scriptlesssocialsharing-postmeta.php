@@ -19,37 +19,23 @@ class ScriptlessSocialSharingPostMeta {
 	protected $disable = '_scriptlesssocialsharing_disable';
 
 	/**
-	 * Add a metabox to the post editor, only if that post type allows sharing buttons.
+	 * Add the checkbox to the publishing metabox.
 	 */
-	public function add_meta_box() {
+	public function do_checkbox() {
 
 		$this->setting = get_option( 'scriptlesssocialsharing', false );
+		$screen        = get_current_screen();
 		$post_types    = isset( $this->setting['post_types'] ) ? $this->setting['post_types'] : array( 'post' );
-		foreach ( $post_types as $type ) {
-			add_meta_box(
-				'scriptlesssocialsharing-entry-meta',
-				__( 'Social Sharing', 'scriptless-social-sharing' ),
-				array( $this, 'meta_box' ),
-				$type,
-				'side',
-				'default'
-			);
+		if ( ! in_array( $screen->post_type, $post_types, true ) ) {
+			return;
 		}
-
-	}
-
-	/**
-	 * Build the metabox with the checkbox setting.
-	 */
-	public function meta_box() {
-
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
 
+		echo '<div class="misc-pub-section">';
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		echo '<p>';
 		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', $this->disable, checked( $check, 1, false ) );
 		printf( '<label for="%s">%s</label>', $this->disable, __( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
-		echo '</p>';
+		echo '</div>';
 	}
 
 	/**
