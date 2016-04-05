@@ -90,15 +90,12 @@ class ScriptlessSocialSharing {
 	 */
 	protected function can_do_buttons( $cando = true ) {
 		if ( ! is_main_query() ) {
-			return false;
-		}
-		$post_types = $this->get_post_types();
-		if ( ! is_singular( $post_types ) || is_feed() ) {
 			$cando = false;
 		}
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? 1 : '';
-		if ( $is_disabled ) {
-			return false;
+		$post_types  = $this->get_post_types();
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
+		if ( ! is_singular( $post_types ) || is_feed() || $is_disabled ) {
+			$cando = false;
 		}
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
