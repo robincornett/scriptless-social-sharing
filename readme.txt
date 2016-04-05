@@ -46,7 +46,7 @@ The social sharing buttons are added to the end of your post content using `the_
 Yes. First, you have to tell the plugin that it can, in fact, run, even on the relevant archive page:
 
 	add_filter( 'scriptlesssocialsharing_can_do_buttons', 'prefix_add_buttons_archives' );
-	function prefix_add_buttons_archives( $cando = '' ) {
+	function prefix_add_buttons_archives( $cando ) {
 		if ( is_home() || is_tax() || is_category() ) {
 			$cando = true;
 		}
@@ -57,8 +57,8 @@ Then you can add the buttons to the individual posts (this example works only wi
 
 	add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 	function prefix_scriptlesssocialsharing_buttons_entry_content() {
-		$cando = prefix_add_buttons_archives();
-		if ( $cando ) {
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
+		if ( ! $is_disabled && ! is_singular() ) {
 			echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
 		}
 	}

@@ -51,11 +51,11 @@ Yes. First, you have to tell the plugin that it can, in fact, run, even on the r
 
 ```
 add_filter( 'scriptlesssocialsharing_can_do_buttons', 'prefix_add_buttons_archives' );
-function prefix_add_buttons_archives( $cando = '' ) {
-    if ( is_home() || is_tax() || is_category() ) {
-        $cando = true;
-    }
-    return $cando;
+function prefix_add_buttons_archives( $cando ) {
+	if ( is_home() || is_tax() || is_category() ) {
+		$cando = true;
+	}
+	return $cando;
 }
 ```
 
@@ -64,10 +64,10 @@ Then you can add the buttons to the individual posts:
 ```
 add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 function prefix_scriptlesssocialsharing_buttons_entry_content() {
-    $cando = prefix_add_buttons_archives();
-    if ( $cando ) {
-        echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
-    }
+	$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
+	if ( ! $is_disabled && ! is_singular() ) {
+		echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
+	}
 }
 ```
 
