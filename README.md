@@ -77,6 +77,10 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 ## Changelog
 
+### 1.2.0
+* added: setting to disable buttons on an individual post basis
+* fixed: use repository language packs
+
 ### 1.1.0
 * added: filter to disable heading on output
 * added: filter for the post fallback image (because pinterest)

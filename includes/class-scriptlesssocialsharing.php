@@ -6,7 +6,7 @@
  * @package           ScriptlessSocialSharing
  * @author            Robin Cornett
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015 Robin Cornett
+ * @copyright         2015-2016 Robin Cornett
  * @license           GPL-2.0+
  *
  */
@@ -32,7 +32,7 @@ class ScriptlessSocialSharing {
 	/**
 	 * @var string current plugin version
 	 */
-	protected $version = '1.1.0';
+	protected $version = '1.2.0';
 
 	/**
 	 * @var $setting ScriptlessSocialSharingSettings->get_setting

@@ -5,14 +5,14 @@
  * @package           ScriptlessSocialSharing
  * @author            Robin Cornett
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015 Robin Cornett
+ * @copyright         2015-2016 Robin Cornett
  * @license           GPL-2.0+
  *
  * @wordpress-plugin
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Robin Cornett
  * Author URI:        http://robincornett.com
  * Text Domain:       scriptless-social-sharing

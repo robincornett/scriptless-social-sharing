@@ -4,8 +4,8 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
-Tested up to: 4.4
-Stable tag: 1.1.0
+Tested up to: 4.5
+Stable tag: 1.2.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -73,9 +73,13 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-1.1.0 includes new filters for modifying output, plus more specific CSS to avoid theme conflicts.
+1.2.0 introduces the ability to disable buttons on an individual post basis
 
 == Changelog ==
+
+= 1.2.0 =
+* added: setting to disable buttons on an individual post basis
+* fixed: use repository language packs
 
 = 1.1.0 =
 * added: filter to disable heading on output
