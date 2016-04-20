@@ -157,7 +157,8 @@ class ScriptlessSocialSharing {
 		$output .= '</div>';
 		$output .= '</div>';
 
-		return $output;
+		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
+		return wp_kses_post( $output );
 	}
 
 	/**
@@ -318,5 +319,24 @@ class ScriptlessSocialSharing {
 	 */
 	protected function email_body() {
 		return apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ) );
+	}
+
+	/**
+	 * Allow pinterest data attributes on our links.
+	 *
+	 * @param $allowed array
+	 * @param $context string
+	 *
+	 * @return mixed
+	 */
+	public function filter_allowed_html( $allowed, $context ) {
+
+		if ( 'post' === $context ) {
+			$allowed['a']['data-pin-custom']   = true;
+			$allowed['a']['data-pin-no-hover'] = true;
+			$allowed['a']['data-pin-do']       = true;
+		}
+
+		return $allowed;
 	}
 }
