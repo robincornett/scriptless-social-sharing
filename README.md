@@ -77,6 +77,9 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 ## Changelog
 
+### 1.2.1
+* fixed: pinterest button is now protected from an overzealous pinit script
+
 ### 1.2.0
 * added: setting to disable buttons on an individual post basis
 * fixed: use repository language packs

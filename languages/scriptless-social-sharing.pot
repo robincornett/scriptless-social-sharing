@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Scriptless Social Sharing 1.2.0\n"
-"POT-Creation-Date: 2016-04-05 08:28-0400\n"
+"Project-Id-Version: Scriptless Social Sharing 1.2.1\n"
+"POT-Creation-Date: 2016-04-30 15:05-0400\n"
 "PO-Revision-Date: 2016-02-13 09:43-0500\n"
 "Last-Translator: \n"
 "Language-Team: Robin Cornett <hello@robincornett.com>\n"
@@ -171,7 +171,7 @@ msgid ""
 "to any custom content types on your site."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing.php:320
+#: includes/class-scriptlesssocialsharing.php:321
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 

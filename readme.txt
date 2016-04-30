@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.5
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -73,9 +73,12 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-1.2.0 introduces the ability to disable buttons on an individual post basis
+1.2.1 fixes hijack by overzealous pinit script
 
 == Changelog ==
+
+= 1.2.1 =
+* fixed: pinterest button is now protected from an overzealous pinit script
 
 = 1.2.0 =
 * added: setting to disable buttons on an individual post basis
