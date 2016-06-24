@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.5
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -15,7 +15,7 @@ This plugin adds dead simple social sharing buttons to the end of posts.
 
 _Scriptless Social Sharing_ is a wee plugin to add buttons to your posts/pages, to make it easier for your readers to share your content on social networks.
 
-This plugin adds sharing links using the most basic methods provided by each network. There is no javascript, nothing fancy included in this plugin. It just builds a set of links.
+This plugin adds sharing links using the most basic methods provided by each network. There is no JavaScript, nothing fancy included in this plugin, so if you want fancy, this is not the plugin you're looking for. It just builds a set of links.
 
 There is a small settings page, so you can make decisions about which content types should have sharing buttons, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
@@ -36,6 +36,9 @@ The social sharing buttons are added to the end of your post content using `the_
 	remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 	add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
 	function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
+		if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
+			return;
+		}
 		$buttons = scriptlesssocialsharing_do_buttons();
 		// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
 		return $buttons . $content;
@@ -57,6 +60,9 @@ Then you can add the buttons to the individual posts (this example works only wi
 
 	add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 	function prefix_scriptlesssocialsharing_buttons_entry_content() {
+		if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
+			return;
+		}
 		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
 		if ( ! $is_disabled && ! is_singular() ) {
 			echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
@@ -73,9 +79,13 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-1.2.1 fixes hijack by overzealous pinit script
+1.2.2 fixes error when a post is embedded into another site; updated Font Awesome
 
 == Changelog ==
+
+= 1.2.2 =
+* updated: Font Awesome 4.6.3
+* fixed: error when a post is embedded in another site (feature introduced in WP 4.4) due to other checks being bypassed
 
 = 1.2.1 =
 * fixed: pinterest button is now protected from an overzealous pinit script

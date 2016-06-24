@@ -39,6 +39,9 @@ The social sharing buttons are added to the end of your post content using `the_
 remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
 function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
+	if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
+		return;
+	}
 	$buttons = scriptlesssocialsharing_do_buttons();
 	// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
    	return $buttons . $content;
@@ -64,6 +67,9 @@ Then you can add the buttons to the individual posts:
 ```
 add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 function prefix_scriptlesssocialsharing_buttons_entry_content() {
+	if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
+		return;
+	}
 	$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
 	if ( ! $is_disabled && ! is_singular() ) {
 		echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
@@ -76,6 +82,10 @@ function prefix_scriptlesssocialsharing_buttons_entry_content() {
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
 ## Changelog
+
+### 1.2.2
+* updated: Font Awesome 4.6.3
+* fixed: error when a post is embedded in another site (feature introduced in WP 4.4) due to other checks being bypassed
 
 ### 1.2.1
 * fixed: pinterest button is now protected from an overzealous pinit script
