@@ -181,9 +181,11 @@ class ScriptlessSocialSharing {
 		$buttons['email']['url']     = sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 
 		$settings_buttons = $this->setting['buttons'];
-		foreach ( $settings_buttons as $settings_button => $value ) {
-			if ( ! $value ) {
-				unset( $buttons[ $settings_button ] );
+		if ( $settings_buttons ) {
+			foreach ( $settings_buttons as $settings_button => $value ) {
+				if ( ! $value ) {
+					unset( $buttons[$settings_button] );
+				}
 			}
 		}
 		if ( ! $attributes['image'] ) {
