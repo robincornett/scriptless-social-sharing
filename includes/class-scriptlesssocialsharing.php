@@ -115,7 +115,7 @@ class ScriptlessSocialSharing {
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
 		if ( $fontawesome && $this->setting['styles']['font'] ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css', array(), '4.4.0' );
+			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
 		}
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
