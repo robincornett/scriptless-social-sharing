@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('sass', function () {
-  gulp.src('includes/*.scss')
+  gulp.src('includes/sass/*.scss')
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer({
         browsers: ['last 5 versions'],
