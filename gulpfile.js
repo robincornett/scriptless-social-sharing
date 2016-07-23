@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 
 gulp.task('sass', function () {
   gulp.src('includes/*.scss')
-    .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
+    .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
     .pipe(autoprefixer({
         browsers: ['last 5 versions'],
         cascade: false
