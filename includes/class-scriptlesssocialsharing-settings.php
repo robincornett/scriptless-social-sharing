@@ -96,6 +96,7 @@ class ScriptlessSocialSharingSettings {
 				'pinterest' => 1,
 				'linkedin'  => 1,
 				'email'     => 1,
+				'reddit'    => 0,
 			),
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
@@ -402,6 +403,10 @@ class ScriptlessSocialSharingSettings {
 			'email' => array(
 				'name' => 'email',
 				'label'   => __( 'Email', 'scriptless-social-sharing' ),
+			),
+			'reddit' => array(
+				'name' => 'reddit',
+				'label'   => __( 'Reddit', 'scriptless-social-sharing' ),
 			),
 		);
 		return apply_filters( 'scriptlesssocialsharing_networks', $networks );

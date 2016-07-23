@@ -37,3 +37,7 @@
 .scriptlesssocialsharing-buttons .email:before {
   content: '\f0e0';
 }
+
+.scriptlesssocialsharing-buttons .reddit:before {
+  content: '\f281';
+}

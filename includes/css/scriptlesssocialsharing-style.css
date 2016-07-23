@@ -84,6 +84,15 @@
   background-color: #dc4e41;
 }
 
+.scriptlesssocialsharing-buttons .button.reddit {
+  background-color: #5f99cf;
+  background-color: rgba(95, 153, 207, 0.8);
+}
+
+.scriptlesssocialsharing-buttons .button.reddit:hover {
+  background-color: #5f99cf;
+}
+
 @media only screen and (min-width: 800px) {
   .scriptlesssocialsharing-buttons .sss-name {
     position: relative;

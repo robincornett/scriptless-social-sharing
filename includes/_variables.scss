@@ -5,6 +5,7 @@ $twitter: #55acee;
 $google: #dc4e41;
 $pinterest: #bd081c;
 $linkedin: #0077b5;
+$reddit: #5f99cf;
 
 @mixin fontawesome($size) {
 	display: inline-block;
@@ -37,4 +38,5 @@ $social: ( email, $email, 'f0e0' ),
 		( facebook, $facebook, f09a ),
 		( linkedin, $linkedin, f0e1 ),
 		( pinterest, $pinterest, f0d2 ),
-		( google, $google, f0d5 );
+		( google, $google, f0d5 ),
+		( reddit, $reddit, f281 );
