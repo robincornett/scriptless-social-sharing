@@ -27,7 +27,6 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * add a submenu page under settings
-	 * @return submenu Scriptless Social Sharing settings page
 	 * @since  1.4.0
 	 */
 	public function do_submenu_page() {
@@ -41,6 +40,11 @@ class ScriptlessSocialSharingSettings {
 		);
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+
+		$sections     = $this->register_sections();
+		$this->fields = $this->register_fields();
+		$this->add_sections( $sections );
+		$this->add_fields( $this->fields, $sections );
 	}
 
 	/**
@@ -69,19 +73,24 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.2.0
 	 */
 	public function register_settings() {
-
 		register_setting( $this->page, $this->page, array( $this, 'do_validation_things' ) );
-
-		$this->register_sections();
-
 	}
 
 	/**
 	 * @return array Setting for plugin, or defaults.
 	 */
 	public function get_setting() {
+		$setting = get_option( $this->page, $this->defaults() );
+		return wp_parse_args( $setting, $this->defaults() );
+	}
 
-		$defaults = array(
+	/**
+	 * Define the default plugin settings.
+	 * @return array
+	 * @since 1.3.0
+	 */
+	protected function defaults() {
+		return array(
 			'styles'         => array(
 				'plugin'   => 1,
 				'font'     => 1,
@@ -105,26 +114,27 @@ class ScriptlessSocialSharingSettings {
 				'after' => 1,
 			),
 		);
-
-		$setting = get_option( $this->page, $defaults );
-
-		return wp_parse_args( $setting, $defaults );
 	}
 
 	/**
-	 * Register sections for settings page.
+	 * Define sections for settings page.
 	 *
 	 * @since 3.0.0
 	 */
 	protected function register_sections() {
-
-		$sections = array(
+		return array(
 			'general' => array(
 				'id'    => 'general',
 				'title' => __( 'General Settings', 'scriptless-social-sharing' ),
 			),
 		);
+	}
 
+	/**
+	 * Add the sections to the settings page.
+	 * @param $sections array
+	 */
+	protected function add_sections( $sections ) {
 		foreach ( $sections as $section ) {
 			add_settings_section(
 				$section['id'],
@@ -133,89 +143,146 @@ class ScriptlessSocialSharingSettings {
 				$this->page
 			);
 		}
-
-		$this->register_fields( $sections );
-
 	}
 
 	/**
 	 * Register settings fields
 	 *
-	 * @param  settings sections $sections
+	 * @return array     settings fields
 	 *
-	 * @return fields           settings fields
-	 *
-	 * @since 3.0.0
 	 */
-	protected function register_fields( $sections ) {
+	protected function register_fields() {
 
-		$this->fields = array(
-			array(
-				'id'       => 'styles',
-				'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
-				'callback' => 'do_styles',
-				'section'  => 'general',
-				'args'     => array(
-					'setting' => 'styles',
-				),
-			),
-			array(
-				'id'       => 'heading',
-				'title'    => __( 'Heading', 'scriptless-social-sharing' ),
-				'callback' => 'do_text_field',
-				'section'  => 'general',
-				'args'     => array( 'setting' => 'heading' ),
-			),
-			array(
-				'id'       => 'buttons',
-				'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
-				'callback' => 'do_checkbox_array',
-				'section'  => 'general',
-				'args'     => array( 'setting' => 'buttons', 'choices' => $this->do_buttons() ),
-			),
-			array(
-				'id'       => 'twitter_handle',
-				'title'    => __( 'Twitter Handle', 'scriptless-social-sharing' ),
-				'callback' => 'do_text_field',
-				'section'  => 'general',
-				'args'     => array( 'setting' => 'twitter_handle' ),
-			),
-			array(
-				'id'       => 'email_subject',
-				'title'    => __( 'Email Subject', 'scriptless-social-sharing' ),
-				'callback' => 'do_text_field',
-				'section'  => 'general',
-				'args'     => array( 'setting' => 'email_subject' ),
-			),
-			array(
-				'id'       => 'post_types',
-				'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
-				'callback' => 'pick_post_types',
-				'section'  => 'general',
-				'args'     => array( 'setting' => 'post_types' ),
-			),
-			array(
-				'id'       => 'location',
-				'title'    => __( 'Sharing Buttons Location', 'scriptless-social-sharing' ),
-				'callback' => 'do_checkbox_array',
-				'section'  => 'general',
-				'args'     => array(
-					'setting' => 'location',
-					'choices' => array(
-						'before' => __( 'Before Content', 'scriptless-social-sharing' ),
-						'after'  => __( 'After Content', 'scriptless-social-sharing' ),
-					),
-				),
-			)
+		return array(
+			$this->styles(),
+			$this->heading(),
+			$this->buttons(),
+			$this->twitter_handle(),
+			$this->email_subject(),
+			$this->post_types(),
+			$this->location(),
 		);
+	}
 
-		foreach ( $this->fields as $field ) {
+	/**
+	 * Define settings field for styles.
+	 * @return array
+	 */
+	protected function styles() {
+		return array(
+			'id'       => 'styles',
+			'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
+			'callback' => 'do_styles',
+			'section'  => 'general',
+			'args'     => array(
+				'setting' => 'styles',
+			),
+		);
+	}
+
+	/**
+	 * Define settings field for buttons heading.
+	 * @return array
+	 */
+	protected function heading() {
+		return array(
+			'id'       => 'heading',
+			'title'    => __( 'Heading', 'scriptless-social-sharing' ),
+			'callback' => 'do_text_field',
+			'section'  => 'general',
+			'args'     => array( 'setting' => 'heading' ),
+		);
+	}
+
+	/**
+	 * Define settings field for buttons.
+	 * @return array
+	 */
+	protected function buttons() {
+		return array(
+			'id'       => 'buttons',
+			'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
+			'callback' => 'do_checkbox_array',
+			'section'  => 'general',
+			'args'     => array( 'setting' => 'buttons', 'choices' => $this->get_buttons() ),
+		);
+	}
+
+	/**
+	 * Define settings field for default twitter handle.
+	 * @return array
+	 */
+	protected function twitter_handle() {
+		return array(
+			'id'       => 'twitter_handle',
+			'title'    => __( 'Twitter Handle', 'scriptless-social-sharing' ),
+			'callback' => 'do_text_field',
+			'section'  => 'general',
+			'args'     => array( 'setting' => 'twitter_handle' ),
+		);
+	}
+
+	/**
+	 * Define settings field for default email subject.
+	 * @return array
+	 */
+	protected function email_subject() {
+		return array(
+			'id'       => 'email_subject',
+			'title'    => __( 'Email Subject', 'scriptless-social-sharing' ),
+			'callback' => 'do_text_field',
+			'section'  => 'general',
+			'args'     => array( 'setting' => 'email_subject' ),
+		);
+	}
+
+	/**
+	 * Define settings field for post types.
+	 * @return array
+	 */
+	protected function post_types() {
+		return array(
+			'id'       => 'post_types',
+			'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
+			'callback' => 'pick_post_types',
+			'section'  => 'general',
+			'args'     => array( 'setting' => 'post_types' ),
+		);
+	}
+
+	/**
+	 * Define settings field for button location.
+	 * @return array
+	 */
+	protected function location() {
+		return array(
+			'id'       => 'location',
+			'title'    => __( 'Sharing Buttons Location', 'scriptless-social-sharing' ),
+			'callback' => 'do_checkbox_array',
+			'section'  => 'general',
+			'args'     => array(
+				'setting' => 'location',
+				'choices' => array(
+					'before' => __( 'Before Content', 'scriptless-social-sharing' ),
+					'after'  => __( 'After Content', 'scriptless-social-sharing' ),
+				),
+			),
+		);
+	}
+
+	/**
+	 * Add the fields to the settings page.
+	 * @param $fields array
+	 * @param $sections array
+	 */
+	protected function add_fields( $fields, $sections ) {
+		foreach ( $fields as $field ) {
 			add_settings_field(
 				'[' . $field['id'] . ']',
 				sprintf( '<label for="%s">%s</label>', $field['id'], $field['title'] ),
 				array( $this, $field['callback'] ),
 				$this->page,
-				$sections[$field['section']]['id'],
+				$sections[ $field['section'] ]['id'],
 				empty( $field['args'] ) ? array() : $field['args']
 			);
 		}
@@ -374,9 +441,10 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
+	 * Get the available buttons.
 	 * @param $args
 	 */
-	public function do_buttons( $choices = array() ) {
+	public function get_buttons( $choices = array() ) {
 		$networks = $this->get_networks();
 		foreach ( $networks as $network ) {
 			$choices[ $network['name'] ] = $network['label'];
@@ -393,32 +461,32 @@ class ScriptlessSocialSharingSettings {
 	public function get_networks() {
 		$networks = array(
 			'twitter' => array(
-				'name' => 'twitter',
-				'label'   => __( 'Twitter', 'scriptless-social-sharing' ),
+				'name'  => 'twitter',
+				'label' => __( 'Twitter', 'scriptless-social-sharing' ),
 			),
 			'facebook' => array(
-				'name' => 'facebook',
-				'label'   => __( 'Facebook', 'scriptless-social-sharing' ),
+				'name'  => 'facebook',
+				'label' => __( 'Facebook', 'scriptless-social-sharing' ),
 			),
 			'google' => array(
-				'name' => 'google',
-				'label'   => __( 'Google+', 'scriptless-social-sharing' ),
+				'name'  => 'google',
+				'label' => __( 'Google+', 'scriptless-social-sharing' ),
 			),
 			'pinterest' => array(
-				'name' => 'pinterest',
-				'label'   => __( 'Pinterest', 'scriptless-social-sharing' ),
+				'name'  => 'pinterest',
+				'label' => __( 'Pinterest', 'scriptless-social-sharing' ),
 			),
 			'linkedin' => array(
-				'name' => 'linkedin',
-				'label'   => __( 'Linkedin', 'scriptless-social-sharing' ),
+				'name'  => 'linkedin',
+				'label' => __( 'Linkedin', 'scriptless-social-sharing' ),
 			),
 			'email' => array(
-				'name' => 'email',
-				'label'   => __( 'Email', 'scriptless-social-sharing' ),
+				'name'  => 'email',
+				'label' => __( 'Email', 'scriptless-social-sharing' ),
 			),
 			'reddit' => array(
-				'name' => 'reddit',
-				'label'   => __( 'Reddit', 'scriptless-social-sharing' ),
+				'name'  => 'reddit',
+				'label' => __( 'Reddit', 'scriptless-social-sharing' ),
 			),
 		);
 		return apply_filters( 'scriptlesssocialsharing_networks', $networks );
