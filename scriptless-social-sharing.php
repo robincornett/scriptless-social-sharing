@@ -53,15 +53,31 @@ $scriptlesssocialsharing = new ScriptlessSocialSharing(
 // Run the plugin
 $scriptlesssocialsharing->run();
 
-
+/**
+ * Helper function to get the buttons for output.
+ * @param bool $heading
+ *
+ * @return mixed|void
+ */
 function scriptlesssocialsharing_do_buttons( $heading = true ) {
 	return apply_filters( 'scriptlesssocialsharing_get_buttons', false, $heading );
 }
 
+/**
+ * Helper function to get the plugin setting with defaults.
+ * @return mixed|void
+ */
+function scriptlesssocialsharing_get_setting() {
+	return apply_filters( 'scriptlesssocialsharing_get_setting', false );
+}
+
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 function scriptlesssocialsharing_print_buttons( $content ) {
+	$setting = scriptlesssocialsharing_get_setting();
 	$buttons = scriptlesssocialsharing_do_buttons();
-	return $content . $buttons;
+	$before  = $setting['location']['before'] ? $buttons : '';
+	$after   = $setting['location']['after'] ? $buttons : '';
+	return $before . $content . $after;
 }
 
 /**

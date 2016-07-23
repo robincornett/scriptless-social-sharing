@@ -101,11 +101,15 @@ class ScriptlessSocialSharingSettings {
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
 			'post_types'     => array( 'post' ),
+			'location'       => array(
+				'before' => 0,
+				'after' => 1,
+			),
 		);
 
 		$setting = get_option( $this->page, $defaults );
 
-		return $setting;
+		return wp_parse_args( $setting, $defaults );
 	}
 
 	/**
@@ -191,6 +195,19 @@ class ScriptlessSocialSharingSettings {
 				'section'  => 'general',
 				'args'     => array( 'setting' => 'post_types' ),
 			),
+			array(
+				'id'       => 'location',
+				'title'    => __( 'Sharing Buttons Location', 'scriptless-social-sharing' ),
+				'callback' => 'do_checkbox_array',
+				'section'  => 'general',
+				'args'     => array(
+					'setting' => 'location',
+					'choices' => array(
+						'before' => __( 'Before Content', 'scriptless-social-sharing' ),
+						'after'  => __( 'After Content', 'scriptless-social-sharing' ),
+					),
+				),
+			)
 		);
 
 		foreach ( $this->fields as $field ) {
@@ -441,6 +458,24 @@ class ScriptlessSocialSharingSettings {
 				esc_attr( $post_type->labels->name )
 			);
 		}
+	}
+
+	/**
+	 * Set up choices for checkbox array
+	 * @param $args array
+	 */
+	public function do_checkbox_array( $args ) {
+		foreach ( $args['choices'] as $key => $label ) {
+			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ), esc_attr( $key ) );
+			printf( '<input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code" /> <label for="%4$s[%5$s][%1$s]">%3$s</label><br />',
+				esc_attr( $key ),
+				checked( 1, $this->setting[ $args['setting'] ][ $key ], false ),
+				esc_html( $label ),
+				esc_attr( $this->page ),
+				esc_attr( $args['setting'] )
+			);
+		}
+		$this->do_description( $args['setting'] );
 	}
 
 	/**

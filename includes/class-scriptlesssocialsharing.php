@@ -58,6 +58,7 @@ class ScriptlessSocialSharing {
 		add_action( 'post_submitbox_misc_actions', array( $this->post_meta, 'do_checkbox' ) );
 		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_styles' ) );
+		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
 		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this, 'do_buttons' ), 10, 2 );
 	}
 
