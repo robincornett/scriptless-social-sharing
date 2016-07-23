@@ -170,9 +170,9 @@ class ScriptlessSocialSharingSettings {
 			array(
 				'id'       => 'buttons',
 				'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
-				'callback' => 'do_buttons',
+				'callback' => 'do_checkbox_array',
 				'section'  => 'general',
-				'args'     => array( 'setting' => 'buttons' ),
+				'args'     => array( 'setting' => 'buttons', 'choices' => $this->do_buttons() ),
 			),
 			array(
 				'id'       => 'twitter_handle',
@@ -376,17 +376,12 @@ class ScriptlessSocialSharingSettings {
 	/**
 	 * @param $args
 	 */
-	public function do_buttons( $args ) {
+	public function do_buttons( $choices = array() ) {
 		$networks = $this->get_networks();
 		foreach ( $networks as $network ) {
-			$network_args = array(
-				'setting'      => "{$args['setting']}][{$network['name']}",
-				'label'        => $network['label'],
-				'setting_name' => $args['setting'],
-				'name'         => $network['name'],
-			);
-			$this->do_checkbox( $network_args );
+			$choices[ $network['name'] ] = $network['label'];
 		}
+		return $choices;
 
 	}
 
@@ -467,7 +462,7 @@ class ScriptlessSocialSharingSettings {
 	public function do_checkbox_array( $args ) {
 		foreach ( $args['choices'] as $key => $label ) {
 			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ), esc_attr( $key ) );
-			printf( '<input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code" /> <label for="%4$s[%5$s][%1$s]">%3$s</label><br />',
+			printf( '<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
 				esc_attr( $key ),
 				checked( 1, $this->setting[ $args['setting'] ][ $key ], false ),
 				esc_html( $label ),
