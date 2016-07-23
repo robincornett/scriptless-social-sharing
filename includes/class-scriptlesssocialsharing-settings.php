@@ -527,6 +527,13 @@ class ScriptlessSocialSharingSettings {
 				case 'do_number':
 					$new_value[ $field['id'] ] = (int) $new_value[ $field['id'] ];
 					break;
+
+				case 'do_checkbox_array':
+					$choices = $field['args']['choices'];
+					foreach ( $choices as $key => $label ) {
+						$new_value[ $field['id'] ][ $key ] = $this->one_zero( $new_value[ $field['id'] ][ $key ] );
+					}
+					break;
 			}
 		}
 
