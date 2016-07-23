@@ -32,6 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'class-scriptlesssocialsharing',
+		'class-scriptlesssocialsharing-help',
 		'class-scriptlesssocialsharing-output',
 		'class-scriptlesssocialsharing-postmeta',
 		'class-scriptlesssocialsharing-settings',
@@ -44,10 +45,12 @@ function scriptlesssocialsharing_require() {
 scriptlesssocialsharing_require();
 
 // Instantiate main class
+$scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp;
 $scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput;
 $scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta;
 $scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings;
 $scriptlesssocialsharing = new ScriptlessSocialSharing(
+	$scriptlesssocialsharinghelp,
 	$scriptlesssocialsharingoutput,
 	$scriptlesssocialsharingpostmeta,
 	$scriptlesssocialsharingsettings

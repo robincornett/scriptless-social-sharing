@@ -23,6 +23,11 @@ if ( ! defined( 'WPINC' ) ) {
 class ScriptlessSocialSharing {
 
 	/**
+	 * @var $help ScriptlessSocialSharingHelp
+	 */
+	protected $help;
+
+	/**
 	 * @var $output ScriptlessSocialSharingOutput
 	 */
 	protected $output;
@@ -42,7 +47,8 @@ class ScriptlessSocialSharing {
 	 *
 	 * @param $settings
 	 */
-	public function __construct( $output, $post_meta, $settings ) {
+	public function __construct( $help, $output, $post_meta, $settings ) {
+		$this->help      = $help;
 		$this->output    = $output;
 		$this->post_meta = $post_meta;
 		$this->settings  = $settings;
@@ -53,6 +59,7 @@ class ScriptlessSocialSharing {
 	 */
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
+		add_action( 'load-settings_page_scriptlesssocialsharing', array( $this->help, 'help' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'post_submitbox_misc_actions', array( $this->post_meta, 'do_checkbox' ) );
 		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );

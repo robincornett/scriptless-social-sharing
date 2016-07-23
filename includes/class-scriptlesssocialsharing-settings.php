@@ -41,7 +41,6 @@ class ScriptlessSocialSharingSettings {
 		);
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_action( "load-settings_page_{$this->page}", array( $this, 'help' ) );
 	}
 
 	/**
@@ -295,6 +294,7 @@ class ScriptlessSocialSharingSettings {
 	public function do_select( $args ) {
 		$function = 'pick_' . $args['options'];
 		$options  = $this->$function(); ?>
+		<label for="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]"></label>
 		<select id="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]"
 		        name="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]">
 			<?php
@@ -568,63 +568,5 @@ class ScriptlessSocialSharingSettings {
 	 */
 	protected function one_zero( $new_value ) {
 		return (int) (bool) $new_value;
-	}
-
-	/**
-	 * Help tab for settings screen
-	 * @return help tab with verbose information for plugin
-	 *
-	 * @since 1.0.0
-	 */
-	public function help() {
-		$screen = get_current_screen();
-
-		$styles_help  = '<p>' . __( 'SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons.', 'scriptless-social-sharing' ) . '</p>';
-		$styles_help .= '<p>' . __( 'You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don\'t load it again here.', 'scriptless-social-sharing' ) . '</p>';
-
-		$heading_help = '<p>' . __( 'This is the heading above the sharing buttons.', 'scriptless-social-sharing' ) . '</p>';
-
-		$buttons_help = '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
-
-		$twitter_help  = '<p>' . __( 'The Twitter username you want to be credited for each tweet/post.', 'scriptless-social-sharing' ) . '</p>';
-		$twitter_help .= '<p>' . __( 'Do not include the @ -- just the user name.', 'scriptless-social-sharing' ) . '</p>';
-
-		$email_help = '<p>' . __( 'The post/page title will be added to the subject.', 'scriptless-social-sharing' ) . '</p>';
-
-		$buttons_help .= '<h3>' . __( 'Content Types', 'scriptless-social-sharing' ) . '</h3>';
-		$buttons_help .= '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site.', 'scriptless-social-sharing' ) . '</p>';
-
-		$help_tabs = array(
-			array(
-				'id'      => 'scriptlesssocialsharing_styles-help',
-				'title'   => __( 'Plugin Styles', 'scriptless-social-sharing' ),
-				'content' => $styles_help,
-			),
-			array(
-				'id'      => 'scriptlesssocialsharing_heading-help',
-				'title'   => __( 'Heading', 'scriptless-social-sharing' ),
-				'content' => $heading_help,
-			),
-			array(
-				'id'      => 'scriptlesssocialsharing_buttons-help',
-				'title'   => __( 'Buttons', 'scriptless-social-sharing' ),
-				'content' => $buttons_help,
-			),
-			array(
-				'id'      => 'scriptlesssocialsharing_twitter-help',
-				'title'   => __( 'Twitter Handle', 'scriptless-social-sharing' ),
-				'content' => $twitter_help,
-			),
-			array(
-				'id'      => 'scriptlesssocialsharing_email-help',
-				'title'   => __( 'Email Subject', 'scriptless-social-sharing' ),
-				'content' => $email_help,
-			),
-		);
-
-		foreach ( $help_tabs as $tab ) {
-			$screen->add_help_tab( $tab );
-		}
-
 	}
 }
