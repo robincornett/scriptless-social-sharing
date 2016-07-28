@@ -123,6 +123,10 @@ class ScriptlessSocialSharingSettings {
 	 */
 	protected function register_sections() {
 		return array(
+			'styles' => array(
+				'id'    => 'styles',
+				'title' => __( 'Style Settings', 'scriptless-social-sharing' ),
+			),
 			'general' => array(
 				'id'    => 'general',
 				'title' => __( 'General Settings', 'scriptless-social-sharing' ),
@@ -173,7 +177,7 @@ class ScriptlessSocialSharingSettings {
 			'id'       => 'styles',
 			'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
-			'section'  => 'general',
+			'section'  => 'styles',
 			'args'     => array(
 				'setting' => 'styles',
 				'choices' => $this->get_styles(),
