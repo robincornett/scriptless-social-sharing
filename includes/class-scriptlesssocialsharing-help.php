@@ -57,6 +57,7 @@ class ScriptlessSocialSharingHelp {
 	protected function styles() {
 		$help  = '<p>' . __( 'SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don\'t load it again here.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'Note that the button styles option will take effect only if the main stylesheet is enabled.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}

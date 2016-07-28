@@ -61,6 +61,10 @@ class ScriptlessSocialSharingOutput {
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
 		if ( $css_file && $this->setting['styles']['plugin'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'screen' );
+			if ( $this->setting['button_style'] ) {
+				$inline_style = '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto;	width: auto; } }';
+				wp_add_inline_style( 'scriptlesssocialsharing', $inline_style );
+			}
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
 		if ( $fontawesome && $this->setting['styles']['font'] ) {

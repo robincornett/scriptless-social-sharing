@@ -113,6 +113,7 @@ class ScriptlessSocialSharingSettings {
 				'before' => 0,
 				'after' => 1,
 			),
+			'button_style'   => 1,
 		);
 	}
 
@@ -159,6 +160,7 @@ class ScriptlessSocialSharingSettings {
 
 		return array(
 			$this->styles(),
+			$this->button_style(),
 			$this->heading(),
 			$this->buttons(),
 			$this->twitter_handle(),
@@ -277,6 +279,26 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
+	 * @return array
+	 */
+	protected function button_style() {
+		return array(
+			'id'       => 'button_style',
+			'title'    => __( 'Button Styles', 'scriptless-social-sharing' ),
+			'callback' => 'do_radio_buttons',
+			'section'  => 'styles',
+			'args'        => array(
+				'id'      => 'button_style',
+				'buttons' => array(
+					0 => __( 'Icon Only', 'scriptless-social-sharing' ),
+					1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
+				),
+				'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
+			),
+		);
+	}
+
+	/**
 	 * Add the fields to the settings page.
 	 * @param $fields array
 	 * @param $sections array
@@ -292,6 +314,11 @@ class ScriptlessSocialSharingSettings {
 				empty( $field['args'] ) ? array() : $field['args']
 			);
 		}
+	}
+
+	public function styles_section_description() {
+		$description = __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
+		printf( '<p>%s</p>', wp_kses_post( $description ) );
 	}
 
 	/**
@@ -386,6 +413,25 @@ class ScriptlessSocialSharingSettings {
 	public function do_text_field( $args ) {
 		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />', esc_attr( $args['setting'] ), esc_attr( $this->setting[$args['setting']] ), esc_attr( $this->page ) );
 		$this->do_description( $args['setting'] );
+	}
+
+	/**
+	 * Generic function to create a radio button setting
+	 */
+	public function do_radio_buttons( $args ) {
+		echo '<fieldset>';
+		printf( '<legend class="screen-reader-text">%s</legend>', $args['legend'] );
+		foreach ( $args['buttons'] as $key => $button ) {
+			printf( '<label for="%5$s[%1$s][%2$s]" style="margin-right:12px !important;"><input type="radio" id="%5$s[%1$s][%2$s]" name="%5$s[%1$s]" value="%2$s"%3$s />%4$s</label>  ',
+				esc_attr( $args['id'] ),
+				esc_attr( $key ),
+				checked( $key, $this->setting[ $args['id'] ], false ),
+				esc_attr( $button ),
+				esc_attr( $this->page )
+			);
+		}
+		echo '</fieldset>';
+		$this->do_description( $args['id'] );
 	}
 
 	/**
@@ -585,6 +631,10 @@ class ScriptlessSocialSharingSettings {
 					foreach ( $choices as $key => $label ) {
 						$new_value[ $field['id'] ][ $key ] = $this->one_zero( $new_value[ $field['id'] ][ $key ] );
 					}
+					break;
+
+				case 'do_radio_buttons':
+					$new_value[ $field['id'] ] = (int) $new_value[ $field['id'] ];
 					break;
 			}
 		}
