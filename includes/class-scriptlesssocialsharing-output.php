@@ -22,9 +22,12 @@ class ScriptlessSocialSharingOutput {
 	 * @return mixed
 	 */
 	public function get_post_types() {
-		$post_types = array( 'post' );
-		if ( isset( $this->setting['post_types'] ) ) {
-			$post_types = $this->setting['post_types'];
+		$post_types = $this->setting['post_types'];
+		if ( isset( $this->setting['post_types']['post'] ) ) {
+			$post_types = array();
+			foreach ( $this->setting['post_types'] as $post_type => $value ) {
+				$post_types[] = $value ? $post_type : '';
+			}
 		}
 		return apply_filters( 'scriptlesssocialsharing_post_types', $post_types );
 	}
@@ -132,7 +135,7 @@ class ScriptlessSocialSharingOutput {
 		if ( $settings_buttons ) {
 			foreach ( $settings_buttons as $settings_button => $value ) {
 				if ( ! $value ) {
-					unset( $buttons[$settings_button] );
+					unset( $buttons[ $settings_button ] );
 				}
 			}
 		}

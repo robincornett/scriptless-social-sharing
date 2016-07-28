@@ -246,9 +246,9 @@ class ScriptlessSocialSharingSettings {
 		return array(
 			'id'       => 'post_types',
 			'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
-			'callback' => 'pick_post_types',
+			'callback' => 'do_checkbox_array',
 			'section'  => 'general',
-			'args'     => array( 'setting' => 'post_types' ),
+			'args'     => array( 'setting' => 'post_types', 'choices' => $this->post_type_choices() ),
 		);
 	}
 
@@ -465,10 +465,23 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
-	 * Callback to pick which post types should include sharing buttons.
-	 * @param $args
+	 * Define the choices for the content types setting.
+	 * @return array
+	 * @since 1.3.0
 	 */
-	public function pick_post_types( $args ) {
+	public function post_type_choices() {
+		$choices = array();
+		foreach ( $this->get_post_types() as $post_type ) {
+			$choices[ $post_type->name ] = $post_type->labels->name;
+		}
+		return $choices;
+	}
+
+	/**
+	 * Get all registered, public post types.
+	 * @return array
+	 */
+	protected function get_post_types() {
 		$output   = 'objects';
 		$built_in = array(
 			'public'   => true,
@@ -481,18 +494,7 @@ class ScriptlessSocialSharingSettings {
 			'_builtin' => false,
 		);
 		$custom_types = get_post_types( $custom_args, $output );
-		$post_types   = array_merge( $built_in_types, $custom_types );
-
-		foreach ( $post_types as $post_type ) {
-			$checked = isset( $this->setting['post_types'] ) && in_array( $post_type->name, $this->setting['post_types'], true ) ? $post_type->name : '';
-			printf( '<label for="%1$s[%2$s][]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s][]" id="%3$s" value="%3$s" %4$s class="code" />%5$s</label>',
-				esc_attr( $this->page ),
-				esc_attr( $args['setting'] ),
-				esc_attr( $post_type->name ),
-				checked( $post_type->name, $checked, false ),
-				esc_attr( $post_type->labels->name )
-			);
-		}
+		return array_merge( $built_in_types, $custom_types );
 	}
 
 	/**
@@ -501,14 +503,20 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function do_checkbox_array( $args ) {
 		foreach ( $args['choices'] as $key => $label ) {
+			// due to error in setting this up in v 1.0-1.2, have to do a BC check for the post_type setting.
+			$setting = isset( $this->setting[ $args['setting'] ][ $key ] ) ? $this->setting[ $args['setting'] ][ $key ] : 0;
+			if ( 'post_types' === $args['setting'] && ! isset( $this->setting[ $args['setting'] ][ $key ] ) ) {
+				$setting = in_array( $key, $this->setting['post_types'], true );
+			}
 			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ), esc_attr( $key ) );
 			printf( '<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
 				esc_attr( $key ),
-				checked( 1, $this->setting[ $args['setting'] ][ $key ], false ),
+				checked( 1, $setting, false ),
 				esc_html( $label ),
 				esc_attr( $this->page ),
 				esc_attr( $args['setting'] )
 			);
+			echo isset( $args['clear'] ) && $args['clear'] ? '<br />' : '';
 		}
 		$this->do_description( $args['setting'] );
 	}
@@ -576,13 +584,7 @@ class ScriptlessSocialSharingSettings {
 					break;
 			}
 		}
-
-		foreach ( $new_value['post_types'] as $post_type ) {
-			esc_attr( $post_type );
-		}
-
 		return $new_value;
-
 	}
 
 	/**
