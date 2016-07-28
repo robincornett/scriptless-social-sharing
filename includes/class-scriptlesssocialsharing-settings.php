@@ -132,6 +132,10 @@ class ScriptlessSocialSharingSettings {
 				'id'    => 'general',
 				'title' => __( 'General Settings', 'scriptless-social-sharing' ),
 			),
+			'networks' => array(
+				'id'    => 'networks',
+				'title' => __( 'Network Settings', 'scriptless-social-sharing' ),
+			),
 		);
 	}
 
@@ -161,12 +165,12 @@ class ScriptlessSocialSharingSettings {
 		return array(
 			$this->styles(),
 			$this->button_style(),
+			$this->post_types(),
+			$this->location(),
 			$this->heading(),
 			$this->buttons(),
 			$this->twitter_handle(),
 			$this->email_subject(),
-			$this->post_types(),
-			$this->location(),
 		);
 	}
 
@@ -225,7 +229,7 @@ class ScriptlessSocialSharingSettings {
 			'id'       => 'twitter_handle',
 			'title'    => __( 'Twitter Handle', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
-			'section'  => 'general',
+			'section'  => 'networks',
 			'args'     => array( 'setting' => 'twitter_handle' ),
 		);
 	}
@@ -239,7 +243,7 @@ class ScriptlessSocialSharingSettings {
 			'id'       => 'email_subject',
 			'title'    => __( 'Email Subject', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
-			'section'  => 'general',
+			'section'  => 'networks',
 			'args'     => array( 'setting' => 'email_subject' ),
 		);
 	}
@@ -316,6 +320,10 @@ class ScriptlessSocialSharingSettings {
 		}
 	}
 
+	/**
+	 * Output the description for the styles section.
+	 * @since 1.3.0
+	 */
 	public function styles_section_description() {
 		$description = __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
 		printf( '<p>%s</p>', wp_kses_post( $description ) );
@@ -328,6 +336,15 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function general_section_description() {
 		$description = __( 'Scriptless Social Sharing tries to be helpful, but you can also disable whatever you need.', 'scriptless-social-sharing' );
+		printf( '<p>%s</p>', wp_kses_post( $description ) );
+	}
+
+	/**
+	 * Output the description for the networks section.
+	 * @since 1.3.0
+	 */
+	public function networks_section_description() {
+		$description = __( 'Some social networks need a little extra information.', 'scriptless-social-sharing' );
 		printf( '<p>%s</p>', wp_kses_post( $description ) );
 	}
 
