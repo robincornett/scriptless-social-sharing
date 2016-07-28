@@ -172,10 +172,12 @@ class ScriptlessSocialSharingSettings {
 		return array(
 			'id'       => 'styles',
 			'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
-			'callback' => 'do_styles',
+			'callback' => 'do_checkbox_array',
 			'section'  => 'general',
 			'args'     => array(
 				'setting' => 'styles',
+				'choices' => $this->get_styles(),
+				'clear'   => true,
 			),
 		);
 	}
@@ -399,45 +401,15 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
-	 * Add checkboxes to enable/disable each style setting.
-	 *
-	 * @param $args
-	 */
-	public function do_styles( $args ) {
-		$styles = $this->get_styles();
-		foreach ( $styles as $style ) {
-			$style_args = array(
-				'setting'      => "{$args['setting']}][{$style['name']}",
-				'label'        => $style['label'],
-				'setting_name' => $args['setting'],
-				'name'         => $style['name'],
-			);
-			$this->do_checkbox( $style_args );
-			echo '<br />';
-		}
-
-	}
-
-	/**
 	 * Define the array of style settings.
 	 * @return array
 	 */
 	protected function get_styles() {
-		$styles = array(
-			array(
-				'name'  => 'plugin',
-				'label' => __( 'Load the main stylesheet? (colors and layout)', 'scriptless-social-sharing' ),
-			),
-			array(
-				'name'  =>'font',
-				'label' => __( 'Load Font Awesome? (just the font)', 'scriptless-social-sharing' ),
-			),
-			array(
-				'name'  => 'font_css',
-				'label' => __( 'Use plugin Font Awesome CSS? (adds the icons to the buttons)', 'scriptless-social-sharing' ),
-			)
+		return array(
+			'plugin'   => __( 'Load the main stylesheet? (colors and layout)', 'scriptless-social-sharing' ),
+			'font'     => __( 'Load Font Awesome? (just the font)', 'scriptless-social-sharing' ),
+			'font_css' => __( 'Use plugin Font Awesome CSS? (adds the icons to the buttons)', 'scriptless-social-sharing' ),
 		);
-		return $styles;
 	}
 
 	/**
@@ -603,16 +575,6 @@ class ScriptlessSocialSharingSettings {
 					}
 					break;
 			}
-		}
-
-		$networks = $this->get_networks();
-		foreach ( $networks as $network ) {
-			$new_value['buttons'][ $network['name'] ] = $this->one_zero( $new_value['buttons'][ $network['name'] ] );
-		}
-
-		$styles = $this->get_styles();
-		foreach ( $styles as $style ) {
-			$new_value['styles'][ $style['name'] ] = $this->one_zero( $new_value['styles'][ $style['name'] ] );
 		}
 
 		foreach ( $new_value['post_types'] as $post_type ) {
