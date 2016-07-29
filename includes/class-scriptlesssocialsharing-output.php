@@ -135,11 +135,11 @@ class ScriptlessSocialSharingOutput {
 		$buttons['email']['url']     = sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $attributes['permalink'] );
 
-		$settings_buttons = $this->setting['buttons'];
-		if ( $settings_buttons ) {
-			foreach ( $settings_buttons as $settings_button => $value ) {
-				if ( ! $value ) {
-					unset( $buttons[ $settings_button ] );
+		$set_buttons = $this->setting['buttons'];
+		if ( $set_buttons ) {
+			foreach ( $buttons as $key => $value ) {
+				if ( ! isset( $set_buttons[ $key ] ) || ! $set_buttons[ $key ] ) {
+					unset( $buttons[ $key ] );
 				}
 			}
 		}
