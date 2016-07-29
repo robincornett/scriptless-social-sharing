@@ -1,6 +1,14 @@
 # Scriptless Social Sharing
 
-This plugin adds dead simple social sharing buttons to the end of posts.
+This plugin adds super simple social sharing buttons to the end of posts.
+
+_Scriptless Social Sharing_ is a wee plugin to add buttons to your posts/pages, to make it easier for your readers to share your content on social networks.
+
+The sharing links use the most basic methods provided by each network. There is no JavaScript, nothing fancy included in this plugin, so if you want fancy, this is not the plugin you're looking for. It just builds a set of links.
+
+The sharing buttons are accessible--even if you choose the "Icons Only" button styles, the network names are still part of the buttons, just hidden in an accessible-ready manner.
+
+There is a small settings page, so you can make decisions about which content types should have sharing buttons, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
 ## Installation
 
@@ -33,7 +41,9 @@ As of 1.0.0, Scriptless Social Sharing now includes a settings page, so although
 
 ### What if I want to move where the buttons are output?
 
-The social sharing buttons are added to the end of your post content using `the_content` filter, so they'll work with any theme. If you want to move them, you can remove the original filter, and add the buttons using your own action. Example:
+As of version 1.3.0, you can choose whether to add sharing buttons to the end (default) or beginning of your content, or both--check the settings page.
+
+The social sharing buttons are added to your post content using `the_content` filter, so they'll work with any theme. If you want to move them, you can remove the original filter, and add the buttons using your own action. Example:
 
 ```php
 remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
@@ -44,7 +54,7 @@ function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
 	}
 	$buttons = scriptlesssocialsharing_do_buttons();
 	// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
-   	return $buttons . $content;
+	return $buttons . $content;
 }
 ```
 
@@ -82,6 +92,13 @@ function prefix_scriptlesssocialsharing_buttons_entry_content() {
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
 ## Changelog
+
+### 1.3.0
+* added: option to only show icons on buttons, no text
+* added: Reddit sharing button
+* added: option to add sharing buttons to the beginning or end of content
+* updated: code cleanup for settings and output
+* bugfix: post type setting was not saved correctly--settings should be resaved
 
 ### 1.2.2
 * updated: Font Awesome 4.6.3

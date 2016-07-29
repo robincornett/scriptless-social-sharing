@@ -4,18 +4,20 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
-Tested up to: 4.5
-Stable tag: 1.2.2
+Tested up to: 4.6
+Stable tag: 1.3.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-This plugin adds dead simple social sharing buttons to the end of posts.
+This plugin adds super simple social sharing buttons to the end of posts.
 
 == Description ==
 
 _Scriptless Social Sharing_ is a wee plugin to add buttons to your posts/pages, to make it easier for your readers to share your content on social networks.
 
-This plugin adds sharing links using the most basic methods provided by each network. There is no JavaScript, nothing fancy included in this plugin, so if you want fancy, this is not the plugin you're looking for. It just builds a set of links.
+The sharing links use the most basic methods provided by each network. There is no JavaScript, nothing fancy included in this plugin, so if you want fancy, this is not the plugin you're looking for. It just builds a set of links.
+
+The sharing buttons are accessible--even if you choose the "Icons Only" button styles, the network names are still part of the buttons, just hidden in an accessible-ready manner.
 
 There is a small settings page, so you can make decisions about which content types should have sharing buttons, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
@@ -31,7 +33,9 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisograp
 
 = What if I want to move where the buttons are output? =
 
-The social sharing buttons are added to the end of your post content using `the_content` filter, so they'll work with any theme. If you want to move them, you can remove the original filter, and add the buttons using your own action. Example:
+As of version 1.3.0, you can choose whether to add sharing buttons to the end (default) or beginning of your content, or both--check the settings page.
+
+The social sharing buttons are added to your post content using `the_content` filter, so they'll work with any theme. If you want to move them, you can remove the original filter, and add the buttons using your own action. Example:
 
 	remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 	add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
@@ -79,9 +83,16 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 == Upgrade Notice ==
 
-1.2.2 fixes error when a post is embedded into another site; updated Font Awesome
+1.3.0 new options for buttons, and a Reddit button, and a bugfix for button settings.
 
 == Changelog ==
+
+= 1.3.0 =
+* added: option to only show icons on buttons, no text
+* added: Reddit sharing button
+* added: option to add sharing buttons to the beginning or end of content
+* updated: code cleanup for settings and output
+* bugfix: post type setting was not saved correctly--settings should be resaved
 
 = 1.2.2 =
 * updated: Font Awesome 4.6.3
