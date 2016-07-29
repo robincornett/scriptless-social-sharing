@@ -130,7 +130,7 @@ class ScriptlessSocialSharingSettings {
 			),
 			'general' => array(
 				'id'    => 'general',
-				'title' => __( 'General Settings', 'scriptless-social-sharing' ),
+				'title' => __( 'Button Settings', 'scriptless-social-sharing' ),
 			),
 			'networks' => array(
 				'id'    => 'networks',

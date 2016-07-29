@@ -32,24 +32,14 @@ class ScriptlessSocialSharingHelp {
 				'content' => $this->styles(),
 			),
 			array(
-				'id'      => 'scriptlesssocialsharing_heading-help',
-				'title'   => __( 'Heading', 'scriptless-social-sharing' ),
-				'content' => $this->heading(),
-			),
-			array(
 				'id'      => 'scriptlesssocialsharing_buttons-help',
-				'title'   => __( 'Buttons', 'scriptless-social-sharing' ),
-				'content' => $this->buttons(),
+				'title'   => __( 'Button Settings', 'scriptless-social-sharing' ),
+				'content' => $this->buttons() . $this->heading(),
 			),
 			array(
-				'id'      => 'scriptlesssocialsharing_twitter-help',
-				'title'   => __( 'Twitter Handle', 'scriptless-social-sharing' ),
-				'content' => $this->twitter(),
-			),
-			array(
-				'id'      => 'scriptlesssocialsharing_email-help',
-				'title'   => __( 'Email Subject', 'scriptless-social-sharing' ),
-				'content' => $this->email(),
+				'id'      => 'scriptlesssocialsharing_networks-help',
+				'title'   => __( 'Network Settings', 'scriptless-social-sharing' ),
+				'content' => $this->twitter() . $this->email(),
 			),
 		);
 	}
@@ -64,7 +54,9 @@ class ScriptlessSocialSharingHelp {
 
 	protected function heading() {
 
-		return '<p>' . __( 'This is the heading above the sharing buttons.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<h3>' . __( 'Heading', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'This is the heading above the sharing buttons.', 'scriptless-social-sharing' ) . '</p>';
+		return $help;
 	}
 
 	protected function buttons() {
@@ -79,7 +71,8 @@ class ScriptlessSocialSharingHelp {
 
 	protected function twitter() {
 
-		$help  = '<p>' . __( 'The Twitter username you want to be credited for each tweet/post.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<h3>' . __( 'Twitter Handle', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'The Twitter username you want to be credited for each tweet/post.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'Do not include the @ -- just the user name.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
@@ -87,6 +80,8 @@ class ScriptlessSocialSharingHelp {
 
 	protected function email() {
 
-		return '<p>' . __( 'The post/page title will be added to the subject.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<h3>' . __( 'Email Subject', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'The post/page title will be added to the subject.', 'scriptless-social-sharing' ) . '</p>';
+		return $help;
 	}
 }
