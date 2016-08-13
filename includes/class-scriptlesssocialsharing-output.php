@@ -132,7 +132,7 @@ class ScriptlessSocialSharingOutput {
 		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] );
 		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $attributes['title'], esc_url( $attributes['image'] ) );
 		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
-		$buttons['email']['url']     = sprintf( 'mailto:?body=%s+%s&subject=%s+%s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
+		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $attributes['permalink'] );
 
 		$set_buttons = $this->setting['buttons'];
