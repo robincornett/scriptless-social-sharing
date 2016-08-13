@@ -114,6 +114,8 @@ class ScriptlessSocialSharingSettings {
 				'after' => 1,
 			),
 			'button_style'   => 1,
+			'button_padding' => 12,
+			'table_width'    => 'full',
 		);
 	}
 
@@ -171,6 +173,8 @@ class ScriptlessSocialSharingSettings {
 			$this->buttons(),
 			$this->twitter_handle(),
 			$this->email_subject(),
+			$this->table_width(),
+			$this->button_padding(),
 		);
 	}
 
@@ -303,6 +307,43 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
+	 * Setting for table width.
+	 * @return array
+	 * @since 1.4.0
+	 */
+	protected function table_width() {
+		return array(
+			'id'       => 'table_width',
+			'title'    => __( 'Table Width', 'scriptless-social-sharing' ),
+			'callback' => 'do_radio_buttons',
+			'section'  => 'styles',
+			'args'        => array(
+				'id'      => 'table_width',
+				'buttons' => array(
+					'full' => __( 'Full Width', 'scriptless-social-sharing' ),
+					'auto' => __( 'Auto', 'scriptless-social-sharing' ),
+				),
+				'legend'  => __( 'Width of all buttons together', 'scriptless-social-sharing' ),
+			),
+		);
+	}
+
+	/**
+	 * Define args for the button padding setting.
+	 * @return array
+	 * @since 1.4.0
+	 */
+	protected function button_padding() {
+		return array(
+			'id'       => 'button_padding',
+			'title'    => __( 'Padding' , 'scriptless-social-sharing' ),
+			'callback' => 'do_number',
+			'section'  => 'styles',
+			'args'     => array( 'setting' => 'button_padding', 'label' => __( 'pixels', 'scriptless-social-sharing' ), 'min' => 0, 'max' => 400 ),
+		);
+	}
+
+	/**
 	 * Add the fields to the settings page.
 	 * @param $fields array
 	 * @param $sections array
@@ -391,13 +432,14 @@ class ScriptlessSocialSharingSettings {
 		if ( ! isset( $setting ) ) {
 			$setting = 0;
 		}
-		printf( '<label for="%s[%s]">%s</label>', esc_attr( $this->page ), esc_attr( $args['setting'] ), esc_attr( $args['label'] ) );
-		printf( '<input type="number" step="1" min="%1$s" max="%2$s" id="%5$s[%3$s]" name="%5$s[%3$s]" value="%4$s" class="small-text" />',
+		printf( '<label for="%s[%s]">', esc_attr( $this->page ), esc_attr( $args['setting'] ) );
+		printf( '<input type="number" step="1" min="%1$s" max="%2$s" id="%5$s[%3$s]" name="%5$s[%3$s]" value="%4$s" class="small-text" />%6$s</label>',
 			(int) $args['min'],
 			(int) $args['max'],
 			esc_attr( $args['setting'] ),
 			esc_attr( $setting ),
-			esc_attr( $this->page )
+			esc_attr( $this->page ),
+			esc_attr( $args['label'] )
 		);
 		$this->do_description( $args['setting'] );
 
@@ -651,10 +693,12 @@ class ScriptlessSocialSharingSettings {
 					break;
 
 				case 'do_radio_buttons':
-					$new_value[ $field['id'] ] = (int) $new_value[ $field['id'] ];
+					$new_value[ $field['id'] ] = esc_attr( $new_value[ $field['id'] ] );
 					break;
 			}
 		}
+		$new_value['button_style'] = (int) $new_value['button_style'];
+
 		return $new_value;
 	}
 

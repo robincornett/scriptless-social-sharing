@@ -61,10 +61,7 @@ class ScriptlessSocialSharingOutput {
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
 		if ( $css_file && $this->setting['styles']['plugin'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'screen' );
-			if ( $this->setting['button_style'] ) {
-				$inline_style = '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto;	width: auto; } }';
-				wp_add_inline_style( 'scriptlesssocialsharing', $inline_style );
-			}
+			$this->add_inline_style();
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
 		if ( $fontawesome && $this->setting['styles']['font'] ) {
@@ -75,6 +72,21 @@ class ScriptlessSocialSharingOutput {
 		if ( $fa_file && $this->setting['styles']['font_css'] ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
 		}
+	}
+
+	/**
+	 * Add the inline stylesheet to the plugin stylesheet.
+	 */
+	protected function add_inline_style() {
+		$count         = count( $this->make_buttons() );
+		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
+		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
+		$button_width  = 'auto' === $this->setting['table_width'] ? ' width:' . 100 / $count . '%;' : '';
+		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx;%s }', $this->setting['button_padding'], $button_width );
+		if ( $this->setting['button_style'] ) {
+			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
+		}
+		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $inline_style ) );
 	}
 
 	/**
