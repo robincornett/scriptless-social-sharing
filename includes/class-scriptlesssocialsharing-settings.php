@@ -314,7 +314,7 @@ class ScriptlessSocialSharingSettings {
 	protected function table_width() {
 		return array(
 			'id'       => 'table_width',
-			'title'    => __( 'Table Width', 'scriptless-social-sharing' ),
+			'title'    => __( 'Button Container Width', 'scriptless-social-sharing' ),
 			'callback' => 'do_radio_buttons',
 			'section'  => 'styles',
 			'args'        => array(
@@ -323,7 +323,7 @@ class ScriptlessSocialSharingSettings {
 					'full' => __( 'Full Width', 'scriptless-social-sharing' ),
 					'auto' => __( 'Auto', 'scriptless-social-sharing' ),
 				),
-				'legend'  => __( 'Width of all buttons together', 'scriptless-social-sharing' ),
+				'legend'  => __( 'Width of button container', 'scriptless-social-sharing' ),
 			),
 		);
 	}

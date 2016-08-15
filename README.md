@@ -91,7 +91,46 @@ function prefix_scriptlesssocialsharing_buttons_entry_content() {
 
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
+### How can I change the order of the sharing buttons?
+
+You can customize the order of the sharing buttons with a filter. Here's an example which places Reddit as the first button, and email as the last:
+
+```php
+add_filter( 'scriptlesssocialsharing_networks', 'prefix_sort_networks_custom' );
+function prefix_sort_networks_custom( $networks ) {
+	$networks['email']['order']     = 7;
+	$networks['facebook']['order']  = 1;
+    $networks['google']['order']	= 2;
+	$networks['linkedin']['order']  = 4;
+	$networks['reddit']['order']    = 0;
+	$networks['twitter']['order']   = 6;
+	$networks['pinterest']['order'] = 5;
+
+	uasort( $networks, 'prefix_set_scriptless_sort_order' );
+
+	return $networks;
+}
+
+/**
+ * Custom comparison function to sort the networks.
+ * @param $a
+ * @param $b
+ *
+ * @return bool
+ */
+function prefix_set_scriptless_sort_order( $a, $b ) {
+	return $a['order'] > $b['order'];
+}
+```
+
+You can set any order you like. `0` is the first number.
+
 ## Changelog
+
+### 1.4.0
+* added: option for button padding
+* added: option for table width (width of all buttons)
+* bugfix: errant + in some mail programs (props Anders Carlen)
 
 ### 1.3.0
 * added: option to only show icons on buttons, no text

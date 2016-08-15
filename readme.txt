@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -77,15 +77,52 @@ Then you can add the buttons to the individual posts (this example works only wi
 
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
+= How can I change the order of the sharing buttons? =
+
+You can customize the order of the sharing buttons with a filter. Here's an example which places Reddit as the first button, and email as the last:
+
+	add_filter( 'scriptlesssocialsharing_networks', 'prefix_sort_networks_custom' );
+	function prefix_sort_networks_custom( $networks ) {
+		$networks['email']['order']     = 7;
+		$networks['facebook']['order']  = 1;
+		$networks['google']['order']    = 2;
+		$networks['linkedin']['order']  = 4;
+		$networks['reddit']['order']    = 0;
+		$networks['twitter']['order']   = 6;
+		$networks['pinterest']['order'] = 5;
+
+		uasort( $networks, 'prefix_set_scriptless_sort_order' );
+
+		return $networks;
+	}
+
+	/**
+	 * Custom comparison function to sort the networks.
+	 * @param $a
+	 * @param $b
+	 *
+	 * @return bool
+	 */
+	function prefix_set_scriptless_sort_order( $a, $b ) {
+		return $a['order'] > $b['order'];
+	}
+
+You can set any order you like. `0` is the first number.
+
 == Screenshots ==
 
 1. Screenshot of the plugin settings in Settings > Scriptless Social Sharing.
 
 == Upgrade Notice ==
 
-1.3.0 new options for buttons, and a Reddit button, and a bugfix for button settings.
+1.4.0 new styling options for button output
 
 == Changelog ==
+
+= 1.4.0 =
+* added: option for button padding
+* added: option for table width (width of all buttons)
+* bugfix: errant + in some mail programs (props Anders Carlen)
 
 = 1.3.0 =
 * added: option to only show icons on buttons, no text
@@ -109,7 +146,6 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 * added: filter to disable heading on output
 * added: filter for the post fallback image (because pinterest)
 * fixed: made CSS a bit more specific to avoid theme conflicts
-
 
 = 1.0.2 =
 * Fix CSS for buttons

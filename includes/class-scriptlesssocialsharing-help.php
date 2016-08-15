@@ -47,7 +47,8 @@ class ScriptlessSocialSharingHelp {
 	protected function styles() {
 		$help  = '<p>' . __( 'SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don\'t load it again here.', 'scriptless-social-sharing' ) . '</p>';
-		$help .= '<p>' . __( 'Note that the button styles option will take effect only if the main stylesheet is enabled.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'Note that the button styles options--text/icons, container width, and padding--will take effect only if the main stylesheet is enabled.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'The buttons are output as a table. The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, this option may result in buttons that overflow the content area assigned to them.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}
