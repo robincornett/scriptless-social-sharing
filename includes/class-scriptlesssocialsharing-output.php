@@ -82,10 +82,14 @@ class ScriptlessSocialSharingOutput {
 		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
 		$button_width  = 'auto' === $this->setting['table_width'] ? ' width:' . 100 / $count . '%;' : '';
-		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx;%s }', $this->setting['button_padding'], $button_width );
+		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx;%s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}
+		/**
+		 * Allows user to filter/modify the inline style.
+		 */
+		$inline_style = apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
 		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $inline_style ) );
 	}
 
