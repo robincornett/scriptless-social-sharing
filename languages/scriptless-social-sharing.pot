@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Scriptless Social Sharing 1.4.0\n"
-"POT-Creation-Date: 2016-08-15 07:42-0400\n"
+"POT-Creation-Date: 2016-08-18 10:17-0400\n"
 "PO-Revision-Date: 2016-02-13 09:43-0500\n"
 "Last-Translator: \n"
 "Language-Team: Robin Cornett <hello@robincornett.com>\n"
@@ -50,60 +50,69 @@ msgstr ""
 
 #: includes/class-scriptlesssocialsharing-help.php:50
 msgid ""
-"Note that the button styles option will take effect only if the main "
-"stylesheet is enabled."
+"Note that the button styles options--text/icons, container width, and "
+"padding--will take effect only if the main stylesheet is enabled."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:57
+#: includes/class-scriptlesssocialsharing-help.php:51
+msgid ""
+"The buttons are output as a table. The default is for them to span the "
+"width of the content space, but you can set it to automatically be just "
+"the size of the buttons instead. Note that on sites with many buttons and "
+"not much space, this option may result in buttons that overflow the "
+"content area assigned to them."
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-help.php:58
 #: includes/class-scriptlesssocialsharing-settings.php:206
 msgid "Heading"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:58
+#: includes/class-scriptlesssocialsharing-help.php:59
 msgid "This is the heading above the sharing buttons."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:64
+#: includes/class-scriptlesssocialsharing-help.php:65
 msgid ""
 "Pick which social network buttons you would like to show. Custom buttons "
 "can be added via a filter."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:66
+#: includes/class-scriptlesssocialsharing-help.php:67
 #: includes/class-scriptlesssocialsharing-settings.php:262
 msgid "Content Types"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:67
+#: includes/class-scriptlesssocialsharing-help.php:68
 msgid ""
 "By default, sharing buttons are added only to posts, but you can add them "
 "to any custom content types on your site."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:74
+#: includes/class-scriptlesssocialsharing-help.php:75
 #: includes/class-scriptlesssocialsharing-settings.php:234
 msgid "Twitter Handle"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:75
+#: includes/class-scriptlesssocialsharing-help.php:76
 msgid "The Twitter username you want to be credited for each tweet/post."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:76
+#: includes/class-scriptlesssocialsharing-help.php:77
 #: includes/class-scriptlesssocialsharing-settings.php:646
 msgid "Do not include the @ -- just the user name."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:83
+#: includes/class-scriptlesssocialsharing-help.php:84
 #: includes/class-scriptlesssocialsharing-settings.php:248
 msgid "Email Subject"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-help.php:84
+#: includes/class-scriptlesssocialsharing-help.php:85
 msgid "The post/page title will be added to the subject."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-output.php:290
+#: includes/class-scriptlesssocialsharing-output.php:294
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
@@ -165,7 +174,7 @@ msgid "Button styles for larger screens"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:317
-msgid "Table Width"
+msgid "Button Container Width"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:323
@@ -177,15 +186,15 @@ msgid "Auto"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:326
-msgid "Width of all buttons together"
+msgid "Width of button container"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:339
-msgid "Padding"
+msgid "Button Padding"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:342
-msgid "pixels"
+msgid " pixels"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:369

@@ -336,10 +336,10 @@ class ScriptlessSocialSharingSettings {
 	protected function button_padding() {
 		return array(
 			'id'       => 'button_padding',
-			'title'    => __( 'Padding' , 'scriptless-social-sharing' ),
+			'title'    => __( 'Button Padding' , 'scriptless-social-sharing' ),
 			'callback' => 'do_number',
 			'section'  => 'styles',
-			'args'     => array( 'setting' => 'button_padding', 'label' => __( 'pixels', 'scriptless-social-sharing' ), 'min' => 0, 'max' => 400 ),
+			'args'     => array( 'setting' => 'button_padding', 'label' => __( ' pixels', 'scriptless-social-sharing' ), 'min' => 0, 'max' => 400 ),
 		);
 	}
 
