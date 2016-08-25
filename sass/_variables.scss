@@ -14,7 +14,7 @@ $reddit: #ff4500;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	transform: translate(0, 0);
-	font-size: $size;
+	vertical-align: middle;
 }
 
 @mixin screen-reader-text {
