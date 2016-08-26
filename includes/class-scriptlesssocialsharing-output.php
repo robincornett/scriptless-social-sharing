@@ -81,8 +81,8 @@ class ScriptlessSocialSharingOutput {
 		$buttons       = $this->make_buttons();
 		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-		$button_width  = 'auto' === $this->setting['table_width'] ? ' width:' . 100 / count( $buttons ) . '%;' : '';
-		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx;%s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
+		$button_width  = 100 / count( $buttons ) . '%;';
+		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx; width: %s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}
