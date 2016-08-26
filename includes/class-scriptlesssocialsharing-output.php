@@ -78,19 +78,49 @@ class ScriptlessSocialSharingOutput {
 	 * Add the inline stylesheet to the plugin stylesheet.
 	 */
 	protected function add_inline_style() {
-		$count         = count( $this->make_buttons() );
+		$buttons       = $this->make_buttons();
 		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-		$button_width  = 'auto' === $this->setting['table_width'] ? ' width:' . 100 / $count . '%;' : '';
+		$button_width  = 'auto' === $this->setting['table_width'] ? ' width:' . 100 / count( $buttons ) . '%;' : '';
 		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx;%s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
+		}
+		foreach( $buttons as $button ) {
+			if ( isset( $button['icon'] ) ) {
+				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
+			}
+			if ( isset( $button['color'] ) ) {
+				$rgb  = $this->hex2rgb( $button['color'] );
+				$rgba = $rgb ? sprintf( ' background-color:rgba(%s,.8);', $rgb ) : '';
+				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;%2$s } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }', $button['color'], $rgba, $button['name'] );
+			}
 		}
 		/**
 		 * Allows user to filter/modify the inline style.
 		 */
 		$inline_style = apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
 		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $inline_style ) );
+	}
+
+	/**
+	 * Converts a hex color to rgb values, separated by commas
+	 * @param $hex
+	 *
+	 * @return bool|string false if input is not a 6 digit hex color; string if converted
+	 * @since 2.0.0
+	 */
+	protected function hex2rgb( $hex ) {
+		$hex = '#' === $hex[0] ? substr( $hex, 1 ) : $hex;
+		if ( 6 !== strlen( $hex ) ) {
+			return false;
+		}
+		$r   = hexdec( substr( $hex, 0, 2 ) );
+		$g   = hexdec( substr( $hex, 2, 2 ) );
+		$b   = hexdec( substr( $hex, 4, 2 ) );
+		$rgb = array( $r, $g, $b );
+
+		return implode( ',', $rgb ); // returns the rgb values separated by commas
 	}
 
 	/**
