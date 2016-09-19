@@ -30,10 +30,10 @@ Using git, browse to your `/wp-content/plugins/` directory and clone this reposi
 Then go to your Plugins screen and click __Activate__.
 
 ## Screenshots
-![Screenshot of the Scriptless Social Sharing Settings Page](https://github.com/robincornett/scriptless-social-sharing/blob/master/assets/screenshot-1.png)  
+![Screenshot of the Scriptless Social Sharing Settings Page](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-1.png)  
 _Screenshot of the Scriptless Social Sharing Settings Page._
 
-![Screenshot of the Scriptless Social Sharing Buttons on a Post](https://github.com/robincornett/scriptless-social-sharing/blob/master/assets/screenshot-2.png)  
+![Screenshot of the Scriptless Social Sharing Buttons on a Post](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-2.png)  
 _Screenshot of the Scriptless Social Sharing Buttons on a Post._
 
 ## Frequently Asked Questions
