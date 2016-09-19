@@ -112,6 +112,7 @@ You can set any order you like. `0` is the first number.
 == Screenshots ==
 
 1. Screenshot of the plugin settings in Settings > Scriptless Social Sharing.
+2. Screenshot of the sharing buttons on a Post.
 
 == Upgrade Notice ==
 
