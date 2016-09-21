@@ -26,7 +26,9 @@ class ScriptlessSocialSharingOutput {
 		if ( isset( $this->setting['post_types']['post'] ) ) {
 			$post_types = array();
 			foreach ( $this->setting['post_types'] as $post_type => $value ) {
-				$post_types[] = $value ? $post_type : '';
+				if ( $value ) {
+					$post_types[] = $post_type;
+				}
 			}
 		}
 		return apply_filters( 'scriptlesssocialsharing_post_types', $post_types );
@@ -86,7 +88,7 @@ class ScriptlessSocialSharingOutput {
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}
-		foreach( $buttons as $button ) {
+		foreach ( $buttons as $button ) {
 			if ( isset( $button['icon'] ) ) {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
