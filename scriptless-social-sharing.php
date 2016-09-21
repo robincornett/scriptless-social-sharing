@@ -79,6 +79,9 @@ function scriptlesssocialsharing_get_setting() {
 
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 function scriptlesssocialsharing_print_buttons( $content ) {
+	if ( ! is_main_query() ) {
+		return $content;
+	}
 	$setting = scriptlesssocialsharing_get_setting();
 	$buttons = scriptlesssocialsharing_do_buttons();
 	$before  = $setting['location']['before'] ? $buttons : '';
