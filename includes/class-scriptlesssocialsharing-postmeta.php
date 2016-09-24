@@ -19,23 +19,133 @@ class ScriptlessSocialSharingPostMeta {
 	protected $disable = '_scriptlesssocialsharing_disable';
 
 	/**
+	 * Post meta key for custom Pinterest image
+	 * @var string
+	 */
+	protected $image = '_scriptlesssocialsharing_pinterest';
+
+	/**
+	 * Add a custom post metabox.
+	 */
+	public function add_meta_box() {
+		add_meta_box(
+			'scriptless_social_sharing',
+			__( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
+			array( $this, 'do_metabox' ),
+			$this->get_post_types(),
+			'side',
+			'low'
+		);
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+	}
+
+	/**
+	 * Enqueue javascript for image uploader.
+	 */
+	public function enqueue() {
+		$screen = get_current_screen();
+		if ( ! in_array( $screen->post_type, $this->get_post_types(), true ) ) {
+			return;
+		}
+		wp_register_script( 'scriptless-upload', plugins_url( '/includes/js/image-upload.js', dirname( __FILE__ ) ), array(
+			'jquery',
+			'media-upload',
+			'thickbox',
+		), '1.4.0' );
+
+		wp_enqueue_media();
+		wp_enqueue_script( 'scriptless-upload' );
+		wp_localize_script( 'scriptless-upload', 'objectL10n', array(
+			'text' => __( 'Select Image', 'scriptless-social-sharing' ),
+		) );
+	}
+
+	/**
+	 * Fill the metabox.
+	 * @param $post object
+	 */
+	public function do_metabox( $post ) {
+		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
+		printf( '<label for="%s">%s</label>', $this->image, __( 'Custom Pinterest Image', 'scriptless-social-sharing' ) );
+		echo '<p>';
+		$id = get_post_meta( $post->ID, $this->image, true );
+		echo $this->render_image_preview( $id );
+		$this->render_buttons( $id );
+		echo '</p>';
+		$this->do_checkbox();
+	}
+
+	/**
+	 * display image preview
+	 * @param  int $id featured image ID
+	 *
+	 * @since x.y.z
+	 */
+	public function render_image_preview( $id ) {
+		if ( ! $id ) {
+			return '';
+		}
+		$alt_text = __( 'Custom Pinterest Image', 'scriptless-social-sharing' );
+		$preview  = wp_get_attachment_image_src( (int) $id, 'medium' );
+		$image    = sprintf( '<div class="upload_logo_preview"><img src="%s" alt="%s" style="%s" /></div>', esc_url( $preview[0] ), esc_attr( $alt_text ), esc_attr( 'max-width:100%;' ) );
+		return $image;
+	}
+
+	/**
+	 * show image select/delete buttons
+	 * @param  int $id   image ID
+	 * @param  string $name name for value/ID/class
+	 *
+	 * @since x.y.z
+	 */
+	public function render_buttons( $id ) {
+		$name = $this->image;
+		printf( '<input type="hidden" class="upload_image_id" name="%1$s" value="%2$s" />', esc_attr( $name ), esc_attr( $id ) );
+		printf( '<input id="%s" type="button" class="upload_default_image button-secondary" value="%s" />',
+			esc_attr( $name ),
+			esc_attr__( 'Select Image', 'scriptless-social-sharing' )
+		);
+		if ( ! empty( $id ) ) {
+			printf( ' <input type="button" class="delete_image button-secondary" value="%s" />',
+				esc_attr__( 'Delete Image', 'scriptless-social-sharing' )
+			);
+		}
+	}
+
+	/**
 	 * Add the checkbox to the publishing metabox.
 	 */
 	public function do_checkbox() {
 
-		$this->setting = get_option( 'scriptlesssocialsharing', false );
-		$screen        = get_current_screen();
-		$post_types    = isset( $this->setting['post_types'] ) ? $this->setting['post_types'] : array( 'post' );
-		if ( ! in_array( $screen->post_type, $post_types, true ) ) {
+		$screen = get_current_screen();
+		if ( ! in_array( $screen->post_type, $this->get_post_types(), true ) ) {
 			return;
 		}
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
 
 		echo '<div class="misc-pub-section">';
-		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
 		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', $this->disable, checked( $check, 1, false ) );
 		printf( '<label for="%s">%s</label>', $this->disable, __( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
 		echo '</div>';
+	}
+
+	/**
+	 * Check whether the current post type can show sharing buttons.
+	 * @return array
+	 * @since 1.4.1
+	 */
+	protected function get_post_types() {
+		$this->setting = get_option( 'scriptlesssocialsharing', false );
+		$post_types    = $this->setting['post_types'];
+		if ( isset( $this->setting['post_types']['post'] ) ) {
+			$post_types = array();
+			foreach ( $this->setting['post_types'] as $post_type => $value ) {
+				if ( $value ) {
+					$post_types[] = $post_type;
+				}
+			}
+		}
+		return $post_types;
 	}
 
 	/**
@@ -59,10 +169,17 @@ class ScriptlessSocialSharingPostMeta {
 			return;
 		}
 
-		if ( isset( $_POST[ $this->disable ] ) ) {
-			update_post_meta( $post_id, $this->disable, 1 );
-		} else {
-			delete_post_meta( $post_id, $this->disable );
+		$meta = array(
+			$this->disable => 1,
+			$this->image   => (int) $_POST[ $this->image ],
+		);
+
+		foreach ( $meta as $key => $value ) {
+			if ( isset( $_POST[ $key ] ) ) {
+				update_post_meta( $post_id, $key, $value );
+			} else {
+				delete_post_meta( $post_id, $key );
+			}
 		}
 	}
 
