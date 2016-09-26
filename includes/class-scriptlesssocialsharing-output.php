@@ -92,7 +92,7 @@ class ScriptlessSocialSharingOutput {
 			if ( isset( $button['icon'] ) ) {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
-			if ( isset( $button['color'] ) ) {
+			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
 				$rgb  = $this->hex2rgb( $button['color'] );
 				$rgba = $rgb ? sprintf( ' background-color:rgba(%s,.8);', $rgb ) : '';
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;%2$s } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }', $button['color'], $rgba, $button['name'] );
@@ -188,6 +188,8 @@ class ScriptlessSocialSharingOutput {
 		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $attributes['permalink'] );
 
+		$buttons = apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
+
 		$set_buttons = $this->setting['buttons'];
 		if ( $set_buttons ) {
 			foreach ( $buttons as $key => $value ) {
@@ -200,7 +202,7 @@ class ScriptlessSocialSharingOutput {
 			unset( $buttons['pinterest'] );
 		}
 
-		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
+		return $buttons;
 	}
 
 	/**
