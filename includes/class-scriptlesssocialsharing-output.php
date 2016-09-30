@@ -188,7 +188,7 @@ class ScriptlessSocialSharingOutput {
 		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
 		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $attributes['permalink'] );
 
-		$buttons = apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
+		$buttons = apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 
 		$set_buttons = $this->setting['buttons'];
 		if ( $set_buttons ) {
@@ -202,7 +202,13 @@ class ScriptlessSocialSharingOutput {
 			unset( $buttons['pinterest'] );
 		}
 
-		return $buttons;
+		/**
+		 * Note: scriptlesssocialsharing_buttons filter should be used instead of this
+		 * filter, due to potential errors with a button being in this array, but not
+		 * actually selected for output.
+		 */
+		_deprecated_function( 'scriptlesssocialsharing_default_buttons', '1.4.1', 'scriptlesssocialsharing_buttons' );
+		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
 	}
 
 	/**
