@@ -32,7 +32,7 @@ class ScriptlessSocialSharingPostMeta {
 			'scriptless_social_sharing',
 			__( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
 			array( $this, 'do_metabox' ),
-			$this->get_post_types(),
+			scriptlesssocialsharing_post_types(),
 			'side',
 			'low'
 		);
@@ -44,7 +44,7 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, $this->get_post_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, scriptlesssocialsharing_post_types(), true ) ) {
 			return;
 		}
 		wp_register_script( 'scriptless-upload', plugins_url( '/includes/js/image-upload.js', dirname( __FILE__ ) ), array(
@@ -118,7 +118,7 @@ class ScriptlessSocialSharingPostMeta {
 	public function do_checkbox() {
 
 		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, $this->get_post_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, scriptlesssocialsharing_post_types(), true ) ) {
 			return;
 		}
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
@@ -127,25 +127,6 @@ class ScriptlessSocialSharingPostMeta {
 		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', $this->disable, checked( $check, 1, false ) );
 		printf( '<label for="%s">%s</label>', $this->disable, __( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
 		echo '</div>';
-	}
-
-	/**
-	 * Check whether the current post type can show sharing buttons.
-	 * @return array
-	 * @since 1.4.1
-	 */
-	protected function get_post_types() {
-		$this->setting = get_option( 'scriptlesssocialsharing', false );
-		$post_types    = $this->setting['post_types'];
-		if ( isset( $this->setting['post_types']['post'] ) ) {
-			$post_types = array();
-			foreach ( $this->setting['post_types'] as $post_type => $value ) {
-				if ( $value ) {
-					$post_types[] = $post_type;
-				}
-			}
-		}
-		return $post_types;
 	}
 
 	/**

@@ -18,23 +18,6 @@ class ScriptlessSocialSharingOutput {
 	protected $setting;
 
 	/**
-	 * Get the post types that can display the buttons.
-	 * @return mixed
-	 */
-	public function get_post_types() {
-		$post_types = $this->setting['post_types'];
-		if ( isset( $this->setting['post_types']['post'] ) ) {
-			$post_types = array();
-			foreach ( $this->setting['post_types'] as $post_type => $value ) {
-				if ( $value ) {
-					$post_types[] = $post_type;
-				}
-			}
-		}
-		return apply_filters( 'scriptlesssocialsharing_post_types', $post_types );
-	}
-
-	/**
 	 * Function to decide whether buttons can be output or not
 	 * @param  boolean $cando default true
 	 * @return boolean         false if not a singular post (can be modified for other content types)
@@ -43,7 +26,7 @@ class ScriptlessSocialSharingOutput {
 		if ( ! is_main_query() ) {
 			$cando = false;
 		}
-		$post_types  = $this->get_post_types();
+		$post_types  = scriptlesssocialsharing_post_types();
 		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
 		if ( ! is_singular( $post_types ) || is_feed() || $is_disabled ) {
 			$cando = false;
@@ -207,7 +190,6 @@ class ScriptlessSocialSharingOutput {
 		 * filter, due to potential errors with a button being in this array, but not
 		 * actually selected for output.
 		 */
-		_deprecated_function( 'scriptlesssocialsharing_default_buttons', '1.4.1', 'scriptlesssocialsharing_buttons' );
 		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
 	}
 
