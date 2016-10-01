@@ -154,9 +154,7 @@ class ScriptlessSocialSharingOutput {
 		$attributes    = $this->attributes();
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
-		$pinterest     = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		$source        = wp_get_attachment_image_src( $pinterest, 'large' );
-		$pinterest_url = is_array( $source ) ? $source[0] : $attributes['image'];
+		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
 
 
 		// Add URLs to the array of buttons
@@ -181,7 +179,7 @@ class ScriptlessSocialSharingOutput {
 				}
 			}
 		}
-		if ( ! $attributes['image'] && ! $pinterest ) {
+		if ( ! $attributes['image'] && ! $attributes['pinterest'] ) {
 			unset( $buttons['pinterest'] );
 		}
 
@@ -209,6 +207,7 @@ class ScriptlessSocialSharingOutput {
 			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
+			'pinterest'     => $this->pinterest_image(),
 		);
 		return $attributes;
 	}
@@ -227,9 +226,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function featured_image() {
 		$featured_image = has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
-		$image          = wp_get_attachment_image_src( $featured_image, 'large', false );
-		$url            = isset( $image[0] ) ? $image[0] : '';
-		return apply_filters( 'scriptlesssocialsharing_image_url', $url );
+		return apply_filters( 'scriptlesssocialsharing_image_url', $this->get_image_url( $featured_image ) );
 	}
 
 	/**
@@ -255,6 +252,26 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return false;
+	}
+
+	/**
+	 * If a pinterest specific image is set, get the URL.
+	 * @return string
+	 */
+	protected function pinterest_image() {
+		$pinterest = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
+		return $this->get_image_url( $pinterest );
+	}
+
+	/**
+	 * Convert an image ID into a URL string.
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	protected function get_image_url( $id ) {
+		$source    = wp_get_attachment_image_src( $id, 'large', false );
+		return isset( $source[0] ) ? $source[0] : '';
 	}
 
 	/**
