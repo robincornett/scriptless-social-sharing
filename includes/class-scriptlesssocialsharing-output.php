@@ -276,9 +276,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string twitter handle (default is empty)
 	 */
 	protected function twitter_handle() {
-		$handle = $this->setting['twitter_handle'];
-
-		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $handle );
+		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $this->setting['twitter_handle'] );
 	}
 
 	/**
@@ -286,8 +284,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string heading
 	 */
 	protected function heading() {
-		$heading = $this->setting['heading'];
-		$heading = apply_filters( 'scriptlesssocialsharing_heading', $heading );
+		$heading = apply_filters( 'scriptlesssocialsharing_heading', $this->setting['heading'] );
 		if ( ! $heading ) {
 			return '';
 		}
@@ -308,9 +305,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string can be modified via filter
 	 */
 	protected function email_subject() {
-		$subject = $this->setting['email_subject'];
-
-		return apply_filters( 'scriptlesssocialsharing_email_subject', $subject );
+		return apply_filters( 'scriptlesssocialsharing_email_subject', $this->setting['email_subject'] );
 	}
 
 	/**
