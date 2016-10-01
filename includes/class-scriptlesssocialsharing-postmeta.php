@@ -25,14 +25,21 @@ class ScriptlessSocialSharingPostMeta {
 	protected $image = '_scriptlesssocialsharing_pinterest';
 
 	/**
+	 * Post types which can show buttons
+	 * @var array
+	 */
+	protected $post_types = array();
+
+	/**
 	 * Add a custom post metabox.
 	 */
 	public function add_meta_box() {
+		$this->post_types = scriptlesssocialsharing_post_types();
 		add_meta_box(
 			'scriptless_social_sharing',
 			__( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
 			array( $this, 'do_metabox' ),
-			scriptlesssocialsharing_post_types(),
+			$this->post_types,
 			'side',
 			'low'
 		);
@@ -44,7 +51,7 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, scriptlesssocialsharing_post_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->post_types, true ) ) {
 			return;
 		}
 		wp_register_script( 'scriptless-upload', plugins_url( '/includes/js/image-upload.js', dirname( __FILE__ ) ), array(
@@ -118,7 +125,7 @@ class ScriptlessSocialSharingPostMeta {
 	public function do_checkbox() {
 
 		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, scriptlesssocialsharing_post_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->post_types, true ) ) {
 			return;
 		}
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
