@@ -334,6 +334,21 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
+	 * If a Pinterest specific image is set, add it to the content, but hidden.
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	public function hide_pinterest_image( $content ) {
+		$pinterest = $this->pinterest_image();
+		if ( ! $pinterest ) {
+			return $content;
+		}
+		$image = sprintf( '<img src="%s" data-pin-media="true" style="display:none;">', esc_url( $pinterest ) );
+		return $content . $image;
+	}
+
+	/**
 	 * Allow pinterest data attributes on our links.
 	 *
 	 * @param $allowed array

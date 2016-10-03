@@ -66,6 +66,7 @@ class ScriptlessSocialSharing {
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
 		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
 		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this->output, 'do_buttons' ), 10, 2 );
+		add_filter( 'the_content', array( $this->output, 'hide_pinterest_image' ), 99 );
 	}
 
 	/**
