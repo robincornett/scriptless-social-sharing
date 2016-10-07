@@ -203,7 +203,7 @@ class ScriptlessSocialSharingOutput {
 			'permalink'     => get_the_permalink(),
 			'twitter'       => $twitter ? sprintf( '&via=%s', $twitter ) : '',
 			'home'          => home_url(),
-			'image'         => $this->featured_image(),
+			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
 			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
