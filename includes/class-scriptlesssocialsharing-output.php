@@ -201,7 +201,7 @@ class ScriptlessSocialSharingOutput {
 		$attributes  = array(
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
-			'twitter'       => $twitter ? sprintf( '&via=%s', $twitter ) : '',
+			'twitter'       => $twitter ? sprintf( '&via=%s&related=%s', $twitter, $twitter ) : '',
 			'home'          => home_url(),
 			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
 			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
