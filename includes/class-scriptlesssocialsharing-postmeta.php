@@ -58,7 +58,7 @@ class ScriptlessSocialSharingPostMeta {
 			'jquery',
 			'media-upload',
 			'thickbox',
-		), '1.4.0' );
+		), '1.5.0' );
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'scriptless-upload' );
@@ -86,7 +86,7 @@ class ScriptlessSocialSharingPostMeta {
 	 * display image preview
 	 * @param  int $id featured image ID
 	 *
-	 * @since x.y.z
+	 * @since 1.5.0
 	 */
 	public function render_image_preview( $id ) {
 		if ( ! $id ) {
@@ -103,7 +103,7 @@ class ScriptlessSocialSharingPostMeta {
 	 * @param  int $id   image ID
 	 * @param  string $name name for value/ID/class
 	 *
-	 * @since x.y.z
+	 * @since 1.5.0
 	 */
 	public function render_buttons( $id ) {
 		$name = $this->image;

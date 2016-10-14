@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.6
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -77,6 +77,10 @@ Then you can add the buttons to the individual posts (this example works only wi
 
 Yes, this is intentional. Pinterest really really _really_ wants your posts to have an image. The Pinterest button breaks if there isn't an image. The plugin looks in two places to find one: 1) the post featured image (ideal); and 2) if there is no featured image set, it picks the first image uploaded to that specific post. At this point, if there is still no image, rather than putting up a button which won't work, the plugin won't output a Pinterest button at all on that particular post.
 
+= What is this "Custom Pinterest Image"? =
+
+As of version 1.5.0, you can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image.
+
 = How can I change the order of the sharing buttons? =
 
 You can customize the order of the sharing buttons with a filter. Here's an example which places Reddit as the first button, and email as the last:
@@ -116,9 +120,15 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-1.4.0 new styling options for button output
+1.5.0 new custom Pinterest image option, filter improvements
 
 == Changelog ==
+
+= 1.5.0 =
+* added: ability to set a custom Pinterest image
+* added: "related" parameter to Twitter URL (props Ben Meredith)
+* improved: filter methods for adding new buttons
+* fixed: disappearing post meta settings
 
 = 1.4.0 =
 * added: option for button padding

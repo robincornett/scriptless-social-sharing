@@ -2,15 +2,15 @@
 msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: Scriptless Social Sharing 1.4.0\n"
-"POT-Creation-Date: 2016-08-18 10:17-0400\n"
+"Project-Id-Version: Scriptless Social Sharing 1.5.0\n"
+"POT-Creation-Date: 2016-10-14 17:27-0400\n"
 "PO-Revision-Date: 2016-02-13 09:43-0500\n"
 "Last-Translator: \n"
 "Language-Team: Robin Cornett <hello@robincornett.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: scriptless-social-sharing.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -112,21 +112,36 @@ msgstr ""
 msgid "The post/page title will be added to the subject."
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-output.php:294
+#: includes/class-scriptlesssocialsharing-output.php:333
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
-#: includes/class-scriptlesssocialsharing-postmeta.php:37
+#. Plugin Name of the plugin/theme
+#: includes/class-scriptlesssocialsharing-postmeta.php:40
+#: includes/class-scriptlesssocialsharing-settings.php:36
+msgid "Scriptless Social Sharing"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-postmeta.php:66
+#: includes/class-scriptlesssocialsharing-postmeta.php:113
+msgid "Select Image"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-postmeta.php:76
+#: includes/class-scriptlesssocialsharing-postmeta.php:95
+msgid "Custom Pinterest Image"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-postmeta.php:117
+msgid "Delete Image"
+msgstr ""
+
+#: includes/class-scriptlesssocialsharing-postmeta.php:135
 msgid "Don't show sharing buttons for this post"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:35
 msgid "Scriptless Social Sharing Settings"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-#: includes/class-scriptlesssocialsharing-settings.php:36
-msgid "Scriptless Social Sharing"
 msgstr ""
 
 #: includes/class-scriptlesssocialsharing-settings.php:99

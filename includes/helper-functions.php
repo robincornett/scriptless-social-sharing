@@ -52,7 +52,7 @@ function scriptlesssocialsharing_buttons_entry_content() {
 /**
  * Check whether the current post type can show sharing buttons.
  * @return array
- * @since 1.4.1
+ * @since 1.5.0
  */
 function scriptlesssocialsharing_post_types() {
 	$setting    = scriptlesssocialsharing_get_setting();
