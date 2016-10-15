@@ -340,11 +340,12 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	public function hide_pinterest_image( $content ) {
-		$pinterest = $this->pinterest_image();
-		if ( ! $pinterest ) {
+		$pinterest_image  = $this->pinterest_image();
+		$pinterest_button = $this->setting['buttons']['pinterest'];
+		if ( ! $pinterest_button || ! $pinterest_image ) {
 			return $content;
 		}
-		$image = sprintf( '<img src="%s" data-pin-media="true" style="display:none;">', esc_url( $pinterest ) );
+		$image = sprintf( '<img src="%s" data-pin-media="true" style="display:none;">', esc_url( $pinterest_image ) );
 		return $content . $image;
 	}
 
