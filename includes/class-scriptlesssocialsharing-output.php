@@ -198,12 +198,13 @@ class ScriptlessSocialSharingOutput {
 	protected function attributes() {
 		$twitter     = $this->twitter_handle();
 		$description = $this->description();
+		$pinterest   = ( isset( $this->setting['buttons']['pinterest'] ) && $this->setting['buttons']['pinterest'] ) || in_array( 'pinterest', $this->setting['buttons'], true );
 		$attributes  = array(
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'twitter'       => $twitter ? sprintf( '&via=%1$s&related=%1$s', $twitter ) : '',
 			'home'          => home_url(),
-			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'image'         => $pinterest ? $this->featured_image() : '',
 			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
