@@ -2,8 +2,7 @@ jQuery( document ).ready( function ( $ ) {
 	'use strict';
 
 	var custom_uploader,
-	    target_input,
-	    preview;
+	    target_input;
 
 	$( '.upload_default_image' ).click(function(e) {
 
@@ -53,18 +52,5 @@ jQuery( document ).ready( function ( $ ) {
 		$( target_input ).val( '' );
 		$( previewView ).remove();
 
-	});
-
-	$( '#submit' ).click( function() {
-		var submitButton = $( this ).parentsUntil( '#addtag' ),
-		    previewView  = submitButton.siblings( '.term-image-wrap' ).children( '.upload_logo_preview' ),
-		    clearInput   = submitButton.siblings( '.term-image-wrap' ).children( '.upload_image_id' );
-
-		if ( $( previewView ).length && $( submitButton ).length ) {
-			$( previewView ).delay( 1000 ).fadeOut( 200, function() {
-			   $(this).remove();
-			   $( clearInput ).val( '' );
-			});
-		}
 	});
 });
