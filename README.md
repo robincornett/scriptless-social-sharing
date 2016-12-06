@@ -134,6 +134,9 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 1.5.1
+* updated: Font Awesome (4.7.0)
+
 ### 1.5.0
 * added: ability to set a custom Pinterest image
 * added: "related" parameter to Twitter URL (props Ben Meredith)
