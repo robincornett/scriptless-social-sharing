@@ -341,13 +341,15 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	public function hide_pinterest_image( $content ) {
-		$pinterest_image  = $this->pinterest_image();
+		$pinterest_image  = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
 		$pinterest_button = $this->setting['buttons']['pinterest'];
 		if ( ! $pinterest_button || ! $pinterest_image ) {
 			return $content;
 		}
-		$image = sprintf( '<img src="%s" data-pin-media="true" style="display:none;">', esc_url( $pinterest_image ) );
-		return $content . $image;
+		return $content . wp_get_attachment_image( $pinterest_image, 'large', false, array(
+			'data-pin-media' => 'true',
+			'style'          => 'display:none;',
+		) );
 	}
 
 	/**
