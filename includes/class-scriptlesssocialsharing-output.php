@@ -310,12 +310,12 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * replace spaces in a string with + for URLs
+	 * replace spaces in a string with %20 for URLs
 	 * @param  string $string passed through from another source
-	 * @return string         same string, just + instead of spaces
+	 * @return string         same string, just %20 instead of spaces
 	 */
 	protected function replace( $string ) {
-		return str_replace( ' ', '+', $string );
+		return str_replace( ' ', htmlentities( ' ' ), $string );
 	}
 
 	/**
