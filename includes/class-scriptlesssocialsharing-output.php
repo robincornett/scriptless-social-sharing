@@ -156,6 +156,9 @@ class ScriptlessSocialSharingOutput {
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
 		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
+		$pinterest_img = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
+		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
+		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
 
 
 		// Add URLs to the array of buttons
@@ -164,7 +167,7 @@ class ScriptlessSocialSharingOutput {
 		$buttons['twitter']['url']   = sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] );
 		$buttons['facebook']['url']  = sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] );
 		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] );
-		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $attributes['title'], esc_url( $pinterest_url ) );
+		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $pin_title, esc_url( $pinterest_url ) );
 		$buttons['pinterest']['data'] = 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
 		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
 		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
@@ -346,9 +349,11 @@ class ScriptlessSocialSharingOutput {
 		if ( ! $pinterest_button || ! $pinterest_image ) {
 			return $content;
 		}
+		$alt_text = get_post_meta( $pinterest_image, '_wp_attachment_image_alt', true );
 		return $content . wp_get_attachment_image( $pinterest_image, 'large', false, array(
 			'data-pin-media' => 'true',
 			'style'          => 'display:none;',
+			'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
 		) );
 	}
 
