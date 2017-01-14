@@ -318,7 +318,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string         same string, just %20 instead of spaces
 	 */
 	protected function replace( $string ) {
-		return str_replace( ' ', htmlentities( ' ' ), $string );
+		return htmlentities( $string );
 	}
 
 	/**
