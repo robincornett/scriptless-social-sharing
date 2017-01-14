@@ -134,6 +134,10 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 1.5.2
+* improved: custom Pinterest image alt text will be preferred over post title, if alt text is set
+* fixed: URL encoding for strings with spaces
+
 ### 1.5.1
 * updated: Font Awesome (4.7.0)
 

@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -120,9 +120,13 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-1.5.1 updated Font Awesome, tested to WordPress 4.7
+1.5.2 improved custom Pinterest image/button, fixed URL encoding
 
 == Changelog ==
+
+= 1.5.2 =
+* improved: custom Pinterest image alt text will be preferred over post title, if alt text is set
+* fixed: URL encoding for strings with spaces
 
 = 1.5.1 =
 * updated: Font Awesome (4.7.0)
