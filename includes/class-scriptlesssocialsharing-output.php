@@ -154,10 +154,12 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function get_permalink( string $button_name ) {
 		$attributes = $this->attributes();
-		return apply_filters( 'scriptlesssocialsharing_get_permalink',
-			$attributes['permalink'],
-			$button_name,
-			$attributes
+		return rawurlencode(
+			apply_filters( 'scriptlesssocialsharing_get_permalink',
+				$attributes['permalink'],
+				$button_name,
+				$attributes
+			)
 		);
 	}
 
