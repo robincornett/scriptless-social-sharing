@@ -358,6 +358,7 @@ class ScriptlessSocialSharingOutput {
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
 			'pinterest'     => $this->pinterest_image(),
+		    'post_id'       => get_the_ID(),
 		);
 	}
 
