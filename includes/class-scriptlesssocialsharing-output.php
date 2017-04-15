@@ -115,7 +115,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param string $output
 	 * @param bool $heading set the bool to false to output buttons with no heading
 	 *
-	 * @return string|void
+	 * @return string
 	 */
 	public function do_buttons( $output, $heading = true ) {
 
@@ -135,9 +135,7 @@ class ScriptlessSocialSharingOutput {
 		}
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
-			$url      = isset( $button['name'] ) && 'email' === $button['name'] ? $button['url'] : $this->replace( $button['url'] );
-			$data_pin = isset( $button['data'] ) ? $button['data'] : '';
-			$output  .= sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $url ), $data_pin, $button['label'] );
+			$output .= sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
 		}
 		$output .= '</div>';
 		$output .= '</div>';
@@ -169,26 +167,26 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function make_buttons() {
 
-		$attributes    = $this->attributes();
-		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
-		$twitter_title = $yoast ? $yoast : $attributes['title'];
-		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
-		$pinterest_img = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
-		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
-
-
-		// Add URLs to the array of buttons
+		$attributes     = $this->attributes();
 		$settings_class = new ScriptlessSocialSharingSettings();
-		$buttons                     = $settings_class->get_networks();
-		$buttons['twitter']['url']   = sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $this->get_permalink('twitter'), $attributes['twitter'] );
-		$buttons['facebook']['url']  = sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $this->get_permalink('facebook') );
-		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $this->get_permalink('google') );
-		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $this->get_permalink('pinterest'), $pin_title, esc_url( $pinterest_url ) );
-		$buttons['pinterest']['data'] = 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
-		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $this->get_permalink('linkedin'), $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
-		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $this->get_permalink('email'), $attributes['email_subject'], $attributes['title'] );
-		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $this->get_permalink('reddit') );
+		$buttons        = $settings_class->get_networks();
+		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
+		foreach ( $buttons as $button => $value ) {
+			$method = "get_{$button}_url";
+			$url    = method_exists( $this, $method ) ? $this->$method( $attributes ) : '';
+
+			/**
+			 * Create a filter to build custom URLs for each network.
+			 * @since x.y.z
+			 */
+			$buttons[ $button ]['url']  = apply_filters( "scriptlesssocialsharing_{$button}_url", $url, $button, $attributes );
+
+			/**
+			 * Create a filter to add data attributes to social URLs.
+			 * @since x.y.z
+			 */
+			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
+		}
 
 		$buttons = apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 
@@ -213,24 +211,154 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
+	 * Get the URL for Twitter.
+	 * @param $attributes array
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_twitter_url( $attributes ) {
+		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
+		$twitter_title = $yoast ? $yoast : $attributes['title'];
+
+		return add_query_arg(
+			array(
+				'text'    => $twitter_title,
+				'url'     => $this->get_permalink( 'twitter' ),
+				'via'     => $this->twitter_handle(),
+				'related' => $this->twitter_handle(),
+			),
+			'https://twitter.com/intent/tweet'
+		);
+	}
+
+	/**
+	 * Get the URL for Facebook.
+	 * @param $attributes array
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_facebook_url( $attributes ) {
+		return add_query_arg(
+			'u',
+			$this->get_permalink( 'facebook' ),
+			'http://www.facebook.com/sharer/sharer.php'
+		);
+	}
+
+	/**
+	 * Get the URL for Google+.
+	 * @param $attributes array
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_google_url( $attributes ) {
+		return add_query_arg(
+			'url',
+			$this->get_permalink( 'google' ),
+			'https://plus.google.com/share'
+		);
+	}
+
+	/**
+	 * Get the URL for Pinterest.
+	 * @param $attributes
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_pinterest_url( $attributes ) {
+		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
+		$pinterest_img = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
+		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
+		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
+		return add_query_arg(
+			array(
+				'url'         => $this->get_permalink( 'pinterest' ),
+				'description' => $pin_title,
+				'media'       => esc_url( $pinterest_url ),
+			),
+			'http://pinterest.com/pin/create/button/'
+		);
+	}
+
+	/**
+	 * Add Pinterest data pin attributes to the URL markup.
+	 * @return string
+	 * @since x.y.z
+	 */
+	public function add_pinterest_data() {
+		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
+	}
+
+	/**
+	 * Get the Linkedin URL.
+	 * @param $attributes array
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_linkedin_url( $attributes ) {
+		return add_query_arg(
+			array(
+				'mini'    => true,
+				'url'     => $this->get_permalink( 'linkedin' ),
+				'title'   => $attributes['title'],
+				'summary' => $this->description(),
+				'source'  => $attributes['home'],
+			),
+			'http://www.linkedin.com/shareArticle'
+		);
+	}
+
+	/**
+	 * Get the email URL.
+	 * @param $attributes array
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_email_url( $attributes ) {
+		return add_query_arg(
+			array(
+				'body'    => $attributes['email_body'] . ' ' . $this->get_permalink( 'email' ),
+				'subject' => $attributes['email_subject'] . ' ' . $attributes['title'],
+			),
+			'mailto:'
+		);
+	}
+
+	/**
+	 * Get the Reddit URL.
+	 * @param $attributes
+	 *
+	 * @return string
+	 * @since x.y.z
+	 */
+	protected function get_reddit_url( $attributes ) {
+		return add_query_arg(
+			'url',
+			$this->get_permalink( 'reddit' ),
+			'https://www.reddit.com/submit'
+		);
+	}
+
+	/**
 	 * create URL attributes for buttons
 	 * @return array attributes
 	 */
 	protected function attributes() {
-		$twitter     = $this->twitter_handle();
-		$description = $this->description();
-		$attributes  = array(
+		return array(
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
-			'twitter'       => $twitter ? sprintf( '&via=%1$s&related=%1$s', $twitter ) : '',
 			'home'          => home_url(),
 			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
-			'description'   => $description ? sprintf( '&summary=%s', $description ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
 			'pinterest'     => $this->pinterest_image(),
 		);
-		return $attributes;
 	}
 
 	/**
