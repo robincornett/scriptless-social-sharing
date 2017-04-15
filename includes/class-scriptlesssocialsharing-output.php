@@ -147,6 +147,23 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
+	 * Get the permalink to be shared via the button.
+	 *
+	 * @param  string $button_name The name of the button, e.g. 'twitter', 'facebook'.
+	 * @return string The URL to be shared.
+	 */
+	protected function get_permalink( string $button_name ) {
+		$attributes = $this->attributes();
+		return rawurlencode(
+			apply_filters( 'scriptlesssocialsharing_get_permalink',
+				$attributes['permalink'],
+				$button_name,
+				$attributes
+			)
+		);
+	}
+
+	/**
 	 * Create the default buttons
 	 * @return array array of buttons/attributes
 	 */
@@ -164,14 +181,14 @@ class ScriptlessSocialSharingOutput {
 		// Add URLs to the array of buttons
 		$settings_class = new ScriptlessSocialSharingSettings();
 		$buttons                     = $settings_class->get_networks();
-		$buttons['twitter']['url']   = sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $attributes['permalink'], $attributes['twitter'] );
-		$buttons['facebook']['url']  = sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $attributes['permalink'] );
-		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $attributes['permalink'] );
-		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $attributes['permalink'], $pin_title, esc_url( $pinterest_url ) );
+		$buttons['twitter']['url']   = sprintf( 'https://twitter.com/intent/tweet?text=%s&url=%s%s', $twitter_title, $this->get_permalink('twitter'), $attributes['twitter'] );
+		$buttons['facebook']['url']  = sprintf( 'http://www.facebook.com/sharer/sharer.php?u=%s', $this->get_permalink('facebook') );
+		$buttons['google']['url']    = sprintf( 'https://plus.google.com/share?url=%s', $this->get_permalink('google') );
+		$buttons['pinterest']['url'] = sprintf( 'http://pinterest.com/pin/create/button/?url=%s&description=%s&media=%s', $this->get_permalink('pinterest'), $pin_title, esc_url( $pinterest_url ) );
 		$buttons['pinterest']['data'] = 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
-		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $attributes['permalink'], $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
-		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $attributes['permalink'], $attributes['email_subject'], $attributes['title'] );
-		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $attributes['permalink'] );
+		$buttons['linkedin']['url']  = sprintf( 'http://www.linkedin.com/shareArticle?mini=true&url=%s&title=%s%s&source=%s', $this->get_permalink('linkedin'), $attributes['title'], strip_tags( $attributes['description'] ), $attributes['home'] );
+		$buttons['email']['url']     = sprintf( 'mailto:?body=%s %s&subject=%s %s', $attributes['email_body'], $this->get_permalink('email'), $attributes['email_subject'], $attributes['title'] );
+		$buttons['reddit']['url']    = sprintf( 'https://www.reddit.com/submit?url=%s', $this->get_permalink('reddit') );
 
 		$buttons = apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 
