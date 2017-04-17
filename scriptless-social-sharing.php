@@ -28,6 +28,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
+	define( 'SCRIPTLESSOCIALSHARING_BASENAME', plugin_basename( __FILE__ ) );
+}
+
 // Include classes
 function scriptlesssocialsharing_require() {
 	$files = array(

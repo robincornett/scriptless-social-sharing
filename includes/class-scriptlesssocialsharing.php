@@ -60,6 +60,7 @@ class ScriptlessSocialSharing {
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'load-settings_page_scriptlesssocialsharing', array( $this->help, 'help' ) );
+		add_filter( 'plugin_action_links_' . SCRIPTLESSOCIALSHARING_BASENAME, array( $this, 'add_settings_link' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
 		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );
@@ -76,5 +77,17 @@ class ScriptlessSocialSharing {
 	 */
 	public function load_textdomain() {
 		load_plugin_textdomain( 'scriptless-social-sharing' );
+	}
+
+	/**
+	 * Add link to plugin settings page in plugin table
+	 * @param $links array
+	 *
+	 * @return array
+	 * @since x.y.z
+	 */
+	public function add_settings_link( $links ) {
+		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=scriptlesssocialsharing' ) ), esc_attr__( 'Settings', 'scriptless-social-sharing' ) );
+		return $links;
 	}
 }
