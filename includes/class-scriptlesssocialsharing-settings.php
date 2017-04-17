@@ -111,7 +111,7 @@ class ScriptlessSocialSharingSettings {
 			'post_types'     => array( 'post' ),
 			'location'       => array(
 				'before' => 0,
-				'after' => 1,
+				'after'  => 1,
 			),
 			'button_style'   => 1,
 			'button_padding' => 12,
@@ -143,6 +143,7 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Add the sections to the settings page.
+	 *
 	 * @param $sections array
 	 */
 	protected function add_sections( $sections ) {
@@ -150,7 +151,7 @@ class ScriptlessSocialSharingSettings {
 			add_settings_section(
 				$section['id'],
 				$section['title'],
-				array( $this, $section['id'] . '_section_description' ),
+				array( $this, 'section_description' ),
 				$this->page
 			);
 		}
@@ -188,11 +189,8 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
 			'section'  => 'styles',
-			'args'     => array(
-				'setting' => 'styles',
-				'choices' => $this->get_styles(),
-				'clear'   => true,
-			),
+			'choices'  => $this->get_styles(),
+			'clear'    => true,
 		);
 	}
 
@@ -206,7 +204,6 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Heading', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
 			'section'  => 'general',
-			'args'     => array( 'setting' => 'heading' ),
 		);
 	}
 
@@ -220,7 +217,7 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
 			'section'  => 'general',
-			'args'     => array( 'setting' => 'buttons', 'choices' => $this->get_buttons() ),
+			'choices'  => $this->get_buttons(),
 		);
 	}
 
@@ -234,7 +231,6 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Twitter Handle', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
 			'section'  => 'networks',
-			'args'     => array( 'setting' => 'twitter_handle' ),
 		);
 	}
 
@@ -248,7 +244,6 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Email Subject', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
 			'section'  => 'networks',
-			'args'     => array( 'setting' => 'email_subject' ),
 		);
 	}
 
@@ -336,29 +331,45 @@ class ScriptlessSocialSharingSettings {
 	protected function button_padding() {
 		return array(
 			'id'       => 'button_padding',
-			'title'    => __( 'Button Padding' , 'scriptless-social-sharing' ),
+			'title'    => __( 'Button Padding', 'scriptless-social-sharing' ),
 			'callback' => 'do_number',
 			'section'  => 'styles',
-			'args'     => array( 'setting' => 'button_padding', 'label' => __( ' pixels', 'scriptless-social-sharing' ), 'min' => 0, 'max' => 400 ),
+			'label'    => __( ' pixels', 'scriptless-social-sharing' ),
+			'min'      => 0,
+			'max'      => 400,
 		);
 	}
 
 	/**
 	 * Add the fields to the settings page.
-	 * @param $fields array
+	 *
+	 * @param $fields   array
 	 * @param $sections array
 	 */
 	protected function add_fields( $fields, $sections ) {
 		foreach ( $fields as $field ) {
 			add_settings_field(
-				'[' . $field['id'] . ']',
-				sprintf( '<label for="%s">%s</label>', $field['id'], $field['title'] ),
+				$field['id'],
+				sprintf( '<label for="%s[%s]">%s</label>', $this->page, $field['id'], $field['title'] ),
 				array( $this, $field['callback'] ),
 				$this->page,
 				$sections[ $field['section'] ]['id'],
-				empty( $field['args'] ) ? array() : $field['args']
+				$field
 			);
 		}
+	}
+
+	/**
+	 * Echo the section description.
+	 * @param $args
+     * @since x.y.z
+	 */
+	public function section_description( $args ) {
+		$method = "{$args['id']}_section_description";
+		if ( ! method_exists( $this, $method ) ) {
+			return;
+		}
+		echo wp_kses_post( wpautop( $this->$method() ) );
 	}
 
 	/**
@@ -366,8 +377,7 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.3.0
 	 */
 	public function styles_section_description() {
-		$description = __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
-		printf( '<p>%s</p>', wp_kses_post( $description ) );
+		return __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -376,8 +386,7 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.4.0
 	 */
 	public function general_section_description() {
-		$description = __( 'Scriptless Social Sharing tries to be helpful, but you can also disable whatever you need.', 'scriptless-social-sharing' );
-		printf( '<p>%s</p>', wp_kses_post( $description ) );
+		return __( 'Scriptless Social Sharing tries to be helpful, but you can also disable whatever you need.', 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -385,8 +394,7 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.3.0
 	 */
 	public function networks_section_description() {
-		$description = __( 'Some social networks need a little extra information.', 'scriptless-social-sharing' );
-		printf( '<p>%s</p>', wp_kses_post( $description ) );
+		return __( 'Some social networks need a little extra information.', 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -396,29 +404,31 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function do_checkbox( $args ) {
 		$setting = $this->get_checkbox_setting( $args );
-		printf( '<input type="hidden" name="%s[%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ) );
+		printf( '<input type="hidden" name="%s[%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['id'] ) );
 		printf( '<label for="%1$s[%2$s]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s]" id="%1$s[%2$s]" value="1" %3$s class="code" />%4$s</label>',
 			esc_attr( $this->page ),
-			esc_attr( $args['setting'] ),
+			esc_attr( $args['id'] ),
 			checked( 1, esc_attr( $setting ), false ),
 			esc_attr( $args['label'] )
 		);
-		$this->do_description( $args['setting'] );
+		$this->do_description( $args['id'] );
 	}
 
 	/**
 	 * Get the current value for the checkbox.
+	 *
 	 * @param $args
 	 *
 	 * @return int
 	 */
 	protected function get_checkbox_setting( $args ) {
-		$setting = isset( $this->setting[ $args['setting'] ] ) ? $this->setting[ $args['setting'] ] : 0;
+		$setting = isset( $this->setting[ $args['id'] ] ) ? $this->setting[ $args['id'] ] : 0;
 		if ( isset( $args['setting_name'] ) ) {
 			if ( isset( $this->setting[ $args['setting_name'] ][ $args['name'] ] ) ) {
 				$setting = $this->setting[ $args['setting_name'] ][ $args['name'] ];
 			}
 		}
+
 		return $setting;
 	}
 
@@ -428,20 +438,20 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.0.0
 	 */
 	public function do_number( $args ) {
-		$setting = isset( $this->setting[$args['setting']] ) ? $this->setting[$args['setting']] : 0;
+		$setting = isset( $this->setting[ $args['id'] ] ) ? $this->setting[ $args['id'] ] : 0;
 		if ( ! isset( $setting ) ) {
 			$setting = 0;
 		}
-		printf( '<label for="%s[%s]">', esc_attr( $this->page ), esc_attr( $args['setting'] ) );
+		printf( '<label for="%s[%s]">', esc_attr( $this->page ), esc_attr( $args['id'] ) );
 		printf( '<input type="number" step="1" min="%1$s" max="%2$s" id="%5$s[%3$s]" name="%5$s[%3$s]" value="%4$s" class="small-text" />%6$s</label>',
 			(int) $args['min'],
 			(int) $args['max'],
-			esc_attr( $args['setting'] ),
+			esc_attr( $args['id'] ),
 			esc_attr( $setting ),
 			esc_attr( $this->page ),
 			esc_attr( $args['label'] )
 		);
-		$this->do_description( $args['setting'] );
+		$this->do_description( $args['id'] );
 
 	}
 
@@ -470,8 +480,8 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.0.0
 	 */
 	public function do_text_field( $args ) {
-		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />', esc_attr( $args['setting'] ), esc_attr( $this->setting[$args['setting']] ), esc_attr( $this->page ) );
-		$this->do_description( $args['setting'] );
+		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />', esc_attr( $args['id'] ), esc_attr( $this->setting[ $args['id'] ] ), esc_attr( $this->page ) );
+		$this->do_description( $args['id'] );
 	}
 
 	/**
@@ -497,8 +507,6 @@ class ScriptlessSocialSharingSettings {
 	 * Generic callback to display a field description.
 	 *
 	 * @param  string $args setting name used to identify description callback
-	 *
-	 * @return string       Description to explain a field.
 	 */
 	protected function do_description( $args ) {
 		$function = $args . '_description';
@@ -523,13 +531,18 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Get the available buttons.
-	 * @param $args
+	 *
+	 * @param array $choices
+	 *
+	 * @return array
+	 * @internal param $args
 	 */
 	public function get_buttons( $choices = array() ) {
 		$networks = $this->get_networks();
 		foreach ( $networks as $network ) {
 			$choices[ $network['name'] ] = $network['label'];
 		}
+
 		return $choices;
 
 	}
@@ -537,19 +550,19 @@ class ScriptlessSocialSharingSettings {
 	/**
 	 * Build the array of networks for choices.
 	 * Using the filter to add/remove networks will change the settings page and the output.
-	 * @return mixed|void
+	 * @return array
 	 */
 	public function get_networks() {
 		$networks = array(
-			'twitter' => array(
+			'twitter'   => array(
 				'name'  => 'twitter',
 				'label' => __( 'Twitter', 'scriptless-social-sharing' ),
 			),
-			'facebook' => array(
+			'facebook'  => array(
 				'name'  => 'facebook',
 				'label' => __( 'Facebook', 'scriptless-social-sharing' ),
 			),
-			'google' => array(
+			'google'    => array(
 				'name'  => 'google',
 				'label' => __( 'Google+', 'scriptless-social-sharing' ),
 			),
@@ -557,19 +570,20 @@ class ScriptlessSocialSharingSettings {
 				'name'  => 'pinterest',
 				'label' => __( 'Pinterest', 'scriptless-social-sharing' ),
 			),
-			'linkedin' => array(
+			'linkedin'  => array(
 				'name'  => 'linkedin',
 				'label' => __( 'Linkedin', 'scriptless-social-sharing' ),
 			),
-			'email' => array(
+			'email'     => array(
 				'name'  => 'email',
 				'label' => __( 'Email', 'scriptless-social-sharing' ),
 			),
-			'reddit' => array(
+			'reddit'    => array(
 				'name'  => 'reddit',
 				'label' => __( 'Reddit', 'scriptless-social-sharing' ),
 			),
 		);
+
 		return apply_filters( 'scriptlesssocialsharing_networks', $networks );
 	}
 
@@ -583,6 +597,7 @@ class ScriptlessSocialSharingSettings {
 		foreach ( $this->get_post_types() as $post_type ) {
 			$choices[ $post_type->name ] = $post_type->labels->name;
 		}
+
 		return $choices;
 	}
 
@@ -591,48 +606,50 @@ class ScriptlessSocialSharingSettings {
 	 * @return array
 	 */
 	protected function get_post_types() {
-		$output   = 'objects';
-		$built_in = array(
+		$output         = 'objects';
+		$built_in       = array(
 			'public'   => true,
 			'_builtin' => true,
 		);
 		$built_in_types = get_post_types( $built_in, $output );
 		unset( $built_in_types['attachment'] );
-		$custom_args = array(
+		$custom_args  = array(
 			'public'   => true,
 			'_builtin' => false,
 		);
 		$custom_types = get_post_types( $custom_args, $output );
+
 		return array_merge( $built_in_types, $custom_types );
 	}
 
 	/**
 	 * Set up choices for checkbox array
+	 *
 	 * @param $args array
 	 */
 	public function do_checkbox_array( $args ) {
 		foreach ( $args['choices'] as $key => $label ) {
 			// due to error in setting this up in v 1.0-1.2, have to do a BC check for the post_type setting.
-			$setting = isset( $this->setting[ $args['setting'] ][ $key ] ) ? $this->setting[ $args['setting'] ][ $key ] : 0;
-			if ( 'post_types' === $args['setting'] && ! isset( $this->setting[ $args['setting'] ][ $key ] ) ) {
+			$setting = isset( $this->setting[ $args['id'] ][ $key ] ) ? $this->setting[ $args['id'] ][ $key ] : 0;
+			if ( 'post_types' === $args['id'] && ! isset( $this->setting[ $args['id'] ][ $key ] ) ) {
 				$setting = in_array( $key, $this->setting['post_types'], true );
 			}
-			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['setting'] ), esc_attr( $key ) );
+			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['id'] ), esc_attr( $key ) );
 			printf( '<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
 				esc_attr( $key ),
 				checked( 1, $setting, false ),
 				esc_html( $label ),
 				esc_attr( $this->page ),
-				esc_attr( $args['setting'] )
+				esc_attr( $args['id'] )
 			);
 			echo isset( $args['clear'] ) && $args['clear'] ? '<br />' : '';
 		}
-		$this->do_description( $args['setting'] );
+		$this->do_description( $args['id'] );
 	}
 
 	/**
 	 * Description for the heading.
-	 * @return string|void
+	 * @return string
 	 */
 	protected function heading_description() {
 		return __( 'Heading above sharing buttons', 'scriptless-social-sharing' );
@@ -640,7 +657,7 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Description for the twitter handle setting.
-	 * @return string|void
+	 * @return string
 	 */
 	protected function twitter_handle_description() {
 		return __( 'Do not include the @ -- just the user name.', 'scriptless-social-sharing' );
@@ -648,7 +665,7 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Description for the email subject setting.
-	 * @return string|void
+	 * @return string
 	 */
 	protected function email_subject_description() {
 		return __( 'The post title will be appended to whatever you add here.', 'scriptless-social-sharing' );
@@ -686,7 +703,7 @@ class ScriptlessSocialSharingSettings {
 					break;
 
 				case 'do_checkbox_array':
-					$choices = $field['args']['choices'];
+					$choices = $field['choices'];
 					foreach ( $choices as $key => $label ) {
 						$new_value[ $field['id'] ][ $key ] = $this->one_zero( $new_value[ $field['id'] ][ $key ] );
 					}
