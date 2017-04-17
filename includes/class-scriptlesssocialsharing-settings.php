@@ -77,11 +77,19 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
-	 * @return array Setting for plugin, or defaults.
+	 * Returns the plugin setting, merged with defaults.
+	 * @return array
 	 */
 	public function get_setting() {
-		$setting = get_option( $this->page, $this->defaults() );
-		return wp_parse_args( $setting, $this->defaults() );
+		return wp_parse_args( $this->get_database_setting(), $this->defaults() );
+	}
+
+	/**
+	 * Return the plugin setting as it is in the database (or with defaults if the setting does not exist)
+	 * @return array
+	 */
+	protected function get_database_setting() {
+		return get_option( $this->page, $this->defaults() );
 	}
 
 	/**
@@ -126,15 +134,19 @@ class ScriptlessSocialSharingSettings {
 	 */
 	protected function register_sections() {
 		return array(
-			'styles' => array(
+			'styles'        => array(
 				'id'    => 'styles',
 				'title' => __( 'Style Settings', 'scriptless-social-sharing' ),
 			),
-			'general' => array(
+			'general'       => array(
 				'id'    => 'general',
 				'title' => __( 'Button Settings', 'scriptless-social-sharing' ),
 			),
-			'networks' => array(
+//			'content_types' => array(
+//				'id'    => 'content_types',
+//				'title' => __( 'Content Types', 'scriptless-social-sharing' ),
+//			),
+			'networks'      => array(
 				'id'    => 'networks',
 				'title' => __( 'Network Settings', 'scriptless-social-sharing' ),
 			),
@@ -256,6 +268,7 @@ class ScriptlessSocialSharingSettings {
 			'id'       => 'post_types',
 			'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
+//			'callback' => 'do_content_types',
 			'section'  => 'general',
 		    'choices'  => $this->post_type_choices(),
 		);
@@ -447,22 +460,40 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
-	 * Generic callback to create a select/dropdown setting.
+	 * Custom callback to create dropdown fields for each content type.
 	 *
-	 * @since 1.0.0
+	 * @param $args array
 	 */
-	public function do_select( $args ) {
-		$function = 'pick_' . $args['options'];
-		$options  = $this->$function(); ?>
-		<label for="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]"></label>
-		<select id="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]"
-		        name="scriptlesssocialsharing[<?php echo esc_attr( $args['setting'] ); ?>]">
-			<?php
-			foreach ( (array) $options as $name => $key ) {
-				printf( '<option value="%s" %s>%s</option>', esc_attr( $name ), selected( $name, $this->setting[$args['setting']], false ), esc_attr( $key ) );
-			} ?>
-		</select> <?php
-		$this->do_description( $args['setting'] );
+	public function do_content_types( $args ) {
+		$this->do_description( $args['id'] );
+		foreach ( $this->get_post_types() as $post_type ) {
+			$choices[ $post_type->name ] = $post_type->labels->name;
+			echo '<h4 class="heading">' . esc_attr( $post_type->labels->name ) . '</h4>';
+			printf( '<label for="%s[%s][%s]"></label >', esc_attr( $this->page ), esc_attr( $args['id'] ), esc_attr( $post_type->name ) );
+			printf( '<select id="%3$s[%1$s][%2$s]" name="%3$s[%1$s][%2$s]" >', esc_attr( $args['id'] ), esc_attr( $post_type->name ), esc_attr( $this->page ) );
+			$unparsed_setting = $this->get_database_setting();
+			$options          = array(
+				''       => 'No Buttons',
+				'before' => 'Before Content',
+				'after'  => 'After Content',
+				'both'   => 'Before and After Content',
+			);
+			foreach ( (array) $options as $key => $value ) {
+				$setting = '';
+				if ( isset( $unparsed_setting['post_types'][ $post_type->name ] ) && $unparsed_setting['post_types'][ $post_type->name ] && isset( $unparsed_setting['location'] ) ) {
+					if ( $unparsed_setting['location']['before'] ) {
+						$setting = 'before';
+					} elseif ( $unparsed_setting['location']['after'] ) {
+						$setting = 'after';
+					} elseif ( $unparsed_setting['location']['before'] && $unparsed_setting['location']['after'] ) {
+						$setting = 'both';
+					}
+				}
+
+				printf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $key, $setting, false ), esc_attr( $value ) );
+			}
+			echo '</select>';
+		}
 	}
 
 	/**
