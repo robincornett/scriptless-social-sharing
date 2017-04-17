@@ -8,6 +8,13 @@
 class ScriptlessSocialSharingSettings {
 
 	/**
+	 * Full path and filename of the root plugin file.
+	 *
+	 * @var string
+	 */
+	protected $file;
+
+	/**
 	 * Option registered by plugin.
 	 * @var array
 	 */
@@ -24,6 +31,41 @@ class ScriptlessSocialSharingSettings {
 	 * @var array
 	 */
 	protected $fields;
+
+	/**
+	 * Settings Constructor
+	 *
+	 * @param string $file Full path and filename of the root plugin file.
+	 */
+	public function __construct( string $file ) {
+		$this->file = $file;
+	}
+
+	/**
+	 * Get the hook name for the plugin_action_link filter for this plugin.
+	 *
+	 * @return string The hook name for the plugin_action_link filter.
+	 */
+	public function get_plugin_action_link_filter_name() {
+		return sprintf(
+			'plugin_action_links_%s',
+			plugin_basename( $this->file )
+		);
+	}
+
+	/**
+	 * Append the markup for a settings link for this plugin.
+	 *
+	 * @param  string[] $links An array of markup links displayed for the plugin on the Plugins page.
+	 * @return string[] Array of markup links modified to include a link to the settings page.
+	 */
+	public function append_settings_link( $links ) {
+		$links[] = sprintf( '<a href="%s">%s</a>',
+			esc_url( admin_url( sprintf( 'options-general.php?page=%s', $this->page ) ) ),
+			__( 'Settings' )
+		);
+		return $links;
+	}
 
 	/**
 	 * add a submenu page under settings

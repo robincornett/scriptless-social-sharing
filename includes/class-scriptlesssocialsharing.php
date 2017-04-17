@@ -59,6 +59,11 @@ class ScriptlessSocialSharing {
 	 */
 	public function run() {
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
+		// Hook into the display of the Plugins page to add a settings link.
+		add_filter(
+			$this->settings->get_plugin_action_link_filter_name(),
+			array( $this->settings, 'append_settings_link' )
+		);
 		add_action( 'load-settings_page_scriptlesssocialsharing', array( $this->help, 'help' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
