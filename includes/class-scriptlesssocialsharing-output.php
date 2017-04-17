@@ -31,6 +31,10 @@ class ScriptlessSocialSharingOutput {
 		if ( ! is_singular( $post_types ) || is_feed() || $is_disabled ) {
 			$cando = false;
 		}
+		global $post;
+		if ( has_shortcode( $post->post_content, 'scriptless' ) ) {
+			$cando = true;
+		}
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
 
@@ -117,16 +121,16 @@ class ScriptlessSocialSharingOutput {
 	 *
 	 * @return string
 	 */
-	public function do_buttons( $output, $heading = true ) {
+	public function do_buttons( $output = '', $heading = true ) {
 
 		if ( ! $this->can_do_buttons() ) {
-			return '';
+			return $output;
 		}
 
 		$buttons = $this->make_buttons();
 
 		if ( ! $buttons ) {
-			return '';
+			return $output;
 		}
 
 		$output = '<div class="scriptlesssocialsharing">';
@@ -142,6 +146,33 @@ class ScriptlessSocialSharingOutput {
 
 		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
 		return wp_kses_post( $output );
+	}
+
+	/**
+	 * Create a shortcode to insert sharing buttons within the post content.
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function shortcode( $atts ) {
+		$defaults = array(
+			'before'       => '<div class="scriptlesssocialsharing">',
+			'after'        => '</div>',
+			'inner_before' => '<div class="scriptlesssocialsharing-buttons">',
+			'inner_after'  => '</div>',
+			'heading'      => $this->setting['heading'],
+		);
+		$atts    = shortcode_atts( $defaults, $atts, 'scriptless' );
+		$buttons = $this->make_buttons();
+		$output  = $atts['before'];
+		$output .= $this->heading( $atts['heading'] );
+		$output .= $atts['inner_before'];
+		foreach ( $buttons as $button ) {
+			$output .= sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
+		}
+		$output .= $atts['inner_after'];
+		$output .= $atts['after'];
+		return $output;
 	}
 
 	/**
@@ -358,7 +389,7 @@ class ScriptlessSocialSharingOutput {
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
 			'pinterest'     => $this->pinterest_image(),
-		    'post_id'       => get_the_ID(),
+			'post_id'       => get_the_ID(),
 		);
 	}
 

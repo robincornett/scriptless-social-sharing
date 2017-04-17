@@ -33,7 +33,11 @@ function scriptlesssocialsharing_print_buttons( $content ) {
 	if ( ! is_main_query() ) {
 		return $content;
 	}
-	$setting = scriptlesssocialsharing_get_setting();
+	$setting   = scriptlesssocialsharing_get_setting();
+	$post_type = get_post_type();
+	if ( ! $setting['post_types'][ $post_type ] ) {
+		return $content;
+	}
 	$buttons = scriptlesssocialsharing_do_buttons();
 	$before  = $setting['location']['before'] ? $buttons : '';
 	$after   = $setting['location']['after'] ? $buttons : '';
