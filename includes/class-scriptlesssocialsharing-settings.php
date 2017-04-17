@@ -257,7 +257,7 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
 			'section'  => 'general',
-			'args'     => array( 'setting' => 'post_types', 'choices' => $this->post_type_choices() ),
+		    'choices'  => $this->post_type_choices(),
 		);
 	}
 
@@ -271,12 +271,9 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Sharing Buttons Location', 'scriptless-social-sharing' ),
 			'callback' => 'do_checkbox_array',
 			'section'  => 'general',
-			'args'     => array(
-				'setting' => 'location',
-				'choices' => array(
-					'before' => __( 'Before Content', 'scriptless-social-sharing' ),
-					'after'  => __( 'After Content', 'scriptless-social-sharing' ),
-				),
+			'choices'  => array(
+				'before' => __( 'Before Content', 'scriptless-social-sharing' ),
+				'after'  => __( 'After Content', 'scriptless-social-sharing' ),
 			),
 		);
 	}
@@ -290,14 +287,11 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Button Styles', 'scriptless-social-sharing' ),
 			'callback' => 'do_radio_buttons',
 			'section'  => 'styles',
-			'args'        => array(
-				'id'      => 'button_style',
-				'buttons' => array(
-					0 => __( 'Icon Only', 'scriptless-social-sharing' ),
-					1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
-				),
-				'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
+			'buttons' => array(
+				0 => __( 'Icon Only', 'scriptless-social-sharing' ),
+				1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
 			),
+			'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
 		);
 	}
 
@@ -312,14 +306,11 @@ class ScriptlessSocialSharingSettings {
 			'title'    => __( 'Button Container Width', 'scriptless-social-sharing' ),
 			'callback' => 'do_radio_buttons',
 			'section'  => 'styles',
-			'args'        => array(
-				'id'      => 'table_width',
-				'buttons' => array(
-					'full' => __( 'Full Width', 'scriptless-social-sharing' ),
-					'auto' => __( 'Auto', 'scriptless-social-sharing' ),
-				),
-				'legend'  => __( 'Width of button container', 'scriptless-social-sharing' ),
+			'buttons' => array(
+				'full' => __( 'Full Width', 'scriptless-social-sharing' ),
+				'auto' => __( 'Auto', 'scriptless-social-sharing' ),
 			),
+			'legend'  => __( 'Width of button container', 'scriptless-social-sharing' ),
 		);
 	}
 
