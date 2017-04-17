@@ -131,7 +131,7 @@ class ScriptlessSocialSharingOutput {
 
 		$output = '<div class="scriptlesssocialsharing">';
 		if ( $heading ) {
-			$output .= $this->heading();
+			$output .= $this->heading( $this->setting['heading'] );
 		}
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
@@ -450,8 +450,8 @@ class ScriptlessSocialSharingOutput {
 	 * Modify the heading above the buttons
 	 * @return string heading
 	 */
-	protected function heading() {
-		$heading = apply_filters( 'scriptlesssocialsharing_heading', $this->setting['heading'] );
+	protected function heading( $heading ) {
+		$heading = apply_filters( 'scriptlesssocialsharing_heading', $heading );
 		if ( ! $heading ) {
 			return '';
 		}
