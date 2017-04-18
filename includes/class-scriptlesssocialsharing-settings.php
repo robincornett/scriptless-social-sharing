@@ -48,11 +48,12 @@ class ScriptlessSocialSharingSettings {
 	 * @since x.y.z
 	 */
 	public function build_settings_page() {
-		add_action( 'admin_notices', array( $this, 'notice' ) );
-		$sections     = $this->register_sections();
-		$this->fields = $this->register_fields();
+		$this->setting = $this->get_setting();
+		$sections      = $this->register_sections();
+		$this->fields  = $this->register_fields();
 		$this->add_sections( $sections );
 		$this->add_fields( $this->fields, $sections );
+		add_action( 'admin_notices', array( $this, 'notice' ) );
 	}
 
 	/**
@@ -62,7 +63,6 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function do_settings_form() {
 
-		$this->setting = $this->get_setting();
 		echo '<div class="wrap">';
 		echo '<h1>' . esc_attr( get_admin_page_title() ) . '</h1>';
 		echo '<form action="options.php" method="post">';
