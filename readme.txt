@@ -5,11 +5,11 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.1
 Tested up to: 4.7
-Stable tag: 1.5.2
+Stable tag: 2.0.0beta
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-This plugin adds super simple social sharing buttons to the end of posts.
+This plugin adds super simple social sharing buttons to your content.
 
 == Description ==
 
@@ -19,7 +19,7 @@ The sharing links use the most basic methods provided by each network. There is 
 
 The sharing buttons are accessible--even if you choose the "Icons Only" button styles, the network names are still part of the buttons, just hidden in an accessible-ready manner.
 
-There is a small settings page, so you can make decisions about which content types should have sharing buttons, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
+There is a small settings page, so you can make decisions about which content types should have sharing buttons and where, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
 Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisography.com/).
 
@@ -33,20 +33,29 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisograp
 
 = What if I want to move where the buttons are output? =
 
-As of version 1.3.0, you can choose whether to add sharing buttons to the end (default) or beginning of your content, or both--check the settings page.
+Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
 
-The social sharing buttons are added to your post content using `the_content` filter, so they'll work with any theme. If you want to move them, you can remove the original filter, and add the buttons using your own action. Example:
+* Before Content (legacy plugin location): at the beginning of the post/entry, within the post/entry content.
+* After Content (legacy plugin location): at the end of the post/entry, within the post/entry content.
+* Before Entry: at the beginning of the post/entry, outside of the post/entry content. Likely before the post title.
+* After Entry: at the end of the post/entry, outside of the post/entry content.
+* Manual: select this if you are adding buttons with your own code (this ensures that the necessary styles are loaded, and some other housekeeping).
 
-	remove_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
-	add_filter( 'the_content', 'prefix_scriptlesssocialsharing_buttons_before_entry' );
-	function prefix_scriptlesssocialsharing_buttons_before_entry( $content ) {
-		if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
-			return;
-		}
-		$buttons = scriptlesssocialsharing_do_buttons();
-		// $buttons = scriptlesssocialsharing_do_buttons( false ); // optionally, output the buttons without the heading above.
-		return $buttons . $content;
-	}
+**Note:** if you have code that removes the original buttons output and adds it back by hand, make sure that you select Manual for the location for each affected content type.
+
+= What about a shortcode? =
+
+As of version 2.0.0, you can add sharing buttons directly to your content with a shortcode. You can tweak the output, too. For example, to add the buttons to your content, exactly as you have them set up in your settings, just use this shortcode:
+
+	[scriptless]
+
+If you want to remove the heading, try it this way (or customize the heading by adding text):
+
+	[scriptless heading=""]
+
+Want to only show certain buttons in the shortcode? Add them as a shortcode attribute (separate with commas, no spaces). This will show just the email and facebook buttons:
+
+	[scriptless buttons="email,facebook"]
 
 = Can I add sharing buttons to posts on archive pages? =
 
@@ -120,9 +129,14 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-1.5.2 improved custom Pinterest image/button, fixed URL encoding
+2.0.0 big huge settings changes--now control sharing buttons by content type. Also improvements on URL construction for output.
 
 == Changelog ==
+
+= 2.0.0 =
+* added: new settings to manage buttons output by content type
+* added: a shortcode!
+* improved: URL construction methods now allow you to do things like add your own custom query args (props Sal Ferrarello)
 
 = 1.5.2 =
 * improved: custom Pinterest image alt text will be preferred over post title, if alt text is set

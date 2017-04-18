@@ -97,7 +97,7 @@ class ScriptlessSocialSharing {
 	 * @param $links array
 	 *
 	 * @return array
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function add_settings_link( $links ) {
 		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=scriptlesssocialsharing' ) ), esc_attr__( 'Settings', 'scriptless-social-sharing' ) );

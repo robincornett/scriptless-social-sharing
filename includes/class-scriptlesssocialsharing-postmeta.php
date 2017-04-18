@@ -58,7 +58,7 @@ class ScriptlessSocialSharingPostMeta {
 			'jquery',
 			'media-upload',
 			'thickbox',
-		), '1.5.0' );
+		), '2.0.0' );
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'scriptless-upload' );

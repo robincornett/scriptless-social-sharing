@@ -31,7 +31,7 @@ function scriptlesssocialsharing_get_setting() {
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
 /**
  * Adds the sharing buttons to the post content.
- * Deprecated in version x.y.z
+ * Deprecated in version 2.0.0
  *
  * @param $content
  *

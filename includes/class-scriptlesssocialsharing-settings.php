@@ -45,7 +45,7 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Build the settings page.
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function build_settings_page() {
 		$this->setting = $this->get_setting();
@@ -375,7 +375,7 @@ class ScriptlessSocialSharingSettings {
 	 *
 	 * @param $args
 	 *
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function section_description( $args ) {
 		$method = "{$args['id']}_section_description";
@@ -737,7 +737,7 @@ class ScriptlessSocialSharingSettings {
 	/**
 	 * Add an admin notice for users who have upgraded from 1.x
 	 *
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function notice() {
 		if ( ! $this->setting['location'] ) {
@@ -803,7 +803,7 @@ class ScriptlessSocialSharingSettings {
 	 * Determines if the user has permission to save the information from the submenu
 	 * page.
 	 *
-	 * @since    x.y.z
+	 * @since    2.0.0
 	 * @access   protected
 	 *
 	 * @param    string    $action   The name of the action specified on the submenu page

@@ -10,7 +10,7 @@ class ScriptlessSocialSharingOutput {
 	/**
 	 * @var string current plugin version
 	 */
-	protected $version = '1.5.2';
+	protected $version = '2.0.0beta';
 
 	/**
 	 * @var $setting ScriptlessSocialSharingSettings->get_setting
@@ -116,7 +116,7 @@ class ScriptlessSocialSharingOutput {
 	/**
 	 * Decide where to add the sharing buttons.
 	 *
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function new_buttons() {
 		if ( ! is_main_query() && ! is_singular() && ! $this->can_do_buttons() ) {
@@ -258,13 +258,13 @@ class ScriptlessSocialSharingOutput {
 
 			/**
 			 * Create a filter to build custom URLs for each network.
-			 * @since x.y.z
+			 * @since 2.0.0
 			 */
 			$buttons[ $button ]['url']  = apply_filters( "scriptlesssocialsharing_{$button}_url", $url, $button, $attributes );
 
 			/**
 			 * Create a filter to add data attributes to social URLs.
-			 * @since x.y.z
+			 * @since 2.0.0
 			 */
 			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
 		}
@@ -296,7 +296,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes array
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_twitter_url( $attributes ) {
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
@@ -318,7 +318,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes array
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_facebook_url( $attributes ) {
 		return add_query_arg(
@@ -333,7 +333,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes array
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_google_url( $attributes ) {
 		return add_query_arg(
@@ -348,7 +348,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_pinterest_url( $attributes ) {
 		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
@@ -368,7 +368,7 @@ class ScriptlessSocialSharingOutput {
 	/**
 	 * Add Pinterest data pin attributes to the URL markup.
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function add_pinterest_data() {
 		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
@@ -379,7 +379,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes array
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_linkedin_url( $attributes ) {
 		return add_query_arg(
@@ -399,7 +399,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes array
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_email_url( $attributes ) {
 		return add_query_arg(
@@ -416,7 +416,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param $attributes
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	protected function get_reddit_url( $attributes ) {
 		return add_query_arg(
