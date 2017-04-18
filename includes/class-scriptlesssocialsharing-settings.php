@@ -480,6 +480,7 @@ class ScriptlessSocialSharingSettings {
 				'after'        => __( 'After Content', 'scriptless-social-sharing' ),
 				'before_entry' => __( 'Before Entry', 'scriptless-social-sharing' ),
 				'after_entry'  => __( 'After Entry', 'scriptless-social-sharing' ),
+				'manual'       => __( 'Manual Placement', 'scriptless-social-sharing' ),
 			);
 			foreach ( $options as $key => $value ) {
 				$setting = $this->get_content_types_location( $post_type, $key );
@@ -717,7 +718,7 @@ class ScriptlessSocialSharingSettings {
 	 * @return string
 	 */
 	protected function post_types_description() {
-		return __( 'Leave all options unchecked for no buttons or manual placement. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Before/after Entry are outside of the content, and will vary depending on your theme.', 'scriptless-social-sharing' );
+		return __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Before/after Entry are outside of the content, and will vary depending on your theme. Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code.', 'scriptless-social-sharing' );
 	}
 
 	/**
