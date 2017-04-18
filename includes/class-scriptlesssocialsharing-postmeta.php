@@ -73,10 +73,10 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		printf( '<label for="%s">%s</label>', $this->image, __( 'Custom Pinterest Image', 'scriptless-social-sharing' ) );
+		printf( '<label for="%s">%s</label>', esc_attr( $this->image ), esc_html__( 'Custom Pinterest Image', 'scriptless-social-sharing' ) );
 		echo '<p>';
 		$id = get_post_meta( $post->ID, $this->image, true );
-		echo $this->render_image_preview( $id );
+		echo wp_kses_post( $this->render_image_preview( $id ) );
 		$this->render_buttons( $id );
 		echo '</p>';
 		$this->do_checkbox();
@@ -85,6 +85,8 @@ class ScriptlessSocialSharingPostMeta {
 	/**
 	 * display image preview
 	 * @param  int $id featured image ID
+	 *
+	 * @return string
 	 *
 	 * @since 1.5.0
 	 */
@@ -101,7 +103,6 @@ class ScriptlessSocialSharingPostMeta {
 	/**
 	 * show image select/delete buttons
 	 * @param  int $id   image ID
-	 * @param  string $name name for value/ID/class
 	 *
 	 * @since 1.5.0
 	 */
@@ -131,8 +132,8 @@ class ScriptlessSocialSharingPostMeta {
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
 
 		echo '<div class="misc-pub-section">';
-		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', $this->disable, checked( $check, 1, false ) );
-		printf( '<label for="%s">%s</label>', $this->disable, __( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
+		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', esc_attr( $this->disable ), checked( $check, 1, false ) );
+		printf( '<label for="%s">%s</label>', esc_attr( $this->disable ), esc_html__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
 		echo '</div>';
 	}
 
@@ -159,11 +160,11 @@ class ScriptlessSocialSharingPostMeta {
 
 		$meta = array(
 			$this->disable => 1,
-			$this->image   => (int) $_POST[ $this->image ],
+		    $this->image   => (int) filter_input( INPUT_POST, $this->image, FILTER_SANITIZE_STRING ),
 		);
 
 		foreach ( $meta as $key => $value ) {
-			if ( isset( $_POST[ $key ] ) ) {
+			if ( filter_input( INPUT_POST, $key, FILTER_SANITIZE_STRING ) ) {
 				update_post_meta( $post_id, $key, $value );
 			} else {
 				delete_post_meta( $post_id, $key );
