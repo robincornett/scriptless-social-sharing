@@ -40,7 +40,14 @@ class ScriptlessSocialSharingSettings {
 		);
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( "load-settings_page_{$this->page}", array( $this, 'build_settings_page' ) );
+	}
 
+	/**
+	 * Build the settings page.
+	 * @since x.y.z
+	 */
+	public function build_settings_page() {
 		add_action( 'admin_notices', array( $this, 'notice' ) );
 		$sections     = $this->register_sections();
 		$this->fields = $this->register_fields();
@@ -182,7 +189,6 @@ class ScriptlessSocialSharingSettings {
 			$this->styles(),
 			$this->button_style(),
 			$this->post_types(),
-//			$this->location(),
 			$this->heading(),
 			$this->buttons(),
 			$this->twitter_handle(),
@@ -365,8 +371,10 @@ class ScriptlessSocialSharingSettings {
 
 	/**
 	 * Echo the section description.
+	 *
 	 * @param $args
-     * @since x.y.z
+	 *
+	 * @since x.y.z
 	 */
 	public function section_description( $args ) {
 		$method = "{$args['id']}_section_description";
@@ -753,7 +761,7 @@ class ScriptlessSocialSharingSettings {
 
 		check_admin_referer( "{$this->page}_save-settings", "{$this->page}_nonce" );
 
-		foreach ( $this->fields as $field ) {
+		foreach ( $this->register_fields() as $field ) {
 			switch ( $field['callback'] ) {
 				case 'do_checkbox':
 					$new_value[ $field['id'] ] = $this->one_zero( $new_value[ $field['id'] ] );
