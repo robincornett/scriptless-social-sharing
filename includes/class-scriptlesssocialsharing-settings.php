@@ -766,7 +766,7 @@ class ScriptlessSocialSharingSettings {
 					break;
 			}
 		}
-		$new_value['button_style'] = (int) $new_value['button_style'];
+		$new_value['location'] = false;
 
 		return $new_value;
 	}

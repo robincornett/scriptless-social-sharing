@@ -41,7 +41,10 @@ function scriptlesssocialsharing_print_buttons( $content ) {
 	if ( ! is_main_query() ) {
 		return $content;
 	}
-	$setting   = scriptlesssocialsharing_get_setting();
+	$setting = scriptlesssocialsharing_get_setting();
+	if ( ! $setting['location'] ) {
+		return $content;
+	}
 	$post_type = get_post_type();
 	if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || is_array( $setting['post_types'][ $post_type ] ) ) {
 		return $content;
