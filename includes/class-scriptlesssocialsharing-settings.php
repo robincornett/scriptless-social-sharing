@@ -124,11 +124,12 @@ class ScriptlessSocialSharingSettings {
 			),
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
-			'post_types'     => array( 'post' ),
-			'location'       => array(
-				'before' => 0,
-				'after'  => 1,
+			'post_types'     => array(
+				'post' => array(
+					'after' => 1,
+				),
 			),
+			'location'       => false,
 			'button_style'   => 1,
 			'button_padding' => 12,
 			'table_width'    => 'full',
@@ -518,6 +519,9 @@ class ScriptlessSocialSharingSettings {
 			return $this->setting['post_types'][ $post_type->name ][ $key ];
 		}
 		if ( isset( $this->setting['post_types'][ $post_type->name ] ) && $this->setting['post_types'][ $post_type->name ] && isset( $this->setting['location'] ) ) {
+			if ( 'manual' === $key ) {
+				$setting = 1;
+			}
 			if ( $this->setting['location']['before'] && 'before' === $key ) {
 				$setting = 1;
 			} elseif ( $this->setting['location']['after'] && 'after' === $key ) {
