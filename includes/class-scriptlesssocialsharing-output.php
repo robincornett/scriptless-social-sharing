@@ -126,20 +126,20 @@ class ScriptlessSocialSharingOutput {
 		if ( ! isset( $this->setting['post_types'][ $post_type ] ) || ! $this->setting['post_types'][ $post_type ] || ! is_array( $this->setting['post_types'][ $post_type ] ) ) {
 			return;
 		}
-		if ( $this->setting['post_types'][ $post_type ]['before'] || $this->setting['post_types'][ $post_type ]['after'] ) {
+		if ( ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) || ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) ) {
 			add_filter( 'the_content', array( $this, 'add_buttons_to_content' ), 99 );
 		}
-		if ( $this->setting['post_types'][ $post_type ]['before_entry'] ) {
+		if ( isset( $this->setting['post_types'][ $post_type ]['before_entry'] ) && $this->setting['post_types'][ $post_type ]['before_entry'] ) {
 			add_action( 'loop_start', array( $this, 'print_buttons' ) );
 		}
-		if ( $this->setting['post_types'][ $post_type ]['after_entry'] ) {
+		if ( isset( $this->setting['post_types'][ $post_type ]['after_entry'] ) && $this->setting['post_types'][ $post_type ]['after_entry'] ) {
 			add_action( 'loop_end', array( $this, 'print_buttons' ) );
 		}
 	}
 
 	/**
 	 * Print the sharing buttons.
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function print_buttons() {
 		echo wp_kses_post( $this->do_buttons() );
@@ -150,12 +150,12 @@ class ScriptlessSocialSharingOutput {
 	 * @param $content
 	 *
 	 * @return string
-	 * @since x.y.z
+	 * @since 2.0.0
 	 */
 	public function add_buttons_to_content( $content ) {
 		$post_type = get_post_type();
-		$before    = $this->setting['post_types'][ $post_type ]['before'] ? $this->do_buttons() : '';
-		$after     = $this->setting['post_types'][ $post_type ]['after'] ? $this->do_buttons() : '';
+		$before    = isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ? $this->do_buttons() : '';
+		$after     = isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ? $this->do_buttons() : '';
 		return $before . $content . $after;
 	}
 
