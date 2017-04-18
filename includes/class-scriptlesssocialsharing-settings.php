@@ -731,7 +731,7 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function do_validation_things( $new_value ) {
 
-		if ( empty( $_POST[ $this->page . '_nonce' ] ) ) {
+		if ( ! $this->user_can_save( "{$this->page}_save-settings", "{$this->page}_nonce" ) ) {
 			wp_die( esc_attr__( 'Something unexpected happened. Please try again.', 'scriptless-social-sharing' ) );
 		}
 
@@ -752,14 +752,13 @@ class ScriptlessSocialSharingSettings {
 					break;
 
 				case 'do_checkbox_array':
-					$choices = $field['choices'];
-					foreach ( $choices as $key => $label ) {
+					foreach ( $field['choices'] as $key => $label ) {
 						$new_value[ $field['id'] ][ $key ] = $this->one_zero( $new_value[ $field['id'] ][ $key ] );
 					}
 					break;
 
 				case 'do_radio_buttons':
-					$new_value[ $field['id'] ] = esc_attr( $new_value[ $field['id'] ] );
+					$new_value[ $field['id'] ] = is_numeric( $new_value[ $field['id'] ] ) ? (int) $new_value[ $field['id'] ] : esc_attr( $new_value[ $field['id'] ] );
 					break;
 
 				case 'do_content_types':
@@ -770,6 +769,29 @@ class ScriptlessSocialSharingSettings {
 		$new_value['button_style'] = (int) $new_value['button_style'];
 
 		return $new_value;
+	}
+
+	/**
+	 * Determines if the user has permission to save the information from the submenu
+	 * page.
+	 *
+	 * @since    x.y.z
+	 * @access   protected
+	 *
+	 * @param    string    $action   The name of the action specified on the submenu page
+	 * @param    string    $nonce    The nonce specified on the submenu page
+	 *
+	 * @return   bool                True if the user has permission to save; false, otherwise.
+	 * @author   Tom McFarlin (https://tommcfarlin.com/save-wordpress-submenu-page-options/)
+	 */
+	protected function user_can_save( $action, $nonce ) {
+		$is_nonce_set   = isset( $_POST[ $nonce ] );
+		$is_valid_nonce = false;
+
+		if ( $is_nonce_set ) {
+			$is_valid_nonce = wp_verify_nonce( $_POST[ $nonce ], $action );
+		}
+		return ( $is_nonce_set && $is_valid_nonce );
 	}
 
 	/**
