@@ -45,6 +45,9 @@ class ScriptlessSocialSharing {
 	/**
 	 * ScriptlessSocialSharing constructor.
 	 *
+	 * @param $help
+	 * @param $output
+	 * @param $post_meta
 	 * @param $settings
 	 */
 	public function __construct( $help, $output, $post_meta, $settings ) {
@@ -58,17 +61,26 @@ class ScriptlessSocialSharing {
 	 * Run all the things.
 	 */
 	public function run() {
+
+		// Admin
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_action( 'load-settings_page_scriptlesssocialsharing', array( $this->help, 'help' ) );
 		add_filter( 'plugin_action_links_' . SCRIPTLESSOCIALSHARING_BASENAME, array( $this, 'add_settings_link' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+
+		// Post Meta
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
 		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );
+
+		// Output
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
-		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
-		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this->output, 'do_buttons' ), 10, 2 );
+		add_action( 'wp_head', array( $this->output, 'new_buttons' ) );
 		add_filter( 'the_content', array( $this->output, 'hide_pinterest_image' ), 99 );
 		add_shortcode( 'scriptless', array( $this->output, 'shortcode' ) );
+
+		// Filters
+		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
+		add_filter( 'scriptlesssocialsharing_get_buttons', array( $this->output, 'do_buttons' ), 10, 2 );
 	}
 
 	/**

@@ -142,10 +142,10 @@ class ScriptlessSocialSharingSettings {
 				'id'    => 'general',
 				'title' => __( 'Button Settings', 'scriptless-social-sharing' ),
 			),
-//			'content_types' => array(
-//				'id'    => 'content_types',
-//				'title' => __( 'Content Types', 'scriptless-social-sharing' ),
-//			),
+			'content_types' => array(
+				'id'    => 'content_types',
+				'title' => __( 'Content Types', 'scriptless-social-sharing' ),
+			),
 			'networks'      => array(
 				'id'    => 'networks',
 				'title' => __( 'Network Settings', 'scriptless-social-sharing' ),
@@ -181,7 +181,7 @@ class ScriptlessSocialSharingSettings {
 			$this->styles(),
 			$this->button_style(),
 			$this->post_types(),
-			$this->location(),
+//			$this->location(),
 			$this->heading(),
 			$this->buttons(),
 			$this->twitter_handle(),
@@ -267,10 +267,9 @@ class ScriptlessSocialSharingSettings {
 		return array(
 			'id'       => 'post_types',
 			'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
-			'callback' => 'do_checkbox_array',
-//			'callback' => 'do_content_types',
-			'section'  => 'general',
-		    'choices'  => $this->post_type_choices(),
+			'callback' => 'do_content_types',
+			'section'  => 'content_types',
+			'choices'  => $this->post_type_choices(),
 		);
 	}
 
@@ -402,6 +401,14 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
+	 * Return the description for the content types section.
+	 * @return string
+	 */
+	public function content_types_section_description() {
+		return __( 'You now have granular control over sharing buttons for each type of content on your site.', 'scriptless-social-sharing' );
+	}
+
+	/**
 	 * Generic callback to create a checkbox setting.
 	 *
 	 * @since 1.0.0
@@ -467,33 +474,47 @@ class ScriptlessSocialSharingSettings {
 	public function do_content_types( $args ) {
 		$this->do_description( $args['id'] );
 		foreach ( $this->get_post_types() as $post_type ) {
-			$choices[ $post_type->name ] = $post_type->labels->name;
 			echo '<h4 class="heading">' . esc_attr( $post_type->labels->name ) . '</h4>';
-			printf( '<label for="%s[%s][%s]"></label >', esc_attr( $this->page ), esc_attr( $args['id'] ), esc_attr( $post_type->name ) );
-			printf( '<select id="%3$s[%1$s][%2$s]" name="%3$s[%1$s][%2$s]" >', esc_attr( $args['id'] ), esc_attr( $post_type->name ), esc_attr( $this->page ) );
-			$unparsed_setting = $this->get_database_setting();
-			$options          = array(
-				''       => 'No Buttons',
-				'before' => 'Before Content',
-				'after'  => 'After Content',
-				'both'   => 'Before and After Content',
+			$options = array(
+				'before'       => __( 'Before Content', 'scriptless-social-sharing' ),
+				'after'        => __( 'After Content', 'scriptless-social-sharing' ),
+				'before_entry' => __( 'Before Entry', 'scriptless-social-sharing' ),
+				'after_entry'  => __( 'After Entry', 'scriptless-social-sharing' ),
 			);
-			foreach ( (array) $options as $key => $value ) {
-				$setting = '';
-				if ( isset( $unparsed_setting['post_types'][ $post_type->name ] ) && $unparsed_setting['post_types'][ $post_type->name ] && isset( $unparsed_setting['location'] ) ) {
-					if ( $unparsed_setting['location']['before'] ) {
-						$setting = 'before';
-					} elseif ( $unparsed_setting['location']['after'] ) {
-						$setting = 'after';
-					} elseif ( $unparsed_setting['location']['before'] && $unparsed_setting['location']['after'] ) {
-						$setting = 'both';
-					}
-				}
-
-				printf( '<option value="%s" %s>%s</option>', esc_attr( $key ), selected( $key, $setting, false ), esc_attr( $value ) );
+			foreach ( $options as $key => $value ) {
+				$setting = $this->get_content_types_location( $post_type, $key );
+				printf( '<input type="hidden" name="%s[post_types][%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $post_type->name ), esc_attr( $key ) );
+				printf( '<label for="%4$s[post_types][%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[post_types][%5$s][%1$s]" id="%4$s[post_types][%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
+					esc_attr( $key ),
+					checked( 1, $setting, false ),
+					esc_html( $value ),
+					esc_attr( $this->page ),
+					esc_attr( $post_type->name )
+				);
 			}
-			echo '</select>';
 		}
+	}
+
+	/**
+	 * Check the database setting
+	 * @param $post_type
+	 * @param $key
+	 *
+	 * @return int
+	 */
+	protected function get_content_types_location( $post_type, $key ) {
+		$setting = 0;
+		if ( isset( $this->setting['post_types'][ $post_type->name ][ $key ] ) ) {
+			return $this->setting['post_types'][ $post_type->name ][ $key ];
+		}
+		if ( isset( $this->setting['post_types'][ $post_type->name ] ) && $this->setting['post_types'][ $post_type->name ] && isset( $this->setting['location'] ) ) {
+			if ( $this->setting['location']['before'] && 'before' === $key ) {
+				$setting = 1;
+			} elseif ( $this->setting['location']['after'] && 'after' === $key ) {
+				$setting = 1;
+			}
+		}
+		return $setting;
 	}
 
 	/**
@@ -575,7 +596,7 @@ class ScriptlessSocialSharingSettings {
 	 * @return array
 	 */
 	public function get_networks() {
-		$networks = array(
+		return apply_filters( 'scriptlesssocialsharing_networks', array(
 			'twitter'   => array(
 				'name'  => 'twitter',
 				'label' => __( 'Twitter', 'scriptless-social-sharing' ),
@@ -604,9 +625,7 @@ class ScriptlessSocialSharingSettings {
 				'name'  => 'reddit',
 				'label' => __( 'Reddit', 'scriptless-social-sharing' ),
 			),
-		);
-
-		return apply_filters( 'scriptlesssocialsharing_networks', $networks );
+		) );
 	}
 
 	/**
@@ -694,6 +713,14 @@ class ScriptlessSocialSharingSettings {
 	}
 
 	/**
+	 * Description for the post types setting.
+	 * @return string
+	 */
+	protected function post_types_description() {
+		return __( 'Leave all options unchecked for no buttons or manual placement. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Before/after Entry are outside of the content, and will vary depending on your theme.', 'scriptless-social-sharing' );
+	}
+
+	/**
 	 * Validate all settings.
 	 *
 	 * @param  array $new_value new values from settings page
@@ -734,6 +761,10 @@ class ScriptlessSocialSharingSettings {
 				case 'do_radio_buttons':
 					$new_value[ $field['id'] ] = esc_attr( $new_value[ $field['id'] ] );
 					break;
+
+				case 'do_content_types':
+					array_walk_recursive( $new_value[ $field['id'] ], array( $this, 'validate_content_types' ) );
+					break;
 			}
 		}
 		$new_value['button_style'] = (int) $new_value['button_style'];
@@ -754,5 +785,14 @@ class ScriptlessSocialSharingSettings {
 	 */
 	protected function one_zero( $new_value ) {
 		return (int) (bool) $new_value;
+	}
+
+	/**
+	 * Validate multidimensional arrays.
+	 * @param $new_value
+	 * @param $key
+	 */
+	protected function validate_content_types( &$new_value, $key ) {
+		$new_value = $this->one_zero( $new_value );
 	}
 }

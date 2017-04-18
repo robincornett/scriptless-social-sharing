@@ -22,20 +22,28 @@ function scriptlesssocialsharing_do_buttons( $heading = true ) {
 
 /**
  * Helper function to get the plugin setting with defaults.
- * @return mixed|void
+ * @return mixed
  */
 function scriptlesssocialsharing_get_setting() {
 	return apply_filters( 'scriptlesssocialsharing_get_setting', false );
 }
 
 add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
+/**
+ * Adds the sharing buttons to the post content.
+ * Deprecated in version x.y.z
+ *
+ * @param $content
+ *
+ * @return string
+ */
 function scriptlesssocialsharing_print_buttons( $content ) {
 	if ( ! is_main_query() ) {
 		return $content;
 	}
 	$setting   = scriptlesssocialsharing_get_setting();
 	$post_type = get_post_type();
-	if ( ! $setting['post_types'][ $post_type ] ) {
+	if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || is_array( $setting['post_types'][ $post_type ] ) ) {
 		return $content;
 	}
 	$buttons = scriptlesssocialsharing_do_buttons();
@@ -64,7 +72,11 @@ function scriptlesssocialsharing_post_types() {
 	if ( isset( $setting['post_types']['post'] ) ) {
 		$post_types = array();
 		foreach ( $setting['post_types'] as $post_type => $value ) {
-			if ( $value ) {
+			if ( is_array( $setting['post_types'][ $post_type ] ) ) {
+				if ( in_array( 1, $setting['post_types'][ $post_type ], true ) ) {
+					$post_types[] = $post_type;
+				}
+			} elseif ( is_string( $post_type ) && $value ) {
 				$post_types[] = $post_type;
 			}
 		}
