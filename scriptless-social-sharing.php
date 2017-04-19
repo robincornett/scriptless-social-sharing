@@ -36,6 +36,7 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'class-scriptlesssocialsharing',
+		'class-scriptlesssocialsharing-enqueue',
 		'class-scriptlesssocialsharing-help',
 		'class-scriptlesssocialsharing-output',
 		'class-scriptlesssocialsharing-postmeta',
