@@ -231,7 +231,7 @@ class ScriptlessSocialSharingOutput {
 	 * @param  string $button_name The name of the button, e.g. 'twitter', 'facebook'.
 	 * @return string The URL to be shared.
 	 */
-	protected function get_permalink( string $button_name ) {
+	protected function get_permalink( $button_name ) {
 		$attributes = $this->attributes();
 		return rawurlencode(
 			apply_filters( 'scriptlesssocialsharing_get_permalink',
