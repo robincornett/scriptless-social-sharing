@@ -132,8 +132,7 @@ class ScriptlessSocialSharingPostMeta {
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
 
 		echo '<div class="misc-pub-section">';
-		printf( '<input type="checkbox" id="%1$s" name="%1$s" %2$s/>', esc_attr( $this->disable ), checked( $check, 1, false ) );
-		printf( '<label for="%s">%s</label>', esc_attr( $this->disable ), esc_html__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
+		printf( '<label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>', esc_attr( $this->disable ), checked( $check, 1, false ), esc_html__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
 		echo '</div>';
 	}
 
@@ -159,15 +158,16 @@ class ScriptlessSocialSharingPostMeta {
 		}
 
 		$meta = array(
-			$this->disable => 1,
-		    $this->image   => (int) filter_input( INPUT_POST, $this->image, FILTER_SANITIZE_STRING ),
+			$this->disable,
+			$this->image,
 		);
 
-		foreach ( $meta as $key => $value ) {
-			if ( filter_input( INPUT_POST, $key, FILTER_SANITIZE_STRING ) ) {
-				update_post_meta( $post_id, $key, $value );
+		foreach ( $meta as $m ) {
+			$value = (int) filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING );
+			if ( $value ) {
+				update_post_meta( $post_id, $m, $value );
 			} else {
-				delete_post_meta( $post_id, $key );
+				delete_post_meta( $post_id, $m );
 			}
 		}
 	}
