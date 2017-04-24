@@ -329,15 +329,14 @@ class ScriptlessSocialSharingOutput {
 	 * @since 2.0.0
 	 */
 	protected function get_pinterest_url( $attributes ) {
-		$pinterest_url = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
-		$pinterest_img = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
+		$pinterest_img = $this->pinterest_image() ? $this->pinterest_image() : $this->featured_image();
 		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
 		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
 		return add_query_arg(
 			array(
 				'url'         => $this->get_permalink( 'pinterest' ),
 				'description' => $pin_title,
-				'media'       => esc_url( $pinterest_url ),
+				'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
 			),
 			'https://pinterest.com/pin/create/button/'
 		);
@@ -416,10 +415,10 @@ class ScriptlessSocialSharingOutput {
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'home'          => home_url(),
-			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'image'         => $this->setting['buttons']['pinterest'] ? $this->get_image_url( $this->featured_image() ) : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
-			'pinterest'     => $this->pinterest_image(),
+			'pinterest'     => $this->get_image_url( $this->pinterest_image() ),
 			'post_id'       => get_the_ID(),
 		);
 	}
@@ -434,11 +433,10 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * retrieve the featured image
-	 * @return string if there is a featured image, return the URL
+	 * @return string if there is a featured image, return the ID
 	 */
 	protected function featured_image() {
-		$featured_image = has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
-		return apply_filters( 'scriptlesssocialsharing_image_url', $this->get_image_url( $featured_image ) );
+		return has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
 	}
 
 	/**
@@ -467,12 +465,11 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * If a pinterest specific image is set, get the URL.
+	 * If a pinterest specific image is set, get the ID.
 	 * @return string
 	 */
 	protected function pinterest_image() {
-		$pinterest = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		return $this->get_image_url( $pinterest );
+		return get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
 	}
 
 	/**
@@ -482,8 +479,8 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	protected function get_image_url( $id ) {
-		$source    = wp_get_attachment_image_src( $id, 'large', false );
-		return isset( $source[0] ) ? $source[0] : '';
+		$source = wp_get_attachment_image_src( $id, 'large', false );
+		return apply_filters( 'scriptlesssocialsharing_image_url', isset( $source[0] ) ? $source[0] : '' );
 	}
 
 	/**
@@ -510,6 +507,9 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * Modify the heading above the buttons
+	 *
+	 * @param $heading
+	 *
 	 * @return string heading
 	 */
 	protected function heading( $heading ) {
