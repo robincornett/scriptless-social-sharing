@@ -360,14 +360,17 @@ class ScriptlessSocialSharingOutput {
 	 * @since 2.0.0
 	 */
 	protected function get_linkedin_url( $attributes ) {
+		$query_args = array(
+			'mini'   => true,
+			'url'    => $this->get_permalink( 'linkedin' ),
+			'title'  => $attributes['title'],
+			'source' => $attributes['home'],
+		);
+		if ( $this->description() ) {
+			$query_args['summary'] = $this->description();
+		}
 		return add_query_arg(
-			array(
-				'mini'    => true,
-				'url'     => $this->get_permalink( 'linkedin' ),
-				'title'   => $attributes['title'],
-				'summary' => $this->description(),
-				'source'  => $attributes['home'],
-			),
+			$query_args,
 			'https://www.linkedin.com/shareArticle'
 		);
 	}
