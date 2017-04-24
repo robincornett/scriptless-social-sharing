@@ -276,14 +276,17 @@ class ScriptlessSocialSharingOutput {
 	protected function get_twitter_url( $attributes ) {
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
+		$query_args    = array(
+			'text' => $twitter_title,
+			'url'  => $this->get_permalink( 'twitter' ),
+		);
+		if ( $this->twitter_handle() ) {
+			$query_args['via']     = $this->twitter_handle();
+			$query_args['related'] = $this->twitter_handle();
+		}
 
 		return add_query_arg(
-			array(
-				'text'    => $twitter_title,
-				'url'     => $this->get_permalink( 'twitter' ),
-				'via'     => $this->twitter_handle(),
-				'related' => $this->twitter_handle(),
-			),
+			$query_args,
 			'https://twitter.com/intent/tweet'
 		);
 	}
