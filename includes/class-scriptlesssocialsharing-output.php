@@ -55,22 +55,54 @@ class ScriptlessSocialSharingOutput {
 	 *
 	 * @since 2.0.0
 	 */
-	public function new_buttons() {
-		if ( ! is_main_query() && ! is_singular() && ! $this->can_do_buttons() ) {
+	public function do_location() {
+		if ( ! $this->can_do_buttons() ) {
 			return;
 		}
 		$post_type = get_post_type();
 		if ( ! isset( $this->setting['post_types'][ $post_type ] ) || ! $this->setting['post_types'][ $post_type ] || ! is_array( $this->setting['post_types'][ $post_type ] ) ) {
 			return;
 		}
-		if ( ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) || ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) ) {
-			add_filter( 'the_content', array( $this, 'add_buttons_to_content' ), 99 );
+		$locations = array(
+			'before'      => array(
+				'hook'     => false,
+				'filter'   => 'the_content',
+				'priority' => 10,
+			),
+			'after'       => array(
+				'hook'     => false,
+				'filter'   => 'the_content',
+				'priority' => 10,
+			),
+		);
+		if ( 'genesis' === basename( TEMPLATEPATH ) ) {
+			$locations = array(
+				'before'      => array(
+					'hook'     => 'genesis_entry_header',
+					'filter'   => false,
+					'priority' => 20,
+				),
+				'after'       => array(
+					'hook'     => 'genesis_entry_footer',
+					'filter'   => false,
+					'priority' => 5,
+				),
+			);
 		}
-		if ( isset( $this->setting['post_types'][ $post_type ]['before_entry'] ) && $this->setting['post_types'][ $post_type ]['before_entry'] ) {
-			add_action( 'loop_start', array( $this, 'print_buttons' ) );
+		$locations = apply_filters( 'scriptlesssocialsharing_locations', $locations );
+		if ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) {
+			if ( $locations['after']['hook'] ) {
+				add_action( $locations['after']['hook'], array( $this, 'print_buttons' ), $locations['after']['priority'] );
+			} elseif ( $locations['after']['filter'] ) {
+				add_filter( 'the_content', array( $this, 'after_content' ), $locations['after']['priority'] );
+			}
 		}
-		if ( isset( $this->setting['post_types'][ $post_type ]['after_entry'] ) && $this->setting['post_types'][ $post_type ]['after_entry'] ) {
-			add_action( 'loop_end', array( $this, 'print_buttons' ) );
+		if ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) {
+			if ( $locations['before']['hook'] ) {
+				add_action( $locations['before']['hook'], array( $this, 'print_buttons' ), $locations['before']['priority'] );
+			} elseif ( $locations['after']['filter'] ) {
+				add_filter( 'the_content', array( $this, 'before_content' ), $locations['before']['priority'] );
+			}
 		}
 	}
 
@@ -83,17 +115,23 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * Add the sharing buttons to the post content.
+	 * Add the sharing buttons before the content.
 	 * @param $content
 	 *
 	 * @return string
-	 * @since 2.0.0
 	 */
-	public function add_buttons_to_content( $content ) {
-		$post_type = get_post_type();
-		$before    = isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ? $this->do_buttons() : '';
-		$after     = isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ? $this->do_buttons() : '';
-		return $before . $content . $after;
+	public function before_content( $content ) {
+		return $this->do_buttons() . $content;
+	}
+
+	/**
+	 * Add the sharing buttons after the content.
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	public function after_content( $content ) {
+		return $content . $this->do_buttons();
 	}
 
 	/**

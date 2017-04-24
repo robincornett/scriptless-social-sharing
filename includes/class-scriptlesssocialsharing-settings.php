@@ -486,11 +486,9 @@ class ScriptlessSocialSharingSettings {
 		foreach ( $this->get_post_types() as $post_type ) {
 			echo '<h4 class="heading">' . esc_attr( $post_type->labels->name ) . '</h4>';
 			$options = array(
-				'before'       => __( 'Before Content', 'scriptless-social-sharing' ),
-				'after'        => __( 'After Content', 'scriptless-social-sharing' ),
-				'before_entry' => __( 'Before Entry', 'scriptless-social-sharing' ),
-				'after_entry'  => __( 'After Entry', 'scriptless-social-sharing' ),
-				'manual'       => __( 'Manual Placement', 'scriptless-social-sharing' ),
+				'before' => __( 'Before Content', 'scriptless-social-sharing' ),
+				'after'  => __( 'After Content', 'scriptless-social-sharing' ),
+				'manual' => __( 'Manual Placement', 'scriptless-social-sharing' ),
 			);
 			foreach ( $options as $key => $value ) {
 				$setting = $this->get_content_types_location( $post_type, $key );
