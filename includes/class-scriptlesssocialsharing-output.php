@@ -261,7 +261,7 @@ class ScriptlessSocialSharingOutput {
 		return add_query_arg(
 			'u',
 			$this->get_permalink( 'facebook' ),
-			'http://www.facebook.com/sharer/sharer.php'
+			'https://www.facebook.com/sharer/sharer.php'
 		);
 	}
 
@@ -298,7 +298,7 @@ class ScriptlessSocialSharingOutput {
 				'description' => $pin_title,
 				'media'       => esc_url( $pinterest_url ),
 			),
-			'http://pinterest.com/pin/create/button/'
+			'https://pinterest.com/pin/create/button/'
 		);
 	}
 
@@ -327,7 +327,7 @@ class ScriptlessSocialSharingOutput {
 				'summary' => $this->description(),
 				'source'  => $attributes['home'],
 			),
-			'http://www.linkedin.com/shareArticle'
+			'https://www.linkedin.com/shareArticle'
 		);
 	}
 
