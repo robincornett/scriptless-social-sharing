@@ -18,6 +18,10 @@
 		display: table-cell;
 		text-align: center;
 		text-decoration: none;
+
+		&:hover {
+			color: #fff;
+		}
 	}
 
 	.sss-name {
