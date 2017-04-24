@@ -160,7 +160,7 @@ class ScriptlessSocialSharingOutput {
 		}
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
-			$output .= sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
+			$output .= $this->build_link_markup( $button );
 		}
 		$output .= '</div>';
 		$output .= '</div>';
@@ -192,12 +192,23 @@ class ScriptlessSocialSharingOutput {
 		$output .= $atts['inner_before'];
 		foreach ( $buttons as $button ) {
 			if ( empty( $passed ) || in_array( $button['name'], $passed, true ) ) {
-				$output .= sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
+				$output .= $this->build_link_markup( $button );
 			}
 		}
 		$output .= $atts['inner_after'];
 		$output .= $atts['after'];
 		return $output;
+	}
+
+	/**
+	 * Create the anchor element markup.
+	 * @param $button array the parameters for building the button.
+	 *
+	 * @since 2.0.0
+	 * @return string
+	 */
+	protected function build_link_markup( $button ) {
+		return sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
 	}
 
 	/**
