@@ -23,7 +23,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return boolean         false if not a singular post (can be modified for other content types)
 	 */
 	protected function can_do_buttons( $cando = true ) {
-		if ( ! is_main_query() ) {
+		if ( ! is_main_query() || get_the_ID() !== get_queried_object_id() ) {
 			$cando = false;
 		}
 		$post_types  = scriptlesssocialsharing_post_types();

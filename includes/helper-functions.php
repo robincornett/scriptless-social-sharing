@@ -14,7 +14,7 @@
  * Helper function to get the buttons for output.
  * @param bool $heading
  *
- * @return mixed|void
+ * @return string
  */
 function scriptlesssocialsharing_do_buttons( $heading = true ) {
 	return apply_filters( 'scriptlesssocialsharing_get_buttons', false, $heading );
@@ -38,7 +38,7 @@ add_filter( 'the_content', 'scriptlesssocialsharing_print_buttons', 99 );
  * @return string
  */
 function scriptlesssocialsharing_print_buttons( $content ) {
-	if ( ! is_main_query() ) {
+	if ( ! is_main_query() || ! get_queried_object_id() ) {
 		return $content;
 	}
 	$setting = scriptlesssocialsharing_get_setting();
