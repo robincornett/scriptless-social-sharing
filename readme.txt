@@ -35,13 +35,33 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisograp
 
 Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
 
-* Before Content (legacy plugin location): at the beginning of the post/entry, within the post/entry content.
-* After Content (legacy plugin location): at the end of the post/entry, within the post/entry content.
-* Before Entry: at the beginning of the post/entry, outside of the post/entry content. Likely before the post title.
-* After Entry: at the end of the post/entry, outside of the post/entry content.
+* Before Content: at the beginning of the post/entry, within the post/entry content.
+* After Content: at the end of the post/entry, within the post/entry content.
 * Manual: select this if you are adding buttons with your own code (this ensures that the necessary styles are loaded, and some other housekeeping).
 
 **Note:** if you have code that removes the original buttons output and adds it back by hand, make sure that you select Manual for the location for each affected content type.
+
+The best way to change the button output location is by using a filter. This example changes the locations from using `the_content` filter (with `hook` set to `false`) to using action hooks instead.
+
+	add_filter( 'scriptlesssocialsharing_locations', 'prefix_change_sss_locations' );
+	function prefix_change_sss_locations( $locations ) {
+		$locations['before'] = array(
+			'hook'     => 'genesis_before_entry',
+			'filter'   => false,
+			'priority' => 8,
+		);
+		$locations['after'] = array(
+			'hook'     => 'loop_end',
+			'filter'   => false,
+			'priority' => 8,
+		);
+
+		return $locations;
+	}
+
+If you use the Genesis Framework, you can tell the plugin to prefer Genesis specific action hooks with this very simple filter:
+
+	add_filter( 'scriptlesssocialsharing_prefer_genesis_hooks', '__return_true' );
 
 = What about a shortcode? =
 
@@ -136,7 +156,10 @@ You can set any order you like. `0` is the first number.
 = 2.0.0 =
 * added: new settings to manage buttons output by content type
 * added: a shortcode!
+* added: link to the settings page from the Plugins page
+* added: filter to manage button locations
 * improved: URL construction methods now allow you to do things like add your own custom query args (props Sal Ferrarello)
+* improved: if you've gone to the trouble of adding alt text to your featured images, thank you, and your Pinterest button will now use that (update from 1.5.2 applied to all featured images)
 
 = 1.5.2 =
 * improved: custom Pinterest image alt text will be preferred over post title, if alt text is set

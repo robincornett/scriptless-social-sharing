@@ -42,39 +42,63 @@ _Screenshot of the Scriptless Social Sharing Buttons on a Post._
 
 Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
 
-* Before Content (legacy plugin location): at the beginning of the post/entry, within the post/entry content.
-* After Content (legacy plugin location): at the end of the post/entry, within the post/entry content.
-* Before Entry: at the beginning of the post/entry, outside of the post/entry content. Likely before the post title.
-* After Entry: at the end of the post/entry, outside of the post/entry content.
+* Before Content: at the beginning of the post/entry, within the post/entry content.
+* After Content: at the end of the post/entry, within the post/entry content.
 * Manual: select this if you are adding buttons with your own code (this ensures that the necessary styles are loaded, and some other housekeeping).
 
 **Note:** if you have code that removes the original buttons output and adds it back by hand, make sure that you select Manual for the location for each affected content type.
+
+The best way to change the button output location is by using a filter. This example changes the locations from using `the_content` filter (with `hook` set to `false`) to using action hooks instead.
+
+```php
+add_filter( 'scriptlesssocialsharing_locations', 'prefix_change_sss_locations' );
+function prefix_change_sss_locations( $locations ) {
+	$locations['before'] = array(
+		'hook'     => 'genesis_before_entry',
+		'filter'   => false,
+		'priority' => 8,
+	);
+	$locations['after'] = array(
+		'hook'     => 'loop_end',
+		'filter'   => false,
+		'priority' => 8,
+	);
+
+	return $locations;
+}
+```
+
+If you use the Genesis Framework, you can tell the plugin to prefer Genesis specific action hooks with this very simple filter:
+
+```php
+add_filter( 'scriptlesssocialsharing_prefer_genesis_hooks', '__return_true' );
+```
 
 ### What about a shortcode?
 
 As of version 2.0.0, you can add sharing buttons directly to your content with a shortcode. You can tweak the output, too. For example, to add the buttons to your content, exactly as you have them set up in your settings, just use this shortcode:
 
-```
+```text
 [scriptless]
 ```
 
 If you want to remove the heading, try it this way (or customize the heading by adding text):
 
-```
+```text
 [scriptless heading=""]
 ```
 
 Want to only show certain buttons in the shortcode? Add them as a shortcode attribute (separate with commas, no spaces). This will show just the email and facebook buttons:
 
-```[
-scriptless buttons="email,facebook"]
+```text
+[scriptless buttons="email,facebook"]
 ```
 
 ### Can I add sharing buttons to posts on archive pages?
 
 Yes. First, you have to tell the plugin that it can, in fact, run, even on the relevant archive page:
 
-```
+```php
 add_filter( 'scriptlesssocialsharing_can_do_buttons', 'prefix_add_buttons_archives' );
 function prefix_add_buttons_archives( $cando ) {
 	if ( is_home() || is_tax() || is_category() ) {
@@ -86,7 +110,7 @@ function prefix_add_buttons_archives( $cando ) {
 
 Then you can add the buttons to the individual posts:
 
-```
+```php
 add_action( 'genesis_entry_content', 'prefix_scriptlesssocialsharing_buttons_entry_content', 25 );
 function prefix_scriptlesssocialsharing_buttons_entry_content() {
 	if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
@@ -146,7 +170,10 @@ You can set any order you like. `0` is the first number.
 ### 2.0.0
 * added: new settings to manage buttons output by content type
 * added: a shortcode!
+* added: link to the settings page from the Plugins page
+* added: filter to manage button locations
 * improved: URL construction methods now allow you to do things like add your own custom query args (props Sal Ferrarello)
+* improved: if you've gone to the trouble of adding alt text to your featured images, thank you, and your Pinterest button will now use that (update from 1.5.2 applied to all featured images)
 
 ### 1.5.2
 * improved: custom Pinterest image alt text will be preferred over post title, if alt text is set
