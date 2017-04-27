@@ -399,7 +399,7 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.4.0
 	 */
 	public function general_section_description() {
-		return __( 'Scriptless Social Sharing tries to be helpful, but you can also disable whatever you need.', 'scriptless-social-sharing' );
+		return __( 'Include an optional heading with your buttons and select which social network buttons to show.', 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -729,7 +729,7 @@ class ScriptlessSocialSharingSettings {
 	 * @return string
 	 */
 	protected function post_types_description() {
-		return __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Before/after Entry are outside of the content, and will vary depending on your theme. Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode.', 'scriptless-social-sharing' );
+		return __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode.', 'scriptless-social-sharing' );
 	}
 
 	/**
@@ -741,8 +741,8 @@ class ScriptlessSocialSharingSettings {
 		if ( ! $this->setting['location'] ) {
 			return;
 		}
-		$message  = '<p>' . __( 'Scriptless Social Sharing 2.0 makes significant changes to how buttons are managed for each type of content on your site. Some settings have changed. If you\'ve removed the default buttons with code and replaced them, you\'ll want to check the Manual option for affected content types.', 'scriptless-social-sharing' ) . '</p>';
-		$message .= '<p>' . __( 'Once you\'ve saved the new settings, this notice will not show again.', 'scriptless-social-sharing' ) . '</p>';
+		$message  = '<p>' . __( 'Scriptless Social Sharing 2.0 makes significant changes to how buttons are managed for each type of content on your site. Some settings have changed. If you\'ve removed the default buttons and replaced them with code, you\'ll want to check the Manual option for affected content types, and uncheck the specific locations for those content types.', 'scriptless-social-sharing' ) . '</p>';
+		$message .= '<p>' . __( 'The buttons on your site will not change until you have updated the settings here. Once you\'ve saved the new settings, this notice will not show again.', 'scriptless-social-sharing' ) . '</p>';
 		printf( '<div class="notice notice-warning">%s</div>', wp_kses_post( $message ) );
 	}
 
