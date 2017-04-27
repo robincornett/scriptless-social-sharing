@@ -67,12 +67,12 @@ class ScriptlessSocialSharingOutput {
 			'before'      => array(
 				'hook'     => false,
 				'filter'   => 'the_content',
-				'priority' => 10,
+				'priority' => 99,
 			),
 			'after'       => array(
 				'hook'     => false,
 				'filter'   => 'the_content',
-				'priority' => 10,
+				'priority' => 99,
 			),
 		);
 		if ( 'genesis' === basename( TEMPLATEPATH ) ) {
@@ -94,14 +94,14 @@ class ScriptlessSocialSharingOutput {
 			if ( $locations['after']['hook'] ) {
 				add_action( $locations['after']['hook'], array( $this, 'print_buttons' ), $locations['after']['priority'] );
 			} elseif ( $locations['after']['filter'] ) {
-				add_filter( 'the_content', array( $this, 'after_content' ), $locations['after']['priority'] );
+				add_filter( $locations['after']['filter'], array( $this, 'after_content' ), $locations['after']['priority'] );
 			}
 		}
 		if ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) {
 			if ( $locations['before']['hook'] ) {
 				add_action( $locations['before']['hook'], array( $this, 'print_buttons' ), $locations['before']['priority'] );
 			} elseif ( $locations['after']['filter'] ) {
-				add_filter( 'the_content', array( $this, 'before_content' ), $locations['before']['priority'] );
+				add_filter( $locations['after']['filter'], array( $this, 'before_content' ), $locations['before']['priority'] );
 			}
 		}
 	}
