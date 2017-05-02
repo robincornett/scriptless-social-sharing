@@ -24,6 +24,10 @@ class ScriptlessSocialSharingHelp {
 		}
 	}
 
+	/**
+	 * Define the help tabs.
+	 * @return array
+	 */
 	protected function define_tabs() {
 		return array(
 			array(
@@ -34,7 +38,12 @@ class ScriptlessSocialSharingHelp {
 			array(
 				'id'      => 'scriptlesssocialsharing_buttons-help',
 				'title'   => __( 'Button Settings', 'scriptless-social-sharing' ),
-				'content' => $this->buttons() . $this->heading(),
+				'content' => $this->heading() . $this->buttons(),
+			),
+			array(
+				'id'      => 'scriptlesssocialsharing_types-help',
+				'title'   => __( 'Content Types', 'scriptless-social-sharing' ),
+				'content' => $this->content_types(),
 			),
 			array(
 				'id'      => 'scriptlesssocialsharing_networks-help',
@@ -44,6 +53,10 @@ class ScriptlessSocialSharingHelp {
 		);
 	}
 
+	/**
+	 * Description for the styles tab.
+	 * @return string
+	 */
 	protected function styles() {
 		$help  = '<p>' . __( 'SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don\'t load it again here.', 'scriptless-social-sharing' ) . '</p>';
@@ -53,6 +66,10 @@ class ScriptlessSocialSharingHelp {
 		return $help;
 	}
 
+	/**
+	 * Description for the heading setting.
+	 * @return string
+	 */
 	protected function heading() {
 
 		$help  = '<h3>' . __( 'Heading', 'scriptless-social-sharing' ) . '</h3>';
@@ -60,16 +77,29 @@ class ScriptlessSocialSharingHelp {
 		return $help;
 	}
 
+	/**
+	 * Description for the social network buttons.
+	 * @return string
+	 */
 	protected function buttons() {
+		return '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
+	}
 
-		$help  = '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
-
-		$help .= '<h3>' . __( 'Content Types', 'scriptless-social-sharing' ) . '</h3>';
-		$help .= '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site.', 'scriptless-social-sharing' ) . '</p>';
+	/**
+	 * Description for the content types setting.
+	 * @return string
+	 */
+	protected function content_types() {
+		$help  = '<h3>' . __( 'Content Types', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}
 
+	/**
+	 * Description for the twitter handle setting.
+	 * @return string
+	 */
 	protected function twitter() {
 
 		$help  = '<h3>' . __( 'Twitter Handle', 'scriptless-social-sharing' ) . '</h3>';
@@ -79,6 +109,10 @@ class ScriptlessSocialSharingHelp {
 		return $help;
 	}
 
+	/**
+	 * Description for the email subject setting.
+	 * @return string
+	 */
 	protected function email() {
 
 		$help  = '<h3>' . __( 'Email Subject', 'scriptless-social-sharing' ) . '</h3>';
