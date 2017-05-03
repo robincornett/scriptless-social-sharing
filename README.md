@@ -46,6 +46,8 @@ Version 2.0.0 changes everything here. The plugin now offers options for adding 
 * After Content: at the end of the post/entry, within the post/entry content.
 * Manual: select this if you are adding buttons with your own code (this ensures that the necessary styles are loaded, and some other housekeeping).
 
+To take advantage of the new location options, you must visit the plugin settings page and update your settings.
+
 **Note:** if you have code that removes the original buttons output and adds it back by hand, make sure that you select Manual for the location for each affected content type.
 
 The best way to change the button output location is by using a filter. This example changes the locations from using `the_content` filter (with `hook` set to `false`) to using action hooks instead.
