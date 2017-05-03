@@ -126,7 +126,9 @@ class ScriptlessSocialSharingSettings {
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
 			'post_types'     => array(
 				'post' => array(
-					'after' => 1,
+					'before' => 0,
+					'after'  => 1,
+					'manual' => 0,
 				),
 			),
 			'location'       => false,
