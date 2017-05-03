@@ -82,7 +82,10 @@ class ScriptlessSocialSharingHelp {
 	 * @return string
 	 */
 	protected function buttons() {
-		return '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<h3>' . __( 'Sharing Buttons', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
+
+		return $help;
 	}
 
 	/**
@@ -92,6 +95,7 @@ class ScriptlessSocialSharingHelp {
 	protected function content_types() {
 		$help  = '<h3>' . __( 'Content Types', 'scriptless-social-sharing' ) . '</h3>';
 		$help .= '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}

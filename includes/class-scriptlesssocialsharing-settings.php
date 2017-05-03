@@ -743,7 +743,7 @@ class ScriptlessSocialSharingSettings {
 		if ( ! $this->setting['location'] ) {
 			return;
 		}
-		$message  = '<p>' . __( 'Scriptless Social Sharing 2.0 makes significant changes to how buttons are managed for each type of content on your site. Some settings have changed. If you\'ve removed the default buttons and replaced them with code, you\'ll want to check the Manual option for affected content types, and uncheck the specific locations for those content types.', 'scriptless-social-sharing' ) . '</p>';
+		$message  = '<p>' . __( 'Scriptless Social Sharing 2.0 makes <strong>significant</strong> changes to how buttons are managed for each type of content on your site. Settings for button locations and content types have changed. If you\'ve removed the default buttons and replaced them with code, you\'ll want to check the Manual option for affected content types, and uncheck the specific locations for those content types.', 'scriptless-social-sharing' ) . '</p>';
 		$message .= '<p>' . __( 'The buttons on your site will not change until you have updated the settings here. Once you\'ve saved the new settings, this notice will not show again.', 'scriptless-social-sharing' ) . '</p>';
 		printf( '<div class="notice notice-warning">%s</div>', wp_kses_post( $message ) );
 	}
