@@ -8,11 +8,6 @@
 class ScriptlessSocialSharingOutput {
 
 	/**
-	 * @var string current plugin version
-	 */
-	protected $version = '2.0.0beta';
-
-	/**
 	 * @var $setting ScriptlessSocialSharingSettings->get_setting
 	 */
 	protected $setting;
