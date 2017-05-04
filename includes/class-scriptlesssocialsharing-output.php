@@ -58,6 +58,28 @@ class ScriptlessSocialSharingOutput {
 		if ( ! isset( $this->setting['post_types'][ $post_type ] ) || ! $this->setting['post_types'][ $post_type ] || ! is_array( $this->setting['post_types'][ $post_type ] ) ) {
 			return;
 		}
+		$locations = $this->get_locations();
+		if ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) {
+			if ( $locations['after']['hook'] ) {
+				add_action( $locations['after']['hook'], array( $this, 'print_buttons' ), $locations['after']['priority'] );
+			} elseif ( $locations['after']['filter'] ) {
+				add_filter( $locations['after']['filter'], array( $this, 'after_content' ), $locations['after']['priority'] );
+			}
+		}
+		if ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) {
+			if ( $locations['before']['hook'] ) {
+				add_action( $locations['before']['hook'], array( $this, 'print_buttons' ), $locations['before']['priority'] );
+			} elseif ( $locations['after']['filter'] ) {
+				add_filter( $locations['after']['filter'], array( $this, 'before_content' ), $locations['before']['priority'] );
+			}
+		}
+	}
+
+	/**
+	 * Define the hook/filter locations for sharing buttons.
+	 * @return array
+	 */
+	protected function get_locations() {
 		$locations = array(
 			'before'      => array(
 				'hook'     => false,
@@ -84,21 +106,7 @@ class ScriptlessSocialSharingOutput {
 				),
 			);
 		}
-		$locations = apply_filters( 'scriptlesssocialsharing_locations', $locations );
-		if ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) {
-			if ( $locations['after']['hook'] ) {
-				add_action( $locations['after']['hook'], array( $this, 'print_buttons' ), $locations['after']['priority'] );
-			} elseif ( $locations['after']['filter'] ) {
-				add_filter( $locations['after']['filter'], array( $this, 'after_content' ), $locations['after']['priority'] );
-			}
-		}
-		if ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) {
-			if ( $locations['before']['hook'] ) {
-				add_action( $locations['before']['hook'], array( $this, 'print_buttons' ), $locations['before']['priority'] );
-			} elseif ( $locations['after']['filter'] ) {
-				add_filter( $locations['after']['filter'], array( $this, 'before_content' ), $locations['before']['priority'] );
-			}
-		}
+		return apply_filters( 'scriptlesssocialsharing_locations', $locations );
 	}
 
 	/**
