@@ -27,7 +27,7 @@ class ScriptlessSocialSharingOutput {
 			$cando = false;
 		}
 		global $post;
-		if ( is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
+		if ( is_singular() && is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
 			$cando = true;
 		}
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
