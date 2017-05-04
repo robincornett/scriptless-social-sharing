@@ -59,18 +59,16 @@ class ScriptlessSocialSharingOutput {
 			return;
 		}
 		$locations = $this->get_locations();
-		if ( isset( $this->setting['post_types'][ $post_type ]['after'] ) && $this->setting['post_types'][ $post_type ]['after'] ) {
-			if ( $locations['after']['hook'] ) {
-				add_action( $locations['after']['hook'], array( $this, 'print_buttons' ), $locations['after']['priority'] );
-			} elseif ( $locations['after']['filter'] ) {
-				add_filter( $locations['after']['filter'], array( $this, 'after_content' ), $locations['after']['priority'] );
+		foreach ( $locations as $location => $args ) {
+			if ( ! in_array( $location, array( 'before', 'after' ), true ) ) {
+				continue;
 			}
-		}
-		if ( isset( $this->setting['post_types'][ $post_type ]['before'] ) && $this->setting['post_types'][ $post_type ]['before'] ) {
-			if ( $locations['before']['hook'] ) {
-				add_action( $locations['before']['hook'], array( $this, 'print_buttons' ), $locations['before']['priority'] );
-			} elseif ( $locations['after']['filter'] ) {
-				add_filter( $locations['after']['filter'], array( $this, 'before_content' ), $locations['before']['priority'] );
+			if ( isset( $this->setting['post_types'][ $post_type ][ $location ] ) && $this->setting['post_types'][ $post_type ][ $location ] ) {
+				if ( $args['hook'] ) {
+					add_action( $args['hook'], array( $this, 'print_buttons' ), $args['priority'] );
+				} elseif ( $args['filter'] ) {
+					add_filter( $args['filter'], array( $this, "{$location}_content" ), $args['priority'] );
+				}
 			}
 		}
 	}
