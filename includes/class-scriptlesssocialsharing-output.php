@@ -13,6 +13,12 @@ class ScriptlessSocialSharingOutput {
 	protected $setting;
 
 	/**
+	 * The array of attributes for sharing buttons.
+	 * @var array
+	 */
+	protected $attributes;
+
+	/**
 	 * Function to decide whether buttons can be output or not
 	 * @param  boolean $cando default true
 	 * @return boolean         false if not a singular post (can be modified for other content types)
@@ -219,7 +225,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string The URL to be shared.
 	 */
 	protected function get_permalink( $button_name ) {
-		$attributes = $this->attributes();
+		$attributes = $this->get_attributes();
 		return rawurlencode(
 			apply_filters( 'scriptlesssocialsharing_get_permalink',
 				$attributes['permalink'],
@@ -235,7 +241,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function make_buttons() {
 
-		$attributes     = $this->attributes();
+		$attributes     = $this->get_attributes();
 		$settings_class = new ScriptlessSocialSharingSettings();
 		$buttons        = $settings_class->get_networks();
 		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
@@ -433,6 +439,18 @@ class ScriptlessSocialSharingOutput {
 			'pinterest'     => $this->pinterest_image(),
 			'post_id'       => get_the_ID(),
 		);
+	}
+
+	/**
+	 * Get the array of attributes for sharing buttons.
+	 * @return array
+	 */
+	protected function get_attributes() {
+		if ( isset( $this->attributes ) ) {
+			return $this->attributes;
+		}
+		$this->attributes = $this->attributes();
+		return $this->attributes;
 	}
 
 	/**
