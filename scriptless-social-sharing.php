@@ -54,7 +54,7 @@ scriptlesssocialsharing_require();
 $scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp;
 $scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput;
 $scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta;
-$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings;
+$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings( __FILE__ );
 $scriptlesssocialsharing = new ScriptlessSocialSharing(
 	$scriptlesssocialsharinghelp,
 	$scriptlesssocialsharingoutput,
