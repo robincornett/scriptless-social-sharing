@@ -341,7 +341,7 @@ class ScriptlessSocialSharingOutput {
 	 * @since 2.0.0
 	 */
 	protected function get_pinterest_url( $attributes ) {
-		$pinterest_img = $this->pinterest_image() ? $this->pinterest_image() : $this->featured_image();
+		$pinterest_img = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
 		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
 		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
 		return add_query_arg(
@@ -427,10 +427,10 @@ class ScriptlessSocialSharingOutput {
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'home'          => home_url(),
-			'image'         => $this->setting['buttons']['pinterest'] ? $this->get_image_url( $this->featured_image() ) : '',
+			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
-			'pinterest'     => $this->get_image_url( $this->pinterest_image() ),
+			'pinterest'     => $this->pinterest_image(),
 			'post_id'       => get_the_ID(),
 		);
 	}
