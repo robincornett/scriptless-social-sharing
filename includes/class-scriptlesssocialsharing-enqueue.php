@@ -61,7 +61,8 @@ class ScriptlessSocialSharingEnqueue {
 	protected function add_inline_style() {
 		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-		$button_width  = 100 / count( $this->buttons ) . '%;';
+		$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
+		$button_width  = 100 / $count . '%;';
 		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx; width: %s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
