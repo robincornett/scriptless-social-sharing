@@ -96,7 +96,7 @@ class ScriptlessSocialSharingOutput {
 				'priority' => 99,
 			),
 		);
-		if ( 'genesis' === basename( TEMPLATEPATH ) && apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', false ) ) {
+		if ( 'genesis' === get_template_directory() && apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', false ) ) {
 			$locations = array(
 				'before'      => array(
 					'hook'     => 'genesis_entry_header',
