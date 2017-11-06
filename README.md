@@ -169,6 +169,10 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 2.0.1
+* fixed: possible division by zero if Pinterest is the only button and there is no image
+* fixed: special characters in post titles breaking Twitter share
+
 ### 2.0.0
 * added: new settings to manage buttons output by content type
 * added: a shortcode!

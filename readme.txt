@@ -3,9 +3,9 @@
 Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
-Requires at least: 4.1
-Tested up to: 4.7
-Stable tag: 2.0.0
+Requires at least: 4.4
+Tested up to: 4.9
+Stable tag: 2.0.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -151,9 +151,15 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
+2.0.1: bugfixes for Twitter/Pinterest buttons
+
 2.0.0 big huge settings changes--now control sharing buttons by content type. Make sure to visit the plugin settings page, read, and update your settings. Also improvements on URL construction for output.
 
 == Changelog ==
+
+= 2.0.1 =
+* fixed: possible division by zero if Pinterest is the only button and there is no image
+* fixed: special characters in post titles breaking Twitter share
 
 = 2.0.0 =
 * added: new settings to manage buttons output by content type
