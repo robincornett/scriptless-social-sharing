@@ -51,10 +51,10 @@ function scriptlesssocialsharing_require() {
 scriptlesssocialsharing_require();
 
 // Instantiate main class
-$scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp;
-$scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput;
-$scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta;
-$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings;
+$scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp();
+$scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput();
+$scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta();
+$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings();
 $scriptlesssocialsharing = new ScriptlessSocialSharing(
 	$scriptlesssocialsharinghelp,
 	$scriptlesssocialsharingoutput,
