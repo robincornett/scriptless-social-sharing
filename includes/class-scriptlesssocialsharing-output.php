@@ -295,7 +295,7 @@ class ScriptlessSocialSharingOutput {
 		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		$twitter_title = $yoast ? $yoast : $attributes['title'];
 		$query_args    = array(
-			'text' => rawurlencode( $twitter_title ),
+			'text' => $twitter_title,
 			'url'  => $this->get_permalink( 'twitter' ),
 		);
 		if ( $this->twitter_handle() ) {
@@ -353,7 +353,7 @@ class ScriptlessSocialSharingOutput {
 		return add_query_arg(
 			array(
 				'url'         => $this->get_permalink( 'pinterest' ),
-				'description' => rawurlencode( $pin_title ),
+				'description' => $pin_title,
 				'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
 			),
 			'https://pinterest.com/pin/create/button/'
