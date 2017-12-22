@@ -454,11 +454,14 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * set the post title for sharing
-	 * @return string uses Yoast title if it exists, post title otherwise
+	 * Set the post title for sharing. Decodes HTML character entities,
+	 * then encodes for the URL.
+	 * @return string
 	 */
 	protected function title() {
-		return rawurlencode( apply_filters( 'scriptlesssocialsharing_posttitle', the_title_attribute( 'echo=0' ) ) );
+		$title = html_entity_decode( the_title_attribute( 'echo=0' ) );
+
+		return rawurlencode( apply_filters( 'scriptlesssocialsharing_posttitle', $title ) );
 	}
 
 	/**
