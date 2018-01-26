@@ -43,12 +43,24 @@ class ScriptlessSocialSharingOutput {
 	 * Enqueue CSS files
 	 */
 	public function load_styles() {
-		$this->setting = scriptlesssocialsharing_get_setting();
 		if ( false === $this->can_do_buttons() ) {
 			return;
 		}
-		$enqueue = new ScriptlessSocialSharingEnqueue( $this->setting, $this->make_buttons() );
+		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->make_buttons() );
 		$enqueue->load_styles();
+	}
+
+	/**
+	 * Get the current plugin setting.
+	 * @return mixed|\ScriptlessSocialSharingSettings
+	 */
+	protected function get_setting() {
+		if ( isset( $this->setting ) ) {
+			return $this->setting;
+		}
+		$this->setting = scriptlesssocialsharing_get_setting();
+
+		return $this->setting;
 	}
 
 	/**
@@ -61,7 +73,8 @@ class ScriptlessSocialSharingOutput {
 			return;
 		}
 		$post_type = get_post_type();
-		if ( ! isset( $this->setting['post_types'][ $post_type ] ) || ! $this->setting['post_types'][ $post_type ] || ! is_array( $this->setting['post_types'][ $post_type ] ) ) {
+		$setting   = $this->get_setting();
+		if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || ! is_array( $setting['post_types'][ $post_type ] ) ) {
 			return;
 		}
 		$locations = $this->get_locations();
@@ -69,7 +82,7 @@ class ScriptlessSocialSharingOutput {
 			if ( ! in_array( $location, array( 'before', 'after' ), true ) ) {
 				continue;
 			}
-			if ( isset( $this->setting['post_types'][ $post_type ][ $location ] ) && $this->setting['post_types'][ $post_type ][ $location ] ) {
+			if ( isset( $setting['post_types'][ $post_type ][ $location ] ) && $setting['post_types'][ $post_type ][ $location ] ) {
 				if ( $args['hook'] ) {
 					add_action( $args['hook'], array( $this, 'print_buttons' ), $args['priority'] );
 				} elseif ( $args['filter'] ) {
@@ -161,9 +174,10 @@ class ScriptlessSocialSharingOutput {
 			return $output;
 		}
 
-		$output = '<div class="scriptlesssocialsharing">';
+		$setting = $this->get_setting();
+		$output  = '<div class="scriptlesssocialsharing">';
 		if ( $heading ) {
-			$output .= $this->heading( $this->setting['heading'] );
+			$output .= $this->heading( $setting['heading'] );
 		}
 		$output .= '<div class="scriptlesssocialsharing-buttons">';
 		foreach ( $buttons as $button ) {
@@ -183,12 +197,13 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	public function shortcode( $atts ) {
+		$setting  = $this->get_setting();
 		$defaults = array(
 			'before'       => '<div class="scriptlesssocialsharing">',
 			'after'        => '</div>',
 			'inner_before' => '<div class="scriptlesssocialsharing-buttons">',
 			'inner_after'  => '</div>',
-			'heading'      => $this->setting['heading'],
+			'heading'      => $setting['heading'],
 			'buttons'      => '',
 		);
 		$atts    = shortcode_atts( $defaults, $atts, 'scriptless' );
@@ -264,7 +279,8 @@ class ScriptlessSocialSharingOutput {
 
 		$buttons = apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 
-		$set_buttons = $this->setting['buttons'];
+		$setting     = $this->get_setting();
+		$set_buttons = $setting['buttons'];
 		if ( $set_buttons ) {
 			foreach ( $buttons as $key => $value ) {
 				if ( ! isset( $set_buttons[ $key ] ) || ! $set_buttons[ $key ] ) {
@@ -429,11 +445,12 @@ class ScriptlessSocialSharingOutput {
 	 * @return array attributes
 	 */
 	protected function attributes() {
+		$setting = $this->get_setting();
 		return array(
 			'title'         => $this->title(),
 			'permalink'     => get_the_permalink(),
 			'home'          => home_url(),
-			'image'         => $this->setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'image'         => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
 			'email_body'    => $this->email_body(),
 			'email_subject' => $this->email_subject(),
 			'pinterest'     => $this->pinterest_image(),
@@ -535,7 +552,8 @@ class ScriptlessSocialSharingOutput {
 	 * @return string twitter handle (default is empty)
 	 */
 	protected function twitter_handle() {
-		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $this->setting['twitter_handle'] );
+		$setting = $this->get_setting();
+		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $setting['twitter_handle'] );
 	}
 
 	/**
@@ -567,7 +585,8 @@ class ScriptlessSocialSharingOutput {
 	 * @return string can be modified via filter
 	 */
 	protected function email_subject() {
-		return apply_filters( 'scriptlesssocialsharing_email_subject', $this->setting['email_subject'] );
+		$setting = $this->get_setting();
+		return apply_filters( 'scriptlesssocialsharing_email_subject', $setting['email_subject'] );
 	}
 
 	/**
@@ -585,8 +604,9 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	public function hide_pinterest_image( $content ) {
+		$setting          = $this->get_setting();
 		$pinterest_image  = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		$pinterest_button = $this->setting['buttons']['pinterest'];
+		$pinterest_button = $setting['buttons']['pinterest'];
 		if ( ! $pinterest_button || ! $pinterest_image ) {
 			return $content;
 		}
