@@ -59,6 +59,15 @@ class ScriptlessSocialSharingEnqueue {
 	 * Add the inline stylesheet to the plugin stylesheet.
 	 */
 	protected function add_inline_style() {
+		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $this->get_inline_style() ) );
+	}
+
+	/**
+	 * Build the inline style.
+	 *
+	 * @return string
+	 */
+	public function get_inline_style() {
 		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
 		$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
@@ -72,16 +81,13 @@ class ScriptlessSocialSharingEnqueue {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
 			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
-				$rgb  = $this->hex2rgb( $button['color'] );
-				$rgba = $rgb ? sprintf( ' background-color:rgba(%s,.8);', $rgb ) : '';
+				$rgb           = $this->hex2rgb( $button['color'] );
+				$rgba          = $rgb ? sprintf( ' background-color:rgba(%s,.8);', $rgb ) : '';
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;%2$s } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }', $button['color'], $rgba, $button['name'] );
 			}
 		}
-		/**
-		 * Allows user to filter/modify the inline style.
-		 */
-		$inline_style = apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
-		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $inline_style ) );
+
+		return apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
 	}
 
 	/**
