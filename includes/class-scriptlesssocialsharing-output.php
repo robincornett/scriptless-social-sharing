@@ -230,7 +230,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	protected function build_link_markup( $button ) {
-		return sprintf( '<a class="button %s" target="_blank" href="%s" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
+		return sprintf( '<a class="button %s" target="_blank" href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
 	}
 
 	/**
