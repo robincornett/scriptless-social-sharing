@@ -463,7 +463,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return array
 	 */
 	protected function get_attributes() {
-		if ( isset( $this->attributes ) ) {
+		if ( isset( $this->attributes ) && is_singular() ) {
 			return $this->attributes;
 		}
 		$this->attributes = $this->attributes();
