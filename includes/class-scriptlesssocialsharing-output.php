@@ -219,28 +219,37 @@ class ScriptlessSocialSharingOutput {
 		}
 		$output .= $atts['inner_after'];
 		$output .= $atts['after'];
+
 		return $output;
 	}
 
 	/**
 	 * Create the anchor element markup.
+	 *
 	 * @param $button array the parameters for building the button.
 	 *
 	 * @since 2.0.0
 	 * @return string
 	 */
 	protected function build_link_markup( $button ) {
-		return sprintf( '<a class="button %s" target="_blank" href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>', esc_attr( $button['name'] ), esc_url( $button['url'] ), $button['data'], $button['label'] );
+		return apply_filters( 'scriptlesssocialsharing_link_markup', sprintf( '<a class="button %s" target="_blank" href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>',
+			esc_attr( $button['name'] ),
+			esc_url( $button['url'] ),
+			$button['data'],
+			$button['label']
+		), $button );
 	}
 
 	/**
 	 * Get the permalink to be shared via the button.
 	 *
 	 * @param  string $button_name The name of the button, e.g. 'twitter', 'facebook'.
+	 *
 	 * @return string The URL to be shared.
 	 */
 	protected function get_permalink( $button_name ) {
 		$attributes = $this->get_attributes();
+
 		return rawurlencode(
 			apply_filters( 'scriptlesssocialsharing_get_permalink',
 				$attributes['permalink'],
