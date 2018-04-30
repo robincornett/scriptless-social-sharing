@@ -12,7 +12,7 @@
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           2.0.1
+ * Version:           2.1.0
  * Author:            Robin Cornett
  * Author URI:        http://robincornett.com
  * Text Domain:       scriptless-social-sharing
@@ -55,7 +55,7 @@ $scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp();
 $scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput();
 $scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta();
 $scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings();
-$scriptlesssocialsharing = new ScriptlessSocialSharing(
+$scriptlesssocialsharing         = new ScriptlessSocialSharing(
 	$scriptlesssocialsharinghelp,
 	$scriptlesssocialsharingoutput,
 	$scriptlesssocialsharingpostmeta,

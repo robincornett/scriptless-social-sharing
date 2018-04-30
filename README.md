@@ -169,6 +169,12 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 2.1.0
+* added: filter on the sharing link markup
+* added: tabnapping fix on links
+* fixed: button attributes on archives
+* fixed: title encoding when special characters are present
+
 ### 2.0.1
 * fixed: possible division by zero if Pinterest is the only button and there is no image
 * fixed: special characters in post titles breaking Twitter share
