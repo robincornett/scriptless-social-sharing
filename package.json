@@ -1,12 +1,31 @@
 {
   "name": "scriptless-social-sharing",
-  "version": "2.0.1",
+  "description": "Scriptless Social Sharing",
+  "version": "2.1.0",
   "private": true,
   "license": "GPL-2.0",
   "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "browser-sync": "^2.24.1",
+    "css-mqpacker": "^6.0.2",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-notify": "^2.2.0",
-    "gulp-sass": "^2.1.0"
-  }
+    "gulp-chmod": "^2.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^2.1.2",
+    "gulp-wp-pot": "^2.2.0",
+    "gulp-zip": "^4.1.0",
+    "perfectionist": "^2.4.0",
+    "postcss-import": "^11.1.0",
+    "require-dir": "^1.0.0"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.0"
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }
