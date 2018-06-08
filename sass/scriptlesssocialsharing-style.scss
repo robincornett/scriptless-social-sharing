@@ -3,6 +3,10 @@
 .scriptlesssocialsharing {
 	box-sizing: border-box;
 	margin: 18px auto;
+
+	@media print {
+		display: none;
+	}
 }
 
 .scriptlesssocialsharing-buttons {
