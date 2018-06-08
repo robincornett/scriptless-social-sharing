@@ -169,6 +169,9 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 2.1.1
+* changed: CSS autoprefixing; buttons are now hidden on print
+
 ### 2.1.0
 * added: filter on the sharing link markup
 * added: tabnapping fix on links

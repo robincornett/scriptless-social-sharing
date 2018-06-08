@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -151,9 +151,12 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-2.1.0 improves links and button attributes
+2.1.1 CSS improvement to hide buttons for print
 
 == Changelog ==
+
+= 2.1.1 =
+* changed: CSS autoprefixing; buttons are now hidden on print
 
 = 2.1.0 =
 * added: filter on the sharing link markup
