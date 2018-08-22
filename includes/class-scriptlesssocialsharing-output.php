@@ -232,8 +232,10 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	protected function build_link_markup( $button ) {
-		return apply_filters( 'scriptlesssocialsharing_link_markup', sprintf( '<a class="button %s" target="_blank" href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>',
+		$target = 'email' === $button['name'] ? '' : ' target="_blank"';
+		return apply_filters( 'scriptlesssocialsharing_link_markup', sprintf( '<a class="button %s"%s href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>',
 			esc_attr( $button['name'] ),
+			$target,
 			esc_url( $button['url'] ),
 			$button['data'],
 			$button['label']
