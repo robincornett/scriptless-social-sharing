@@ -373,16 +373,34 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function get_pinterest_url( $attributes ) {
 		$pinterest_img = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
-		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
-		$pin_title     = $pinterest_alt ? $pinterest_alt : $attributes['title'];
 		return add_query_arg(
 			array(
 				'url'         => $this->get_permalink( 'pinterest' ),
-				'description' => $pin_title,
+				'description' => $this->get_pinterest_description( $attributes ),
 				'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
 			),
 			'https://pinterest.com/pin/create/button/'
 		);
+	}
+
+	/**
+	 * Get the description for Pinterest.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param $attributes
+	 *
+	 * @return string
+	 */
+	protected function get_pinterest_description( $attributes ) {
+		$pinterest_alt = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_description', true );
+		if ( $pinterest_alt ) {
+			return $pinterest_alt;
+		}
+		$pinterest_img = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
+		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
+
+		return $pinterest_alt ? $pinterest_alt : $attributes['title'];
 	}
 
 	/**
@@ -391,7 +409,7 @@ class ScriptlessSocialSharingOutput {
 	 * @since 2.0.0
 	 */
 	public function add_pinterest_data() {
-		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip"';
+		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip" data-pin-description="' . $this->get_pinterest_description( $this->get_attributes() ) . '"';
 	}
 
 	/**
@@ -638,9 +656,10 @@ class ScriptlessSocialSharingOutput {
 	public function filter_allowed_html( $allowed, $context ) {
 
 		if ( 'post' === $context ) {
-			$allowed['a']['data-pin-custom']   = true;
-			$allowed['a']['data-pin-no-hover'] = true;
-			$allowed['a']['data-pin-do']       = true;
+			$allowed['a']['data-pin-custom']      = true;
+			$allowed['a']['data-pin-no-hover']    = true;
+			$allowed['a']['data-pin-do']          = true;
+			$allowed['a']['data-pin-description'] = true;
 		}
 
 		return $allowed;
