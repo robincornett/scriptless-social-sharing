@@ -39,6 +39,7 @@ function scriptlesssocialsharing_require() {
 		'class-scriptlesssocialsharing-enqueue',
 		'class-scriptlesssocialsharing-help',
 		'class-scriptlesssocialsharing-output',
+		'class-scriptlesssocialsharing-output-shortcode',
 		'class-scriptlesssocialsharing-postmeta',
 		'class-scriptlesssocialsharing-settings',
 		'helper-functions',
@@ -48,18 +49,21 @@ function scriptlesssocialsharing_require() {
 		require plugin_dir_path( __FILE__ ) . 'includes/' . $file . '.php';
 	}
 }
+
 scriptlesssocialsharing_require();
 
 // Instantiate main class
-$scriptlesssocialsharinghelp     = new ScriptlessSocialSharingHelp();
-$scriptlesssocialsharingoutput   = new ScriptlessSocialSharingOutput();
-$scriptlesssocialsharingpostmeta = new ScriptlessSocialSharingPostMeta();
-$scriptlesssocialsharingsettings = new ScriptlessSocialSharingSettings();
-$scriptlesssocialsharing         = new ScriptlessSocialSharing(
-	$scriptlesssocialsharinghelp,
-	$scriptlesssocialsharingoutput,
-	$scriptlesssocialsharingpostmeta,
-	$scriptlesssocialsharingsettings
+$scriptlesssocialsharing_help      = new ScriptlessSocialSharingHelp();
+$scriptlesssocialsharing_output    = new ScriptlessSocialSharingOutput();
+$scriptlesssocialsharing_postmeta  = new ScriptlessSocialSharingPostMeta();
+$scriptlesssocialsharing_settings  = new ScriptlessSocialSharingSettings();
+$scriptlesssocialsharing_shortcode = new ScriptlessSocialSharingOutputShortcode();
+$scriptlesssocialsharing           = new ScriptlessSocialSharing(
+	$scriptlesssocialsharing_help,
+	$scriptlesssocialsharing_output,
+	$scriptlesssocialsharing_postmeta,
+	$scriptlesssocialsharing_settings,
+	$scriptlesssocialsharing_shortcode
 );
 
 // Run the plugin

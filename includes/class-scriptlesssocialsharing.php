@@ -43,6 +43,11 @@ class ScriptlessSocialSharing {
 	protected $settings;
 
 	/**
+	 * @var $shortcode \ScriptlessSocialSharingOutputShortcode
+	 */
+	protected $shortcode;
+
+	/**
 	 * ScriptlessSocialSharing constructor.
 	 *
 	 * @param $help
@@ -50,11 +55,12 @@ class ScriptlessSocialSharing {
 	 * @param $post_meta
 	 * @param $settings
 	 */
-	public function __construct( $help, $output, $post_meta, $settings ) {
+	public function __construct( $help, $output, $post_meta, $settings, $shortcode ) {
 		$this->help      = $help;
 		$this->output    = $output;
 		$this->post_meta = $post_meta;
 		$this->settings  = $settings;
+		$this->shortcode = $shortcode;
 	}
 
 	/**
@@ -70,12 +76,12 @@ class ScriptlessSocialSharing {
 
 		// Post Meta
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
-		add_action( 'save_post' , array( $this->post_meta, 'save_meta' ) );
+		add_action( 'save_post', array( $this->post_meta, 'save_meta' ) );
 
 		// Output
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
 		add_action( 'wp_head', array( $this->output, 'do_location' ) );
-		add_shortcode( 'scriptless', array( $this->output, 'shortcode' ) );
+		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
 
 		// Filters
 		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
