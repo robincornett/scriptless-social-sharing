@@ -45,7 +45,6 @@ class ScriptlessSocialSharingPostMeta {
 			'side',
 			'low'
 		);
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**

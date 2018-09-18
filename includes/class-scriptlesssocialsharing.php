@@ -83,6 +83,7 @@ class ScriptlessSocialSharing {
 		// Post Meta
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
 		add_action( 'save_post', array( $this->post_meta, 'save_meta' ) );
+		add_action( 'admin_enqueue_scripts', array( $this->post_meta, 'enqueue' ) );
 
 		// Output
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
