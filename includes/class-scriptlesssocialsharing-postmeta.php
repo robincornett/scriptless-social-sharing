@@ -79,7 +79,7 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		printf( '<label for="%s">%s</label>', esc_attr( $this->image ), esc_html__( 'Custom Pinterest Settings', 'scriptless-social-sharing' ) );
+		printf( '<label for="%s">%s</label>', esc_attr( $this->image ), esc_html__( 'Custom Pinterest Image', 'scriptless-social-sharing' ) );
 		echo '<p>';
 		$id = get_post_meta( $post->ID, $this->image, true );
 		echo wp_kses_post( $this->render_image_preview( $id ) );
@@ -143,14 +143,14 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	protected function do_textarea( $id, $label ) {
 		$value = get_post_meta( get_the_ID(), $id, true );
-		echo '<p>';
 		printf( '<label for="%s">%s</label>',
 			esc_attr( $id ),
 			esc_attr( $label )
 		);
+		echo '<p>';
 		printf( '<textarea class="large-text" rows="3" id="%1$s" name="%1$s" aria-label="%3$s">%2$s</textarea>',
 			esc_attr( $id ),
-			sanitize_textarea_field( $value ),
+			esc_textarea( $value ),
 			esc_attr( $label )
 		);
 		echo '</p>';
