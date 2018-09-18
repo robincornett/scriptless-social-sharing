@@ -5,6 +5,7 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingOutp
 	public function __construct() {
 		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
 		add_filter( 'the_content', array( $this, 'hide_pinterest_image' ), 99 );
+		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
 	}
 
 	/**
@@ -83,5 +84,25 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingOutp
 				'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
 			)
 		);
+	}
+
+	/**
+	 * Allow pinterest data attributes on our links.
+	 *
+	 * @param $allowed array
+	 * @param $context string
+	 *
+	 * @return mixed
+	 */
+	public function filter_allowed_html( $allowed, $context ) {
+
+		if ( 'post' === $context ) {
+			$allowed['a']['data-pin-custom']      = true;
+			$allowed['a']['data-pin-no-hover']    = true;
+			$allowed['a']['data-pin-do']          = true;
+			$allowed['a']['data-pin-description'] = true;
+		}
+
+		return $allowed;
 	}
 }

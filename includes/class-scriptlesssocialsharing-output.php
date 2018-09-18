@@ -105,8 +105,6 @@ class ScriptlessSocialSharingOutput {
 		$output .= '</div>';
 		$output .= '</div>';
 
-		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
-
 		return wp_kses_post( $output );
 	}
 
@@ -354,25 +352,5 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function replace( $string ) {
 		return htmlentities( $string );
-	}
-
-	/**
-	 * Allow pinterest data attributes on our links.
-	 *
-	 * @param $allowed array
-	 * @param $context string
-	 *
-	 * @return mixed
-	 */
-	public function filter_allowed_html( $allowed, $context ) {
-
-		if ( 'post' === $context ) {
-			$allowed['a']['data-pin-custom']      = true;
-			$allowed['a']['data-pin-no-hover']    = true;
-			$allowed['a']['data-pin-do']          = true;
-			$allowed['a']['data-pin-description'] = true;
-		}
-
-		return $allowed;
 	}
 }
