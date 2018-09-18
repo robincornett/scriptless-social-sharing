@@ -19,8 +19,17 @@ class ScriptlessSocialSharingOutput {
 	protected $attributes;
 
 	/**
+	 * The array of buttons.
+	 *
+	 * @var array
+	 */
+	protected $buttons;
+
+	/**
 	 * Function to decide whether buttons can be output or not
+	 *
 	 * @param  boolean $cando default true
+	 *
 	 * @return boolean         false if not a singular post (can be modified for other content types)
 	 */
 	protected function can_do_buttons( $cando = true ) {
@@ -36,6 +45,7 @@ class ScriptlessSocialSharingOutput {
 		if ( is_singular() && is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
 			$cando = true;
 		}
+
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
 
@@ -98,12 +108,12 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function get_locations() {
 		$locations = array(
-			'before'      => array(
+			'before' => array(
 				'hook'     => false,
 				'filter'   => 'the_content',
 				'priority' => 99,
 			),
-			'after'       => array(
+			'after'  => array(
 				'hook'     => false,
 				'filter'   => 'the_content',
 				'priority' => 99,
@@ -111,18 +121,19 @@ class ScriptlessSocialSharingOutput {
 		);
 		if ( 'genesis' === get_template() && apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', false ) ) {
 			$locations = array(
-				'before'      => array(
+				'before' => array(
 					'hook'     => 'genesis_entry_header',
 					'filter'   => false,
 					'priority' => 20,
 				),
-				'after'       => array(
+				'after'  => array(
 					'hook'     => 'genesis_entry_footer',
 					'filter'   => false,
 					'priority' => 5,
 				),
 			);
 		}
+
 		return apply_filters( 'scriptlesssocialsharing_locations', $locations );
 	}
 
@@ -136,6 +147,7 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * Add the sharing buttons before the content.
+	 *
 	 * @param $content
 	 *
 	 * @return string
@@ -146,6 +158,7 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * Add the sharing buttons after the content.
+	 *
 	 * @param $content
 	 *
 	 * @return string
@@ -158,7 +171,7 @@ class ScriptlessSocialSharingOutput {
 	 * Return buttons
 	 *
 	 * @param string $output
-	 * @param bool $heading set the bool to false to output buttons with no heading
+	 * @param bool   $heading set the bool to false to output buttons with no heading
 	 *
 	 * @return string
 	 */
@@ -187,11 +200,13 @@ class ScriptlessSocialSharingOutput {
 		$output .= '</div>';
 
 		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
+
 		return wp_kses_post( $output );
 	}
 
 	/**
 	 * Create a shortcode to insert sharing buttons within the post content.
+	 *
 	 * @param $atts
 	 *
 	 * @return string
@@ -206,12 +221,12 @@ class ScriptlessSocialSharingOutput {
 			'heading'      => $setting['heading'],
 			'buttons'      => '',
 		);
-		$atts    = shortcode_atts( $defaults, $atts, 'scriptless' );
-		$buttons = $this->make_buttons();
-		$passed  = $atts['buttons'] ? explode( ',', $atts['buttons'] ) : array();
-		$output  = $atts['before'];
-		$output .= $this->heading( $atts['heading'] );
-		$output .= $atts['inner_before'];
+		$atts     = shortcode_atts( $defaults, $atts, 'scriptless' );
+		$buttons  = $this->make_buttons();
+		$passed   = $atts['buttons'] ? explode( ',', $atts['buttons'] ) : array();
+		$output   = $atts['before'];
+		$output  .= $this->heading( $atts['heading'] );
+		$output  .= $atts['inner_before'];
 		foreach ( $buttons as $button ) {
 			if ( empty( $passed ) || in_array( $button['name'], $passed, true ) ) {
 				$output .= $this->build_link_markup( $button );
@@ -233,6 +248,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function build_link_markup( $button ) {
 		$target = 'email' === $button['name'] ? '' : ' target="_blank"';
+
 		return apply_filters( 'scriptlesssocialsharing_link_markup', sprintf( '<a class="button %s"%s href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>',
 			esc_attr( $button['name'] ),
 			$target,
@@ -267,29 +283,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function make_buttons() {
 
-		$attributes     = $this->get_attributes();
-		$settings_class = new ScriptlessSocialSharingSettings();
-		$buttons        = $settings_class->get_networks();
-		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
-		foreach ( $buttons as $button => $value ) {
-			$method = "get_{$button}_url";
-			$url    = method_exists( $this, $method ) ? $this->$method( $attributes ) : '';
-
-			/**
-			 * Create a filter to build custom URLs for each network.
-			 * @since 2.0.0
-			 */
-			$buttons[ $button ]['url']  = apply_filters( "scriptlesssocialsharing_{$button}_url", $url, $button, $attributes );
-
-			/**
-			 * Create a filter to add data attributes to social URLs.
-			 * @since 2.0.0
-			 */
-			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
-		}
-
-		$buttons = apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
-
+		$buttons     = $this->get_buttons();
 		$setting     = $this->get_setting();
 		$set_buttons = $setting['buttons'];
 		if ( $set_buttons ) {
@@ -299,6 +293,7 @@ class ScriptlessSocialSharingOutput {
 				}
 			}
 		}
+		$attributes = $this->get_attributes();
 		if ( ! $attributes['image'] && ! $attributes['pinterest'] ) {
 			unset( $buttons['pinterest'] );
 		}
@@ -312,161 +307,45 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * Get the URL for Twitter.
-	 * @param $attributes array
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_twitter_url( $attributes ) {
-		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
-		$twitter_title = $yoast ? $yoast : $attributes['title'];
-		$query_args    = array(
-			'text' => $twitter_title,
-			'url'  => $this->get_permalink( 'twitter' ),
-		);
-		if ( $this->twitter_handle() ) {
-			$query_args['via']     = $this->twitter_handle();
-			$query_args['related'] = $this->twitter_handle();
-		}
-
-		return add_query_arg(
-			$query_args,
-			'https://twitter.com/intent/tweet'
-		);
-	}
-
-	/**
-	 * Get the URL for Facebook.
-	 * @param $attributes array
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_facebook_url( $attributes ) {
-		return add_query_arg(
-			'u',
-			$this->get_permalink( 'facebook' ),
-			'https://www.facebook.com/sharer/sharer.php'
-		);
-	}
-
-	/**
-	 * Get the URL for Google+.
-	 * @param $attributes array
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_google_url( $attributes ) {
-		return add_query_arg(
-			'url',
-			$this->get_permalink( 'google' ),
-			'https://plus.google.com/share'
-		);
-	}
-
-	/**
-	 * Get the URL for Pinterest.
-	 * @param $attributes
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_pinterest_url( $attributes ) {
-		$pinterest_img = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
-		return add_query_arg(
-			array(
-				'url'         => $this->get_permalink( 'pinterest' ),
-				'description' => $this->get_pinterest_description( $attributes ),
-				'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
-			),
-			'https://pinterest.com/pin/create/button/'
-		);
-	}
-
-	/**
-	 * Get the description for Pinterest.
-	 *
+	 * Get an array of all possible sharing buttons.
 	 * @since 2.2.0
-	 *
-	 * @param $attributes
-	 *
-	 * @return string
+	 * @return mixed
 	 */
-	protected function get_pinterest_description( $attributes ) {
-		$pinterest_alt = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_description', true );
-		if ( $pinterest_alt ) {
-			return $pinterest_alt;
+	protected function get_buttons() {
+		// TODO: check if this breaks buttons on archives
+		if ( isset( $this->buttons ) ) {
+			return $this->buttons;
 		}
-		$pinterest_img = $attributes['pinterest'] ? $attributes['pinterest'] : $attributes['image'];
-		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
+		$attributes     = $this->get_attributes();
+		$settings_class = new ScriptlessSocialSharingSettings();
+		$buttons        = $settings_class->get_networks();
+		foreach ( $buttons as $button => $value ) {
+			$url  = '';
+			$file = plugin_dir_path( __FILE__ ) . "buttons/class-scriptlesssocialsharing-button-{$button}.php";
+			if ( file_exists( $file ) ) {
+				include_once $file;
+			}
+			$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button );
+			if ( class_exists( $proper_name ) ) {
+				$class = new $proper_name();
+				$url   = $class->get_url( $attributes );
+			}
 
-		return $pinterest_alt ? $pinterest_alt : $attributes['title'];
-	}
+			/**
+			 * Create a filter to build custom URLs for each network.
+			 * @since 2.0.0
+			 */
+			$buttons[ $button ]['url'] = apply_filters( "scriptlesssocialsharing_{$button}_url", $url, $button, $attributes );
 
-	/**
-	 * Add Pinterest data pin attributes to the URL markup.
-	 * @return string
-	 * @since 2.0.0
-	 */
-	public function add_pinterest_data() {
-		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip" data-pin-description="' . $this->get_pinterest_description( $this->get_attributes() ) . '"';
-	}
-
-	/**
-	 * Get the Linkedin URL.
-	 * @param $attributes array
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_linkedin_url( $attributes ) {
-		$query_args = array(
-			'mini'   => true,
-			'url'    => $this->get_permalink( 'linkedin' ),
-			'title'  => $attributes['title'],
-			'source' => $attributes['home'],
-		);
-		if ( $this->description() ) {
-			$query_args['summary'] = $this->description();
+			/**
+			 * Create a filter to add data attributes to social URLs.
+			 * @since 2.0.0
+			 */
+			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
 		}
-		return add_query_arg(
-			$query_args,
-			'https://www.linkedin.com/shareArticle'
-		);
-	}
+		$this->buttons = $buttons;
 
-	/**
-	 * Get the email URL.
-	 * @param $attributes array
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_email_url( $attributes ) {
-		return add_query_arg(
-			array(
-				'body'    => $attributes['email_body'] . ' ' . $this->get_permalink( 'email' ),
-				'subject' => $attributes['email_subject'] . ' ' . $attributes['title'],
-			),
-			'mailto:'
-		);
-	}
-
-	/**
-	 * Get the Reddit URL.
-	 * @param $attributes
-	 *
-	 * @return string
-	 * @since 2.0.0
-	 */
-	protected function get_reddit_url( $attributes ) {
-		return add_query_arg(
-			'url',
-			$this->get_permalink( 'reddit' ),
-			'https://www.reddit.com/submit'
-		);
+		return apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 	}
 
 	/**
@@ -475,15 +354,14 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function attributes() {
 		$setting = $this->get_setting();
+
 		return array(
-			'title'         => $this->title(),
-			'permalink'     => get_the_permalink(),
-			'home'          => home_url(),
-			'image'         => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
-			'email_body'    => $this->email_body(),
-			'email_subject' => $this->email_subject(),
-			'pinterest'     => $this->pinterest_image(),
-			'post_id'       => get_the_ID(),
+			'title'     => $this->title(),
+			'permalink' => get_the_permalink(),
+			'home'      => home_url(),
+			'image'     => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'pinterest' => $this->pinterest_image(),
+			'post_id'   => get_the_ID(),
 		);
 	}
 
@@ -496,6 +374,7 @@ class ScriptlessSocialSharingOutput {
 			return $this->attributes;
 		}
 		$this->attributes = $this->attributes();
+
 		return $this->attributes;
 	}
 
@@ -553,12 +432,14 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * Convert an image ID into a URL string.
+	 *
 	 * @param $id
 	 *
 	 * @return string
 	 */
 	protected function get_image_url( $id ) {
 		$source = wp_get_attachment_image_src( $id, 'large', false );
+
 		return apply_filters( 'scriptlesssocialsharing_image_url', isset( $source[0] ) ? $source[0] : '' );
 	}
 
@@ -573,16 +454,8 @@ class ScriptlessSocialSharingOutput {
 		if ( has_excerpt() ) {
 			$description = get_the_excerpt();
 		}
-		return apply_filters( 'scriptlesssocialsharing_description', $description );
-	}
 
-	/**
-	 * add twitter handle to URL
-	 * @return string twitter handle (default is empty)
-	 */
-	protected function twitter_handle() {
-		$setting = $this->get_setting();
-		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $setting['twitter_handle'] );
+		return apply_filters( 'scriptlesssocialsharing_description', $description );
 	}
 
 	/**
@@ -597,54 +470,19 @@ class ScriptlessSocialSharingOutput {
 		if ( ! $heading ) {
 			return '';
 		}
+
 		return '<h3>' . $heading . '</h3>';
 	}
 
 	/**
 	 * replace spaces in a string with %20 for URLs
+	 *
 	 * @param  string $string passed through from another source
+	 *
 	 * @return string         same string, just %20 instead of spaces
 	 */
 	protected function replace( $string ) {
 		return htmlentities( $string );
-	}
-
-	/**
-	 * subject line for the email button
-	 * @return string can be modified via filter
-	 */
-	protected function email_subject() {
-		$setting = $this->get_setting();
-		return apply_filters( 'scriptlesssocialsharing_email_subject', $setting['email_subject'] );
-	}
-
-	/**
-	 * body text for the email button
-	 * @return string can be modified via filter
-	 */
-	protected function email_body() {
-		return apply_filters( 'scriptlesssocialsharing_email_body', __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ) );
-	}
-
-	/**
-	 * If a Pinterest specific image is set, add it to the content, but hidden.
-	 * @param $content
-	 *
-	 * @return string
-	 */
-	public function hide_pinterest_image( $content ) {
-		$setting          = $this->get_setting();
-		$pinterest_image  = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		$pinterest_button = $setting['buttons']['pinterest'];
-		if ( ! $pinterest_button || ! $pinterest_image ) {
-			return $content;
-		}
-		$alt_text = get_post_meta( $pinterest_image, '_wp_attachment_image_alt', true );
-		return $content . wp_get_attachment_image( $pinterest_image, 'large', false, array(
-			'data-pin-media' => 'true',
-			'style'          => 'display:none;',
-			'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
-		) );
 	}
 
 	/**

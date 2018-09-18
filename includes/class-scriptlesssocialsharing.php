@@ -75,7 +75,6 @@ class ScriptlessSocialSharing {
 		// Output
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
 		add_action( 'wp_head', array( $this->output, 'do_location' ) );
-		add_filter( 'the_content', array( $this->output, 'hide_pinterest_image' ), 99 );
 		add_shortcode( 'scriptless', array( $this->output, 'shortcode' ) );
 
 		// Filters
