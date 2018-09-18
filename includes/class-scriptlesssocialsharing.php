@@ -28,6 +28,11 @@ class ScriptlessSocialSharing {
 	protected $help;
 
 	/**
+	 * @var $locations \ScriptlessSocialSharingOutputLocations
+	 */
+	protected $locations;
+
+	/**
 	 * @var $output ScriptlessSocialSharingOutput
 	 */
 	protected $output;
@@ -55,8 +60,9 @@ class ScriptlessSocialSharing {
 	 * @param $post_meta
 	 * @param $settings
 	 */
-	public function __construct( $help, $output, $post_meta, $settings, $shortcode ) {
+	public function __construct( $help, $locations, $output, $post_meta, $settings, $shortcode ) {
 		$this->help      = $help;
+		$this->locations = $locations;
 		$this->output    = $output;
 		$this->post_meta = $post_meta;
 		$this->settings  = $settings;
@@ -80,7 +86,7 @@ class ScriptlessSocialSharing {
 
 		// Output
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
-		add_action( 'wp_head', array( $this->output, 'do_location' ) );
+		add_action( 'wp_head', array( $this->locations, 'do_location' ) );
 		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
 
 		// Filters
