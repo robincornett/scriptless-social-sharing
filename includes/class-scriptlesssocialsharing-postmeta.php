@@ -24,6 +24,11 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	protected $image = '_scriptlesssocialsharing_pinterest';
 
+	/**
+	 * Post meta key for custom Pinterest description.
+	 *
+	 * @var string
+	 */
 	protected $description = '_scriptlesssocialsharing_description';
 
 	/**
@@ -36,12 +41,11 @@ class ScriptlessSocialSharingPostMeta {
 	 * Add a custom post metabox.
 	 */
 	public function add_meta_box() {
-		$this->post_types = scriptlesssocialsharing_post_types();
 		add_meta_box(
 			'scriptless_social_sharing',
 			__( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
 			array( $this, 'do_metabox' ),
-			$this->post_types,
+			$this->post_types(),
 			'side',
 			'low'
 		);
@@ -52,7 +56,7 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function enqueue() {
 		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, $this->post_types, true ) ) {
+		if ( ! in_array( $screen->post_type, $this->post_types(), true ) ) {
 			return;
 		}
 		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
@@ -160,12 +164,21 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_checkbox() {
 
-		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, $this->post_types, true ) ) {
-			return;
+	/**
+	 * Get the allowed post types.
+	 *
+	 * @since 2.2.0
+	 * @return array
+	 */
+	protected function post_types() {
+		if ( isset( $this->post_types ) ) {
+			return $this->post_types;
 		}
 		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
 		printf( '<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>', esc_attr( $this->disable ), checked( $check, 1, false ), esc_html__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
+		$this->post_types = scriptlesssocialsharing_post_types();
+
+		return $this->post_types;
 	}
 
 	/**
