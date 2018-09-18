@@ -92,7 +92,10 @@ class ScriptlessSocialSharingPostMeta {
 			$this->description,
 			__( 'Custom Pinterest Description', 'scriptless-social-sharing' )
 		);
-		$this->do_checkbox();
+		$this->do_checkbox(
+			$this->disable,
+			__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' )
+		);
 	}
 
 	/**
@@ -162,7 +165,15 @@ class ScriptlessSocialSharingPostMeta {
 	/**
 	 * Add the checkbox to the publishing metabox.
 	 */
-	public function do_checkbox() {
+	public function do_checkbox( $id, $label ) {
+		$check = (bool) get_post_meta( get_the_ID(), $id, true );
+		printf(
+			'<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>',
+			esc_attr( $id ),
+			checked( $check, 1, false ),
+			esc_html( $label )
+		);
+	}
 
 	/**
 	 * Get the allowed post types.
@@ -174,8 +185,6 @@ class ScriptlessSocialSharingPostMeta {
 		if ( isset( $this->post_types ) ) {
 			return $this->post_types;
 		}
-		$check = get_post_meta( get_the_ID(), $this->disable, true ) ? 1 : '';
-		printf( '<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>', esc_attr( $this->disable ), checked( $check, 1, false ), esc_html__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ) );
 		$this->post_types = scriptlesssocialsharing_post_types();
 
 		return $this->post_types;
@@ -211,7 +220,7 @@ class ScriptlessSocialSharingPostMeta {
 
 		foreach ( $meta as $m ) {
 			if ( $this->description === $m ) {
-				$value = sanitize_textarea_field( filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING ) );
+				$value = esc_textarea( filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING ) );
 			} else {
 				$value = (int) filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING );
 			}
