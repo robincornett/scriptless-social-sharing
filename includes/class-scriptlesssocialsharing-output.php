@@ -56,7 +56,7 @@ class ScriptlessSocialSharingOutput {
 		if ( false === $this->can_do_buttons() ) {
 			return;
 		}
-		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->make_buttons() );
+		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->get_available_buttons() );
 		$enqueue->load_styles();
 	}
 
@@ -181,7 +181,7 @@ class ScriptlessSocialSharingOutput {
 			return $output;
 		}
 
-		$buttons = $this->make_buttons();
+		$buttons = $this->get_available_buttons();
 
 		if ( ! $buttons ) {
 			return $output;
@@ -222,7 +222,7 @@ class ScriptlessSocialSharingOutput {
 			'buttons'      => '',
 		);
 		$atts     = shortcode_atts( $defaults, $atts, 'scriptless' );
-		$buttons  = $this->make_buttons();
+		$buttons  = $this->get_available_buttons();
 		$passed   = $atts['buttons'] ? explode( ',', $atts['buttons'] ) : array();
 		$output   = $atts['before'];
 		$output  .= $this->heading( $atts['heading'] );
@@ -281,9 +281,11 @@ class ScriptlessSocialSharingOutput {
 	 * Create the default buttons
 	 * @return array array of buttons/attributes
 	 */
-	protected function make_buttons() {
-
-		$buttons     = $this->get_buttons();
+	protected function get_available_buttons() {
+		if ( isset( $this->buttons ) && is_singular() ) {
+			return $this->buttons;
+		}
+		$buttons     = $this->get_all_buttons();
 		$setting     = $this->get_setting();
 		$set_buttons = $setting['buttons'];
 		if ( $set_buttons ) {
@@ -298,6 +300,8 @@ class ScriptlessSocialSharingOutput {
 			unset( $buttons['pinterest'] );
 		}
 
+		$this->buttons = $buttons;
+
 		/**
 		 * Note: scriptlesssocialsharing_buttons filter should be used instead of this
 		 * filter, due to potential errors with a button being in this array, but not
@@ -311,11 +315,7 @@ class ScriptlessSocialSharingOutput {
 	 * @since 2.2.0
 	 * @return mixed
 	 */
-	protected function get_buttons() {
-		// TODO: check if this breaks buttons on archives
-		if ( isset( $this->buttons ) ) {
-			return $this->buttons;
-		}
+	protected function get_all_buttons() {
 		$attributes     = $this->get_attributes();
 		$settings_class = new ScriptlessSocialSharingSettings();
 		$buttons        = $settings_class->get_networks();
@@ -343,7 +343,6 @@ class ScriptlessSocialSharingOutput {
 			 */
 			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
 		}
-		$this->buttons = $buttons;
 
 		return apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
 	}
