@@ -56,11 +56,12 @@ class ScriptlessSocialSharingPostMeta {
 		if ( ! in_array( $screen->post_type, $this->post_types, true ) ) {
 			return;
 		}
+		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
 			'scriptless-upload',
-			plugins_url( '/includes/js/image-upload.js', dirname( __FILE__ ) ),
+			plugins_url( "/includes/js/image-upload{$minify}.js", dirname( __FILE__ ) ),
 			array( 'jquery', 'media-upload', 'thickbox' ),
-			'2.0.0',
+			'2.2.0',
 			false
 		);
 
