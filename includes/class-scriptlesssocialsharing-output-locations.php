@@ -8,6 +8,10 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 	 * @since 2.0.0
 	 */
 	public function do_location() {
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
+		if ( $is_disabled ) {
+			return;
+		}
 		if ( ! $this->can_do_buttons() ) {
 			return;
 		}
