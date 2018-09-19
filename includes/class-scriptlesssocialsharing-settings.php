@@ -124,6 +124,7 @@ class ScriptlessSocialSharingSettings {
 			),
 			'twitter_handle' => '',
 			'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
+			'email_body'     => __( 'I read this post and wanted to share it with you. Here\'s the link:', 'scriptless-social-sharing' ),
 			'post_types'     => array(
 				'post' => array(
 					'before' => 0,
@@ -196,6 +197,7 @@ class ScriptlessSocialSharingSettings {
 			$this->buttons(),
 			$this->twitter_handle(),
 			$this->email_subject(),
+			$this->email_body(),
 			$this->table_width(),
 			$this->button_padding(),
 		);
@@ -265,6 +267,20 @@ class ScriptlessSocialSharingSettings {
 			'id'       => 'email_subject',
 			'title'    => __( 'Email Subject', 'scriptless-social-sharing' ),
 			'callback' => 'do_text_field',
+			'section'  => 'networks',
+		);
+	}
+
+	/**
+	 * Define the email body setting.
+	 *
+	 * @return array
+	 */
+	protected function email_body() {
+		return array(
+			'id'       => 'email_body',
+			'title'    => __( 'Email Content', 'scriptless-social-sharing' ),
+			'callback' => 'do_textarea_field',
 			'section'  => 'networks',
 		);
 	}
@@ -537,7 +553,11 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.0.0
 	 */
 	public function do_text_field( $args ) {
-		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />', esc_attr( $args['id'] ), esc_attr( $this->setting[ $args['id'] ] ), esc_attr( $this->page ) );
+		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />',
+			esc_attr( $args['id'] ),
+			esc_attr( $this->setting[ $args['id'] ] ),
+			esc_attr( $this->page )
+		);
 		$this->do_description( $args['id'] );
 	}
 
@@ -557,6 +577,21 @@ class ScriptlessSocialSharingSettings {
 			);
 		}
 		echo '</fieldset>';
+		$this->do_description( $args['id'] );
+	}
+
+	/**
+	 * Generic function to output a textarea
+	 * @param $args
+	 */
+	public function do_textarea_field( $args ) {
+		$rows = isset( $args['rows'] ) ? $args['rows'] : 3;
+		printf( '<textarea class="regular-text" rows="%4$s" id="%3$s[%1$s]" name="%3$s[%1$s]" aria-label="%3$s[%1$s]">%2$s</textarea>',
+			esc_attr( $args['id'] ),
+			esc_textarea( $this->setting[ $args['id'] ] ),
+			esc_attr( $this->page ),
+			(int) $rows
+		);
 		$this->do_description( $args['id'] );
 	}
 
