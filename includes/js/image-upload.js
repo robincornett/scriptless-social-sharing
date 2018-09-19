@@ -1,14 +1,19 @@
-jQuery( document ).ready( function ( $ ) {
+;(function ( document, $, undefined ) {
 	'use strict';
 
-	var custom_uploader,
+	var Scriptless = {},
 	    target_input;
 
-	$( '.upload_default_image' ).click(function(e) {
+	Scriptless.upload = function () {
+		$( '.scriptless-upload' ).on( 'click.scriptless', _openModal );
+		$( '.scriptless-delete' ).on( 'click.delete', _delete );
+	};
 
-		target_input = $(this).prev( '.upload_image_id' );
-
+	function _openModal( e ) {
 		e.preventDefault();
+
+		var custom_uploader;
+		target_input = $( this ).prev( '.scriptless-image-id' );
 
 		//If the uploader object has already been created, reopen the dialog
 		if ( custom_uploader ) {
@@ -17,40 +22,45 @@ jQuery( document ).ready( function ( $ ) {
 		}
 
 		//Extend the wp.media object
-		custom_uploader = wp.media.frames.file_frame = wp.media({
-			title: ( [ objectL10n.text ] ),
+		custom_uploader = wp.media.frames.file_frame = wp.media( {
+			title: ([Scriptless.params.text]),
 			button: {
-				text: ( [ objectL10n.text ] )
+				text: ([Scriptless.params.text])
 			},
 			multiple: false,
-			library: { type : 'image' }
-		});
+			library: {type: 'image'}
+		} );
 
 		//When a file is selected, grab the URL and set it as the text field's value
-		custom_uploader.on( 'select', function() {
+		custom_uploader.on( 'select', function () {
 
 			var attachment   = custom_uploader.state().get( 'selection' ).first().toJSON(),
-			    preview      = $( target_input ).prevAll( '.upload_logo_preview' ),
-			    previewImage = $( '<div class="upload_logo_preview"><img style="max-width:100%;" src="' + attachment.url + '" /></div>' );
+			    preview      = $( target_input ).prevAll( '.scriptless-image-preview' ),
+			    previewImage = $( '<div class="scriptless-image-preview"><img style="max-width:100%;" src="' + attachment.url + '" /></div>' );
 			$( target_input ).val( attachment.id );
 			if ( preview.length ) {
 				preview.remove();
 			}
 			$( target_input ).before( previewImage );
-		});
+		} );
 
 		//Open the uploader dialog
 		custom_uploader.open();
+	}
 
-	});
+	function _delete() {
 
-	$( '.delete_image' ).click( function() {
-
-		target_input    = $( this ).prevAll( '.upload_image_id' );
-		var previewView = $( this ).prevAll( '.upload_logo_preview' );
+		target_input = $( this ).prevAll( '.scriptless-image-id' );
+		var previewView = $( this ).prevAll( '.scriptless-image-preview' );
 
 		$( target_input ).val( '' );
 		$( previewView ).remove();
 
-	});
-});
+	}
+
+	Scriptless.params = typeof scriptlessL10n === 'undefined' ? '' : scriptlessL10n;
+	if ( typeof Scriptless.params !== 'undefined' ) {
+		Scriptless.upload();
+	}
+
+})( document, jQuery );

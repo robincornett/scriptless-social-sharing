@@ -65,12 +65,12 @@ class ScriptlessSocialSharingPostMeta {
 			plugins_url( "/includes/js/image-upload{$minify}.js", dirname( __FILE__ ) ),
 			array( 'jquery', 'media-upload', 'thickbox' ),
 			'2.2.0',
-			false
+			true
 		);
 
 		wp_enqueue_media();
 		wp_enqueue_script( 'scriptless-upload' );
-		wp_localize_script( 'scriptless-upload', 'objectL10n', array(
+		wp_localize_script( 'scriptless-upload', 'scriptlessL10n', array(
 			'text' => __( 'Select Image', 'scriptless-social-sharing' ),
 		) );
 	}
