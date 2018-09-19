@@ -39,6 +39,7 @@ function scriptlesssocialsharing_require() {
 		'class-scriptlesssocialsharing-enqueue',
 		'class-scriptlesssocialsharing-help',
 		'class-scriptlesssocialsharing-output',
+		'class-scriptlesssocialsharing-output-buttons',
 		'class-scriptlesssocialsharing-output-locations',
 		'class-scriptlesssocialsharing-output-shortcode',
 		'class-scriptlesssocialsharing-postmeta',
@@ -56,7 +57,7 @@ scriptlesssocialsharing_require();
 // Instantiate main class
 $scriptlesssocialsharing_help      = new ScriptlessSocialSharingHelp();
 $scriptlesssocialsharing_locations = new ScriptlessSocialSharingOutputLocations();
-$scriptlesssocialsharing_output    = new ScriptlessSocialSharingOutput();
+$scriptlesssocialsharing_output    = new ScriptlessSocialSharingOutputButtons();
 $scriptlesssocialsharing_postmeta  = new ScriptlessSocialSharingPostMeta();
 $scriptlesssocialsharing_settings  = new ScriptlessSocialSharingSettings();
 $scriptlesssocialsharing_shortcode = new ScriptlessSocialSharingOutputShortcode();

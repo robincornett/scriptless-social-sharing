@@ -1,6 +1,6 @@
 <?php
 
-class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutputButtons {
 
 	/**
 	 * Decide where to add the sharing buttons.
