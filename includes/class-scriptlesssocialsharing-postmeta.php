@@ -35,7 +35,7 @@ class ScriptlessSocialSharingPostMeta {
 	 * Post types which can show buttons
 	 * @var array
 	 */
-	protected $post_types = array();
+	protected $post_types;
 
 	/**
 	 * Add a custom post metabox.
@@ -82,15 +82,14 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		printf( '<label for="%s">%s</label>', esc_attr( $this->image ), esc_html__( 'Custom Pinterest Image', 'scriptless-social-sharing' ) );
-		echo '<p>';
-		$id = get_post_meta( $post->ID, $this->image, true );
-		echo wp_kses_post( $this->render_image_preview( $id ) );
-		$this->render_buttons( $id );
-		echo '</p>';
+		$this->do_image(
+			$this->image,
+			__( 'Custom Pinterest Image', 'scriptless-social-sharing' )
+		);
 		$this->do_textarea(
 			$this->description,
-			__( 'Custom Pinterest Description', 'scriptless-social-sharing' )
+			__( 'Custom Pinterest Description', 'scriptless-social-sharing' ),
+			__( 'Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own.', 'scriptless-social-sharing' )
 		);
 		$this->do_checkbox(
 			$this->disable,
@@ -99,41 +98,66 @@ class ScriptlessSocialSharingPostMeta {
 	}
 
 	/**
+	 * Print out the image preview and buttons.
+	 *
+	 * @param $id
+	 * @param $label
+	 */
+	protected function do_image( $id, $label ) {
+		printf(
+			'<p><label for="%s">%s</label></p>',
+			esc_attr( $id ),
+			esc_html( $label )
+		);
+		$meta = get_post_meta( get_the_ID(), $this->image, true );
+		$this->render_image_preview( $label, $meta );
+		$this->render_buttons( $id, $meta );
+	}
+
+	/**
 	 * display image preview
 	 *
-	 * @param  int $id featured image ID
-	 *
-	 * @return string
+	 * @param      $label
+	 * @param      $meta
 	 *
 	 * @since 1.5.0
 	 */
-	public function render_image_preview( $id ) {
-		if ( ! $id ) {
-			return '';
+	protected function render_image_preview( $label, $meta ) {
+		if ( ! $meta ) {
+			return;
 		}
-		$alt_text = __( 'Custom Pinterest Image', 'scriptless-social-sharing' );
-		$preview  = wp_get_attachment_image_src( (int) $id, 'medium' );
-		$image    = sprintf( '<div class="upload_logo_preview"><img src="%s" alt="%s" style="%s" /></div>', esc_url( $preview[0] ), esc_attr( $alt_text ), esc_attr( 'max-width:100%;' ) );
-
-		return $image;
+		$preview = wp_get_attachment_image_src( (int) $meta, 'medium' );
+		printf(
+			'<div class="scriptless-image-preview"><img src="%s" alt="%s" style="%s" /></div>',
+			esc_url( $preview[0] ),
+			esc_attr( $label ),
+			'max-width:100%;'
+		);
 	}
 
 	/**
 	 * show image select/delete buttons
 	 *
-	 * @param  int $id image ID
+	 * @param  int   $id image ID
+	 *
+	 * @param string $meta
 	 *
 	 * @since 1.5.0
 	 */
-	public function render_buttons( $id ) {
-		$name = $this->image;
-		printf( '<input type="hidden" class="upload_image_id" name="%1$s" value="%2$s" />', esc_attr( $name ), esc_attr( $id ) );
-		printf( '<input id="%s" type="button" class="upload_default_image button-secondary" value="%s" />',
-			esc_attr( $name ),
+	protected function render_buttons( $id, $meta ) {
+		printf(
+			'<input type="hidden" class="scriptless-image-id" name="%1$s" value="%2$s" />',
+			esc_attr( $id ),
+			esc_attr( $meta )
+		);
+		printf(
+			'<input id="%s" type="button" class="scriptless-upload button-secondary hide-if-no-js" value="%s" />',
+			esc_attr( $id ),
 			esc_attr__( 'Select Pinterest Image', 'scriptless-social-sharing' )
 		);
-		if ( ! empty( $id ) ) {
-			printf( ' <input type="button" class="delete_image button-secondary" value="%s" />',
+		if ( ! empty( $meta ) ) {
+			printf(
+				' <input type="button" class="scriptless-delete button-secondary hide-if-no-js" value="%s" />',
 				esc_attr__( 'Delete Image', 'scriptless-social-sharing' )
 			);
 		}
@@ -144,28 +168,35 @@ class ScriptlessSocialSharingPostMeta {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param $id    string
-	 * @param $label string
+	 * @param        $id    string
+	 * @param        $label string
+	 * @param string $description
 	 */
-	protected function do_textarea( $id, $label ) {
-		$value = get_post_meta( get_the_ID(), $id, true );
-		printf( '<label for="%s">%s</label>',
+	protected function do_textarea( $id, $label, $description = '' ) {
+		printf(
+			'<p><label for="%s">%s</label></p>',
 			esc_attr( $id ),
 			esc_attr( $label )
 		);
-		echo '<p>';
-		printf( '<textarea class="large-text" rows="3" id="%1$s" name="%1$s" aria-label="%3$s">%2$s</textarea>',
+		printf(
+			'<textarea class="large-text" rows="3" id="%1$s" name="%1$s" aria-label="%3$s">%2$s</textarea>',
 			esc_attr( $id ),
-			esc_textarea( $value ),
+			esc_textarea( get_post_meta( get_the_ID(), $id, true ) ),
 			esc_attr( $label )
 		);
-		echo '</p>';
+		if ( ! $description ) {
+			return;
+		}
+		printf(
+			'<p class="description">%s</p>',
+			esc_html( $description )
+		);
 	}
 
 	/**
 	 * Add the checkbox to the publishing metabox.
 	 */
-	public function do_checkbox( $id, $label ) {
+	protected function do_checkbox( $id, $label ) {
 		$check = (bool) get_post_meta( get_the_ID(), $id, true );
 		printf(
 			'<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>',
