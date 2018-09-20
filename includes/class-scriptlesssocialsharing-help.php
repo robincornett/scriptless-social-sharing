@@ -121,6 +121,9 @@ class ScriptlessSocialSharingHelp {
 
 		$help  = '<h3>' . __( 'Email Subject', 'scriptless-social-sharing' ) . '</h3>';
 		$help .= '<p>' . __( 'The post/page title will be added to the subject.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<h3>' . __( 'Email Content', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'Keep this simple--whatever you put here is added to your email button markup. The link to the post will be added at the end of the email content.', 'scriptless-social-sharing' ) . '</p>';
+
 		return $help;
 	}
 }

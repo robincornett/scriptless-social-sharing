@@ -45,10 +45,11 @@ return array(
 		'description' => __( 'The post title will be appended to whatever you add here.', 'scriptless-social-sharing' ),
 	),
 	array(
-		'id'       => 'email_body',
-		'title'    => __( 'Email Content', 'scriptless-social-sharing' ),
-		'callback' => 'do_textarea_field',
-		'section'  => 'networks',
+		'id'          => 'email_body',
+		'title'       => __( 'Email Content', 'scriptless-social-sharing' ),
+		'callback'    => 'do_textarea_field',
+		'section'     => 'networks',
+		'description' => __( 'Keep this simple--whatever you put here is added to your email button markup. The link to the post will be added at the end of the email content.', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'       => 'post_types',
@@ -73,22 +74,22 @@ return array(
 		'title'    => __( 'Button Styles', 'scriptless-social-sharing' ),
 		'callback' => 'do_radio_buttons',
 		'section'  => 'styles',
-		'buttons' => array(
+		'buttons'  => array(
 			0 => __( 'Icon Only', 'scriptless-social-sharing' ),
 			1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
 		),
-		'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
+		'legend'   => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'       => 'table_width',
 		'title'    => __( 'Button Container Width', 'scriptless-social-sharing' ),
 		'callback' => 'do_radio_buttons',
 		'section'  => 'styles',
-		'buttons' => array(
+		'buttons'  => array(
 			'full' => __( 'Full Width', 'scriptless-social-sharing' ),
 			'auto' => __( 'Auto', 'scriptless-social-sharing' ),
 		),
-		'legend'  => __( 'Width of button container', 'scriptless-social-sharing' ),
+		'legend'   => __( 'Width of button container', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'       => 'button_padding',
@@ -98,5 +99,5 @@ return array(
 		'label'    => __( ' pixels', 'scriptless-social-sharing' ),
 		'min'      => 0,
 		'max'      => 400,
-	)
+	),
 );
