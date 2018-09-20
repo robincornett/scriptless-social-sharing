@@ -82,127 +82,38 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		$this->do_image(
-			$this->image,
-			__( 'Custom Pinterest Image', 'scriptless-social-sharing' )
-		);
-		$this->do_textarea(
-			$this->description,
-			__( 'Custom Pinterest Description', 'scriptless-social-sharing' ),
-			__( 'Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own.', 'scriptless-social-sharing' )
-		);
-		$this->do_checkbox(
-			$this->disable,
-			__( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' )
-		);
-	}
-
-	/**
-	 * Print out the image preview and buttons.
-	 *
-	 * @param $id
-	 * @param $label
-	 */
-	protected function do_image( $id, $label ) {
-		printf(
-			'<p><label for="%s">%s</label></p>',
-			esc_attr( $id ),
-			esc_html( $label )
-		);
-		$meta = get_post_meta( get_the_ID(), $this->image, true );
-		$this->render_image_preview( $label, $meta );
-		$this->render_buttons( $id, $meta );
-	}
-
-	/**
-	 * display image preview
-	 *
-	 * @param      $label
-	 * @param      $meta
-	 *
-	 * @since 1.5.0
-	 */
-	protected function render_image_preview( $label, $meta ) {
-		if ( ! $meta ) {
-			return;
-		}
-		$preview = wp_get_attachment_image_src( (int) $meta, 'medium' );
-		printf(
-			'<div class="scriptless-image-preview"><img src="%s" alt="%s" style="%s" /></div>',
-			esc_url( $preview[0] ),
-			esc_attr( $label ),
-			'max-width:100%;'
-		);
-	}
-
-	/**
-	 * show image select/delete buttons
-	 *
-	 * @param  int   $id image ID
-	 *
-	 * @param string $meta
-	 *
-	 * @since 1.5.0
-	 */
-	protected function render_buttons( $id, $meta ) {
-		printf(
-			'<input type="hidden" class="scriptless-image-id" name="%1$s" value="%2$s" />',
-			esc_attr( $id ),
-			esc_attr( $meta )
-		);
-		printf(
-			'<input id="%s" type="button" class="scriptless-upload button-secondary hide-if-no-js" value="%s" />',
-			esc_attr( $id ),
-			esc_attr__( 'Select Pinterest Image', 'scriptless-social-sharing' )
-		);
-		if ( ! empty( $meta ) ) {
-			printf(
-				' <input type="button" class="scriptless-delete button-secondary hide-if-no-js" value="%s" />',
-				esc_attr__( 'Delete Image', 'scriptless-social-sharing' )
-			);
+		include_once 'class-scriptlesssocialsharing-postmeta-fields.php';
+		$fields_class = new ScriptlessSocialSharingPostMetaFields();
+		$fields       = $this->get_fields();
+		foreach ( $fields as $field ) {
+			$fields_class->do_field( $field );
 		}
 	}
 
 	/**
-	 * Create the description textarea for the metabox.
+	 * Define the post meta fields.
 	 *
 	 * @since 2.2.0
-	 *
-	 * @param        $id    string
-	 * @param        $label string
-	 * @param string $description
+	 * @return array
 	 */
-	protected function do_textarea( $id, $label, $description = '' ) {
-		printf(
-			'<p><label for="%s">%s</label></p>',
-			esc_attr( $id ),
-			esc_attr( $label )
-		);
-		printf(
-			'<textarea class="large-text" rows="3" id="%1$s" name="%1$s" aria-label="%3$s">%2$s</textarea>',
-			esc_attr( $id ),
-			esc_textarea( get_post_meta( get_the_ID(), $id, true ) ),
-			esc_attr( $label )
-		);
-		if ( ! $description ) {
-			return;
-		}
-		printf(
-			'<p class="description">%s</p>',
-			esc_html( $description )
-		);
-	}
-
-	/**
-	 * Add the checkbox to the publishing metabox.
-	 */
-	protected function do_checkbox( $id, $label ) {
-		$check = (bool) get_post_meta( get_the_ID(), $id, true );
-		printf(
-			'<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>',
-			esc_attr( $id ),
-			checked( $check, 1, false ),
-			esc_html( $label )
+	protected function get_fields() {
+		return array(
+			array(
+				'id'    => $this->image,
+				'type'  => 'image',
+				'label' => __( 'Custom Pinterest Image', 'scriptless-social-sharing' ),
+			),
+			array(
+				'id'          => $this->description,
+				'type'        => 'textarea',
+				'label'       => __( 'Custom Pinterest Description', 'scriptless-social-sharing' ),
+				'description' => __( 'Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own.', 'scriptless-social-sharing' ),
+			),
+			array(
+				'id'    => $this->disable,
+				'type'  => 'checkbox',
+				'label' => __( 'Don\'t show sharing buttons for this post', 'scriptless-social-sharing' ),
+			),
 		);
 	}
 
