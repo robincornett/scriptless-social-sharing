@@ -295,7 +295,8 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.0.0
 	 */
 	public function notice() {
-		if ( ! $this->setting['location'] ) {
+		$setting = $this->get_setting();
+		if ( ! $setting['location'] ) {
 			return;
 		}
 		$message  = '<p>' . __( 'Scriptless Social Sharing 2.0 makes <strong>significant</strong> changes to how buttons are managed for each type of content on your site. Settings for button locations and content types have changed. If you\'ve removed the default buttons and replaced them with code, you\'ll want to check the Manual option for affected content types, and uncheck the specific locations for those content types.', 'scriptless-social-sharing' ) . '</p>';
