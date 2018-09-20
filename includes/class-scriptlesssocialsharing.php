@@ -6,7 +6,7 @@
  * @package           ScriptlessSocialSharing
  * @author            Robin Cornett
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015-2016 Robin Cornett
+ * @copyright         2015-2018 Robin Cornett
  * @license           GPL-2.0+
  *
  */
@@ -33,7 +33,7 @@ class ScriptlessSocialSharing {
 	protected $locations;
 
 	/**
-	 * @var $output ScriptlessSocialSharingOutput
+	 * @var $output \ScriptlessSocialSharingOutputButtons
 	 */
 	protected $output;
 
@@ -106,6 +106,7 @@ class ScriptlessSocialSharing {
 
 	/**
 	 * Add link to plugin settings page in plugin table
+	 *
 	 * @param $links array
 	 *
 	 * @return array
@@ -113,6 +114,7 @@ class ScriptlessSocialSharing {
 	 */
 	public function add_settings_link( $links ) {
 		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=scriptlesssocialsharing' ) ), esc_attr__( 'Settings', 'scriptless-social-sharing' ) );
+
 		return $links;
 	}
 }
