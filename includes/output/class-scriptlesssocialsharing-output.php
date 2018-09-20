@@ -147,7 +147,7 @@ class ScriptlessSocialSharingOutput {
 		$buttons        = $settings_class->get_networks();
 		foreach ( $buttons as $button => $value ) {
 			$url  = '';
-			$file = plugin_dir_path( __FILE__ ) . "buttons/class-scriptlesssocialsharing-button-{$button}.php";
+			$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button}.php";
 			if ( file_exists( $file ) ) {
 				include_once $file;
 			}
