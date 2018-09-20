@@ -41,7 +41,7 @@ function scriptlesssocialsharing_require() {
 		'class-scriptlesssocialsharing-output-buttons',
 		'class-scriptlesssocialsharing-output-locations',
 		'class-scriptlesssocialsharing-output-shortcode',
-		'class-scriptlesssocialsharing-postmeta',
+		'postmeta/class-scriptlesssocialsharing-postmeta',
 		'settings/class-scriptlesssocialsharing-help',
 		'settings/class-scriptlesssocialsharing-settings',
 		'helper-functions',
