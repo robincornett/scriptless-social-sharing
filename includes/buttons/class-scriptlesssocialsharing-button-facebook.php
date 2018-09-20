@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class to correctly build the Facebook URL.
+ * Class ScriptlessSocialSharingButtonFacebook
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonFacebook extends ScriptlessSocialSharingOutput {
 
 	/**

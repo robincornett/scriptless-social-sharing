@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class to correctly build the Twitter URL.
+ * Class ScriptlessSocialSharingButtonTwitter
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingOutput {
 
 	/**
@@ -33,6 +39,7 @@ class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingOutput
 	 */
 	protected function twitter_handle() {
 		$setting = $this->get_setting();
+
 		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $setting['twitter_handle'] );
 	}
 }

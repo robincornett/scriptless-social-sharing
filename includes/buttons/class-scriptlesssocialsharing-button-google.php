@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class to correctly build the Google+ URL.
+ * Class ScriptlessSocialSharingButtonGoogle
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonGoogle extends ScriptlessSocialSharingOutput {
 
 	/**

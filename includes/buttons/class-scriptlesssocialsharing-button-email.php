@@ -1,12 +1,16 @@
 <?php
-/**
- * Copyright (c) 2018 Robin Cornett
- */
 
+/**
+ * Class to correctly build the email URL.
+ * Class ScriptlessSocialSharingButtonEmail
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonEmail extends ScriptlessSocialSharingOutput {
 
 	/**
 	 * Get the email URL.
+	 *
 	 * @param $attributes array
 	 *
 	 * @return string

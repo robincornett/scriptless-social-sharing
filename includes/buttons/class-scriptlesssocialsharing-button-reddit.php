@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class to correctly build the Reddit URL.
+ * Class ScriptlessSocialSharingButtonReddit
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonReddit extends ScriptlessSocialSharingOutput {
 
 	/**

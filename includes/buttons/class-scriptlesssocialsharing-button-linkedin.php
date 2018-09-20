@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class to correctly build the Linkedin URL.
+ * Class ScriptlessSocialSharingButtonLinkedin
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonLinkedin extends ScriptlessSocialSharingOutput {
 
 	/**

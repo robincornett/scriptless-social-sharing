@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ScriptlessSocialSharingOutputShortcode
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutput {
 
 	/**

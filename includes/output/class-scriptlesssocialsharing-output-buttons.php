@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class ScriptlessSocialSharingOutputButtons
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput {
 
 	/**

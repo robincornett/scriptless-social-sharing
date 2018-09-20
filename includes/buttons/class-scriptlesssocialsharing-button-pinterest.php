@@ -1,7 +1,16 @@
 <?php
 
+/**
+ * Class to correctly build the Pinterest URL.
+ * Class ScriptlessSocialSharingButtonPinterest
+ *
+ * @since 2.2.0
+ */
 class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingOutput {
 
+	/**
+	 * ScriptlessSocialSharingButtonPinterest constructor.
+	 */
 	public function __construct() {
 		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
 		add_filter( 'the_content', array( $this, 'hide_pinterest_image' ), 99 );
