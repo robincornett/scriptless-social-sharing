@@ -190,10 +190,11 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.0.0
 	 */
 	public function section_description( $args ) {
-		if ( empty( $args['description'] ) ) {
+		$sections = $this->register_sections();
+		if ( empty( $sections[ $args['id'] ]['description'] ) ) {
 			return;
 		}
-		echo wp_kses_post( wpautop( $args['description'] ) );
+		echo wp_kses_post( wpautop( $sections[ $args['id'] ]['description'] ) );
 	}
 
 	/**
