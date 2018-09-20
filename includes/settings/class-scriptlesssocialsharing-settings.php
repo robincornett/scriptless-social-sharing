@@ -169,6 +169,7 @@ class ScriptlessSocialSharingSettings {
 	 * @param $sections array
 	 */
 	protected function add_fields( $fields, $sections ) {
+		include_once 'class-scriptlesssocialsharing-settings-fields.php';
 		$fields_class = new ScriptlessSocialSharingSettingsFields( $this->get_setting() );
 		foreach ( $fields as $field ) {
 			add_settings_field(

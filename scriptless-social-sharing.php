@@ -37,14 +37,13 @@ function scriptlesssocialsharing_require() {
 	$files = array(
 		'class-scriptlesssocialsharing',
 		'class-scriptlesssocialsharing-enqueue',
-		'class-scriptlesssocialsharing-help',
 		'class-scriptlesssocialsharing-output',
 		'class-scriptlesssocialsharing-output-buttons',
 		'class-scriptlesssocialsharing-output-locations',
 		'class-scriptlesssocialsharing-output-shortcode',
 		'class-scriptlesssocialsharing-postmeta',
+		'settings/class-scriptlesssocialsharing-help',
 		'settings/class-scriptlesssocialsharing-settings',
-		'settings/class-scriptlesssocialsharing-settings-fields',
 		'helper-functions',
 	);
 
