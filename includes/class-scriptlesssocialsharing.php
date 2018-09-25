@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Scriptless Social Sharing
  *
@@ -56,9 +55,11 @@ class ScriptlessSocialSharing {
 	 * ScriptlessSocialSharing constructor.
 	 *
 	 * @param $help
+	 * @param $locations
 	 * @param $output
 	 * @param $post_meta
 	 * @param $settings
+	 * @param $shortcode
 	 */
 	public function __construct( $help, $locations, $output, $post_meta, $settings, $shortcode ) {
 		$this->help      = $help;
