@@ -60,16 +60,6 @@ return array(
 		'intro'    => __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode.', 'scriptless-social-sharing' ),
 	),
 	array(
-		'id'       => 'location',
-		'title'    => __( 'Sharing Buttons Location', 'scriptless-social-sharing' ),
-		'callback' => 'do_checkbox_array',
-		'section'  => 'general',
-		'choices'  => array(
-			'before' => __( 'Before Content', 'scriptless-social-sharing' ),
-			'after'  => __( 'After Content', 'scriptless-social-sharing' ),
-		),
-	),
-	array(
 		'id'       => 'button_style',
 		'title'    => __( 'Button Styles', 'scriptless-social-sharing' ),
 		'callback' => 'do_radio_buttons',
