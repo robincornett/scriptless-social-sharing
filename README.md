@@ -169,6 +169,13 @@ You can set any order you like. `0` is the first number.
 
 ## Changelog
 
+### 2.2.0
+* added: custom Pinterest description per post
+* added: default email content setting
+* changed: code reorganization
+* fixed: initial Gutenberg compatibility
+* fixed: end of content sharing buttons longer show after a shortcode if disabled
+
 ### 2.1.1
 * changed: CSS autoprefixing; buttons are now hidden on print
 

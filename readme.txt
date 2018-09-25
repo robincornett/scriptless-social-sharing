@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.1.1
+Stable tag: 2.2.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -98,7 +98,7 @@ Then you can add the buttons to the individual posts (this example works only wi
 		if ( ! function_exists( 'scriptlesssocialsharing_do_buttons' ) ) {
 			return;
 		}
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
 		if ( ! $is_disabled && ! is_singular() ) {
 			echo wp_kses_post( scriptlesssocialsharing_do_buttons() );
 		}
@@ -151,9 +151,16 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-2.1.1 CSS improvement to hide buttons for print
+2.2.0 new custom Pinterest description, initial Gutenberg compatibility
 
 == Changelog ==
+
+= 2.2.0 =
+* added: custom Pinterest description per post
+* added: default email content setting
+* changed: code reorganization
+* fixed: initial Gutenberg compatibility
+* fixed: end of content sharing buttons longer show after a shortcode if disabled
 
 = 2.1.1 =
 * changed: CSS autoprefixing; buttons are now hidden on print

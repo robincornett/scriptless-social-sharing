@@ -3,18 +3,18 @@
  * Scriptless Social Sharing
  *
  * @package           ScriptlessSocialSharing
- * @author            Robin Cornett
+ * @author            Robin Cornett <hello@robincornett.com>
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015-2016 Robin Cornett
+ * @copyright         2015-2018 Robin Cornett
  * @license           GPL-2.0+
  *
  * @wordpress-plugin
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           2.1.1
+ * Version:           2.2.0
  * Author:            Robin Cornett
- * Author URI:        http://robincornett.com
+ * Author URI:        https://robincornett.com
  * Text Domain:       scriptless-social-sharing
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
