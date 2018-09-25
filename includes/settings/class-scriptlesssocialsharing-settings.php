@@ -103,7 +103,7 @@ class ScriptlessSocialSharingSettings {
 	 * @since 1.3.0
 	 */
 	protected function defaults() {
-		return include 'defaults.php';
+		return include plugin_dir_path( __FILE__ ) . 'defaults.php';
 	}
 
 	/**
@@ -159,7 +159,7 @@ class ScriptlessSocialSharingSettings {
 	 *
 	 */
 	protected function register_fields() {
-		return include 'fields.php';
+		return include plugin_dir_path( __FILE__ ) . 'fields.php';
 	}
 
 	/**
@@ -169,7 +169,7 @@ class ScriptlessSocialSharingSettings {
 	 * @param $sections array
 	 */
 	protected function add_fields( $fields, $sections ) {
-		include_once 'class-scriptlesssocialsharing-settings-fields.php';
+		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-settings-fields.php';
 		$fields_class = new ScriptlessSocialSharingSettingsFields( $this->get_setting() );
 		foreach ( $fields as $field ) {
 			add_settings_field(
@@ -320,7 +320,7 @@ class ScriptlessSocialSharingSettings {
 		}
 		check_admin_referer( "{$this->page}_save-settings", "{$this->page}_nonce" );
 
-		include 'class-scriptlesssocialsharing-settings-validate.php';
+		include plugin_dir_path(__FILE__ ) . 'class-scriptlesssocialsharing-settings-validate.php';
 		$validate = new ScriptlessSocialSharingSettingsValidate();
 
 		return $validate->validate( $this->register_fields(), $new_value );
