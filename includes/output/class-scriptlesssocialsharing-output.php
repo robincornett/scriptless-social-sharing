@@ -152,7 +152,7 @@ class ScriptlessSocialSharingOutput {
 				include_once $file;
 			}
 			$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button );
-			if ( class_exists( $proper_name ) ) {
+			if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
 				$class = new $proper_name();
 				$url   = $class->get_url( $attributes );
 			}
