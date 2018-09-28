@@ -154,22 +154,30 @@ class ScriptlessSocialSharingPostMeta {
 			return;
 		}
 
-		$meta = array(
-			$this->disable,
-			$this->image,
-			$this->description,
-		);
+		$this->validate( $post_id, $this->get_fields() );
+	}
 
-		foreach ( $meta as $m ) {
-			if ( $this->description === $m ) {
-				$value = esc_textarea( filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING ) );
-			} else {
-				$value = (int) filter_input( INPUT_POST, $m, FILTER_SANITIZE_STRING );
+	/**
+	 * Validate the post meta fields.
+	 *
+	 * @param $post_id int
+	 * @param $fields  array
+	 */
+	protected function validate( $post_id, $fields ) {
+		foreach ( $fields as $field ) {
+			switch ( $field['type'] ) {
+				case 'textarea':
+					$value = esc_textarea( filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_STRING ) );
+					break;
+
+				default:
+					$value = (int) filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_STRING );
 			}
+
 			if ( $value ) {
-				update_post_meta( $post_id, $m, $value );
+				update_post_meta( $post_id, $field['id'], $value );
 			} else {
-				delete_post_meta( $post_id, $m );
+				delete_post_meta( $post_id, $field['id'] );
 			}
 		}
 	}
