@@ -39,7 +39,7 @@ class ScriptlessSocialSharingOutput {
 			$cando = false;
 		}
 		$post_types  = scriptlesssocialsharing_post_types();
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true ) ? true : '';
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
 		if ( ! is_singular( $post_types ) || is_feed() || $is_disabled ) {
 			$cando = false;
 		}
