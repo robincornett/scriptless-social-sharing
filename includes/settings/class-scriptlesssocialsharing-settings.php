@@ -320,7 +320,7 @@ class ScriptlessSocialSharingSettings {
 		}
 		check_admin_referer( "{$this->page}_save-settings", "{$this->page}_nonce" );
 
-		include plugin_dir_path(__FILE__ ) . 'class-scriptlesssocialsharing-settings-validate.php';
+		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-settings-validate.php';
 		$validate = new ScriptlessSocialSharingSettingsValidate();
 
 		return $validate->validate( $this->register_fields(), $new_value );
