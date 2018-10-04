@@ -64,7 +64,7 @@ class ScriptlessSocialSharingPostMeta {
 			'scriptless-upload',
 			plugins_url( "/js/image-upload{$minify}.js", dirname( __FILE__ ) ),
 			array( 'jquery', 'media-upload', 'thickbox' ),
-			'2.2.0',
+			'2.2.1',
 			true
 		);
 
