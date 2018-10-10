@@ -20,7 +20,7 @@ class ScriptlessSocialSharingEnqueue {
 	/**
 	 * @var string current plugin version
 	 */
-	protected $version = '2.2.1';
+	protected $version = SCRIPTLESSOCIALSHARING_VERSION;
 
 	/**
 	 * ScriptlessSocialSharingEnqueue constructor.

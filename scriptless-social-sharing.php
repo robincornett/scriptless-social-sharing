@@ -32,6 +32,10 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_BASENAME', plugin_basename( __FILE__ ) );
 }
 
+if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
+	define( 'SCRIPTLESSOCIALSHARING_VERSION', '2.2.1' );
+}
+
 // Include classes
 function scriptlesssocialsharing_require() {
 	$files = array(
