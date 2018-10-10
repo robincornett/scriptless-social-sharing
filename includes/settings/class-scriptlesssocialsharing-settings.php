@@ -222,36 +222,7 @@ class ScriptlessSocialSharingSettings {
 	 * @return array
 	 */
 	public function get_networks() {
-		return apply_filters( 'scriptlesssocialsharing_networks', array(
-			'twitter'   => array(
-				'name'  => 'twitter',
-				'label' => __( 'Twitter', 'scriptless-social-sharing' ),
-			),
-			'facebook'  => array(
-				'name'  => 'facebook',
-				'label' => __( 'Facebook', 'scriptless-social-sharing' ),
-			),
-			'google'    => array(
-				'name'  => 'google',
-				'label' => __( 'Google+', 'scriptless-social-sharing' ),
-			),
-			'pinterest' => array(
-				'name'  => 'pinterest',
-				'label' => __( 'Pinterest', 'scriptless-social-sharing' ),
-			),
-			'linkedin'  => array(
-				'name'  => 'linkedin',
-				'label' => __( 'Linkedin', 'scriptless-social-sharing' ),
-			),
-			'email'     => array(
-				'name'  => 'email',
-				'label' => __( 'Email', 'scriptless-social-sharing' ),
-			),
-			'reddit'    => array(
-				'name'  => 'reddit',
-				'label' => __( 'Reddit', 'scriptless-social-sharing' ),
-			),
-		) );
+		return include plugin_dir_path( __FILE__ ) . 'networks.php';
 	}
 
 	/**
