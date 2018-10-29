@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -155,6 +155,11 @@ You can set any order you like. `0` is the first number.
 2.2.0 new custom Pinterest description, initial Gutenberg compatibility
 
 == Changelog ==
+
+= 2.2.2 =
+* changed: Google+ is now off for new users and will be removed in a future version
+* changed: order of Pinterest button parameters to maybe reduce conflicts with lightbox plugins (props @pnwwebworks)
+* fixed: overly aggressive sanitization of the custom Pinterest description which had issues with special characters (props @pnwwebworks)
 
 = 2.2.1 =
 * fixed: error on settings validation

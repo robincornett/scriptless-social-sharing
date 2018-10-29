@@ -1,7 +1,7 @@
 {
   "name": "scriptless-social-sharing",
   "description": "Scriptless Social Sharing",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "private": true,
   "license": "GPL-2.0+",
   "devDependencies": {
