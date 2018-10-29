@@ -151,6 +151,7 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
+2.2.2 fixed custom Pinterest description issues for certain users
 2.2.1 settings validation error fixed!
 2.2.0 new custom Pinterest description, initial Gutenberg compatibility
 
