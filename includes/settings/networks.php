@@ -34,4 +34,9 @@ return apply_filters(
 			'name'  => 'reddit',
 			'label' => __( 'Reddit', 'scriptless-social-sharing' ),
 		),
-	) );
+		'whatsapp'  => array(
+			'name'  => 'whatsapp',
+			'label' => __( 'WhatsApp', 'scriptless-social-sharing' ),
+		),
+	)
+);
