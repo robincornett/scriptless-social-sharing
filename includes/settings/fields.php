@@ -31,6 +31,13 @@ return array(
 		'choices'  => $this->get_buttons(),
 	),
 	array(
+		'id'       => 'order',
+		'title'    => __( 'Button Order', 'scriptless-social-sharing' ),
+		'callback' => 'do_custom_order',
+		'section'  => 'general',
+		'choices'  => $this->get_buttons(),
+	),
+	array(
 		'id'          => 'twitter_handle',
 		'title'       => __( 'Twitter Handle', 'scriptless-social-sharing' ),
 		'callback'    => 'do_text_field',

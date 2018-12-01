@@ -84,8 +84,14 @@ class ScriptlessSocialSharingSettingsFields {
 			if ( 'post_types' === $args['id'] && ! isset( $this->setting[ $args['id'] ][ $key ] ) ) {
 				$setting = in_array( $key, $this->setting['post_types'], true );
 			}
-			printf( '<input type="hidden" name="%s[%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['id'] ), esc_attr( $key ) );
-			printf( '<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
+			printf(
+				'<input type="hidden" name="%1$s[%2$s][%3$s]" value="0" />',
+				esc_attr( $this->page ),
+				esc_attr( $args['id'] ),
+				esc_attr( $key )
+			);
+			printf(
+				'<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code" data-attr="%1$s"/>%3$s</label>',
 				esc_attr( $key ),
 				checked( 1, $setting, false ),
 				esc_html( $label ),
@@ -201,6 +207,32 @@ class ScriptlessSocialSharingSettingsFields {
 					esc_attr( $post_type->name )
 				);
 			}
+		}
+	}
+
+	/**
+	 * Allow users to sort the buttons into a custom order.
+	 *
+	 * @since 2.3.0
+	 * @param $args
+	 */
+	public function do_custom_order( $args ) {
+		$buttons = $args['choices'];
+		if ( $this->setting['order'] ) {
+			$buttons = array_merge( $this->setting['order'], $buttons );
+		}
+		foreach ( $buttons as $key => $label ) {
+			if ( ! $this->setting['buttons'][ $key ] ) {
+				continue;
+			}
+			$value = ! empty( $this->setting['order'][ $key ] ) ? $this->setting['order'][ $key ] : 0;
+			printf(
+				'<div class="button sortable-button" style="margin-right:4px;"><input type="hidden" name="%3$s[order][%4$s]" value="%2$s">%1$s</input></div>',
+				esc_html( $label ),
+				(int) $value,
+				esc_attr( $this->page ),
+				esc_attr( $key )
+			);
 		}
 	}
 

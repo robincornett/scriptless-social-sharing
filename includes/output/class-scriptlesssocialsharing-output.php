@@ -142,9 +142,8 @@ class ScriptlessSocialSharingOutput {
 	 * @return mixed
 	 */
 	protected function get_all_buttons() {
-		$attributes     = $this->get_attributes();
-		$settings_class = new ScriptlessSocialSharingSettings();
-		$buttons        = $settings_class->get_networks();
+		$attributes = $this->get_attributes();
+		$buttons    = $this->get_buttons_in_order();
 		foreach ( $buttons as $button => $value ) {
 			$url  = '';
 			$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button}.php";
@@ -171,6 +170,25 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
+	}
+
+	/**
+	 * Get the social network buttons in order. If the order has been set with
+	 * code and no custom order exists, use the code value. Otherwise, use the
+	 * value set via GUI (which will inherit the custom order).
+	 *
+	 * @since 2.3.0
+	 * @return array
+	 */
+	protected function get_buttons_in_order() {
+		$settings_class = new ScriptlessSocialSharingSettings();
+		$buttons        = $settings_class->get_networks();
+		$setting        = $this->get_setting();
+		if ( ! $setting['order'] ) {
+			return $buttons;
+		}
+
+		return array_merge( $this->setting['order'], $buttons );
 	}
 
 	/**

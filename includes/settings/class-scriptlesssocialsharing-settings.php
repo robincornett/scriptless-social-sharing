@@ -46,6 +46,7 @@ class ScriptlessSocialSharingSettings {
 		$this->add_sections( $sections );
 		$this->add_fields( $this->register_fields(), $sections );
 		add_action( 'admin_notices', array( $this, 'notice' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
 	/**
@@ -64,7 +65,21 @@ class ScriptlessSocialSharingSettings {
 		submit_button();
 		echo '</form>';
 		echo '</div>';
+	}
 
+	/**
+	 * Enqueue the script needed to make the buttons sortable.
+	 * @since 2.3.0
+	 */
+	public function enqueue() {
+		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		wp_enqueue_script(
+			'scriptless-sortable',
+			plugins_url( "/js/scriptless-sortable{$minify}.js", dirname( __FILE__ ) ),
+			array( 'jquery', 'jquery-ui-sortable' ),
+			SCRIPTLESSOCIALSHARING_VERSION,
+			true
+		);
 	}
 
 	/**
@@ -213,7 +228,6 @@ class ScriptlessSocialSharingSettings {
 		}
 
 		return $choices;
-
 	}
 
 	/**

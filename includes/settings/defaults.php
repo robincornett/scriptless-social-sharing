@@ -34,4 +34,5 @@ return array(
 	'button_style'   => 1,
 	'button_padding' => 12,
 	'table_width'    => 'full',
+	'order'          => array(),
 );

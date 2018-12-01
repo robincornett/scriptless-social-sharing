@@ -45,6 +45,10 @@ class ScriptlessSocialSharingSettingsValidate {
 					$new_value[ $field['id'] ] = sanitize_textarea_field( $new_value[ $field['id'] ] );
 					break;
 
+				case 'do_custom_order':
+					array_walk_recursive( $new_value[ $field['id'] ], array( $this, 'validate_order' ) );
+					break;
+
 				default:
 					$new_value[ $field['id'] ] = esc_attr( $new_value[ $field['id'] ] );
 			}
@@ -76,5 +80,16 @@ class ScriptlessSocialSharingSettingsValidate {
 	 */
 	protected function validate_content_types( &$new_value, $key ) {
 		$new_value = $this->one_zero( $new_value );
+	}
+
+	/**
+	 * Validate the custom button order.
+	 *
+	 * @since 2.3.0
+	 * @param $new_value
+	 * @param $key
+	 */
+	protected function validate_order( &$new_value, $key ) {
+		$new_value = (int) $new_value;
 	}
 }
