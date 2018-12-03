@@ -222,7 +222,7 @@ class ScriptlessSocialSharingSettingsFields {
 			$buttons = array_merge( $this->setting['order'], $buttons );
 		}
 		foreach ( $buttons as $key => $label ) {
-			if ( ! $this->setting['buttons'][ $key ] ) {
+			if ( empty( $this->setting['buttons'][ $key ] ) ) {
 				continue;
 			}
 			$value = ! empty( $this->setting['order'][ $key ] ) ? $this->setting['order'][ $key ] : 0;
