@@ -217,11 +217,7 @@ class ScriptlessSocialSharingSettingsFields {
 	 * @param $args
 	 */
 	public function do_custom_order( $args ) {
-		$buttons = $args['choices'];
-		if ( $this->setting['order'] ) {
-			$buttons = array_merge( $this->setting['order'], $buttons );
-		}
-		foreach ( $buttons as $key => $label ) {
+		foreach ( $this->get_buttons( $args['choices'] ) as $key => $label ) {
 			if ( empty( $this->setting['buttons'][ $key ] ) ) {
 				continue;
 			}
@@ -236,6 +232,21 @@ class ScriptlessSocialSharingSettingsFields {
 		}
 	}
 
+	/**
+	 * Get the active buttons which can be sorted into a custom order.
+	 *
+	 * @since 2.3.0
+	 * @param $buttons
+	 * @return array
+	 */
+	private function get_buttons( $buttons ) {
+		if ( ! $this->setting['order'] ) {
+			return $buttons;
+		}
+		$order = array_intersect_key( $this->setting['order'], $buttons );
+
+		return array_merge( $order, $buttons );
+	}
 	/**
 	 * Check the database setting
 	 *
