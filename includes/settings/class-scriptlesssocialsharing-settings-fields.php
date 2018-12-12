@@ -199,7 +199,8 @@ class ScriptlessSocialSharingSettingsFields {
 			foreach ( $options as $key => $value ) {
 				$setting = $this->get_content_types_location( $post_type, $key );
 				printf( '<input type="hidden" name="%s[post_types][%s][%s]" value="0" />', esc_attr( $this->page ), esc_attr( $post_type->name ), esc_attr( $key ) );
-				printf( '<label for="%4$s[post_types][%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[post_types][%5$s][%1$s]" id="%4$s[post_types][%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
+				printf(
+					'<label for="%4$s[post_types][%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[post_types][%5$s][%1$s]" id="%4$s[post_types][%5$s][%1$s]" value="1"%2$s class="code"/>%3$s</label>',
 					esc_attr( $key ),
 					checked( 1, $setting, false ),
 					esc_html( $value ),
@@ -217,19 +218,29 @@ class ScriptlessSocialSharingSettingsFields {
 	 * @param $args
 	 */
 	public function do_custom_order( $args ) {
-		foreach ( $this->get_buttons( $args['choices'] ) as $key => $label ) {
+		$this->do_description( $args['intro'] );
+		$buttons = $this->get_buttons( $args['choices'] );
+		$counts  = array_count_values( $this->setting['buttons'] );
+		echo '<div class="scriptless-sortable-buttons">';
+		foreach ( $buttons as $key => $label ) {
 			if ( empty( $this->setting['buttons'][ $key ] ) ) {
 				continue;
 			}
 			$value = ! empty( $this->setting['order'][ $key ] ) ? $this->setting['order'][ $key ] : 0;
 			printf(
-				'<div class="button sortable-button" style="margin-right:4px;"><input type="hidden" name="%3$s[order][%4$s]" value="%2$s">%1$s</input></div>',
+				'<div class="button sortable-button"><input type="number" name="%3$s[order][%4$s]" min="0" max="%5$s" value="%2$s" data-initial-value="%2$s"><label for="%3$s[order][%4$s]">%1$s</label></div>',
 				esc_html( $label ),
 				(int) $value,
 				esc_attr( $this->page ),
-				esc_attr( $key )
+				esc_attr( $key ),
+				esc_attr( $counts[1] - 1 )
 			);
 		}
+		echo '</div>';
+		printf(
+			'<p class="description change-warning">%s</p>',
+			wp_kses_post( __( 'Since you have changed the order of the buttons using the visual/number inputs, updating the order by dragging has been disabled.', 'scriptless-social-sharing' ) )
+		);
 	}
 
 	/**

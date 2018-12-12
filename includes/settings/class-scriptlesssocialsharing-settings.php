@@ -80,6 +80,11 @@ class ScriptlessSocialSharingSettings {
 			SCRIPTLESSOCIALSHARING_VERSION,
 			true
 		);
+		wp_enqueue_style(
+			'scriptless-sortable',
+			plugins_url( '/css/scriptlesssocialsharing-admin.css', dirname( __FILE__ ) ),
+			SCRIPTLESSOCIALSHARING_VERSION
+		);
 	}
 
 	/**

@@ -36,6 +36,7 @@ return array(
 		'callback' => 'do_custom_order',
 		'section'  => 'general',
 		'choices'  => $this->get_buttons(),
+		'intro'    => __( 'Reorder the buttons by dragging/dropping, or by using the number inputs.', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'          => 'twitter_handle',
