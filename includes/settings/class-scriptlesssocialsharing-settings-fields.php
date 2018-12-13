@@ -228,12 +228,12 @@ class ScriptlessSocialSharingSettingsFields {
 			}
 			$value = ! empty( $this->setting['order'][ $key ] ) ? $this->setting['order'][ $key ] : 0;
 			printf(
-				'<div class="button sortable-button"><input type="number" name="%3$s[order][%4$s]" min="0" max="%5$s" value="%2$s" data-initial-value="%2$s"><label for="%3$s[order][%4$s]">%1$s</label></div>',
+				'<div class="button sortable-button"><input type="number" name="%3$s[order][%4$s]" min="1" max="%5$s" value="%2$s" data-initial-value="%2$s"><label for="%3$s[order][%4$s]">%1$s</label></div>',
 				esc_html( $label ),
 				(int) $value,
 				esc_attr( $this->page ),
 				esc_attr( $key ),
-				esc_attr( $counts[1] - 1 )
+				esc_attr( $counts[1] )
 			);
 		}
 		echo '</div>';

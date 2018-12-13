@@ -26,3 +26,10 @@
 	}
 }
 
+.ui-sortable-disabled {
+	.button:hover,
+	label:hover {
+		cursor: default;
+	}
+}
+

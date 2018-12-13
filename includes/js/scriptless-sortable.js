@@ -20,9 +20,9 @@
 			return;
 		}
 		_updateOrder();
-		$( 'label[for^="scriptlesssocialsharing[buttons]"] input' ).on( 'change', ScriptlessSort.manageButtons );
-		$items.on( 'change', function () {
-			updateAllNumbers( $( this ), $items )
+		$( 'label[for^="scriptlesssocialsharing[buttons]"] input' ).on( 'change.scriptless-buttons', ScriptlessSort.manageButtons );
+		$container.find( 'input[type="number"]' ).on( 'change', function () {
+			updateAllNumbers( $( this ) )
 		} );
 		ScriptlessSort.sort();
 	};
@@ -31,8 +31,10 @@
 	 * Add/remove buttons as needed.
 	 */
 	ScriptlessSort.manageButtons = function () {
-		var key   = $( this ).attr( 'data-attr' ),
-		    label = $( this ).parent().text();
+		var key     = $( this ).attr( 'data-attr' ),
+		    label   = $( this ).parent().text(),
+		    $items  = $container.find( 'input[type="number"]' ),
+		    new_max = $items.length + 1;
 		if ( $( this ).prop( 'checked' ) ) {
 			var $button = $( '<div />', {
 				'class': 'button sortable-button',
@@ -41,17 +43,19 @@
 				.append( $( '<input>', {
 					'type': 'number',
 					'name': 'scriptlesssocialsharing[order][' + key + ']',
-					'value': $items.length,
-					'data-initial-value': $items.length,
-					'min': 0
+					'value': new_max,
+					'data-initial-value': new_max,
+					'min': 1,
+					'max': new_max
 				} ) )
 				.append( label );
 			$container.append( $button );
 		} else {
 			$( item + ':contains(' + label + ')' ).remove();
+			new_max = new_max - 2;
 		}
 		$.each( $items, function() {
-			$( this ).attr( 'max', $items.length );
+			$( this ).attr( 'max', new_max );
 		} );
 		_updateOrder();
 	};
@@ -80,7 +84,7 @@
 			return;
 		}
 		var items = $( item ).find( 'input' ),
-		    i     = 0;
+		    i     = 1;
 		$.each( items, function () {
 			var value = $( this ).val();
 			$( this ).attr( 'data-initial-value', value );
@@ -94,38 +98,40 @@
 	 *
 	 * https://codepen.io/barrytsmith/pen/kfiqj
 	 * @param currObj
-	 * @param targets
 	 */
-	function updateAllNumbers( currObj, targets ) {
-		var delta = currObj.val() - currObj.attr( 'data-initial-value' ), //if positive, the object went down in order. If negative, it went up.
-		    c     = parseInt( currObj.val(), 10 ),
-		    cI    = parseInt( currObj.attr( 'data-initial-value' ), 10 ),
-		    top   = $( targets ).length;
+	function updateAllNumbers( currObj ) {
+		var targets   = $container.find( 'input[type="number"]' ),
+		    delta     = currObj.val() - currObj.attr( 'data-initial-value' ), //if positive, the object went down in order. If negative, it went up.
+		    new_value = parseInt( currObj.val(), 10 ),
+		    old_value = parseInt( currObj.attr( 'data-initial-value' ), 10 ),
+		    top       = $( targets ).length;
 
-		if ( c > top ) {
+		if ( new_value > top ) {
 			currObj.val( top );
-		} else if ( c < 0 ) {
-			currObj.val( 0 );
+		} else if ( new_value < 1 ) {
+			currObj.val( 1 );
 		}
 
 		$( targets ).not( $( currObj ) ).each( function () {
 			var v = parseInt( $( this ).val(), 10 );
 
-			if ( v >= c && v < cI && delta < 0 ) {
+			if ( v >= new_value && v < old_value && delta < 0 ) {
 				$( this ).val( v + 1 );
-			} else if ( v <= c && v > cI && delta > 0 ) {
+			} else if ( v <= new_value && v > old_value && delta > 0 ) {
 				$( this ).val( v - 1 );
 			}
 		} ).promise().done( function () {
-			//after all the fields update based on new val, set their data element so further changes can be tracked
-			//(but ignore if no value given yet)
 			$( targets ).each( function () {
-				if ( $( this ).val() !== "" ) {
+				if ( $( this ).val() !== '' ) {
 					$( this ).attr( 'data-initial-value', $( this ).val() );
 				}
 			} );
 		} );
+		if ( changed ) {
+			return;
+		}
 		$( '.change-warning' ).show();
+		$container.sortable( 'disable' );
 		changed = true;
 	}
 
