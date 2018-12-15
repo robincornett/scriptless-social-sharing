@@ -313,8 +313,9 @@ class ScriptlessSocialSharingOutput {
 		if ( ! $heading ) {
 			return '';
 		}
+		$heading_element = apply_filters( 'scriptlesssocialsharing_heading_element', 'h3' );
 
-		return '<h3>' . $heading . '</h3>';
+		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', $heading_element, $heading );
 	}
 
 	/**
