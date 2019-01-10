@@ -7,6 +7,7 @@ $pinterest: #bd081c;
 $linkedin: #0077b5;
 $reddit: #ff4500;
 $whatsapp: #25d366;
+$pocket: #ef4056;
 
 @mixin fontawesome($size) {
 	display: inline-block;
@@ -41,4 +42,5 @@ $social: ( email, $email, 'f0e0' ),
 		( pinterest, $pinterest, f0d2 ),
 		( google, $google, f0d5 ),
 		( reddit, $reddit, f281 ),
-		( whatsapp, $whatsapp, f232 );
+		( whatsapp, $whatsapp, f232 ),
+		( pocket, $pocket, f265 );
