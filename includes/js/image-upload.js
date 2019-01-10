@@ -2,6 +2,7 @@
 	'use strict';
 
 	var Scriptless = {},
+	    id         = 'scriptless-uploader',
 	    target_input;
 
 	Scriptless.upload = function () {
@@ -23,12 +24,17 @@
 
 		//Extend the wp.media object
 		custom_uploader = wp.media.frames.file_frame = wp.media( {
+			id: id,
 			title: ([Scriptless.params.text]),
 			button: {
 				text: ([Scriptless.params.text])
 			},
+			filterable: 'all',
 			multiple: false,
-			library: {type: 'image'}
+			library: {
+				type: 'image',
+				uploadedTo: wp.media.view.settings.post.id
+			},
 		} );
 
 		//When a file is selected, grab the URL and set it as the text field's value
@@ -55,7 +61,6 @@
 
 		$( target_input ).val( '' );
 		$( previewView ).remove();
-
 	}
 
 	Scriptless.params = typeof scriptlessL10n === 'undefined' ? '' : scriptlessL10n;
