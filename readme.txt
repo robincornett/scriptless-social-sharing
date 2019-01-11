@@ -21,7 +21,7 @@ The sharing buttons are accessible--even if you choose the "Icons Only" button s
 
 There is a small settings page, so you can make decisions about which content types should have sharing buttons and where, what buttons should be added, and whether or not to use the plugin's styles. Beyond that, developers may like to make use of filters throughout the plugin.
 
-Banner/icon image credit: [Ryan McGuire on Gratisography](http://www.gratisography.com/).
+Banner/icon image credit: [Ryan McGuire on Gratisography](https://gratisography.com/).
 
 == Installation ==
 
@@ -114,35 +114,7 @@ As of version 1.5.0, you can add an image for the plugin to use specifically for
 
 = How can I change the order of the sharing buttons? =
 
-You can customize the order of the sharing buttons with a filter. Here's an example which places Reddit as the first button, and email as the last:
-
-	add_filter( 'scriptlesssocialsharing_networks', 'prefix_sort_networks_custom' );
-	function prefix_sort_networks_custom( $networks ) {
-		$networks['email']['order']     = 7;
-		$networks['facebook']['order']  = 1;
-		$networks['google']['order']    = 2;
-		$networks['linkedin']['order']  = 4;
-		$networks['reddit']['order']    = 0;
-		$networks['twitter']['order']   = 6;
-		$networks['pinterest']['order'] = 5;
-
-		uasort( $networks, 'prefix_set_scriptless_sort_order' );
-
-		return $networks;
-	}
-
-	/**
-	 * Custom comparison function to sort the networks.
-	 * @param $a
-	 * @param $b
-	 *
-	 * @return bool
-	 */
-	function prefix_set_scriptless_sort_order( $a, $b ) {
-		return $a['order'] > $b['order'];
-	}
-
-You can set any order you like. `0` is the first number.
+As of version 2.3, the sharing buttons order can be changed on the settings page, either by dragging buttons to your desired order, or by updating the numbered inputs.
 
 == Screenshots ==
 
@@ -151,11 +123,16 @@ You can set any order you like. `0` is the first number.
 
 == Upgrade Notice ==
 
-2.2.2 fixed custom Pinterest description issues for certain users
-2.2.1 settings validation error fixed!
-2.2.0 new custom Pinterest description, initial Gutenberg compatibility
+2.3.0 adds sharing buttons for Pocket and WhatsApp, as well as the ability to easily reorder the buttons!
 
 == Changelog ==
+
+= 2.3.0 =
+* added: button for sharing on WhatsApp
+* added: button for Pocket
+* added: ability to easily update the button display order
+* added: `scriptlesssocialsharing_heading_element` filter to change heading level for sharing buttons
+* improved: custom Pinterest image defaults to show images uploaded to the current post
 
 = 2.2.2 =
 * changed: Google+ is now off for new users and will be removed in a future version
