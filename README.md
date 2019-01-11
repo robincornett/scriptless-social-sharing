@@ -135,39 +135,16 @@ As of version 1.5.0, you can add an image for the plugin to use specifically for
 
 ### How can I change the order of the sharing buttons?
 
-You can customize the order of the sharing buttons with a filter. Here's an example which places Reddit as the first button, and email as the last:
-
-```php
-add_filter( 'scriptlesssocialsharing_networks', 'prefix_sort_networks_custom' );
-function prefix_sort_networks_custom( $networks ) {
-	$networks['email']['order']     = 7;
-	$networks['facebook']['order']  = 1;
-	$networks['google']['order']    = 2;
-	$networks['linkedin']['order']  = 4;
-	$networks['reddit']['order']    = 0;
-	$networks['twitter']['order']   = 6;
-	$networks['pinterest']['order'] = 5;
-
-	uasort( $networks, 'prefix_set_scriptless_sort_order' );
-
-	return $networks;
-}
-
-/**
- * Custom comparison function to sort the networks.
- * @param $a
- * @param $b
- *
- * @return bool
- */
-function prefix_set_scriptless_sort_order( $a, $b ) {
-	return $a['order'] > $b['order'];
-}
-```
-
-You can set any order you like. `0` is the first number.
+As of version 2.3, the sharing buttons order can be changed on the settings page, either by dragging buttons to your desired order, or by updating the numbered inputs.
 
 ## Changelog
+
+### 2.3.0
+* added: button for sharing on WhatsApp
+* added: button for Pocket
+* added: ability to easily update the button display order
+* added: `scriptlesssocialsharing_heading_element` filter to change heading level for sharing buttons
+* improved: custom Pinterest image defaults to show images uploaded to the current post
 
 ### 2.2.2
 * changed: Google+ is now off for new users and will be removed in a future version
