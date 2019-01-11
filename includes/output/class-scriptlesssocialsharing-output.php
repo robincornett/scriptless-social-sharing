@@ -199,13 +199,12 @@ class ScriptlessSocialSharingOutput {
 		$setting = $this->get_setting();
 
 		return array(
-			'title'         => $this->title(),
-			'permalink'     => get_the_permalink(),
-			'home'          => home_url(),
-			'image'         => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
-			'pinterest'     => $this->pinterest_image(),
-			'post_id'       => get_the_ID(),
-			'email_subject' => $setting['email_subject'],
+			'title'     => $this->title(),
+			'permalink' => get_the_permalink(),
+			'home'      => home_url(),
+			'image'     => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'pinterest' => $this->pinterest_image(),
+			'post_id'   => get_the_ID(),
 		);
 	}
 
