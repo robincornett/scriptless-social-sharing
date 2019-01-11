@@ -32,13 +32,13 @@ class ScriptlessSocialSharingHelp {
 		return array(
 			array(
 				'id'      => 'scriptlesssocialsharing_styles-help',
-				'title'   => __( 'Plugin Styles', 'scriptless-social-sharing' ),
+				'title'   => __( 'Style Settings', 'scriptless-social-sharing' ),
 				'content' => $this->styles(),
 			),
 			array(
 				'id'      => 'scriptlesssocialsharing_buttons-help',
 				'title'   => __( 'Button Settings', 'scriptless-social-sharing' ),
-				'content' => $this->heading() . $this->buttons(),
+				'content' => $this->heading() . $this->buttons() . $this->button_order(),
 			),
 			array(
 				'id'      => 'scriptlesssocialsharing_types-help',
@@ -89,12 +89,22 @@ class ScriptlessSocialSharingHelp {
 	}
 
 	/**
+	 * Description for the button order.
+	 * @return string
+	 */
+	protected function button_order() {
+		$help  = '<h3>' . __( 'Button Order', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'Buttons can be reordered either by changing the number input values, or by dragging and dropping the buttons. If the number input values are changed, drag/drop functionality will be disabled until the settings have been saved.', 'scriptless-social-sharing' ) . '</p>';
+
+		return $help;
+	}
+
+	/**
 	 * Description for the content types setting.
 	 * @return string
 	 */
 	protected function content_types() {
-		$help  = '<h3>' . __( 'Content Types', 'scriptless-social-sharing' ) . '</h3>';
-		$help .= '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
