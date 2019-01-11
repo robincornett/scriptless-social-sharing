@@ -142,9 +142,10 @@ class ScriptlessSocialSharingSettingsFields {
 	 */
 	protected function do_radio_buttons( $args ) {
 		echo '<fieldset>';
-		printf( '<legend class="screen-reader-text">%s</legend>', $args['legend'] );
+		printf( '<legend class="screen-reader-text">%s</legend>', esc_html( $args['legend'] ) );
 		foreach ( $args['buttons'] as $key => $button ) {
-			printf( '<label for="%5$s[%1$s][%2$s]" style="margin-right:12px !important;"><input type="radio" id="%5$s[%1$s][%2$s]" name="%5$s[%1$s]" value="%2$s"%3$s />%4$s</label>  ',
+			printf(
+				'<label for="%5$s[%1$s][%2$s]" style="margin-right:12px !important;"><input type="radio" id="%5$s[%1$s][%2$s]" name="%5$s[%1$s]" value="%2$s"%3$s />%4$s</label>  ',
 				esc_attr( $args['id'] ),
 				esc_attr( $key ),
 				checked( $key, $this->setting[ $args['id'] ], false ),
@@ -153,6 +154,29 @@ class ScriptlessSocialSharingSettingsFields {
 			);
 		}
 		echo '</fieldset>';
+	}
+
+	/**
+	 * Generic function to output a select field.
+	 *
+	 * @since 2.3.0
+	 * @param $args
+	 */
+	protected function do_select( $args ) {
+		printf(
+			'<select id="%1$s" name="%2$s[%1$s]" aria-label="%2$s[%1$s]">',
+			esc_attr( $args['id'] ),
+			esc_attr( $this->page )
+		);
+		foreach ( $args['choices'] as $choice => $label ) {
+			printf(
+				'<option value="%s" %s>%s</option>',
+				esc_attr( $choice ),
+				selected( $choice, $this->setting[ $args['id'] ], false ),
+				esc_attr( $label )
+			);
+		}
+		echo '</select>';
 	}
 
 	/**
