@@ -5,8 +5,8 @@
   "private": true,
   "license": "GPL-2.0+",
   "devDependencies": {
-    "autoprefixer": "9.1.5",
-    "browser-sync": "2.24.7",
+    "autoprefixer": "9.4.4",
+    "browser-sync": "2.26.3",
     "css-mqpacker": "7.0.0",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -14,17 +14,17 @@
     "gulp-notify": "^3.2.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.1",
+    "gulp-sass": "^4.0.2",
     "gulp-uglify": "3.0.1",
     "gulp-uglify-es": "^1.0.4",
-    "gulp-wp-pot": "^2.3.2",
+    "gulp-wp-pot": "^2.3.3",
     "gulp-zip": "^4.2.0",
     "perfectionist": "^2.4.0",
-    "postcss-import": "12.0.0",
-    "require-dir": "1.0.0"
+    "postcss-import": "12.0.1",
+    "require-dir": "1.2.0"
   },
   "dependencies": {
-    "@wordpress/browserslist-config": "^2.2.2",
+    "@wordpress/browserslist-config": "^2.2.3",
     "normalize.css": "^8.0.0"
   },
   "browserslist": [
