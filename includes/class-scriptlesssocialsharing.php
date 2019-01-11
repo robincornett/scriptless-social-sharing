@@ -5,7 +5,7 @@
  * @package           ScriptlessSocialSharing
  * @author            Robin Cornett
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015-2018 Robin Cornett
+ * @copyright         2015-2019 Robin Cornett
  * @license           GPL-2.0+
  *
  */

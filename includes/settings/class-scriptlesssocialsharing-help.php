@@ -2,8 +2,8 @@
 
 /**
  * Class ScriptlessSocialSharingHelp
- * @package ScriptlessSocialSharing
- * @copyright 2016 Robin Cornett
+ * @package   ScriptlessSocialSharing
+ * @copyright 2016-2019 Robin Cornett
  */
 class ScriptlessSocialSharingHelp {
 
