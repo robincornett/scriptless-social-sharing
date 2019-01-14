@@ -140,8 +140,8 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 ## Changelog
 
 ### 2.3.0
-* added: button for sharing on WhatsApp
-* added: button for Pocket
+* added: button for sharing on WhatsApp (props @yig)
+* added: button for Pocket (props @rryyaanndd)
 * added: ability to easily update the button display order
 * added: `scriptlesssocialsharing_heading_element` filter to change heading level for sharing buttons
 * improved: custom Pinterest image defaults to show images uploaded to the current post
