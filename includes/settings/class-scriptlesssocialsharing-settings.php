@@ -83,7 +83,9 @@ class ScriptlessSocialSharingSettings {
 		wp_enqueue_style(
 			'scriptless-sortable',
 			plugins_url( '/css/scriptlesssocialsharing-admin.css', dirname( __FILE__ ) ),
-			SCRIPTLESSOCIALSHARING_VERSION
+			array(),
+			SCRIPTLESSOCIALSHARING_VERSION,
+			'all'
 		);
 	}
 
