@@ -36,7 +36,7 @@ module.exports = {
 	/**
 	 * Local Development URL (for BrowserSync)
 	 */
-	url: 'local.wordpress-trunk.test',
+	url: 'https://local.five.test',
 
 	/**
 	 * If blank, will be compact for themes, compressed for plugins.
