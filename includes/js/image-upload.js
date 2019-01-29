@@ -32,8 +32,7 @@
 			filterable: 'all',
 			multiple: false,
 			library: {
-				type: 'image',
-				uploadedTo: wp.media.view.settings.post.id
+				type: 'image'
 			},
 		} );
 
