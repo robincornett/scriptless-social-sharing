@@ -32,7 +32,7 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingOutp
 			array(
 				'url'         => $this->get_permalink( 'pinterest' ),
 				'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
-				'description' => $this->get_pinterest_description( $attributes ),
+				'description' => rawurlencode( $this->get_pinterest_description( $attributes ) ),
 			),
 			'https://pinterest.com/pin/create/button/'
 		);
