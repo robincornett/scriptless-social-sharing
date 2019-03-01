@@ -81,13 +81,32 @@ class ScriptlessSocialSharingEnqueue {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
 			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
-				$rgb           = $this->hex2rgb( $button['color'] );
-				$rgba          = $rgb ? sprintf( ' background-color:rgba(%s,.8);', $rgb ) : '';
-				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;%2$s } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }', $button['color'], $rgba, $button['name'] );
+				$inline_style .= $this->get_button_color( $button );
 			}
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
+	}
+
+	/**
+	 * Get the button color with an RGBA value.
+	 *
+	 * @param $button
+	 *
+	 * @return string
+	 */
+	protected function get_button_color( $button ) {
+		$rgb = $this->hex2rgb( $button['color'] );
+		if ( ! $rgb ) {
+			return '';
+		}
+
+		return sprintf(
+			'.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;background-color:rgba(%2$s,.8); } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }',
+			$button['color'],
+			$rgb,
+			$button['name']
+		);
 	}
 
 	/**
