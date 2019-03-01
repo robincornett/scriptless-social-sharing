@@ -98,7 +98,13 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.0.0
 	 */
 	protected function hex2rgb( $hex ) {
-		$hex = '#' === $hex[0] ? substr( $hex, 1 ) : $hex;
+		// Remove "#" if it was added
+		$hex = trim( $hex, '#' );
+
+		// If the color is three characters, convert it to six.
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
 		if ( 6 !== strlen( $hex ) ) {
 			return false;
 		}
