@@ -77,7 +77,7 @@ class ScriptlessSocialSharingEnqueue {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}
 		foreach ( $this->buttons as $button ) {
-			if ( isset( $button['icon'] ) ) {
+			if ( isset( $button['icon'] ) && $this->setting['styles']['font_css'] ) {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
 			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
