@@ -13,7 +13,6 @@ return array(
 	'buttons'        => array(
 		'twitter'   => 1,
 		'facebook'  => 1,
-		'google'    => 0,
 		'pinterest' => 1,
 		'linkedin'  => 1,
 		'email'     => 1,

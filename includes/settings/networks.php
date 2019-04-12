@@ -16,11 +16,6 @@ return apply_filters(
 			'label' => __( 'Facebook', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
-		'google'    => array(
-			'name'  => 'google',
-			'label' => __( 'Google+', 'scriptless-social-sharing' ),
-			'order' => 0,
-		),
 		'pinterest' => array(
 			'name'  => 'pinterest',
 			'label' => __( 'Pinterest', 'scriptless-social-sharing' ),
