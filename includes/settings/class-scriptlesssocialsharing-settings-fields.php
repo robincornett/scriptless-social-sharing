@@ -78,7 +78,8 @@ class ScriptlessSocialSharingSettingsFields {
 	 * @param $args array
 	 */
 	protected function do_checkbox_array( $args ) {
-		foreach ( $args['choices'] as $key => $label ) {
+		$choices = $this->get_choices( $args['choices'] );
+		foreach ( $choices as $key => $label ) {
 			// due to error in setting this up in v 1.0-1.2, have to do a BC check for the post_type setting.
 			$setting = isset( $this->setting[ $args['id'] ][ $key ] ) ? $this->setting[ $args['id'] ][ $key ] : 0;
 			if ( 'post_types' === $args['id'] && ! isset( $this->setting[ $args['id'] ][ $key ] ) ) {
@@ -113,7 +114,8 @@ class ScriptlessSocialSharingSettingsFields {
 			$setting = 0;
 		}
 		printf( '<label for="%s[%s]">', esc_attr( $this->page ), esc_attr( $args['id'] ) );
-		printf( '<input type="number" step="1" min="%1$s" max="%2$s" id="%5$s[%3$s]" name="%5$s[%3$s]" value="%4$s" class="small-text" />%6$s</label>',
+		printf(
+			'<input type="number" step="1" min="%1$s" max="%2$s" id="%5$s[%3$s]" name="%5$s[%3$s]" value="%4$s" class="small-text" />%6$s</label>',
 			(int) $args['min'],
 			(int) $args['max'],
 			esc_attr( $args['id'] ),
@@ -130,7 +132,8 @@ class ScriptlessSocialSharingSettingsFields {
 	 * @since 1.0.0
 	 */
 	protected function do_text_field( $args ) {
-		printf( '<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />',
+		printf(
+			'<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />',
 			esc_attr( $args['id'] ),
 			esc_attr( $this->setting[ $args['id'] ] ),
 			esc_attr( $this->page )
@@ -168,7 +171,8 @@ class ScriptlessSocialSharingSettingsFields {
 			esc_attr( $args['id'] ),
 			esc_attr( $this->page )
 		);
-		foreach ( $args['choices'] as $choice => $label ) {
+		$choices = $this->get_choices( $args['choices'] );
+		foreach ( $choices as $choice => $label ) {
 			printf(
 				'<option value="%s" %s>%s</option>',
 				esc_attr( $choice ),
@@ -243,7 +247,8 @@ class ScriptlessSocialSharingSettingsFields {
 	 */
 	public function do_custom_order( $args ) {
 		$this->do_description( $args['intro'] );
-		$buttons = $this->get_buttons( $args['choices'] );
+		$choices = $this->get_choices( $args['choices'] );
+		$buttons = $this->get_buttons( $choices );
 		$counts  = array_count_values( $this->setting['buttons'] );
 		echo '<div class="scriptless-sortable-buttons">';
 		foreach ( $buttons as $key => $label ) {
@@ -328,5 +333,20 @@ class ScriptlessSocialSharingSettingsFields {
 		$custom_types = get_post_types( $custom_args, $output );
 
 		return array_merge( $built_in_types, $custom_types );
+	}
+
+	/**
+	 * Convert choices from function to an array.
+	 * @since 2.4.0
+	 *
+	 * @param $choices
+	 * @return mixed
+	 */
+	private function get_choices( $choices ) {
+		if ( ! is_callable( $choices ) ) {
+			return $choices;
+		}
+
+		return call_user_func( $choices );
 	}
 }

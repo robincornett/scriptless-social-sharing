@@ -35,14 +35,14 @@ return array(
 		'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
 		'callback' => 'do_checkbox_array',
 		'section'  => 'general',
-		'choices'  => $this->get_buttons(),
+		'choices'  => array( $this, 'get_buttons' ),
 	),
 	array(
 		'id'       => 'order',
 		'title'    => __( 'Button Order', 'scriptless-social-sharing' ),
 		'callback' => 'do_custom_order',
 		'section'  => 'general',
-		'choices'  => $this->get_buttons(),
+		'choices'  => array( $this, 'get_buttons' ),
 		'intro'    => __( 'Reorder the buttons by dragging/dropping, or by using the number inputs.', 'scriptless-social-sharing' ),
 	),
 	array(
