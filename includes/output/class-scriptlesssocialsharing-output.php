@@ -75,13 +75,38 @@ class ScriptlessSocialSharingOutput {
 	protected function build_link_markup( $button ) {
 		$target = 'email' === $button['name'] ? '' : ' target="_blank"';
 
-		return apply_filters( 'scriptlesssocialsharing_link_markup', sprintf( '<a class="button %s"%s href="%s" rel="noopener" %s><span class="sss-name">%s</span></a>',
-			esc_attr( $button['name'] ),
-			$target,
-			esc_url( $button['url'] ),
-			$button['data'],
-			$button['label']
-		), $button );
+		return apply_filters(
+			'scriptlesssocialsharing_link_markup',
+			sprintf(
+				'<a class="button %s"%s href="%s" rel="noopener" %s>%s<span class="sss-name">%s</span></a>',
+				esc_attr( $button['name'] ),
+				$target,
+				esc_url( $button['url'] ),
+				$button['data'],
+				$this->get_svg( $button['name'] ),
+				$button['label']
+			),
+			$button
+		);
+	}
+
+	/**
+	 * If the SVG setting is enabled, do SVG.
+	 *
+	 * @param $icon
+	 *
+	 * @return string
+	 */
+	protected function get_svg( $icon ) {
+		$setting = $this->get_setting();
+		if ( empty( $setting['svg'] ) ) {
+			return '';
+		}
+
+		include_once 'class-scriptlesssocialsharing-output-svg.php';
+		$svg = new ScriptlessSocialSharingOutputSVG();
+
+		return $svg->get_svg_markup( $icon );
 	}
 
 	/**

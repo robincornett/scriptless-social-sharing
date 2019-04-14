@@ -7,39 +7,47 @@
 	@media print {
 		display: none;
 	}
-}
 
-.scriptlesssocialsharing-buttons {
-	border-collapse: separate;
-	border-spacing: 3px;
-	display: table;
-	table-layout: fixed;
+	&-buttons {
+		border-collapse: separate;
+		border-spacing: 3px;
+		display: table;
+		table-layout: fixed;
 
-	a.button {
-		border: none;
-		border-radius: 0;
-		color: white;
-		display: table-cell;
-		text-align: center;
-		text-decoration: none;
-
-		&:hover {
-			color: #fff;
-		}
-	}
-
-	.sss-name {
-		@include screen-reader-text;
-	}
-
-	@each $socialnetwork, $color, $glyph in $social {
-		.button.#{$socialnetwork} {
-			@include color-opacity($color,.8);
+		a.button {
+			border: none;
+			border-radius: 0;
+			color: white;
+			display: table-cell;
+			text-align: center;
+			text-decoration: none;
 
 			&:hover {
-				@include color-opacity($color,1);
+				color: white;
 			}
 		}
+
+		.sss-name {
+			@include screen-reader-text;
+		}
+
+		@each $socialnetwork, $color, $glyph in $social {
+			.button.#{$socialnetwork} {
+				@include color-opacity($color, .8);
+
+				&:hover {
+					@include color-opacity($color, 1);
+				}
+			}
+		}
+	}
+
+	svg {
+		display: inline-block;
+		fill: currentColor;
+		height: 1em;
+		vertical-align: middle;
+		width: 1em;
 	}
 }
 

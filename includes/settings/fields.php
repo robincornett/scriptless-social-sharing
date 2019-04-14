@@ -17,6 +17,13 @@ return array(
 		'clear'    => true,
 	),
 	array(
+		'id'       => 'svg',
+		'title'    => __( 'Use SVG Icons', 'scriptless-social-sharing' ),
+		'label'    => __( 'Use SVG icons for the social network icons instead of an icon font', 'scriptless-social-sharing' ),
+		'callback' => 'do_checkbox',
+		'section'  => 'styles',
+	),
+	array(
 		'id'          => 'heading',
 		'title'       => __( 'Heading', 'scriptless-social-sharing' ),
 		'callback'    => 'do_text_field',

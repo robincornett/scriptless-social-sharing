@@ -6,9 +6,10 @@
 return array(
 	'styles'         => array(
 		'plugin'   => 1,
-		'font'     => 1,
-		'font_css' => 1,
+		'font'     => 0,
+		'font_css' => 0,
 	),
+	'svg'            => 1,
 	'heading'        => __( 'Share this post:', 'scriptless-social-sharing' ),
 	'buttons'        => array(
 		'twitter'   => 1,
