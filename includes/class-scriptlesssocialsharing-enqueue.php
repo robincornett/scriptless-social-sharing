@@ -37,21 +37,23 @@ class ScriptlessSocialSharingEnqueue {
 	 * Enqueue our styles.
 	 */
 	public function load_styles() {
+		$this->load_plugin_style();
+		$this->load_fontawesome_font();
+		$this->load_fontawesome_icons();
+	}
 
+	/**
+	 * If it's enabled, load the plugin styles.
+	 * @since 2.4.0
+	 */
+	protected function load_plugin_style() {
+		if ( ! $this->setting['styles']['plugin'] ) {
+			return;
+		}
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
-		if ( $css_file && $this->setting['styles']['plugin'] ) {
+		if ( $css_file ) {
 			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'all' );
 			$this->add_inline_style();
-		}
-		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
-		if ( $fontawesome && $this->setting['styles']['font'] ) {
-			$fa_version = '4.7.0';
-			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/' . $fa_version . '/css/font-awesome.min.css', array(), $fa_version );
-		}
-
-		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
-		if ( $fa_file && $this->setting['styles']['font_css'] && empty( $this->setting['svg'] ) ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
 		}
 	}
 
@@ -60,6 +62,38 @@ class ScriptlessSocialSharingEnqueue {
 	 */
 	protected function add_inline_style() {
 		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $this->get_inline_style() ) );
+	}
+
+	/**
+	 * If it's enabled, enqueue Font Awesome 4.7.0
+	 * @since 2.4.0
+	 */
+	protected function load_fontawesome_font() {
+		if ( ! $this->setting['styles']['font'] ) {
+			return;
+		}
+		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
+		if ( $fontawesome ) {
+			$fa_version = '4.7.0';
+			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/' . $fa_version . '/css/font-awesome.min.css', array(), $fa_version );
+		}
+	}
+
+	/**
+	 * If SVG is not enabled and Font Awesome is, load the Font Awesome CSS.
+	 * @since 2.4.0
+	 */
+	protected function load_fontawesome_icons() {
+		if ( ! empty( $this->setting['svg'] ) ) {
+			return;
+		}
+		if ( empty( $this->setting['styles']['font_css'] ) ) {
+			return;
+		}
+		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
+		if ( $fa_file ) {
+			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
+		}
 	}
 
 	/**
