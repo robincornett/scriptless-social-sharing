@@ -134,11 +134,16 @@ class ScriptlessSocialSharingSettings {
 	 * @since 3.0.0
 	 */
 	protected function register_sections() {
+		$styles  = __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
+		$setting = $this->get_setting();
+		if ( ! empty( $setting['svg'] ) && $setting['styles']['font_css'] ) {
+			$styles .= ' <span class="description">' . __( 'Warning: you have both the icon font style and the SVG icons enabled! Scriptless will only output the SVG icons.', 'scriptless-social-sharing' ) . '</span>';
+		}
 		return array(
 			'styles'        => array(
 				'id'          => 'styles',
 				'title'       => __( 'Style Settings', 'scriptless-social-sharing' ),
-				'description' => __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' ),
+				'description' => $styles,
 			),
 			'general'       => array(
 				'id'          => 'general',

@@ -50,7 +50,7 @@ class ScriptlessSocialSharingEnqueue {
 		}
 
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
-		if ( $fa_file && $this->setting['styles']['font_css'] ) {
+		if ( $fa_file && $this->setting['styles']['font_css'] && empty( $this->setting['svg'] ) ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
 		}
 	}
