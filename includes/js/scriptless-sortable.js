@@ -21,7 +21,7 @@
 		}
 		_updateOrder();
 		$( 'label[for^="scriptlesssocialsharing[buttons]"] input' ).on( 'change.scriptless-buttons', ScriptlessSort.manageButtons );
-		$container.find( 'input[type="number"]' ).on( 'change', function () {
+		$container.on( 'change', 'input[type="number"]', function () {
 			updateAllNumbers( $( this ) )
 		} );
 		ScriptlessSort.sort();

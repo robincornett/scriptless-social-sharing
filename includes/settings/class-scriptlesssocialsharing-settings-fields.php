@@ -283,9 +283,9 @@ class ScriptlessSocialSharingSettingsFields {
 		if ( ! $this->setting['order'] ) {
 			return $buttons;
 		}
-		$order = array_intersect_key( $this->setting['order'], $buttons );
+		asort( $this->setting['order'] );
 
-		return array_merge( $order, $buttons );
+		return array_merge( $this->setting['order'], $buttons );
 	}
 	/**
 	 * Check the database setting
