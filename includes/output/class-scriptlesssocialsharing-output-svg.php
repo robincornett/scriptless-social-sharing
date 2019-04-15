@@ -4,10 +4,6 @@ class ScriptlessSocialSharingOutputSVG {
 
 	private $loaded = false;
 
-	public function __construct() {
-		add_action( 'wp_footer', array( $this, 'load_svg' ) );
-	}
-
 	/**
 	 * Add SVG definitions to the footer.
 	 *
