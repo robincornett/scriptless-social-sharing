@@ -43,6 +43,7 @@ class ScriptlessSocialSharingOutputSVG {
 		if ( ! $icon ) {
 			return false;
 		}
+		$icon            = $this->replace_icon_name( $icon );
 		$defaults        = array(
 			'title' => '',
 			'desc'  => '',
@@ -89,6 +90,24 @@ class ScriptlessSocialSharingOutputSVG {
 			$title,
 			$xlink
 		);
+	}
+
+	/**
+	 * Since some icons have different names than their networks, check and replace if needed.
+	 * @since 2.4.0
+	 *
+	 * @param $icon
+	 * @return string
+	 */
+	private function replace_icon_name( $icon ) {
+		if ( 'pocket' === $icon ) {
+			$icon = 'get-pocket';
+		}
+		if ( 'email' === $icon ) {
+			$icon = 'envelope';
+		}
+
+		return apply_filters( "scriptlesssocialsharing_svg_icon_{$icon}", $icon );
 	}
 
 	/**
