@@ -44,15 +44,13 @@ class ScriptlessSocialSharingOutputSVG {
 			return false;
 		}
 		$defaults        = array(
-			'title'    => '',
-			'desc'     => '',
-			'fallback' => false,
+			'title' => '',
+			'desc'  => '',
 		);
 		$args            = wp_parse_args( $args, $defaults );
 		$aria_hidden     = ' aria-hidden="true"';
 		$aria_labelledby = '';
 		$title           = '';
-		$fallback        = '';
 		$xlink           = apply_filters( 'scriptlesssocialsharing_svg_xlink', "#{$icon}" );
 
 		if ( $args['title'] ) {
@@ -74,19 +72,14 @@ class ScriptlessSocialSharingOutputSVG {
 			}
 		}
 
-		if ( $args['fallback'] ) {
-			$fallback = '<span class="svg-fallback icon-' . esc_attr( $icon ) . '"></span>';
-		}
-
 		return apply_filters(
 			'scriptlesssocialsharing_svg_icon',
 			sprintf(
-				'<svg class="icon scriptless-icon %1$s" role="img"%2$s%3$s>%4$s <use href="#%1$s" xlink:href="%6$s"></use> %5$s</svg>',
+				'<svg class="icon scriptless-icon %1$s" role="img"%2$s%3$s>%4$s <use href="#%1$s" xlink:href="%5$s"></use> </svg>',
 				esc_attr( $icon ),
 				$aria_hidden,
 				$aria_labelledby,
 				$title,
-				$fallback,
 				$xlink
 			),
 			$icon,
@@ -94,7 +87,6 @@ class ScriptlessSocialSharingOutputSVG {
 			$aria_hidden,
 			$aria_labelledby,
 			$title,
-			$fallback,
 			$xlink
 		);
 	}
