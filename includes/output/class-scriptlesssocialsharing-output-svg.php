@@ -103,7 +103,7 @@ class ScriptlessSocialSharingOutputSVG {
 		return apply_filters(
 			'scriptlesssocialsharing_svg_icon',
 			sprintf(
-				'<svg class="icon scriptless-icon %1$s" role="img"%2$s%3$s>%4$s <use href="#%1$s" xlink:href="%5$s"></use> </svg>',
+				'<svg class="scriptlesssocialsharing__icon %1$s" role="img"%2$s%3$s>%4$s <use href="#%1$s" xlink:href="%5$s"></use> </svg>',
 				esc_attr( $icon ),
 				$aria_hidden,
 				$aria_labelledby,
