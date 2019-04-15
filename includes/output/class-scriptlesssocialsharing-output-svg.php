@@ -101,7 +101,7 @@ class ScriptlessSocialSharingOutputSVG {
 			'scriptlesssocialsharing_svg',
 			array(
 				'styles' => array( 'brands' ),
-				'path'   => plugin_dir_path( __FILE__ ) . 'svg',
+				'path'   => plugin_dir_path( dirname( __FILE__ ) ) . 'svg',
 			)
 		);
 	}
@@ -111,6 +111,6 @@ class ScriptlessSocialSharingOutputSVG {
 	 * @return array
 	 */
 	protected function brands() {
-		return include plugin_dir_path( __FILE__ ) . 'svg/brands.php';
+		return include plugin_dir_path( dirname( __FILE__ ) ) . 'svg/brands.php';
 	}
 }
