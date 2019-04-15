@@ -28,7 +28,11 @@ class ScriptlessSocialSharingSettingsValidate {
 					break;
 
 				case 'do_checkbox_array':
-					foreach ( $field['choices'] as $key => $label ) {
+					$choices = $field['choices'];
+					if ( is_callable( $choices ) ) {
+						$choices = call_user_func( $choices );
+					}
+					foreach ( $choices as $key => $label ) {
 						$new_value[ $field['id'] ][ $key ] = $this->one_zero( $new_value[ $field['id'] ][ $key ] );
 					}
 					break;
