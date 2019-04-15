@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Class ScriptlessSocialSharingOutputSVG
+ * @since 2.4.0
+ */
 class ScriptlessSocialSharingOutputSVG {
 
+	/**
+	 * Whether the SVG file(s) have been loaded or not.
+	 * @var bool
+	 */
 	private $loaded = false;
 
 	/**
@@ -27,7 +35,30 @@ class ScriptlessSocialSharingOutputSVG {
 	}
 
 	/**
+	 * Add SVG to allowed KSES output.
+	 * @since 2.4.0
+	 *
+	 * @param $allowed
+	 * @param $context
+	 * @return mixed
+	 */
+	public function filter_allowed_html( $allowed, $context ) {
+
+		if ( 'post' === $context ) {
+			$allowed['svg'] = array(
+				'class' => true,
+			);
+			$allowed['use'] = array(
+				'xlink:href' => true,
+			);
+		}
+
+		return $allowed;
+	}
+
+	/**
 	 * Return SVG markup.
+	 * @since 2.4.0
 	 *
 	 * @param string $icon
 	 * @param array  $args    {
@@ -108,6 +139,8 @@ class ScriptlessSocialSharingOutputSVG {
 
 	/**
 	 * Get the correct path for the SVG icons.
+	 * @since 2.4.0
+	 *
 	 * @return mixed|array
 	 */
 	protected function get_svg() {
