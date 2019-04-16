@@ -102,11 +102,18 @@ class ScriptlessSocialSharingEnqueue {
 	 * @return string
 	 */
 	public function get_inline_style() {
-		$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
-		$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-		$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
-		$button_width  = 100 / $count . '%;';
-		$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { padding: %spx; width: %s }', (int) $this->setting['button_padding'], esc_attr( $button_width ) );
+		$inline_style = '';
+		$padding      = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
+		if ( ! $this->setting['svg'] ) {
+			$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
+			$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
+			$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
+			$button_width  = 100 / $count . '%;';
+			$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { %s width: %s; }', $padding, esc_attr( $button_width ) );
+		} else {
+			$flex_grow     = 'auto' === $this->setting['table_width'] ? 0 : 1;
+			$inline_style .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
+		}
 		if ( $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}

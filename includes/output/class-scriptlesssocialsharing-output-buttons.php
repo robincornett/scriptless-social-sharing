@@ -32,7 +32,11 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( $heading ) {
 			$output .= $this->heading( $setting['heading'] );
 		}
-		$output .= '<div class="scriptlesssocialsharing-buttons">';
+		$buttons_container = 'scriptlesssocialsharing-buttons';
+		if ( $setting['svg'] ) {
+			$buttons_container = ' scriptlesssocialsharing__buttons';
+		}
+		$output .= '<div class="' . esc_attr( $buttons_container ) . '">';
 		foreach ( $buttons as $button ) {
 			$output .= $this->build_link_markup( $button );
 		}
