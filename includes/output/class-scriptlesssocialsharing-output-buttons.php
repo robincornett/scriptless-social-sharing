@@ -62,8 +62,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( empty( $setting['svg'] ) ) {
 			return;
 		}
-		include_once 'class-scriptlesssocialsharing-output-svg.php';
-		$svg = new ScriptlessSocialSharingOutputSVG();
+		$svg = $this->svg();
 		add_action( 'wp_footer', array( $svg, 'load_svg' ) );
 		add_filter( 'wp_kses_allowed_html', array( $svg, 'filter_allowed_html' ), 10, 2 );
 	}

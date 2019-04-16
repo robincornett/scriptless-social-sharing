@@ -28,6 +28,13 @@ class ScriptlessSocialSharingOutput {
 	protected $buttons;
 
 	/**
+	 * The SVG handler class.
+	 *
+	 * @var \ScriptlessSocialSharingOutputSVG
+	 */
+	protected $svg;
+
+	/**
 	 * Function to decide whether buttons can be output or not
 	 *
 	 * @param  boolean $cando default true
@@ -103,8 +110,7 @@ class ScriptlessSocialSharingOutput {
 			return '';
 		}
 
-		include_once 'class-scriptlesssocialsharing-output-svg.php';
-		$svg = new ScriptlessSocialSharingOutputSVG();
+		$svg = $this->svg();
 
 		return $svg->get_svg_markup( $icon );
 	}
@@ -244,6 +250,21 @@ class ScriptlessSocialSharingOutput {
 		$this->attributes = $this->attributes();
 
 		return $this->attributes;
+	}
+
+	/**
+	 * Instantiate the SVG class.
+	 * @since 2.4.0
+	 *
+	 * @return \ScriptlessSocialSharingOutputSVG
+	 */
+	protected function svg() {
+		if ( isset( $this->svg ) ) {
+			return $this->svg;
+		}
+		$this->svg = new ScriptlessSocialSharingOutputSVG();
+
+		return $this->svg;
 	}
 
 	/**
