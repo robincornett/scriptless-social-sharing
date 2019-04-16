@@ -5,23 +5,28 @@
  */
 return array(
 	array(
+		'id'          => 'icons',
+		'title'       => __( 'Button Icons', 'scriptless-social-sharing' ),
+		'callback'    => 'do_radio_buttons',
+		'section'     => 'styles',
+		'buttons'     => array(
+			'svg'  => __( 'Use SVG Icons for sharing icons', 'scriptless-social-sharing' ),
+			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
+			'none' => __( 'No icons', 'scriptless-social-sharing' ),
+		),
+		'legend'      => __( 'Select type of social network icon to use', 'scriptless-social-sharing' ),
+		'description' => __( 'Choose how social network icons will be displayed on your sharing buttons. Choose "No icons" if you are adding icons your own way.', 'scriptless-social-sharing' ),
+	),
+	array(
 		'id'       => 'styles',
 		'title'    => __( 'Plugin Styles', 'scriptless-social-sharing' ),
 		'callback' => 'do_checkbox_array',
 		'section'  => 'styles',
 		'choices'  => array(
-			'plugin'   => __( 'Load the main stylesheet? (colors and layout)', 'scriptless-social-sharing' ),
-			'font'     => __( 'Load Font Awesome? (just the font)', 'scriptless-social-sharing' ),
-			'font_css' => __( 'Use plugin Font Awesome CSS? (adds the icons to the buttons)', 'scriptless-social-sharing' ),
+			'plugin' => __( 'Load the main stylesheet? (colors and layout)', 'scriptless-social-sharing' ),
+			'font'   => __( 'Load Font Awesome? (this is not needed if you are using the SVG option)', 'scriptless-social-sharing' ),
 		),
 		'clear'    => true,
-	),
-	array(
-		'id'       => 'svg',
-		'title'    => __( 'Use SVG Icons', 'scriptless-social-sharing' ),
-		'label'    => __( 'Use SVG icons for the social network icons instead of an icon font', 'scriptless-social-sharing' ),
-		'callback' => 'do_checkbox',
-		'section'  => 'styles',
 	),
 	array(
 		'id'          => 'heading',
@@ -71,7 +76,7 @@ return array(
 		'title'    => __( 'Content Types', 'scriptless-social-sharing' ),
 		'callback' => 'do_content_types',
 		'section'  => 'content_types',
-		'choices'  => $this->post_type_choices(),
+		'choices'  => array( $this, 'post_type_choices' ),
 		'intro'    => __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode.', 'scriptless-social-sharing' ),
 	),
 	array(

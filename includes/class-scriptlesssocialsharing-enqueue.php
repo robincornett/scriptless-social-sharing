@@ -84,10 +84,7 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_icons() {
-		if ( ! empty( $this->setting['svg'] ) ) {
-			return;
-		}
-		if ( empty( $this->setting['styles']['font_css'] ) ) {
+		if ( in_array( $this->setting['icons'], array( 'svg', 'none' ), true ) ) {
 			return;
 		}
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
@@ -104,7 +101,7 @@ class ScriptlessSocialSharingEnqueue {
 	public function get_inline_style() {
 		$inline_style = '';
 		$padding      = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
-		if ( ! $this->setting['svg'] ) {
+		if ( 'svg' !== $this->setting['icons'] ) {
 			$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 			$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
 			$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
@@ -118,7 +115,7 @@ class ScriptlessSocialSharingEnqueue {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
 		}
 		foreach ( $this->buttons as $button ) {
-			if ( isset( $button['icon'] ) && $this->setting['styles']['font_css'] ) {
+			if ( isset( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
 				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
 			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {

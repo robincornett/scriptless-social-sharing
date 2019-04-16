@@ -33,7 +33,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 			$output .= $this->heading( $setting['heading'] );
 		}
 		$buttons_container = 'scriptlesssocialsharing-buttons';
-		if ( $setting['svg'] ) {
+		if ( 'svg' === $setting['icons'] ) {
 			$buttons_container = ' scriptlesssocialsharing__buttons';
 		}
 		$output .= '<div class="' . esc_attr( $buttons_container ) . '">';
@@ -63,7 +63,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 	 */
 	public function maybe_load_svg() {
 		$setting = $this->get_setting();
-		if ( empty( $setting['svg'] ) ) {
+		if ( 'svg' !== $setting['icons'] ) {
 			return;
 		}
 		$svg = $this->svg();

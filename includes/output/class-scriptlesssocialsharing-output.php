@@ -106,7 +106,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function get_svg( $icon ) {
 		$setting = $this->get_setting();
-		if ( empty( $setting['svg'] ) ) {
+		if ( 'svg' !== $setting['icons'] ) {
 			return '';
 		}
 

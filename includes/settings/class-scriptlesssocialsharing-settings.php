@@ -106,17 +106,23 @@ class ScriptlessSocialSharingSettings {
 		if ( isset( $this->setting ) ) {
 			return $this->setting;
 		}
-		$this->setting = wp_parse_args( $this->get_database_setting(), $this->defaults() );
+		$db_setting    = $this->get_database_setting();
+		$defaults      = $this->defaults();
+		$this->setting = wp_parse_args( $db_setting, $defaults );
+		if ( empty( $db_setting['icons'] ) && ! empty( $db_setting['styles'] ) ) {
+			$this->setting['icons'] = $db_setting['styles']['font_css'] ? 'font' : 'none';
+			unset( $this->setting['styles']['font_css'] );
+		}
 
 		return $this->setting;
 	}
 
 	/**
-	 * Return the plugin setting as it is in the database (or with defaults if the setting does not exist)
+	 * Return the plugin setting as it is in the database.
 	 * @return array
 	 */
 	protected function get_database_setting() {
-		return get_option( $this->page, $this->defaults() );
+		return get_option( $this->page, array() );
 	}
 
 	/**
@@ -134,16 +140,11 @@ class ScriptlessSocialSharingSettings {
 	 * @since 3.0.0
 	 */
 	protected function register_sections() {
-		$styles  = __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' );
-		$setting = $this->get_setting();
-		if ( ! empty( $setting['svg'] ) && $setting['styles']['font_css'] ) {
-			$styles .= ' <span class="description">' . __( 'Warning: you have both the icon font style and the SVG icons enabled! Scriptless will only output the SVG icons.', 'scriptless-social-sharing' ) . '</span>';
-		}
 		return array(
 			'styles'        => array(
 				'id'          => 'styles',
 				'title'       => __( 'Style Settings', 'scriptless-social-sharing' ),
-				'description' => $styles,
+				'description' => __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' ),
 			),
 			'general'       => array(
 				'id'          => 'general',
