@@ -111,7 +111,7 @@ class ScriptlessSocialSharingEnqueue {
 			$inline_style .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
 		}
 		if ( $this->setting['button_style'] ) {
-			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing-buttons .sss-name { position: relative; height: auto; width: auto; } }';
+			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing .sss-name { position: relative; height: auto; width: auto; } }';
 		}
 		foreach ( $this->buttons as $button ) {
 			if ( isset( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
