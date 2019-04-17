@@ -39,6 +39,10 @@
 		fill: currentColor;
 		height: 1.1em;
 		width: 1.1em;
+
+		+ .sss-name {
+			margin-left: 8px;
+		}
 	}
 
 	a.button {
