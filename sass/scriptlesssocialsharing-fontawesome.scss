@@ -7,7 +7,9 @@
 		}
 
 		&:before {
-			@include fontawesome(20px);
+			@include fa-icon;
+			font-family: 'Font Awesome 5 Brands', 'FontAwesome';
+			font-size: 20px;
 		}
 	}
 
@@ -32,6 +34,7 @@
 	}
 
 	.email:before {
+		font-family: 'Font Awesome 5 Free', 'FontAwesome';
 		content: '\f0e0';
 	}
 
@@ -43,3 +46,4 @@
 		content: '\f232';
 	}
 }
+

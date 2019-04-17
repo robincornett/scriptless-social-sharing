@@ -69,14 +69,13 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
-		if ( ! $this->setting['styles']['font'] ) {
+		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
+		if ( ! $this->setting['styles']['font']  && ! $fontawesome ) {
 			return;
 		}
-		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
-		if ( $fontawesome ) {
-			$fa_version = '4.7.0';
-			wp_enqueue_style( 'scriptlesssocialsharing-fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/' . $fa_version . '/css/font-awesome.min.css', array(), $fa_version );
-		}
+
+		$fa_version = '5.8.1';
+		wp_enqueue_style( 'font-awesome', "https://use.fontawesome.com/releases/v{$fa_version}/css/all.css", array(), $fa_version );
 	}
 
 	/**
