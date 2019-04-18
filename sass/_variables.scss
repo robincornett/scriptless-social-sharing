@@ -2,12 +2,24 @@
 $email: #333;
 $facebook: #3b5998;
 $twitter: #55acee;
-$google: #dc4e41;
 $pinterest: #bd081c;
 $linkedin: #0077b5;
 $reddit: #ff4500;
 $whatsapp: #25d366;
 $pocket: #ef4056;
+
+$email-icon: \f0e0;
+$facebook-icon: \f09a;
+$twitter-icon: \f099;
+$pinterest-icon: \f0d2;
+$linkedin-icon: \f0e1;
+$reddit-icon: \f281;
+$whatsapp-icon: \f232;
+$pocket-icon: \f265;
+
+@function add-content($glyph) {
+	@return unquote("\"#{ $glyph }\"");
+}
 
 @mixin fontawesome($size) {
 	display: inline-block;
@@ -45,11 +57,11 @@ $pocket: #ef4056;
 	}
 }
 
-$social: ( email, $email, 'f0e0' ),
-		( twitter, $twitter, f099 ),
-		( facebook, $facebook, f09a ),
-		( linkedin, $linkedin, f0e1 ),
-		( pinterest, $pinterest, f0d2 ),
-		( reddit, $reddit, f281 ),
-		( whatsapp, $whatsapp, f232 ),
-		( pocket, $pocket, f265 );
+$social: ( email, $email, $email-icon ),
+		( twitter, $twitter, $twitter-icon ),
+		( facebook, $facebook, $facebook-icon ),
+		( linkedin, $linkedin, $linkedin-icon ),
+		( pinterest, $pinterest, $pinterest-icon ),
+		( reddit, $reddit, $reddit-icon ),
+		( whatsapp, $whatsapp, $whatsapp-icon ),
+		( pocket, $pocket, $pocket-icon );

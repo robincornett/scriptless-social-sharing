@@ -13,37 +13,15 @@
 		}
 	}
 
-	.twitter:before {
-		content: '\f099';
-	}
+	@each $network, $color, $glyph in $social {
+		.#{$network}:before {
+			content: add-content($glyph);
 
-	.facebook:before {
-		content: '\f09a';
-	}
-
-	.pinterest:before {
-		content: '\f0d2';
-	}
-
-	.pocket:before {
-		content: '\f265';
-	}
-
-	.linkedin:before {
-		content: '\f0e1';
-	}
-
-	.email:before {
-		font-family: 'Font Awesome 5 Free', 'FontAwesome';
-		content: '\f0e0';
-	}
-
-	.reddit:before {
-		content: '\f281';
-	}
-
-	.whatsapp:before {
-		content: '\f232';
+			@if $network == 'email' {
+				font-family: 'Font Awesome 5 Free', 'FontAwesome';
+				font-weight: 900;
+			}
+		}
 	}
 }
 
