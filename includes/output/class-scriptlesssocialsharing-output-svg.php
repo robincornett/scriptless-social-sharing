@@ -127,11 +127,19 @@ class ScriptlessSocialSharingOutputSVG {
 	 * @return string
 	 */
 	private function replace_icon_name( $icon ) {
-		if ( 'pocket' === $icon ) {
-			$icon = 'get-pocket';
-		}
-		if ( 'email' === $icon ) {
-			$icon = 'envelope';
+
+		switch ( $icon ) {
+			case 'pocket':
+				$icon = 'get-pocket';
+				break;
+
+			case 'email':
+				$icon = 'envelope';
+				break;
+
+			case 'reddit':
+				$icon = 'reddit-alien';
+				break;
 		}
 
 		return apply_filters( "scriptlesssocialsharing_svg_icon_{$icon}", $icon );

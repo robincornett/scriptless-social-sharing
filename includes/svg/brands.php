@@ -9,7 +9,7 @@ return array(
 	'get-pocket',
 	'linkedin',
 	'pinterest',
-	'reddit',
+	'reddit-alien',
 	'telegram',
 	'twitter',
 	'whatsapp',
