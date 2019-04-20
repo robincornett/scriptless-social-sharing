@@ -12,10 +12,10 @@ return array(
 		'buttons'     => array(
 			'svg'  => __( 'Use SVG Icons for sharing icons', 'scriptless-social-sharing' ),
 			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
-			'none' => __( 'No icons', 'scriptless-social-sharing' ),
+			'none' => __( 'Use custom icons', 'scriptless-social-sharing' ),
 		),
 		'legend'      => __( 'Select type of social network icon to use', 'scriptless-social-sharing' ),
-		'description' => __( 'Choose how social network icons will be displayed on your sharing buttons. Choose "No icons" if you are adding icons your own way.', 'scriptless-social-sharing' ),
+		'description' => __( 'Choose how social network icons will be displayed on your sharing buttons. Choose "custom icons" if you are adding icons your own way.', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'       => 'styles',
