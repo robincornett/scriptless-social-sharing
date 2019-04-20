@@ -61,6 +61,12 @@
 		@include screen-reader-text;
 	}
 
+	.no-icons {
+		.sss-name {
+			@include screen-reader-text-reset;
+		}
+	}
+
 	@each $socialnetwork, $color, $glyph in $social {
 		.button.#{$socialnetwork} {
 			@include color-opacity($color, .8);

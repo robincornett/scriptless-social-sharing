@@ -87,6 +87,7 @@ return array(
 		'buttons'  => array(
 			0 => __( 'Icon Only', 'scriptless-social-sharing' ),
 			1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
+			2 => __( 'Text Only', 'scriptless-social-sharing' ),
 		),
 		'legend'   => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
 	),

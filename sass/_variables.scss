@@ -50,6 +50,13 @@ $pocket-icon: \f265;
 	overflow: hidden;
 }
 
+@mixin screen-reader-text-reset {
+	position: relative !important;
+	clip: auto;
+	width: auto;
+	height: auto;
+}
+
 @mixin color-opacity($color,$opacity) {
 	background-color: $color;
 	@if $opacity != 1 {

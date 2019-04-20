@@ -109,6 +109,9 @@ class ScriptlessSocialSharingOutput {
 		if ( 'svg' !== $setting['icons'] ) {
 			return '';
 		}
+		if ( 2 === $setting['button_style'] ) {
+			return '';
+		}
 
 		$svg = $this->svg();
 

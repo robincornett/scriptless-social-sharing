@@ -86,6 +86,9 @@ class ScriptlessSocialSharingEnqueue {
 		if ( in_array( $this->setting['icons'], array( 'svg', 'none' ), true ) ) {
 			return;
 		}
+		if ( 2 === $this->setting['button_style'] ) {
+			return;
+		}
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
 		if ( $fa_file ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
@@ -110,7 +113,7 @@ class ScriptlessSocialSharingEnqueue {
 			$flex_grow     = 'auto' === $this->setting['table_width'] ? 0 : 1;
 			$inline_style .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
 		}
-		if ( $this->setting['button_style'] ) {
+		if ( 1 === $this->setting['button_style'] ) {
 			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing .sss-name { position: relative; height: auto; width: auto; } }';
 		}
 		foreach ( $this->buttons as $button ) {
