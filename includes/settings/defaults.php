@@ -37,4 +37,5 @@ return array(
 	'button_padding' => 12,
 	'table_width'    => 'full',
 	'order'          => array(),
+	'genesis'        => 0,
 );

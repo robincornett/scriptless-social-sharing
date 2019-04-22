@@ -3,7 +3,7 @@
 /**
  * Define all of the plugin settings.
  */
-return array(
+$fields = array(
 	array(
 		'id'          => 'icons',
 		'title'       => __( 'Button Icons', 'scriptless-social-sharing' ),
@@ -112,3 +112,15 @@ return array(
 		'max'      => 400,
 	),
 );
+
+if ( 'genesis' === get_template() ) {
+	$fields[] = array(
+		'id'       => 'genesis',
+		'title'    => __( 'Genesis Framework', 'scriptless-social-sharing' ),
+		'callback' => 'do_checkbox',
+		'section'  => 'content_types',
+		'label'    => __( 'Use Genesis Framework hooks for button locations.', 'scriptless-social-sharing' ),
+	);
+}
+
+return $fields;

@@ -56,22 +56,42 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 				'priority' => 99,
 			),
 		);
-		if ( 'genesis' === get_template() && apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', false ) ) {
-			$locations = array(
-				'before' => array(
-					'hook'     => 'genesis_entry_header',
-					'filter'   => false,
-					'priority' => 20,
-				),
-				'after'  => array(
-					'hook'     => 'genesis_entry_footer',
-					'filter'   => false,
-					'priority' => 5,
-				),
-			);
+		$genesis   = $this->genesis_hooks();
+		if ( $genesis ) {
+			$locations = $genesis;
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_locations', $locations );
+	}
+
+	/**
+	 * If the Genesis Framework is active, check to see if Genesis hooks should be preferred.
+	 * @since 3.0.0
+	 *
+	 * @return array|bool
+	 */
+	private function genesis_hooks() {
+		if ( 'genesis' !== get_template() ) {
+			return false;
+		}
+		$setting     = $this->get_setting();
+		$use_genesis = apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', $setting['genesis'] );
+		if ( ! $use_genesis ) {
+			return false;
+		}
+
+		return array(
+			'before' => array(
+				'hook'     => 'genesis_entry_header',
+				'filter'   => false,
+				'priority' => 20,
+			),
+			'after'  => array(
+				'hook'     => 'genesis_entry_footer',
+				'filter'   => false,
+				'priority' => 5,
+			),
+		);
 	}
 
 	/**
