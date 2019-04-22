@@ -45,17 +45,37 @@ class ScriptlessSocialSharingOutput {
 		if ( ! is_main_query() || get_the_ID() !== get_queried_object_id() ) {
 			$cando = false;
 		}
-		$post_types  = scriptlesssocialsharing_post_types();
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
-		if ( ! is_singular( $post_types ) || is_feed() || $is_disabled ) {
+		if ( is_feed() || ! is_singular() ) {
 			$cando = false;
 		}
-		global $post;
-		if ( is_singular() && is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
-			$cando = true;
+		if ( is_singular() ) {
+			$cando = $this->check_singular_post( $cando );
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
+	}
+
+	/**
+	 * @param $cando
+	 *
+	 * @return bool
+	 */
+	private function check_singular_post( $cando ) {
+		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
+		if ( $is_disabled ) {
+			return false;
+		}
+		$post_types = scriptlesssocialsharing_post_types();
+		$post_type  = get_post_type();
+		if ( in_array( $post_type, $post_types, true ) ) {
+			return true;
+		}
+		global $post;
+		if ( is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
+			return true;
+		}
+
+		return $cando;
 	}
 
 	/**
