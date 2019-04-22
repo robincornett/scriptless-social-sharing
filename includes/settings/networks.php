@@ -46,5 +46,10 @@ return apply_filters(
 			'label' => __( 'Pocket', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
+		'telegram'  => array(
+			'name'  => 'telegram',
+			'label' => __( 'Telegram', 'scriptless-social-sharing' ),
+			'order' => 0,
+		),
 	)
 );

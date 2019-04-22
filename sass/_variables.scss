@@ -7,6 +7,7 @@ $linkedin: #0077b5;
 $reddit: #ff4500;
 $whatsapp: #25d366;
 $pocket: #ef4056;
+$telegram: #0088cc;
 
 $email-icon: \f0e0;
 $facebook-icon: \f09a;
@@ -16,6 +17,7 @@ $linkedin-icon: \f0e1;
 $reddit-icon: \f281;
 $whatsapp-icon: \f232;
 $pocket-icon: \f265;
+$telegram-icon: \f3fe;
 
 @function add-content($glyph) {
 	@return unquote("\"#{ $glyph }\"");
@@ -64,11 +66,12 @@ $pocket-icon: \f265;
 	}
 }
 
-$social: ( email, $email, $email-icon ),
-		( twitter, $twitter, $twitter-icon ),
-		( facebook, $facebook, $facebook-icon ),
-		( linkedin, $linkedin, $linkedin-icon ),
-		( pinterest, $pinterest, $pinterest-icon ),
-		( reddit, $reddit, $reddit-icon ),
-		( whatsapp, $whatsapp, $whatsapp-icon ),
-		( pocket, $pocket, $pocket-icon );
+$social: ( 'email', $email, $email-icon ),
+		( 'twitter', $twitter, $twitter-icon ),
+		( 'facebook', $facebook, $facebook-icon ),
+		( 'linkedin', $linkedin, $linkedin-icon ),
+		( 'pinterest', $pinterest, $pinterest-icon ),
+		( 'reddit', $reddit, $reddit-icon ),
+		( 'whatsapp', $whatsapp, $whatsapp-icon ),
+		( 'pocket', $pocket, $pocket-icon ),
+		( 'telegram', $telegram, $telegram-icon );

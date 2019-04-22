@@ -13,4 +13,5 @@ return array(
 	'telegram',
 	'twitter',
 	'whatsapp',
+	'telegram-plane'
 );

@@ -19,6 +19,7 @@ return array(
 		'reddit'    => 0,
 		'whatsapp'  => 0,
 		'pocket'    => 0,
+		'telegram'  => 1,
 	),
 	'twitter_handle' => '',
 	'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
