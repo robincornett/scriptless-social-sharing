@@ -87,6 +87,7 @@ class ScriptlessSocialSharing {
 		add_action( 'admin_enqueue_scripts', array( $this->post_meta, 'enqueue' ) );
 
 		// Output
+		add_filter( 'kses_allowed_protocols', array( $this, 'filter_allowed_protocols' ) );
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
 		add_action( 'wp_head', array( $this->locations, 'do_location' ) );
 		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
@@ -117,5 +118,22 @@ class ScriptlessSocialSharing {
 		$links[] = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=scriptlesssocialsharing' ) ), esc_attr__( 'Settings', 'scriptless-social-sharing' ) );
 
 		return $links;
+	}
+
+	/**
+	 * If the SMS button is enabled, allow the SMS protocol.
+	 * @since 3.0.0
+	 *
+	 * @param array $protocols
+	 * @return mixed
+	 */
+	public function filter_allowed_protocols( $protocols ) {
+		$setting = scriptlesssocialsharing_get_setting();
+		if ( empty( $setting['buttons']['sms'] ) ) {
+			return $protocols;
+		}
+		$protocols[] = 'sms';
+
+		return $protocols;
 	}
 }

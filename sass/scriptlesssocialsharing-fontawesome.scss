@@ -17,7 +17,7 @@
 		.#{$network}:before {
 			content: add-content($glyph);
 
-			@if $network == 'email' {
+			@if index( ( 'email', 'sms' ), $network ) {
 				font-family: 'Font Awesome 5 Free', 'FontAwesome';
 				font-weight: 900;
 			}
