@@ -9,7 +9,7 @@ return array(
 		'title'       => __( 'Button Icons', 'scriptless-social-sharing' ),
 		'callback'    => 'do_radio_buttons',
 		'section'     => 'styles',
-		'buttons'     => array(
+		'choices'     => array(
 			'svg'  => __( 'Use SVG Icons for sharing icons', 'scriptless-social-sharing' ),
 			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
 			'none' => __( 'Use custom icons', 'scriptless-social-sharing' ),
@@ -84,7 +84,7 @@ return array(
 		'title'    => __( 'Button Styles', 'scriptless-social-sharing' ),
 		'callback' => 'do_radio_buttons',
 		'section'  => 'styles',
-		'buttons'  => array(
+		'choices'  => array(
 			0 => __( 'Icon Only', 'scriptless-social-sharing' ),
 			1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
 			2 => __( 'Text Only', 'scriptless-social-sharing' ),
@@ -96,7 +96,7 @@ return array(
 		'title'    => __( 'Button Container Width', 'scriptless-social-sharing' ),
 		'callback' => 'do_radio_buttons',
 		'section'  => 'styles',
-		'buttons'  => array(
+		'choices'  => array(
 			'full' => __( 'Full Width', 'scriptless-social-sharing' ),
 			'auto' => __( 'Auto', 'scriptless-social-sharing' ),
 		),
