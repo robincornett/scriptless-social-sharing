@@ -139,6 +139,15 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.0.0
+* added: SVG icons
+* added: buttons for Telegram and SMS
+* added: Finnish translation, props Hannu Jaatinen of Jargon Oy
+* updated: Font Awesome is now 5.8.1 when using the webfont
+* removed: Google+
+* removed: media uploader no longer shows only images attached to the current post
+* fixed: Pinterest buttons properly pass on hashtags
+
 ### 2.3.0
 * added: button for sharing on WhatsApp (props @yig)
 * added: button for Pocket (props @rryyaanndd)

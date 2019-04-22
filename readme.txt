@@ -4,8 +4,8 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
-Tested up to: 5.0
-Stable tag: 2.3.0
+Tested up to: 5.1
+Stable tag: 3.0.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -126,6 +126,15 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 2.3.0 adds sharing buttons for Pocket and WhatsApp, as well as the ability to easily reorder the buttons!
 
 == Changelog ==
+
+= 3.0.0 =
+* added: SVG icons
+* added: buttons for Telegram and SMS
+* added: Finnish translation, props Hannu Jaatinen of Jargon Oy
+* updated: Font Awesome is now 5.8.1 when using the webfont
+* removed: Google+
+* removed: media uploader no longer shows only images attached to the current post
+* fixed: Pinterest buttons properly pass on hashtags
 
 = 2.3.0 =
 * added: button for sharing on WhatsApp (props @yig)
