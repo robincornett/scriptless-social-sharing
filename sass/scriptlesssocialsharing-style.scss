@@ -8,6 +8,18 @@
 		display: none;
 	}
 
+	a.button {
+		border: none;
+		border-radius: 0;
+		color: white;
+		text-align: center;
+		text-decoration: none;
+
+		&:hover {
+			color: white;
+		}
+	}
+
 	&-buttons {
 		border-collapse: separate;
 		border-spacing: 3px;
@@ -21,16 +33,14 @@
 
 	&__buttons {
 		display: flex;
+		flex-wrap: wrap;
 
-		.button {
+		a.button {
+			border: 1px solid;
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			margin-bottom: 0;
-
-			&:not(:first-child) {
-				margin-left: 3px;
-			}
 		}
 	}
 
@@ -42,18 +52,6 @@
 
 		+ .sss-name {
 			margin-left: 8px;
-		}
-	}
-
-	a.button {
-		border: none;
-		border-radius: 0;
-		color: white;
-		text-align: center;
-		text-decoration: none;
-
-		&:hover {
-			color: white;
 		}
 	}
 
