@@ -146,7 +146,7 @@ class ScriptlessSocialSharingSettingsFields {
 	protected function do_radio_buttons( $args ) {
 		echo '<fieldset>';
 		printf( '<legend class="screen-reader-text">%s</legend>', esc_html( $args['legend'] ) );
-		foreach ( $args['buttons'] as $key => $button ) {
+		foreach ( $args['choices'] as $key => $button ) {
 			printf(
 				'<label for="%5$s[%1$s][%2$s]" style="margin-right:12px !important;"><input type="radio" id="%5$s[%1$s][%2$s]" name="%5$s[%1$s]" value="%2$s"%3$s />%4$s</label>  ',
 				esc_attr( $args['id'] ),
