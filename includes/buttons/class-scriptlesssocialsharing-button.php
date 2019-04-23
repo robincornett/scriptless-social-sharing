@@ -49,9 +49,29 @@ abstract class ScriptlessSocialSharingButton {
 	 */
 	public function get_url() {
 		return add_query_arg(
-			$this->get_query_args(),
-			$this->get_url_base()
+			$this->get_filtered_query_args(),
+			$this->get_filtered_url_base()
 		);
+	}
+
+	/**
+	 * Get the query args, passed through a dynamic filter.
+	 * @since 3.0.0
+	 *
+	 * @return mixed|void|null
+	 */
+	private function get_filtered_query_args() {
+		return apply_filters( "scriptlesssocialsharing_{$this->button_name}_query_args", $this->get_query_args(), $this->button_name, $this->attributes, $this->setting );
+	}
+
+	/**
+	 * Get the URL base, passed through a dynamic filter.
+	 * @since 3.0.0
+	 *
+	 * @return mixed|void|null
+	 */
+	private function get_filtered_url_base() {
+		return apply_filters( "scriptlesssocialsharing_{$this->button_name}_url_base", $this->get_url_base(), $this->button_name, $this->attributes, $this->setting );
 	}
 
 	/**
@@ -79,7 +99,8 @@ abstract class ScriptlessSocialSharingButton {
 	 */
 	protected function get_permalink() {
 		return rawurlencode(
-			apply_filters( 'scriptlesssocialsharing_get_permalink',
+			apply_filters(
+				'scriptlesssocialsharing_get_permalink',
 				$this->attributes['permalink'],
 				$this->button_name,
 				$this->attributes
