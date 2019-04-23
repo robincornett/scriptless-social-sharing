@@ -255,6 +255,7 @@ class ScriptlessSocialSharingOutput {
 			'permalink' => get_the_permalink(),
 			'home'      => home_url(),
 			'image'     => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
+			'pinterest' => get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true ),
 			'post_id'   => get_the_ID(),
 		);
 	}
