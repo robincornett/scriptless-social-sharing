@@ -14,7 +14,7 @@ $fields = array(
 			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
 			'none' => __( 'Use custom icons', 'scriptless-social-sharing' ),
 		),
-		'legend'      => __( 'Select type of social network icon to use', 'scriptless-social-sharing' ),
+		'legend'      => __( 'Choose whether to output social media icons as SVG or icon font', 'scriptless-social-sharing' ),
 		'description' => __( 'Choose how social network icons will be displayed on your sharing buttons. Choose "custom icons" if you are adding icons your own way.', 'scriptless-social-sharing' ),
 	),
 	array(

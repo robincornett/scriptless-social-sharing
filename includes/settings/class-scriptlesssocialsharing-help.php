@@ -58,10 +58,13 @@ class ScriptlessSocialSharingHelp {
 	 * @return string
 	 */
 	protected function styles() {
-		$help  = '<p>' . __( 'SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons.', 'scriptless-social-sharing' ) . '</p>';
+		$help  = '<h3>' . __( 'Icons', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'Select how you want to handle social media icons. You can use the plugin SVG icons, the Font Awesome web font, or use your own custom icons.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<h3>' . __( 'Styles', 'scriptless-social-sharing' ) . '</h3>';
+		$help .= '<p>' . __( 'Optionally, have the plugin load the main stylesheet to handle the button layouts and colors and/or Font Awesome (the font itself). The second option is if you want to use the web font of Font awesome and are not already loading it.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don\'t load it again here.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'Note that the button styles options--text/icons, container width, and padding--will take effect only if the main stylesheet is enabled.', 'scriptless-social-sharing' ) . '</p>';
-		$help .= '<p>' . __( 'The buttons are output as a table. The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, this option may result in buttons that overflow the content area assigned to them.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'The buttons are output with CSS for either Flexbox (if SVG icons are selected) or as table (web font option). The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, this option may result in buttons that overflow the content area assigned to them.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}
@@ -106,6 +109,9 @@ class ScriptlessSocialSharingHelp {
 	protected function content_types() {
 		$help  = '<p>' . __( 'By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement.', 'scriptless-social-sharing' ) . '</p>';
 		$help .= '<p>' . __( 'If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not.', 'scriptless-social-sharing' ) . '</p>';
+		if ( 'genesis' === get_template() ) {
+			$help .= '<p>' . __( 'Since you are using a Genesis theme, you can have the plugin use Genesis hooks instead of the default filters for placing the buttons.', 'scriptless-social-sharing' ) . '</p>';
+		}
 
 		return $help;
 	}
