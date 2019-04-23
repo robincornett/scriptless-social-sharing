@@ -30,7 +30,7 @@ class ScriptlessSocialSharingSettingsFields {
 	 * @param $args
 	 */
 	public function do_field( $args ) {
-		$callback = array( $this, $args['callback'] );
+		$callback = $this->get_method( $args );
 		if ( is_callable( $callback ) ) {
 			call_user_func( $callback, $args );
 		}
@@ -38,6 +38,25 @@ class ScriptlessSocialSharingSettingsFields {
 			$this->do_description( $args['description'] );
 		}
 	}
+
+	/**
+	 * Get the correct method to output the field.
+	 * @since 3.0.0
+	 *
+	 * @param $args
+	 * @return array|bool
+	 */
+	private function get_method( $args ) {
+		$callback = false;
+		if ( ! empty( $args['type'] ) ) {
+			$callback = "do_{$args['type']}";
+		} elseif ( ! empty( $args['callback'] ) ) {
+			$callback = $args['callback'];
+		}
+
+		return $callback ? array( $this, $callback ) : false;
+	}
+
 	/**
 	 * Generic callback to create a checkbox setting.
 	 *
@@ -131,7 +150,7 @@ class ScriptlessSocialSharingSettingsFields {
 	 *
 	 * @since 1.0.0
 	 */
-	protected function do_text_field( $args ) {
+	protected function do_text( $args ) {
 		printf(
 			'<input type="text" id="%3$s[%1$s]" name="%3$s[%1$s]" value="%2$s" class="regular-text" />',
 			esc_attr( $args['id'] ),
@@ -143,7 +162,7 @@ class ScriptlessSocialSharingSettingsFields {
 	/**
 	 * Generic function to create a radio button setting
 	 */
-	protected function do_radio_buttons( $args ) {
+	protected function do_radio( $args ) {
 		echo '<fieldset>';
 		printf( '<legend class="screen-reader-text">%s</legend>', esc_html( $args['legend'] ) );
 		foreach ( $args['choices'] as $key => $button ) {
@@ -188,9 +207,10 @@ class ScriptlessSocialSharingSettingsFields {
 	 *
 	 * @param $args
 	 */
-	protected function do_textarea_field( $args ) {
+	protected function do_textarea( $args ) {
 		$rows = isset( $args['rows'] ) ? $args['rows'] : 3;
-		printf( '<textarea class="regular-text" rows="%4$s" id="%3$s[%1$s]" name="%3$s[%1$s]" aria-label="%3$s[%1$s]">%2$s</textarea>',
+		printf(
+			'<textarea class="regular-text" rows="%4$s" id="%3$s[%1$s]" name="%3$s[%1$s]" aria-label="%3$s[%1$s]">%2$s</textarea>',
 			esc_attr( $args['id'] ),
 			esc_textarea( $this->setting[ $args['id'] ] ),
 			esc_attr( $this->page ),
