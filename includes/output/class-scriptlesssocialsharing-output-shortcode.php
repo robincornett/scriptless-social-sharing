@@ -18,7 +18,7 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 		$defaults = array(
 			'before'       => '<div class="scriptlesssocialsharing">',
 			'after'        => '</div>',
-			'inner_before' => '<div class="scriptlesssocialsharing-buttons">',
+			'inner_before' => '<div class="' . $this->get_button_container_class( $setting ) . '">',
 			'inner_after'  => '</div>',
 			'heading'      => $setting['heading'],
 			'buttons'      => '',

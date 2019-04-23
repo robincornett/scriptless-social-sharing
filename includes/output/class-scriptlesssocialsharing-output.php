@@ -306,6 +306,24 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
+	 * Get the correct class for the buttons container.
+	 * @since 3.0.0
+	 *
+	 * @param $setting
+	 * @return string
+	 */
+	protected function get_button_container_class( $setting ) {
+		$prefix    = 'scriptlesssocialsharing';
+		$suffix    = 'buttons';
+		$container = 'svg' === $setting['icons'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
+		if ( 2 === $setting['button_style'] ) {
+			$container .= ' no-icons';
+		}
+
+		return $container;
+	}
+
+	/**
 	 * Set the post title for sharing. Decodes HTML character entities,
 	 * then encodes for the URL.
 	 * @return string

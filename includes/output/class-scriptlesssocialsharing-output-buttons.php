@@ -31,14 +31,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( $heading ) {
 			$output .= $this->heading( $setting['heading'] );
 		}
-		$buttons_container = 'scriptlesssocialsharing-buttons';
-		if ( 'svg' === $setting['icons'] ) {
-			$buttons_container = 'scriptlesssocialsharing__buttons';
-		}
-		if ( 2 === $setting['button_style'] ) {
-			$buttons_container .= ' no-icons';
-		}
-		$output .= '<div class="' . esc_attr( $buttons_container ) . '">';
+		$output .= '<div class="' . esc_attr( $this->get_button_container_class( $setting ) ) . '">';
 		foreach ( $buttons as $button ) {
 			$output .= $this->build_link_markup( $button );
 		}
