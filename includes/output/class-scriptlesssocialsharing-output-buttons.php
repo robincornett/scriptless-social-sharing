@@ -25,7 +25,6 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( ! $buttons ) {
 			return $output;
 		}
-		$this->maybe_load_svg();
 
 		$setting = $this->get_setting();
 		$output  = '<div class="scriptlesssocialsharing">';
@@ -58,19 +57,5 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		}
 		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->get_available_buttons() );
 		$enqueue->load_styles();
-	}
-
-	/**
-	 * If the SVG icons are enabled, load them in the footer.
-	 * @since 2.4.0
-	 */
-	public function maybe_load_svg() {
-		$setting = $this->get_setting();
-		if ( 'svg' !== $setting['icons'] ) {
-			return;
-		}
-		$svg = $this->svg();
-		add_action( 'wp_footer', array( $svg, 'load_svg' ) );
-		add_filter( 'wp_kses_allowed_html', array( $svg, 'filter_allowed_html' ), 10, 2 );
 	}
 }

@@ -118,6 +118,20 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
+	 * If the SVG icons are enabled, load them in the footer.
+	 * @since 2.4.0
+	 */
+	public function maybe_load_svg() {
+		$setting = $this->get_setting();
+		if ( 'svg' !== $setting['icons'] ) {
+			return;
+		}
+		$svg = $this->svg();
+		add_action( 'wp_footer', array( $svg, 'load_svg' ) );
+		add_filter( 'wp_kses_allowed_html', array( $svg, 'filter_allowed_html' ), 10, 2 );
+	}
+
+	/**
 	 * If the SVG setting is enabled, do SVG.
 	 *
 	 * @param $icon
@@ -180,6 +194,7 @@ class ScriptlessSocialSharingOutput {
 			unset( $buttons['pinterest'] );
 		}
 
+		$this->maybe_load_svg();
 		$this->buttons = $buttons;
 
 		/**
