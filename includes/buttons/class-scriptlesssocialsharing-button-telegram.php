@@ -9,24 +9,28 @@
  *
  * @since 2.3.0
  */
-class ScriptlessSocialSharingButtonTelegram extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonTelegram extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the URL for Telegram.
-	 * @param $attributes array
+	 * Get the button query args.
+	 * @ since 3.0.0
 	 *
-	 * @return string
-	 * @since 2.3.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
-		$query_args = array(
-			'url'  => $this->get_permalink( 'telegram' ),
-			'text' => $attributes['title'],
+	protected function get_query_args() {
+		return array(
+			'url'  => $this->get_permalink(),
+			'text' => $this->attributes['title'],
 		);
+	}
 
-		return add_query_arg(
-			$query_args,
-			'https://telegram.me/share/url'
-		);
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'https://telegram.me/share/url';
 	}
 }

@@ -6,28 +6,35 @@
  *
  * @since 2.2.0
  */
-class ScriptlessSocialSharingButtonLinkedin extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonLinkedin extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the Linkedin URL.
-	 * @param $attributes array
+	 * Get the button query args.
+	 * @since 3.0.0
 	 *
-	 * @return string
-	 * @since 2.0.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
+	protected function get_query_args() {
 		$query_args = array(
 			'mini'   => true,
-			'url'    => $this->get_permalink( 'linkedin' ),
-			'title'  => $attributes['title'],
-			'source' => $attributes['home'],
+			'url'    => $this->get_permalink(),
+			'title'  => $this->attributes['title'],
+			'source' => $this->attributes['home'],
 		);
 		if ( $this->description() ) {
 			$query_args['summary'] = $this->description();
 		}
-		return add_query_arg(
-			$query_args,
-			'https://www.linkedin.com/shareArticle'
-		);
+
+		return $query_args;
+	}
+
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'https://www.linkedin.com/shareArticle';
 	}
 }

@@ -6,24 +6,27 @@
  *
  * @since 3.0.0
  */
-class ScriptlessSocialSharingButtonSMS extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonSMS extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the URL for SMS.
+	 * Get the button query args.
+	 * @ since 3.0.0
 	 *
-	 * @param $attributes
-	 *
-	 * @return string
-	 * @since 2.0.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
-		$query_args = array(
-			'body' => $attributes['title'] . ' ' . $attributes['permalink'],
+	protected function get_query_args() {
+		return array(
+			'body' => $this->attributes['title'] . ' ' . $this->get_permalink(),
 		);
+	}
 
-		return add_query_arg(
-			$query_args,
-			'sms:'
-		);
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'sms:';
 	}
 }

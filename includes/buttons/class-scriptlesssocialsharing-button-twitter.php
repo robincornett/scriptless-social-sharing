@@ -6,31 +6,51 @@
  *
  * @since 2.2.0
  */
-class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the URL for Twitter.
-	 * @param $attributes array
+	 * Get the button query args.
+	 * @ since 3.0.0
 	 *
-	 * @return string
-	 * @since 2.0.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
-		$yoast         = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
-		$twitter_title = $yoast ? $yoast : $attributes['title'];
-		$query_args    = array(
-			'text' => $twitter_title,
-			'url'  => $this->get_permalink( 'twitter' ),
+	protected function get_query_args() {
+		$query_args = array(
+			'text' => $this->get_twitter_title( $this->attributes['title'] ),
+			'url'  => $this->get_permalink(),
 		);
 		if ( $this->twitter_handle() ) {
 			$query_args['via']     = $this->twitter_handle();
 			$query_args['related'] = $this->twitter_handle();
 		}
 
-		return add_query_arg(
-			$query_args,
-			'https://twitter.com/intent/tweet'
-		);
+		return $query_args;
+	}
+
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'https://twitter.com/intent/tweet';
+	}
+
+	/**
+	 * Get the twitter title/text.
+	 * @since 3.0.0
+	 *
+	 * @param $title
+	 * @return mixed|void|null
+	 */
+	private function get_twitter_title( $title ) {
+		$yoast = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
+		if ( $yoast ) {
+			$title = $yoast;
+		}
+
+		return apply_filters( 'scriptlesssocialsharing_twitter_text', $title );
 	}
 
 	/**
@@ -38,8 +58,6 @@ class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingOutput
 	 * @return string twitter handle (default is empty)
 	 */
 	protected function twitter_handle() {
-		$setting = $this->get_setting();
-
-		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $setting['twitter_handle'] );
+		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $this->setting['twitter_handle'] );
 	}
 }

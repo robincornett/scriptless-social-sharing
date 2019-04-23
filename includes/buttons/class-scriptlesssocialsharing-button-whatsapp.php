@@ -6,23 +6,27 @@
  *
  * @since 2.3.0
  */
-class ScriptlessSocialSharingButtonWhatsapp extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonWhatsApp extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the URL for WhatsApp.
-	 * @param $attributes array
+	 * Get the button query args.
+	 * @ since 3.0.0
 	 *
-	 * @return string
-	 * @since 2.0.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
-		$query_args = array(
-			'text' => $attributes['title'] . ' &#8212; ' . $this->get_permalink( 'whatsapp' ),
+	protected function get_query_args() {
+		return array(
+			'text' => $this->attributes['title'] . ' &#8212; ' . $this->get_permalink(),
 		);
+	}
 
-		return add_query_arg(
-			$query_args,
-			'https://wa.me'
-		);
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'https://wa.me';
 	}
 }

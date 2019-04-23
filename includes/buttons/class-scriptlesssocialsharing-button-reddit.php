@@ -6,20 +6,27 @@
  *
  * @since 2.2.0
  */
-class ScriptlessSocialSharingButtonReddit extends ScriptlessSocialSharingOutput {
+class ScriptlessSocialSharingButtonReddit extends ScriptlessSocialSharingButton {
 
 	/**
-	 * Get the Reddit URL.
-	 * @param $attributes
+	 * Get the button query args.
+	 * @ since 3.0.0
 	 *
-	 * @return string
-	 * @since 2.0.0
+	 * @return array
 	 */
-	protected function get_url( $attributes ) {
-		return add_query_arg(
-			'url',
-			$this->get_permalink( 'reddit' ),
-			'https://www.reddit.com/submit'
+	protected function get_query_args() {
+		return array(
+			'url' => $this->get_permalink(),
 		);
+	}
+
+	/**
+	 * Get the base part of the URL.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function get_url_base() {
+		return 'https://www.reddit.com/submit';
 	}
 }

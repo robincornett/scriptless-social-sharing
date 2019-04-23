@@ -153,25 +153,6 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * Get the permalink to be shared via the button.
-	 *
-	 * @param  string $button_name The name of the button, e.g. 'twitter', 'facebook'.
-	 *
-	 * @return string The URL to be shared.
-	 */
-	protected function get_permalink( $button_name ) {
-		$attributes = $this->get_attributes();
-
-		return rawurlencode(
-			apply_filters( 'scriptlesssocialsharing_get_permalink',
-				$attributes['permalink'],
-				$button_name,
-				$attributes
-			)
-		);
-	}
-
-	/**
 	 * Create the default buttons
 	 * @return array array of buttons/attributes
 	 */
@@ -184,13 +165,14 @@ class ScriptlessSocialSharingOutput {
 		$set_buttons = $setting['buttons'];
 		if ( $set_buttons ) {
 			foreach ( $buttons as $key => $value ) {
-				if ( ! isset( $set_buttons[ $key ] ) || ! $set_buttons[ $key ] ) {
-					unset( $buttons[ $key ] );
+				if ( ! isset( $set_buttons[ $value['name'] ] ) || ! $set_buttons[ $value['name'] ] ) {
+					unset( $buttons[ $value['name'] ] );
 				}
 			}
 		}
 		$attributes = $this->get_attributes();
-		if ( ! $attributes['image'] && ! $attributes['pinterest'] ) {
+		$pinterest  = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
+		if ( ! $attributes['image'] && ! $pinterest ) {
 			unset( $buttons['pinterest'] );
 		}
 
@@ -213,29 +195,30 @@ class ScriptlessSocialSharingOutput {
 	protected function get_all_buttons() {
 		$attributes = $this->get_attributes();
 		$buttons    = $this->get_buttons_in_order();
-		foreach ( $buttons as $button => $value ) {
+		$setting    = $this->get_setting();
+		foreach ( $buttons as $key => $button ) {
 			$url  = '';
-			$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button}.php";
+			$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
 			if ( file_exists( $file ) ) {
 				include_once $file;
 			}
-			$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button );
+			$proper_name = 'ScriptlessSocialSharingButton' . $button['label'];
 			if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
-				$class = new $proper_name();
-				$url   = $class->get_url( $attributes );
+				$class = new $proper_name( $button['name'], $attributes, $setting );
+				$url   = $class->get_url();
 			}
 
 			/**
 			 * Create a filter to build custom URLs for each network.
 			 * @since 2.0.0
 			 */
-			$buttons[ $button ]['url'] = apply_filters( "scriptlesssocialsharing_{$button}_url", $url, $button, $attributes );
+			$buttons[ $button['name'] ]['url'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_url", $url, $button['name'], $attributes );
 
 			/**
 			 * Create a filter to add data attributes to social URLs.
 			 * @since 2.0.0
 			 */
-			$buttons[ $button ]['data'] = apply_filters( "scriptlesssocialsharing_{$button}_data", '', $button, $attributes );
+			$buttons[ $button['name'] ]['data'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_data", '', $button['name'], $attributes );
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
@@ -272,7 +255,6 @@ class ScriptlessSocialSharingOutput {
 			'permalink' => get_the_permalink(),
 			'home'      => home_url(),
 			'image'     => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
-			'pinterest' => $this->pinterest_image(),
 			'post_id'   => get_the_ID(),
 		);
 	}
@@ -365,42 +347,6 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return false;
-	}
-
-	/**
-	 * If a pinterest specific image is set, get the ID.
-	 * @return string
-	 */
-	protected function pinterest_image() {
-		return get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-	}
-
-	/**
-	 * Convert an image ID into a URL string.
-	 *
-	 * @param $id
-	 *
-	 * @return string
-	 */
-	protected function get_image_url( $id ) {
-		$source = wp_get_attachment_image_src( $id, 'large', false );
-
-		return apply_filters( 'scriptlesssocialsharing_image_url', isset( $source[0] ) ? $source[0] : '' );
-	}
-
-	/**
-	 * get the post excerpt
-	 *
-	 * @param string $description
-	 *
-	 * @return string excerpt formatted for URL
-	 */
-	protected function description( $description = '' ) {
-		if ( has_excerpt() ) {
-			$description = get_the_excerpt();
-		}
-
-		return apply_filters( 'scriptlesssocialsharing_description', $description );
 	}
 
 	/**
