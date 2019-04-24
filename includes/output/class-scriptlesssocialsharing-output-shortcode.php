@@ -24,7 +24,7 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 			'buttons'      => '',
 		);
 		$atts     = shortcode_atts( $defaults, $atts, 'scriptless' );
-		$buttons  = $this->get_available_buttons();
+		$buttons  = $this->get_all_buttons();
 		$passed   = $atts['buttons'] ? explode( ',', $atts['buttons'] ) : array();
 		$output   = $atts['before'];
 		$output  .= $this->heading( $atts['heading'] );
