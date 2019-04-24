@@ -67,6 +67,9 @@ class ScriptlessSocialSharingOutput {
 	 * @return bool
 	 */
 	private function check_singular_post( $cando ) {
+		if ( has_shortcode( get_post_field( 'post_content' ), 'scriptless' ) || has_block( 'scriptlesssocialsharing/buttons' ) ) {
+			return true;
+		}
 		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
 		if ( $is_disabled ) {
 			return false;
@@ -74,10 +77,6 @@ class ScriptlessSocialSharingOutput {
 		$post_types = scriptlesssocialsharing_post_types();
 		$post_type  = get_post_type();
 		if ( in_array( $post_type, $post_types, true ) ) {
-			return true;
-		}
-		global $post;
-		if ( is_object( $post ) && has_shortcode( $post->post_content, 'scriptless' ) ) {
 			return true;
 		}
 
