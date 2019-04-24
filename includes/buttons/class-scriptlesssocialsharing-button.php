@@ -44,7 +44,6 @@ abstract class ScriptlessSocialSharingButton {
 	 * Build the URL with queries.
 	 * @since 3.0.0
 	 *
-	 * @param $attributes
 	 * @return string
 	 */
 	public function get_url() {

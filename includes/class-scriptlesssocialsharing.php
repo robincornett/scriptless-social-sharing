@@ -91,6 +91,7 @@ class ScriptlessSocialSharing {
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
 		add_action( 'wp_head', array( $this->locations, 'do_location' ) );
 		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
+		add_action( 'init', array( $this, 'maybe_register_block' ) );
 
 		// Filters
 		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );
@@ -135,5 +136,18 @@ class ScriptlessSocialSharing {
 		$protocols[] = 'sms';
 
 		return $protocols;
+	}
+
+	/**
+	 * Register our block.
+	 * @since 3.0.0
+	 */
+	public function maybe_register_block() {
+		if ( ! function_exists( 'register_block_type' ) ) {
+			return;
+		}
+		add_action( 'enqueue_block_editor_assets', array( $this->output, 'load_styles' ) );
+		$block = new ScriptlessSocialSharingOutputBlock();
+		$block->init();
 	}
 }

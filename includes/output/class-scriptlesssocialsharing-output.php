@@ -51,6 +51,12 @@ class ScriptlessSocialSharingOutput {
 		if ( is_singular() ) {
 			$cando = $this->check_singular_post( $cando );
 		}
+		if ( function_exists( 'get_current_screen' ) ) {
+			$screen = get_current_screen();
+			if ( method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
+				return true;
+			}
+		}
 
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
 	}
@@ -128,6 +134,7 @@ class ScriptlessSocialSharingOutput {
 		}
 		$svg = $this->svg();
 		add_action( 'wp_footer', array( $svg, 'load_svg' ) );
+		add_action( 'admin_footer-post.php', array( $svg, 'load_svg' ) );
 		add_filter( 'wp_kses_allowed_html', array( $svg, 'filter_allowed_html' ), 10, 2 );
 	}
 

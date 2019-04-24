@@ -1,0 +1,11 @@
+.wp-block-scriptless-social-sharing-buttons:before {
+	position: absolute;
+	right: 0;
+	left: 0;
+	content: ' ';
+	top: 0;
+	bottom: 0;
+	background-color: rgba(white,.05);
+	z-index: 1;
+}
+

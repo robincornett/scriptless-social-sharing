@@ -42,6 +42,7 @@ function scriptlesssocialsharing_require() {
 		'class-scriptlesssocialsharing',
 		'class-scriptlesssocialsharing-enqueue',
 		'output/class-scriptlesssocialsharing-output',
+		'output/class-scriptlesssocialsharing-output-block',
 		'output/class-scriptlesssocialsharing-output-buttons',
 		'output/class-scriptlesssocialsharing-output-locations',
 		'output/class-scriptlesssocialsharing-output-shortcode',
