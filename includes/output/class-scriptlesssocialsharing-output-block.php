@@ -127,7 +127,7 @@ class ScriptlessSocialSharingOutputBlock {
 					'attributes'  => array_merge( $this->fields(), $this->networks() ),
 				),
 			),
-			'icon'        => 'share',
+			'icon'        => 'share-alt',
 			'category'    => 'widgets',
 		);
 	}
@@ -177,6 +177,7 @@ class ScriptlessSocialSharingOutputBlock {
 			}
 			$i++;
 		}
+		$fields['pinterest']['label'] .= __( ' (will not show if there is no image)', 'scriptless-social-sharing' );
 
 		return $fields;
 	}
