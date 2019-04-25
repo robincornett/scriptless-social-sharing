@@ -63,8 +63,7 @@ class ScriptlessSocialSharingOutput {
 		if ( has_shortcode( get_post_field( 'post_content' ), 'scriptless' ) || has_block( 'scriptlesssocialsharing/buttons' ) ) {
 			return true;
 		}
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
-		if ( $is_disabled ) {
+		if ( $this->is_disabled() ) {
 			return false;
 		}
 		$post_types = scriptlesssocialsharing_post_types();
@@ -74,6 +73,17 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return $cando;
+	}
+
+	/**
+	 * Check if the buttons have been disabled on a specific post.
+	 * This trumps everything except shortcodes/blocks.
+	 * @since 3.0.0
+	 *
+	 * @return mixed
+	 */
+	protected function is_disabled() {
+		return get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
 	}
 
 	/**

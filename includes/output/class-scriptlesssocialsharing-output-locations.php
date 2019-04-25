@@ -12,6 +12,9 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 	 * @since 2.0.0
 	 */
 	public function do_location() {
+		if ( $this->is_disabled() ) {
+			return;
+		}
 		if ( ! $this->can_do_buttons() ) {
 			return;
 		}
