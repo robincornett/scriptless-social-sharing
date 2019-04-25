@@ -12,18 +12,11 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 	 * @since 2.0.0
 	 */
 	public function do_location() {
-		$is_disabled = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_disable', true );
-		if ( $is_disabled ) {
-			return;
-		}
 		if ( ! $this->can_do_buttons() ) {
 			return;
 		}
 		$post_type = get_post_type();
 		$setting   = $this->get_setting();
-		if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || ! is_array( $setting['post_types'][ $post_type ] ) ) {
-			return;
-		}
 		$locations = $this->get_locations();
 		foreach ( $locations as $location => $args ) {
 			if ( ! in_array( $location, array( 'before', 'after' ), true ) ) {
