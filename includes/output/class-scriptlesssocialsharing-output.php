@@ -399,15 +399,4 @@ class ScriptlessSocialSharingOutput {
 
 		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', $heading_element, $heading );
 	}
-
-	/**
-	 * replace spaces in a string with %20 for URLs
-	 *
-	 * @param  string $string passed through from another source
-	 *
-	 * @return string         same string, just %20 instead of spaces
-	 */
-	protected function replace( $string ) {
-		return htmlentities( $string );
-	}
 }
