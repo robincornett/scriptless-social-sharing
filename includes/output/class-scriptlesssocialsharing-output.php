@@ -105,14 +105,12 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	protected function build_link_markup( $button ) {
-		$target = 'email' === $button['name'] ? '' : ' target="_blank"';
-
 		return apply_filters(
 			'scriptlesssocialsharing_link_markup',
 			sprintf(
 				'<a class="button %s"%s href="%s" rel="noopener" %s>%s<span class="sss-name">%s</span></a>',
 				esc_attr( $button['name'] ),
-				$target,
+				$this->get_link_target( $button['name'] ),
 				esc_url( $button['url'] ),
 				$button['data'],
 				$this->get_svg( $button['name'] ),
@@ -120,6 +118,17 @@ class ScriptlessSocialSharingOutput {
 			),
 			$button
 		);
+	}
+
+	/**
+	 * All links except for email should open in a new tab.
+	 * @since 3.0.0
+	 *
+	 * @param $button
+	 * @return string
+	 */
+	private function get_link_target( $button ) {
+		return 'email' === $button ? '' : ' target="_blank"';
 	}
 
 	/**
