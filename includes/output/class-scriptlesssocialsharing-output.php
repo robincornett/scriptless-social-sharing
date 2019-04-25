@@ -204,8 +204,7 @@ class ScriptlessSocialSharingOutput {
 			}
 		}
 		$attributes = $this->get_attributes();
-		$pinterest  = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		if ( ! $attributes['image'] && ! $pinterest ) {
+		if ( ! $attributes['image'] && ! $attributes['pinterest'] ) {
 			unset( $buttons['pinterest'] );
 		}
 
@@ -277,23 +276,6 @@ class ScriptlessSocialSharingOutput {
 	}
 
 	/**
-	 * create URL attributes for buttons
-	 * @return array attributes
-	 */
-	protected function attributes() {
-		$setting = $this->get_setting();
-
-		return array(
-			'title'     => $this->title(),
-			'permalink' => get_the_permalink(),
-			'home'      => home_url(),
-			'image'     => $setting['buttons']['pinterest'] ? $this->featured_image() : '',
-			'pinterest' => get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true ),
-			'post_id'   => get_the_ID(),
-		);
-	}
-
-	/**
 	 * Get the array of attributes for sharing buttons.
 	 * @return array
 	 */
@@ -301,7 +283,9 @@ class ScriptlessSocialSharingOutput {
 		if ( isset( $this->attributes ) && is_singular() ) {
 			return $this->attributes;
 		}
-		$this->attributes = $this->attributes();
+		include_once 'class-scriptlesssocialsharing-output-attributes.php';
+		$attributes       = new ScriptlessSocialSharingOutputAttributes( $this->get_setting() );
+		$this->attributes = $attributes->get_attributes();
 
 		return $this->attributes;
 	}
@@ -337,50 +321,6 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return $container;
-	}
-
-	/**
-	 * Set the post title for sharing. Decodes HTML character entities,
-	 * then encodes for the URL.
-	 * @return string
-	 */
-	protected function title() {
-		$title = html_entity_decode( the_title_attribute( 'echo=0' ) );
-
-		return rawurlencode( apply_filters( 'scriptlesssocialsharing_posttitle', $title ) );
-	}
-
-	/**
-	 * retrieve the featured image
-	 * @return string if there is a featured image, return the ID
-	 */
-	protected function featured_image() {
-		return has_post_thumbnail() ? get_post_thumbnail_id() : $this->get_fallback_image();
-	}
-
-	/**
-	 * If there is no featured image, use the first image attached to the post/page as the fallback.
-	 * @return bool
-	 */
-	protected function get_fallback_image() {
-		$image_ids = array_keys(
-			get_children(
-				array(
-					'post_parent'    => get_the_ID(),
-					'post_type'      => 'attachment',
-					'post_mime_type' => 'image',
-					'orderby'        => 'menu_order',
-					'order'          => 'ASC',
-					'numberposts'    => 1,
-				)
-			)
-		);
-
-		if ( isset( $image_ids[0] ) ) {
-			return $image_ids[0];
-		}
-
-		return false;
 	}
 
 	/**
