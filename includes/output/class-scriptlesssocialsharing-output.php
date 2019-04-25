@@ -188,31 +188,46 @@ class ScriptlessSocialSharingOutput {
 		$buttons    = $this->get_buttons_in_order();
 		$setting    = $this->get_setting();
 		foreach ( $buttons as $key => $button ) {
-			$url  = '';
-			$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
-			if ( file_exists( $file ) ) {
-				include_once $file;
-			}
-			$proper_name = 'ScriptlessSocialSharingButton' . $button['label'];
-			if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
-				$class = new $proper_name( $button['name'], $attributes, $setting );
-				$url   = $class->get_url();
-			}
-
-			/**
-			 * Create a filter to build custom URLs for each network.
-			 * @since 2.0.0
-			 */
-			$buttons[ $button['name'] ]['url'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_url", $url, $button['name'], $attributes );
-
-			/**
-			 * Create a filter to add data attributes to social URLs.
-			 * @since 2.0.0
-			 */
-			$buttons[ $button['name'] ]['data'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_data", '', $button['name'], $attributes );
+			$buttons[ $button['name'] ] = $this->get_individual_button_array( $button, $attributes, $setting );
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_buttons', $buttons, $attributes );
+	}
+
+	/**
+	 * Get the individual button URL and data (if applicable).
+	 * @since 3.0.0
+	 *
+	 * @param $button
+	 * @param $attributes
+	 * @param $setting
+	 * @return mixed
+	 */
+	protected function get_individual_button_array( &$button, $attributes, $setting ) {
+		$url  = '';
+		$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
+		if ( file_exists( $file ) ) {
+			include_once $file;
+		}
+		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
+		if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
+			$class = new $proper_name( $button['name'], $attributes, $setting );
+			$url   = $class->get_url();
+		}
+
+		/**
+		 * Create a filter to build custom URLs for each network.
+		 * @since 2.0.0
+		 */
+		$button['url'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_url", $url, $button['name'], $attributes );
+
+		/**
+		 * Create a filter to add data attributes to social URLs.
+		 * @since 2.0.0
+		 */
+		$button['data'] = apply_filters( "scriptlesssocialsharing_{$button['name']}_data", '', $button['name'], $attributes );
+
+		return $button;
 	}
 
 	/**
