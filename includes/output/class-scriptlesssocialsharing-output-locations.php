@@ -25,12 +25,13 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 			if ( ! in_array( $location, array( 'before', 'after' ), true ) ) {
 				continue;
 			}
-			if ( isset( $setting['post_types'][ $post_type ][ $location ] ) && $setting['post_types'][ $post_type ][ $location ] ) {
-				if ( $args['hook'] ) {
-					add_action( $args['hook'], array( $this, 'print_buttons' ), $args['priority'] );
-				} elseif ( $args['filter'] ) {
-					add_filter( $args['filter'], array( $this, "{$location}_content" ), $args['priority'] );
-				}
+			if ( empty( $setting['post_types'][ $post_type ][ $location ] ) ) {
+				continue;
+			}
+			if ( $args['hook'] ) {
+				add_action( $args['hook'], array( $this, 'print_buttons' ), $args['priority'] );
+			} elseif ( $args['filter'] ) {
+				add_filter( $args['filter'], array( $this, "{$location}_content" ), $args['priority'] );
 			}
 		}
 	}
