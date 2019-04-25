@@ -18,6 +18,12 @@ class ScriptlessSocialSharingOutputBlock {
 	protected $block = 'scriptless-social-sharing-buttons';
 
 	/**
+	 * The plugin setting.
+	 * @var array
+	 */
+	protected $setting;
+
+	/**
 	 * Register our block type.
 	 */
 	public function init() {
@@ -27,7 +33,7 @@ class ScriptlessSocialSharingOutputBlock {
 			array(
 				'editor_script'   => $this->block . '-block',
 				'editor_style'    => $this->block . '-block',
-				'attributes'      => $this->fields(),
+				'attributes'      => array_merge( $this->fields(), $this->networks() ),
 				'render_callback' => array( $this, 'render' ),
 			)
 		);
@@ -65,7 +71,7 @@ class ScriptlessSocialSharingOutputBlock {
 	 */
 	private function parse_networks( $atts ) {
 		$buttons  = array();
-		$networks = $this->networks( scriptlesssocialsharing_get_setting() );
+		$networks = $this->networks();
 		foreach ( $atts as $key => $value ) {
 			if ( ! array_key_exists( $key, $networks ) ) {
 				continue;
@@ -118,7 +124,7 @@ class ScriptlessSocialSharingOutputBlock {
 				'first' => array(
 					'title'       => __( 'Block Settings', 'sixtenpress' ),
 					'initialOpen' => true,
-					'attributes'  => $this->fields(),
+					'attributes'  => array_merge( $this->fields(), $this->networks() ),
 				),
 			),
 			'icon'        => 'share',
@@ -131,8 +137,7 @@ class ScriptlessSocialSharingOutputBlock {
 	 * @return array
 	 */
 	private function fields() {
-		$setting = scriptlesssocialsharing_get_setting();
-		$fields  = array(
+		return array(
 			'blockAlignment' => array(
 				'type'    => 'string',
 				'default' => '',
@@ -143,38 +148,52 @@ class ScriptlessSocialSharingOutputBlock {
 			),
 			'heading'        => array(
 				'type'    => 'string',
-				'default' => $setting['heading'],
+				'default' => $this->get_setting( 'heading' ),
 				'label'   => __( 'Heading', 'scriptless-social-sharing' ),
 			),
 		);
-
-		return array_merge( $fields, $this->networks( $setting ) );
 	}
 
 	/**
 	 * Get the checkbox fields for the networks.
-	 * @param $setting
 	 *
 	 * @return array
 	 */
-	private function networks( $setting ) {
+	private function networks() {
+		$setting  = $this->get_setting( 'buttons' );
 		$networks = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
 		$fields   = array();
 		$i        = 0;
 		foreach ( $networks as $network ) {
+			$default                    = empty( $setting[ $network['name'] ] ) ? 0 : $setting[ $network['name'] ];
 			$fields[ $network['name'] ] = array(
 				'type'    => 'boolean',
-				'default' => $setting['buttons'][ $network['name'] ],
+				'default' => $default,
 				'label'   => $network['label'],
 				'method'  => 'checkbox',
 			);
 			if ( ! $i ) {
 				$fields[ $network['name'] ]['heading'] = __( 'Buttons to Show', 'scriptless-social-sharing' );
 			}
-
 			$i++;
 		}
 
 		return $fields;
+	}
+
+	/**
+	 * Get the plugin setting.
+	 *
+	 * @param string $key
+	 *
+	 * @return array|mixed
+	 */
+	protected function get_setting( $key = '' ) {
+		if ( isset( $this->setting ) ) {
+			return $key ? $this->setting[ $key ] : $this->setting;
+		}
+		$this->setting = scriptlesssocialsharing_get_setting();
+
+		return $key ? $this->setting[ $key ] : $this->setting;
 	}
 }
