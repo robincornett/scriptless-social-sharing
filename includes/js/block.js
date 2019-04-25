@@ -124,20 +124,11 @@
 	function _getControlType( method, control_type ) {
 		const {
 			      TextControl,
-			      SelectControl,
-			      RangeControl,
 			      CheckboxControl,
-			      TextareaControl
 		      } = wp.components;
 		const control = TextControl;
-		if ( 'select' === method ) {
-			return SelectControl;
-		} else if ( 'number' === method && 'number' === control_type ) {
-			return RangeControl;
-		} else if ( 'checkbox' === method ) {
+		if ( 'checkbox' === method ) {
 			return CheckboxControl;
-		} else if ( 'textarea' === method ) {
-			return TextareaControl;
 		}
 
 		return control;
