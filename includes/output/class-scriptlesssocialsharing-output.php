@@ -108,12 +108,13 @@ class ScriptlessSocialSharingOutput {
 		return apply_filters(
 			'scriptlesssocialsharing_link_markup',
 			sprintf(
-				'<a class="button %s"%s href="%s" rel="noopener" %s>%s<span class="sss-name">%s</span></a>',
+				'<a class="button %1$s"%2$s href="%3$s" rel="noopener" %4$s>%5$s<span class="%6$s">%7$s</span></a>',
 				esc_attr( $button['name'] ),
 				$this->get_link_target( $button['name'] ),
 				esc_url( $button['url'] ),
 				$button['data'],
 				$this->get_svg( $button['name'] ),
+				$this->get_label_class(),
 				$button['label']
 			),
 			$button
@@ -129,6 +130,23 @@ class ScriptlessSocialSharingOutput {
 	 */
 	private function get_link_target( $button ) {
 		return 'email' === $button ? '' : ' target="_blank"';
+	}
+
+	/**
+	 * Get the button label class. Default is sss-name, but switches to
+	 * screen-reader-text if icon only output is selected.
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	private function get_label_class() {
+		$class   = 'sss-name';
+		$setting = $this->get_setting();
+		if ( 0 === $setting['button_style'] ) {
+			$class = 'screen-reader-text';
+		}
+
+		return $class;
 	}
 
 	/**

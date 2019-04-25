@@ -12,12 +12,17 @@
 		border: none;
 		border-radius: 0;
 		color: white;
+		line-height: 1;
 		text-align: center;
 		text-decoration: none;
 
 		&:hover {
 			color: white;
 		}
+	}
+
+	.screen-reader-text {
+		@include screen-reader-text;
 	}
 
 	&-buttons {
@@ -52,16 +57,6 @@
 
 		+ .sss-name {
 			margin-left: 8px;
-		}
-	}
-
-	.sss-name {
-		@include screen-reader-text;
-	}
-
-	.no-icons {
-		.sss-name {
-			@include screen-reader-text-reset;
 		}
 	}
 

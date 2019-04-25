@@ -101,31 +101,68 @@ class ScriptlessSocialSharingEnqueue {
 	 * @return string
 	 */
 	public function get_inline_style() {
-		$inline_style = '';
-		$padding      = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
+		$inline_style  = $this->get_layout_styles();
+		$inline_style .= $this->get_label_styles();
+		$inline_style .= $this->get_button_styles();
+
+		return apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
+	}
+
+	/**
+	 * Build the layout styles. Uses table CSS for webfont; flexbox for SVG.
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	private function get_layout_styles() {
+		$style   = '';
+		$padding = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
 		if ( 'svg' !== $this->setting['icons'] ) {
-			$table_width   = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
-			$inline_style  = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-			$count         = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
-			$button_width  = 100 / $count . '%;';
-			$inline_style .= sprintf( '.scriptlesssocialsharing-buttons a.button { %s width: %s; }', $padding, esc_attr( $button_width ) );
+			$table_width  = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
+			$style        = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
+			$count        = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
+			$button_width = 100 / $count . '%;';
+			$style       .= sprintf( '.scriptlesssocialsharing-buttons a.button { %s width: %s; }', $padding, esc_attr( $button_width ) );
 		} else {
-			$flex_grow     = 'auto' === $this->setting['table_width'] ? 0 : 1;
-			$inline_style .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
+			$flex_grow = 'auto' === $this->setting['table_width'] ? 0 : 1;
+			$style    .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
 		}
-		if ( 1 === $this->setting['button_style'] ) {
-			$inline_style .= '@media only screen and (min-width: 800px) { .scriptlesssocialsharing .sss-name { position: relative; height: auto; width: auto; } }';
+
+		return $style;
+	}
+
+	/**
+	 * Build the button label style: screen reader text style on small screens.
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	private function get_label_styles() {
+		if ( 1 !== $this->setting['button_style'] ) {
+			return '';
 		}
+
+		return '@media only screen and (max-width: 767px) { .scriptlesssocialsharing .sss-name { position: absolute; clip: rect(1px, 1px, 1px, 1px); height: 1px; width: 1px; border: 0; overflow: hidden; } }';
+	}
+
+	/**
+	 * Get custom button styles (generally only used if button is defined by a filter).
+	 * @since 3.0.0
+	 *
+	 * @return string
+	 */
+	private function get_button_styles() {
+		$style = '';
 		foreach ( $this->buttons as $button ) {
 			if ( isset( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
-				$inline_style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
+				$style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
 			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
-				$inline_style .= $this->get_button_color( $button );
+				$style .= $this->get_button_color( $button );
 			}
 		}
 
-		return apply_filters( 'scriptlesssocialsharing_inline_style', $inline_style );
+		return $style;
 	}
 
 	/**
