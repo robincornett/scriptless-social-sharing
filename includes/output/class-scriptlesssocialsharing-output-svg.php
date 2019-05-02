@@ -134,8 +134,19 @@ class ScriptlessSocialSharingOutputSVG {
 			}
 		}
 
+		/**
+		 * Add a filter on the SVG icon output (all icons).
+		 *
+		 * @param string $output
+		 * @param string $icon
+		 * @param array  $args
+		 * @param string $aria_hidden
+		 * @param string $aria_labelledby
+		 * @param string $title
+		 * @param string $xlink
+		 */
 		return apply_filters(
-			'scriptlesssocialsharing_svg_icon',
+			'scriptlesssocialsharing_svg_output',
 			sprintf(
 				'<svg class="scriptlesssocialsharing__icon %1$s" role="img"%2$s%3$s>%4$s <use href="#%1$s" xlink:href="%5$s"></use> </svg>',
 				esc_attr( $icon ),
