@@ -82,7 +82,6 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 			unset( $buttons['pinterest'] );
 		}
 
-		$this->maybe_load_svg();
 		$this->buttons = $buttons;
 
 		/**

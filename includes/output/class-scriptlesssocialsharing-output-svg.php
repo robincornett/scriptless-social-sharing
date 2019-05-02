@@ -13,6 +13,40 @@ class ScriptlessSocialSharingOutputSVG {
 	private $loaded = false;
 
 	/**
+	 * The class instance.
+	 * @var $instance
+	 */
+	private static $instance;
+
+	/**
+	 * @return \ScriptlessSocialSharingOutputSVG
+	 */
+	public static function instance() {
+		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof SixTenPressSVG ) ) {
+			self::$instance = new ScriptlessSocialSharingOutputSVG();
+
+			add_action( 'init', array( self::$instance, 'maybe_add_svg' ) );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * If SVG icons are enabled, add them to the footer and allowed HTML.
+	 * @since 3.0.0
+	 */
+	public function maybe_add_svg() {
+		$setting = scriptlesssocialsharing_get_setting();
+		if ( 'svg' !== $setting['icons'] ) {
+			return;
+		}
+
+		add_action( 'wp_footer', array( self::$instance, 'load_svg' ) );
+		add_action( 'admin_footer-post.php', array( self::$instance, 'load_svg' ) );
+		add_filter( 'wp_kses_allowed_html', array( self::$instance, 'filter_allowed_html' ), 10, 2 );
+	}
+
+	/**
 	 * Add SVG definitions to the footer.
 	 *
 	 * @since 2.4.0
@@ -66,7 +100,7 @@ class ScriptlessSocialSharingOutputSVG {
 	 *
 	 * @return string SVG markup.
 	 */
-	public function get_svg_markup( $icon, $args = array() ) {
+	public function svg( $icon, $args = array() ) {
 		if ( ! $icon ) {
 			return false;
 		}
@@ -167,3 +201,14 @@ class ScriptlessSocialSharingOutputSVG {
 		return include plugin_dir_path( dirname( __FILE__ ) ) . 'svg/brands.php';
 	}
 }
+
+/**
+ * Instantiate the SVG class.
+ * @return \ScriptlessSocialSharingOutputSVG
+ * @since 3.0.0
+ */
+function scriptlesssocialsharing_svg() {
+	return ScriptlessSocialSharingOutputSVG::instance();
+}
+
+scriptlesssocialsharing_svg();
