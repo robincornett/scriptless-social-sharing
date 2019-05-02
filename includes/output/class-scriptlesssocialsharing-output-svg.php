@@ -173,18 +173,29 @@ class ScriptlessSocialSharingOutputSVG {
 	 */
 	private function replace_icon_name( $icon ) {
 
-		$icons = array(
-			'pocket'   => 'get-pocket',
-			'email'    => 'envelope',
-			'reddit'   => 'reddit-alien',
-			'telegram' => 'telegram-plane',
-		);
-
+		$icons = $this->get_alternate_icons_list();
 		if ( array_key_exists( $icon, $icons ) ) {
 			$icon = $icons[ $icon ];
 		}
 
 		return apply_filters( "scriptlesssocialsharing_svg_icon_{$icon}", $icon );
+	}
+
+	/**
+	 * Build the list of alternate SVG icons.
+	 * @return mixed|void|null
+	 * @since 3.0.0
+	 */
+	private function get_alternate_icons_list() {
+		return apply_filters(
+			'scriptlesssocialsharing_svg_icons',
+			array(
+				'pocket'   => 'get-pocket',
+				'email'    => 'envelope',
+				'reddit'   => 'reddit-alien',
+				'telegram' => 'telegram-plane',
+			)
+		);
 	}
 
 	/**
