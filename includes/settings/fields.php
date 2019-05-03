@@ -8,7 +8,7 @@ $fields = array(
 		'id'          => 'icons',
 		'title'       => __( 'Button Icons', 'scriptless-social-sharing' ),
 		'type'        => 'radio',
-		'section'     => 'styles',
+		'section'     => 'icons',
 		'choices'     => array(
 			'svg'  => __( 'Use SVG Icons for sharing icons', 'scriptless-social-sharing' ),
 			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
@@ -81,15 +81,26 @@ $fields = array(
 	),
 	array(
 		'id'      => 'button_style',
-		'title'   => __( 'Button Styles', 'scriptless-social-sharing' ),
+		'title'   => __( 'Button Output', 'scriptless-social-sharing' ),
 		'type'    => 'radio',
-		'section' => 'styles',
+		'section' => 'icons',
 		'choices' => array(
 			0 => __( 'Icon Only', 'scriptless-social-sharing' ),
 			1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
 			2 => __( 'Text Only', 'scriptless-social-sharing' ),
 		),
 		'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
+	),
+	array(
+		'id'      => 'css_style',
+		'title'   => __( 'Button Container CSS', 'scriptless-social-sharing' ),
+		'type'    => 'radio',
+		'section' => 'styles',
+		'choices' => array(
+			'flex'  => __( 'Flexbox', 'scriptless-social-sharing' ),
+			'table' => __( 'Table', 'scriptless-social-sharing' ),
+		),
+		'legend'  => __( 'CSS options for the button container', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'      => 'table_width',

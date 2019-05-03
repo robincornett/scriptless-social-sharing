@@ -117,7 +117,7 @@ class ScriptlessSocialSharingEnqueue {
 	private function get_layout_styles() {
 		$style   = '';
 		$padding = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
-		if ( 'svg' !== $this->setting['icons'] ) {
+		if ( 'table' === $this->setting['css_style'] ) {
 			$table_width  = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
 			$style        = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
 			$count        = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;

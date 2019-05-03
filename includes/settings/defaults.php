@@ -38,4 +38,5 @@ return array(
 	'table_width'    => 'full',
 	'order'          => array(),
 	'genesis'        => 0,
+	'css_style'      => 'flex',
 );

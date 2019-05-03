@@ -262,7 +262,7 @@ class ScriptlessSocialSharingOutput {
 	protected function get_button_container_class( $setting ) {
 		$prefix    = 'scriptlesssocialsharing';
 		$suffix    = 'buttons';
-		$container = 'svg' === $setting['icons'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
+		$container = 'flex' === $setting['css_style'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
 		if ( 2 === $setting['button_style'] ) {
 			$container .= ' no-icons';
 		}

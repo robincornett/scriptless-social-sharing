@@ -4,6 +4,11 @@
  * Define the sections for the settings page.
  */
 return array(
+	'icons'         => array(
+		'id'          => 'icons',
+		'title'       => __( 'Icon Settings', 'scriptless-social-sharing' ),
+		'description' => __( 'Choose your icon types and source.', 'scriptless-social-sharing' ),
+	),
 	'styles'        => array(
 		'id'          => 'styles',
 		'title'       => __( 'Style Settings', 'scriptless-social-sharing' ),
@@ -21,7 +26,7 @@ return array(
 	),
 	'networks'      => array(
 		'id'          => 'networks',
-		'title'       => __( 'Network Settings', 'scriptless-social-sharing' ),
+		'title'       => __( 'Social Network Settings', 'scriptless-social-sharing' ),
 		'description' => __( 'Some social networks need a little extra information.', 'scriptless-social-sharing' ),
 	),
 );
