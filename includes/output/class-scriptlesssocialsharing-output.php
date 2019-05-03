@@ -228,9 +228,8 @@ class ScriptlessSocialSharingOutput {
 	 * @return array
 	 */
 	protected function get_buttons_in_order() {
-		$settings_class = new ScriptlessSocialSharingSettings();
-		$buttons        = $settings_class->get_networks();
-		$setting        = $this->get_setting();
+		$buttons = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
+		$setting = $this->get_setting();
 		if ( ! $setting['order'] ) {
 			return $buttons;
 		}
