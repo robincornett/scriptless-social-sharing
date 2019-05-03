@@ -45,6 +45,7 @@ function scriptlesssocialsharing_require() {
 		'output/class-scriptlesssocialsharing-output-block',
 		'output/class-scriptlesssocialsharing-output-buttons',
 		'output/class-scriptlesssocialsharing-output-locations',
+		'output/class-scriptlesssocialsharing-output-pinterest',
 		'output/class-scriptlesssocialsharing-output-shortcode',
 		'output/class-scriptlesssocialsharing-output-svg',
 		'buttons/class-scriptlesssocialsharing-button',
@@ -65,6 +66,7 @@ scriptlesssocialsharing_require();
 $scriptlesssocialsharing_help      = new ScriptlessSocialSharingHelp();
 $scriptlesssocialsharing_locations = new ScriptlessSocialSharingOutputLocations();
 $scriptlesssocialsharing_output    = new ScriptlessSocialSharingOutputButtons();
+$scriptlesssocialsharing_pinterest = new ScriptlessSocialSharingOutputPinterest();
 $scriptlesssocialsharing_postmeta  = new ScriptlessSocialSharingPostMeta();
 $scriptlesssocialsharing_settings  = new ScriptlessSocialSharingSettings();
 $scriptlesssocialsharing_shortcode = new ScriptlessSocialSharingOutputShortcode();
@@ -72,6 +74,7 @@ $scriptlesssocialsharing           = new ScriptlessSocialSharing(
 	$scriptlesssocialsharing_help,
 	$scriptlesssocialsharing_locations,
 	$scriptlesssocialsharing_output,
+	$scriptlesssocialsharing_pinterest,
 	$scriptlesssocialsharing_postmeta,
 	$scriptlesssocialsharing_settings,
 	$scriptlesssocialsharing_shortcode

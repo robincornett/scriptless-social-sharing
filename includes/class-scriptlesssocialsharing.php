@@ -37,6 +37,11 @@ class ScriptlessSocialSharing {
 	protected $output;
 
 	/**
+	 * @var $pinterest \ScriptlessSocialSharingOutputPinterest
+	 */
+	protected $pinterest;
+
+	/**
 	 * @var $post_meta ScriptlessSocialSharingPostMeta
 	 */
 	protected $post_meta;
@@ -57,14 +62,16 @@ class ScriptlessSocialSharing {
 	 * @param $help
 	 * @param $locations
 	 * @param $output
+	 * @param $pinterest
 	 * @param $post_meta
 	 * @param $settings
 	 * @param $shortcode
 	 */
-	public function __construct( $help, $locations, $output, $post_meta, $settings, $shortcode ) {
+	public function __construct( $help, $locations, $output, $pinterest, $post_meta, $settings, $shortcode ) {
 		$this->help      = $help;
 		$this->locations = $locations;
 		$this->output    = $output;
+		$this->pinterest = $pinterest;
 		$this->post_meta = $post_meta;
 		$this->settings  = $settings;
 		$this->shortcode = $shortcode;
@@ -92,6 +99,8 @@ class ScriptlessSocialSharing {
 		add_action( 'wp_head', array( $this->locations, 'do_location' ) );
 		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
 		add_action( 'init', array( $this, 'maybe_register_block' ) );
+		add_filter( 'the_content', array( $this->pinterest, 'hide_pinterest_image' ), 99 );
+		add_filter( 'wp_kses_allowed_html', array( $this->pinterest, 'filter_allowed_html' ), 10, 2 );
 
 		// Filters
 		add_filter( 'scriptlesssocialsharing_get_setting', array( $this->settings, 'get_setting' ) );

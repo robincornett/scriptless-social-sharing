@@ -21,13 +21,6 @@ class ScriptlessSocialSharingOutput {
 	protected $attributes;
 
 	/**
-	 * The SVG handler class.
-	 *
-	 * @var \ScriptlessSocialSharingOutputSVG
-	 */
-	protected $svg;
-
-	/**
 	 * Function to decide whether buttons can be output or not
 	 *
 	 * @param  boolean $cando default true
@@ -205,7 +198,10 @@ class ScriptlessSocialSharingOutput {
 		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
 		if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
 			$class = new $proper_name( $button['name'], $attributes, $setting );
-			$url   = $class->get_url();
+			if ( 'pinterest' === $button['name'] ) {
+				add_filter( 'scriptlesssocialsharing_pinterest_data', array( $class, 'add_pinterest_data' ) );
+			}
+			$url = $class->get_url();
 		}
 
 		/**

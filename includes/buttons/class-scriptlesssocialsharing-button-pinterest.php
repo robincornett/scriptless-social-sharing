@@ -9,24 +9,8 @@
 class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingButton {
 
 	/**
-	 * ScriptlessSocialSharingButtonPinterest constructor.
-	 *
-	 * @param $button_name
-	 * @param $attributes
-	 * @param $setting
-	 */
-	public function __construct( $button_name, $attributes, $setting ) {
-		add_filter( 'scriptlesssocialsharing_pinterest_data', array( $this, 'add_pinterest_data' ) );
-		add_filter( 'the_content', array( $this, 'hide_pinterest_image' ), 99 );
-		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
-		parent::__construct( $button_name, $attributes, $setting );
-	}
-
-	/**
 	 * Get the button query args.
 	 * @ since 3.0.0
-	 *
-	 * @param $attributes
 	 *
 	 * @return array
 	 */
@@ -75,53 +59,6 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingButt
 	 */
 	public function add_pinterest_data() {
 		return 'data-pin-no-hover="true" data-pin-custom="true" data-pin-do="skip" data-pin-description="' . $this->get_pinterest_description() . '"';
-	}
-
-	/**
-	 * If a Pinterest specific image is set, add it to the content, but hidden.
-	 *
-	 * @param $content
-	 *
-	 * @return string
-	 */
-	public function hide_pinterest_image( $content ) {
-		$pinterest_image  = $this->pinterest_image();
-		$pinterest_button = $this->setting['buttons']['pinterest'];
-		if ( ! $pinterest_button || ! $pinterest_image ) {
-			return $content;
-		}
-		$alt_text = get_post_meta( $pinterest_image, '_wp_attachment_image_alt', true );
-
-		return $content . wp_get_attachment_image(
-			$pinterest_image,
-			'large',
-			false,
-			array(
-				'data-pin-media' => 'true',
-				'style'          => 'display:none;',
-				'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
-			)
-		);
-	}
-
-	/**
-	 * Allow pinterest data attributes on our links.
-	 *
-	 * @param $allowed array
-	 * @param $context string
-	 *
-	 * @return mixed
-	 */
-	public function filter_allowed_html( $allowed, $context ) {
-
-		if ( 'post' === $context ) {
-			$allowed['a']['data-pin-custom']      = true;
-			$allowed['a']['data-pin-no-hover']    = true;
-			$allowed['a']['data-pin-do']          = true;
-			$allowed['a']['data-pin-description'] = true;
-		}
-
-		return $allowed;
 	}
 
 	/**
