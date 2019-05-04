@@ -45,6 +45,7 @@ function scriptlesssocialsharing_print_buttons( $content ) {
 	if ( ! $setting['location'] ) {
 		return $content;
 	}
+	_deprecated_function( __FUNCTION__, '2.0.0' );
 	$post_type = get_post_type();
 	if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || is_array( $setting['post_types'][ $post_type ] ) ) {
 		return $content;
