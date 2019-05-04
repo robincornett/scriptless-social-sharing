@@ -4,7 +4,7 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: 3.0.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -130,7 +130,12 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 = 3.0.0 =
 * added: SVG icons
 * added: buttons for Telegram and SMS
+* added: show buttons as icons only, icon + text, or text only
+* added: select default CSS style: table (old) or flexbox (new, now default)
+* added: a block!
 * added: Finnish translation, props Hannu Jaatinen of Jargon Oy
+* changed: icon only buttons use screen-reader-text class for label
+* changed: shortcodes/blocks can now use any button, not just those selected in settings
 * updated: Font Awesome is now 5.8.1 when using the webfont
 * removed: Google+
 * removed: media uploader no longer shows only images attached to the current post
