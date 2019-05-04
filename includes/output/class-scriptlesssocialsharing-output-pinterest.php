@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This class handles pinterest related functions which are not specific to the button output.
+ * Class ScriptlessSocialSharingOutputPinterest
+ * @since 3.0.0
+ */
 class ScriptlessSocialSharingOutputPinterest {
 
 	/**
@@ -13,8 +18,7 @@ class ScriptlessSocialSharingOutputPinterest {
 		if ( ! is_main_query() || ! is_singular() ) {
 			return $content;
 		}
-		$setting = scriptlesssocialsharing_get_setting();
-		if ( ! $setting['buttons']['pinterest'] ) {
+		if ( ! $this->is_pinterest_button_enabled() ) {
 			return $content;
 		}
 		$pinterest_image = $this->pinterest_image();
@@ -44,6 +48,9 @@ class ScriptlessSocialSharingOutputPinterest {
 	 * @return mixed
 	 */
 	public function filter_allowed_html( $allowed, $context ) {
+		if ( ! $this->is_pinterest_button_enabled() ) {
+			return $allowed;
+		}
 
 		if ( 'post' === $context ) {
 			$allowed['a']['data-pin-custom']      = true;
@@ -64,15 +71,13 @@ class ScriptlessSocialSharingOutputPinterest {
 	}
 
 	/**
-	 * Convert an image ID into a URL string.
-	 *
-	 * @param $id
-	 *
-	 * @return string
+	 * Is the Pinterest button enabled in the plugin settings?
+	 * @return bool
+	 * @since 3.0.0
 	 */
-	protected function get_image_url( $id ) {
-		$source = wp_get_attachment_image_src( $id, 'large', false );
+	private function is_pinterest_button_enabled() {
+		$setting = scriptlesssocialsharing_get_setting();
 
-		return apply_filters( 'scriptlesssocialsharing_image_url', isset( $source[0] ) ? $source[0] : '' );
+		return ! empty( $setting['buttons']['pinterest'] );
 	}
 }
