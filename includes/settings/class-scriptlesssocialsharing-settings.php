@@ -35,6 +35,9 @@ class ScriptlessSocialSharingSettings {
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( "load-settings_page_{$this->page}", array( $this, 'build_settings_page' ) );
+		include_once 'class-scriptlesssocialsharing-settings-help.php';
+		$help = new ScriptlessSocialSharingSettingsHelp();
+		add_action( "load-settings_page_{$this->page}", array( $help, 'help' ) );
 	}
 
 	/**

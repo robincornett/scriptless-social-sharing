@@ -22,11 +22,6 @@ if ( ! defined( 'WPINC' ) ) {
 class ScriptlessSocialSharing {
 
 	/**
-	 * @var $help ScriptlessSocialSharingHelp
-	 */
-	protected $help;
-
-	/**
 	 * @var $locations \ScriptlessSocialSharingOutputLocations
 	 */
 	protected $locations;
@@ -59,7 +54,6 @@ class ScriptlessSocialSharing {
 	/**
 	 * ScriptlessSocialSharing constructor.
 	 *
-	 * @param $help
 	 * @param $locations
 	 * @param $output
 	 * @param $pinterest
@@ -67,8 +61,7 @@ class ScriptlessSocialSharing {
 	 * @param $settings
 	 * @param $shortcode
 	 */
-	public function __construct( $help, $locations, $output, $pinterest, $post_meta, $settings, $shortcode ) {
-		$this->help      = $help;
+	public function __construct( $locations, $output, $pinterest, $post_meta, $settings, $shortcode ) {
 		$this->locations = $locations;
 		$this->output    = $output;
 		$this->pinterest = $pinterest;
@@ -84,7 +77,6 @@ class ScriptlessSocialSharing {
 
 		// Admin
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
-		add_action( 'load-settings_page_scriptlesssocialsharing', array( $this->help, 'help' ) );
 		add_filter( 'plugin_action_links_' . SCRIPTLESSOCIALSHARING_BASENAME, array( $this, 'add_settings_link' ) );
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 
