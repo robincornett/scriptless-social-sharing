@@ -54,11 +54,11 @@ class ScriptlessSocialSharingOutputBlock {
 		if ( ! empty( $atts['blockAlignment'] ) ) {
 			$classes[] = 'align' . $atts['blockAlignment'];
 		}
-		$atts['buttons'] = $this->parse_networks( $atts );
-		$shortcode       = new ScriptlessSocialSharingOutputShortcode();
-		$output          = '<div class="' . implode( ' ', $classes ) . '">';
-		$output         .= $shortcode->shortcode( $atts );
-		$output         .= '</div>';
+		$atts      = $this->parse_networks( $atts );
+		$shortcode = new ScriptlessSocialSharingOutputShortcode();
+		$output    = '<div class="' . implode( ' ', $classes ) . '">';
+		$output   .= $shortcode->shortcode( $atts );
+		$output   .= '</div>';
 
 		return $output;
 	}
@@ -69,19 +69,18 @@ class ScriptlessSocialSharingOutputBlock {
 	 * @param $atts
 	 * @return string
 	 */
-	private function parse_networks( $atts ) {
+	private function parse_networks( &$atts ) {
 		$buttons  = array();
 		$networks = $this->networks();
 		foreach ( $atts as $key => $value ) {
-			if ( ! array_key_exists( $key, $networks ) ) {
-				continue;
-			}
-			if ( $value ) {
+			if ( array_key_exists( $key, $networks ) && $value ) {
 				$buttons[] = $key;
 			}
+			unset( $atts[ $key ] );
 		}
+		$atts['buttons'] = empty( $buttons ) ? '' : implode( ',', $buttons );
 
-		return implode( ',', $buttons );
+		return $atts;
 	}
 
 	/**
@@ -114,15 +113,15 @@ class ScriptlessSocialSharingOutputBlock {
 	protected function get_localization_data() {
 		return array(
 			'block'       => $this->name,
-			'title'       => __( 'Scriptless Social Sharing', 'sixtenpress' ),
-			'description' => __( 'Add sharing buttons anywhere', 'sixtenpress' ),
+			'title'       => __( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
+			'description' => __( 'Add sharing buttons anywhere. Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings.', 'scriptless-social-sharing' ),
 			'keywords'    => array(
-				__( 'Social Share', 'sixtenpress' ),
-				__( 'Sharing Buttons', 'sixtenpress' ),
+				__( 'Social Share', 'scriptless-social-sharing' ),
+				__( 'Sharing Buttons', 'scriptless-social-sharing' ),
 			),
 			'panels'      => array(
 				'first' => array(
-					'title'       => __( 'Block Settings', 'sixtenpress' ),
+					'title'       => __( 'Block Settings', 'scriptless-social-sharing' ),
 					'initialOpen' => true,
 					'attributes'  => array_merge( $this->fields(), $this->networks() ),
 				),
@@ -160,15 +159,13 @@ class ScriptlessSocialSharingOutputBlock {
 	 * @return array
 	 */
 	private function networks() {
-		$setting  = $this->get_setting( 'buttons' );
 		$networks = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
 		$fields   = array();
 		$i        = 0;
 		foreach ( $networks as $network ) {
-			$default                    = empty( $setting[ $network['name'] ] ) ? 0 : $setting[ $network['name'] ];
 			$fields[ $network['name'] ] = array(
 				'type'    => 'boolean',
-				'default' => $default,
+				'default' => 0,
 				'label'   => $network['label'],
 				'method'  => 'checkbox',
 			);
