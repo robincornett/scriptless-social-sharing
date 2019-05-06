@@ -162,7 +162,11 @@ class ScriptlessSocialSharingOutputBlock {
 		$networks = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
 		$fields   = array();
 		$i        = 0;
+		$setting  = scriptlesssocialsharing_get_setting();
 		foreach ( $networks as $network ) {
+			if ( 'sms' === $network['name'] && empty( $setting['buttons']['sms'] ) ) {
+				continue;
+			}
 			$fields[ $network['name'] ] = array(
 				'type'    => 'boolean',
 				'default' => 0,
@@ -171,8 +175,8 @@ class ScriptlessSocialSharingOutputBlock {
 			);
 			if ( ! $i ) {
 				$fields[ $network['name'] ]['heading'] = __( 'Buttons to Show', 'scriptless-social-sharing' );
+				$i++;
 			}
-			$i++;
 		}
 		$fields['pinterest']['label'] .= __( ' (will not show if there is no image)', 'scriptless-social-sharing' );
 
