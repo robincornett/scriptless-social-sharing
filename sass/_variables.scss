@@ -9,6 +9,7 @@ $whatsapp: #25d366;
 $pocket: #ef4056;
 $telegram: #0088cc;
 $sms: #009933;
+$yummly: #e16120;
 
 $email-icon: \f0e0;
 $facebook-icon: \f09a;
@@ -76,4 +77,5 @@ $social: ( 'email', $email, $email-icon ),
 		( 'whatsapp', $whatsapp, $whatsapp-icon ),
 		( 'pocket', $pocket, $pocket-icon ),
 		( 'telegram', $telegram, $telegram-icon ),
-		( 'sms', $sms, $sms-icon );
+		( 'sms', $sms, $sms-icon ),
+		( 'yummly', $yummly );

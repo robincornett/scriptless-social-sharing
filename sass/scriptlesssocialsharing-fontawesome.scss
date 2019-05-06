@@ -15,7 +15,9 @@
 
 	@each $network, $color, $glyph in $social {
 		.#{$network}:before {
-			content: add-content($glyph);
+			@if ( $glyph ) {
+				content: add-content($glyph);
+			}
 
 			@if index( ( 'email', 'sms' ), $network ) {
 				font-family: 'Font Awesome 5 Free', 'FontAwesome';
