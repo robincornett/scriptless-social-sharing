@@ -6,13 +6,13 @@
 $fields = array(
 	array(
 		'id'          => 'icons',
-		'title'       => __( 'Button Icons', 'scriptless-social-sharing' ),
+		'title'       => __( 'Button Icons/Style', 'scriptless-social-sharing' ),
 		'type'        => 'radio',
 		'section'     => 'icons',
 		'choices'     => array(
-			'svg'  => __( 'Use SVG Icons for sharing icons', 'scriptless-social-sharing' ),
-			'font' => __( 'Use a webfont for sharing icons', 'scriptless-social-sharing' ),
-			'none' => __( 'Use custom icons', 'scriptless-social-sharing' ),
+			'svg'  => __( 'SVG (defined and styled by Scriptless)', 'scriptless-social-sharing' ),
+			'font' => __( 'Web font (styled by Scriptless)', 'scriptless-social-sharing' ),
+			'none' => __( 'Custom icons', 'scriptless-social-sharing' ),
 		),
 		'legend'      => __( 'Choose whether to output social media icons as SVG or icon font', 'scriptless-social-sharing' ),
 		'description' => __( 'Choose how social network icons will be displayed on your sharing buttons. Choose "custom icons" if you are adding icons your own way.', 'scriptless-social-sharing' ),

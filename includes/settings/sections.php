@@ -21,7 +21,7 @@ return array(
 	),
 	'content_types' => array(
 		'id'          => 'content_types',
-		'title'       => __( 'Content Types', 'scriptless-social-sharing' ),
+		'title'       => __( 'Button Location Settings', 'scriptless-social-sharing' ),
 		'description' => __( 'You now have granular control over sharing buttons for each type of content on your site.', 'scriptless-social-sharing' ),
 	),
 	'networks'      => array(
