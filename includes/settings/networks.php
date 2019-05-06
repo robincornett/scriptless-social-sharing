@@ -56,5 +56,10 @@ return apply_filters(
 			'label' => __( 'SMS', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
+//		'yummly'    => array(
+//			'name'  => 'yummly',
+//			'label' => __( 'Yummly', 'scriptless-social-sharing' ),
+//			'order' => 0,
+//		),
 	)
 );
