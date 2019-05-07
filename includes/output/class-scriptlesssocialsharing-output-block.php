@@ -73,10 +73,12 @@ class ScriptlessSocialSharingOutputBlock {
 		$buttons  = array();
 		$networks = $this->networks();
 		foreach ( $atts as $key => $value ) {
-			if ( array_key_exists( $key, $networks ) && $value ) {
-				$buttons[] = $key;
+			if ( array_key_exists( $key, $networks ) ) {
+				if ( $value ) {
+					$buttons[] = $key;
+				}
+				unset( $atts[ $key ] );
 			}
-			unset( $atts[ $key ] );
 		}
 		$atts['buttons'] = empty( $buttons ) ? '' : implode( ',', $buttons );
 
@@ -124,7 +126,6 @@ class ScriptlessSocialSharingOutputBlock {
 					'title'       => __( 'Optional Settings', 'scriptless-social-sharing' ),
 					'initialOpen' => true,
 					'attributes'  => $this->fields(),
-					'class'
 				),
 				'buttons' => array(
 					'title'       => __( 'Button Settings', 'scriptless-social-sharing' ),
