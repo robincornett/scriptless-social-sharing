@@ -56,10 +56,10 @@ class ScriptlessSocialSharingOutputSVG {
 			return;
 		}
 		$svg = $this->get_svg();
-		if ( ! $svg['styles'] ) {
+		if ( empty( $svg['styles'] ) ) {
 			return;
 		}
-		foreach ( $svg['styles'] as $style ) {
+		foreach ( (array) $svg['styles'] as $style ) {
 			$file = trailingslashit( $svg['path'] ) . $style . '.svg';
 			if ( file_exists( $file ) ) {
 				include_once $file;
@@ -209,18 +209,10 @@ class ScriptlessSocialSharingOutputSVG {
 		return apply_filters(
 			'scriptlesssocialsharing_svg',
 			array(
-				'styles' => array( 'brands' ),
+				'styles' => 'brands',
 				'path'   => plugin_dir_path( dirname( __FILE__ ) ) . 'svg',
 			)
 		);
-	}
-
-	/**
-	 * Get the list of brand icons in Font Awesome.
-	 * @return array
-	 */
-	protected function brands() {
-		return include plugin_dir_path( dirname( __FILE__ ) ) . 'svg/brands.php';
 	}
 }
 
