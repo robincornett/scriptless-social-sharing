@@ -81,7 +81,8 @@
 				const IndividualPanel = ScriptlessBlockObject.params.panels[key];
 				panels[index] = ScriptlessBlockObject.el( PanelBody, {
 					title: IndividualPanel.title,
-					initialOpen: IndividualPanel.initialOpen
+					initialOpen: IndividualPanel.initialOpen,
+					className: 'scriptless-panel-' + key
 				}, _getControls( props, IndividualPanel.attributes ) );
 			}
 		} );

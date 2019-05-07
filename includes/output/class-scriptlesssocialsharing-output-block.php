@@ -114,16 +114,22 @@ class ScriptlessSocialSharingOutputBlock {
 		return array(
 			'block'       => $this->name,
 			'title'       => __( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
-			'description' => __( 'Add sharing buttons anywhere. Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings.', 'scriptless-social-sharing' ),
+			'description' => __( 'Add sharing buttons anywhere.', 'scriptless-social-sharing' ),
 			'keywords'    => array(
 				__( 'Social Share', 'scriptless-social-sharing' ),
 				__( 'Sharing Buttons', 'scriptless-social-sharing' ),
 			),
 			'panels'      => array(
-				'first' => array(
-					'title'       => __( 'Block Settings', 'scriptless-social-sharing' ),
+				'heading' => array(
+					'title'       => __( 'Optional Settings', 'scriptless-social-sharing' ),
 					'initialOpen' => true,
-					'attributes'  => array_merge( $this->fields(), $this->networks() ),
+					'attributes'  => $this->fields(),
+					'class'
+				),
+				'buttons' => array(
+					'title'       => __( 'Button Settings', 'scriptless-social-sharing' ),
+					'initialOpen' => false,
+					'attributes'  => $this->networks(),
 				),
 			),
 			'icon'        => 'share-alt',
@@ -174,7 +180,7 @@ class ScriptlessSocialSharingOutputBlock {
 				'method'  => 'checkbox',
 			);
 			if ( ! $i ) {
-				$fields[ $network['name'] ]['heading'] = __( 'Buttons to Show', 'scriptless-social-sharing' );
+				$fields[ $network['name'] ]['heading'] = __( 'Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings.', 'scriptless-social-sharing' );
 				$i++;
 			}
 		}
