@@ -15,10 +15,14 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 	 */
 	public function shortcode( $atts ) {
 		$atts    = $this->update_attributes( $atts );
+		$buttons = $this->get_shortcode_buttons( $atts['buttons'] );
+		if ( ! $buttons ) {
+			return '';
+		}
 		$output  = $atts['before'];
 		$output .= $this->heading( $atts['heading'] );
 		$output .= $atts['inner_before'];
-		$output .= $this->add_shortcode_buttons( $atts['buttons'] );
+		$output .= $buttons;
 		$output .= $atts['inner_after'];
 		$output .= $atts['after'];
 
@@ -65,7 +69,7 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 	 * @return string
 	 *
 	 */
-	private function add_shortcode_buttons( $buttons ) {
+	private function get_shortcode_buttons( $buttons ) {
 		$all_buttons = $this->get_all_buttons();
 		$passed      = $this->convert_buttons_to_array( $buttons );
 		$output      = '';
