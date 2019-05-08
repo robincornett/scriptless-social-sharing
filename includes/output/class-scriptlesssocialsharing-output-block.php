@@ -79,7 +79,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 				unset( $atts[ $key ] );
 			}
 		}
-		$atts['buttons'] = empty( $buttons ) ? '' : implode( ',', $buttons );
+		$atts['buttons'] = $buttons;
 
 		return $atts;
 	}

@@ -67,7 +67,7 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 	 */
 	private function add_shortcode_buttons( $buttons ) {
 		$all_buttons = $this->get_all_buttons();
-		$passed      = $buttons ? explode( ',', $buttons ) : array();
+		$passed      = $this->convert_buttons_to_array( $buttons );
 		$output      = '';
 		$setting     = $this->get_setting( 'buttons' );
 		if ( ! $this->can_do_pinterest() ) {
@@ -80,5 +80,24 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Convert shortcode string of buttons to an array. Block buttons will already be an array.
+	 *
+	 * @param $buttons
+	 *
+	 * @return array
+	 * @since 3.0.0
+	 */
+	private function convert_buttons_to_array( $buttons ) {
+		if ( ! $buttons ) {
+			return array();
+		}
+		if ( is_array( $buttons ) ) {
+			return $buttons;
+		}
+
+		return explode( ',', $buttons );
 	}
 }
