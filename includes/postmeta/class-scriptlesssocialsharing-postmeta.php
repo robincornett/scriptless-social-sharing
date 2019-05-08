@@ -59,9 +59,10 @@ class ScriptlessSocialSharingPostMeta {
 		if ( ! in_array( $screen->post_type, $this->post_types(), true ) ) {
 			return;
 		}
+		$handle = 'scriptless-upload';
 		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
-			'scriptless-upload',
+			$handle,
 			plugins_url( "/js/image-upload{$minify}.js", dirname( __FILE__ ) ),
 			array( 'jquery', 'media-upload', 'thickbox' ),
 			SCRIPTLESSOCIALSHARING_VERSION,
@@ -69,10 +70,15 @@ class ScriptlessSocialSharingPostMeta {
 		);
 
 		wp_enqueue_media();
-		wp_enqueue_script( 'scriptless-upload' );
-		wp_localize_script( 'scriptless-upload', 'scriptlessL10n', array(
-			'text' => __( 'Select Image', 'scriptless-social-sharing' ),
-		) );
+		wp_enqueue_script( $handle );
+		wp_localize_script(
+			$handle,
+			'scriptlessL10n',
+			array(
+				'text'      => __( 'Select Image', 'scriptless-social-sharing' ),
+				'pinterest' => __( 'Custom Pinterest Image', 'scriptless-social-sharing' ),
+			)
+		);
 	}
 
 	/**
@@ -82,8 +88,8 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-postmeta-fields.php';
-		$fields_class = new ScriptlessSocialSharingPostMetaFields();
+		include_once 'class-scriptlesssocialsharing-postmeta-fields.php';
+		$fields_class = new ScriptlessSocialSharingPostMetaFields( $post->ID );
 		$fields       = $this->get_fields();
 		foreach ( $fields as $field ) {
 			$fields_class->do_field( $field );

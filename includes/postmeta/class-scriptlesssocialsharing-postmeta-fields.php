@@ -9,6 +9,21 @@
 class ScriptlessSocialSharingPostMetaFields {
 
 	/**
+	 * The current post ID.
+	 * @var $post_id
+	 */
+	private $post_id;
+
+	/**
+	 * ScriptlessSocialSharingPostMetaFields constructor.
+	 *
+	 * @param $post_id
+	 */
+	public function __construct( $post_id ) {
+		$this->post_id = $post_id;
+	}
+
+	/**
 	 * Generic field function.
 	 *
 	 * @param $args array
@@ -49,7 +64,7 @@ class ScriptlessSocialSharingPostMetaFields {
 			esc_attr( $id ),
 			esc_html( $label )
 		);
-		$meta = get_post_meta( get_the_ID(), $id, true );
+		$meta = get_post_meta( $this->post_id, $id, true );
 		$this->render_image_preview( $label, $meta );
 		$this->render_buttons( $id, $meta );
 	}
@@ -119,7 +134,7 @@ class ScriptlessSocialSharingPostMetaFields {
 		printf(
 			'<textarea class="large-text" rows="3" id="%1$s" name="%1$s" aria-label="%3$s">%2$s</textarea>',
 			esc_attr( $id ),
-			esc_textarea( get_post_meta( get_the_ID(), $id, true ) ),
+			esc_textarea( get_post_meta( $this->post_id, $id, true ) ),
 			esc_attr( $label )
 		);
 	}
@@ -131,7 +146,7 @@ class ScriptlessSocialSharingPostMetaFields {
 	 * @param        $label
 	 */
 	protected function do_checkbox( $id, $label ) {
-		$check = (bool) get_post_meta( get_the_ID(), $id, true );
+		$check = (bool) get_post_meta( $this->post_id, $id, true );
 		printf(
 			'<p><label for="%1$s"><input type="checkbox" id="%1$s" name="%1$s" value="1" %2$s/>%3$s</label>',
 			esc_attr( $id ),
