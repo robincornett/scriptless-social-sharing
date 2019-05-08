@@ -3,7 +3,7 @@
 /**
  * Class ScriptlessSocialSharingOutputBlock
  */
-class ScriptlessSocialSharingOutputBlock {
+class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputShortcode {
 
 	/**
 	 * The block name.
@@ -54,11 +54,10 @@ class ScriptlessSocialSharingOutputBlock {
 		if ( ! empty( $atts['blockAlignment'] ) ) {
 			$classes[] = 'align' . $atts['blockAlignment'];
 		}
-		$atts      = $this->parse_networks( $atts );
-		$shortcode = new ScriptlessSocialSharingOutputShortcode();
-		$output    = '<div class="' . implode( ' ', $classes ) . '">';
-		$output   .= $shortcode->shortcode( $atts );
-		$output   .= '</div>';
+		$atts    = $this->parse_networks( $atts );
+		$output  = '<div class="' . implode( ' ', $classes ) . '">';
+		$output .= $this->shortcode( $atts );
+		$output .= '</div>';
 
 		return $output;
 	}
@@ -188,21 +187,5 @@ class ScriptlessSocialSharingOutputBlock {
 		$fields['pinterest']['label'] .= __( ' (will not show if there is no image)', 'scriptless-social-sharing' );
 
 		return $fields;
-	}
-
-	/**
-	 * Get the plugin setting.
-	 *
-	 * @param string $key
-	 *
-	 * @return array|mixed
-	 */
-	protected function get_setting( $key = '' ) {
-		if ( isset( $this->setting ) ) {
-			return $key ? $this->setting[ $key ] : $this->setting;
-		}
-		$this->setting = scriptlesssocialsharing_get_setting();
-
-		return $key ? $this->setting[ $key ] : $this->setting;
 	}
 }
