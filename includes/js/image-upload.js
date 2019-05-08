@@ -1,20 +1,23 @@
 ;(function ( document, $, undefined ) {
 	'use strict';
 
-	var Scriptless = {},
-	    id         = 'scriptless-uploader',
+	var Scriptless   = {},
+	    id           = 'scriptless-uploader',
+	    previewClass = 'scriptless-image-preview',
+	    delSelect    = '.scriptless-delete',
+	    targetSelect = '.scriptless-image-id',
 	    target_input;
 
 	Scriptless.upload = function () {
 		$( '.scriptless-upload' ).on( 'click.scriptless', _openModal );
-		$( '.scriptless-delete' ).on( 'click.delete', _delete );
+		$( delSelect ).on( 'click.delete', _delete );
 	};
 
 	function _openModal( e ) {
 		e.preventDefault();
 
 		var custom_uploader;
-		target_input = $( this ).prev( '.scriptless-image-id' );
+		target_input = $( this ).prev( targetSelect );
 
 		//If the uploader object has already been created, reopen the dialog
 		if ( custom_uploader ) {
@@ -40,13 +43,20 @@
 		custom_uploader.on( 'select', function () {
 
 			var attachment   = custom_uploader.state().get( 'selection' ).first().toJSON(),
-			    preview      = $( target_input ).prevAll( '.scriptless-image-preview' ),
-			    previewImage = $( '<div class="scriptless-image-preview"><img style="max-width:100%;" src="' + attachment.url + '" /></div>' );
+			    preview      = $( target_input ).prevAll( '.' + previewClass ),
+			    previewImage = $( '<div />', {
+				class: previewClass
+			} ).append( $( '<img/>', {
+				style: 'max-width:100%;',
+				src: attachment.url,
+				alt: Scriptless.params.pinterest
+			} ) );
 			$( target_input ).val( attachment.id );
 			if ( preview.length ) {
 				preview.remove();
 			}
 			$( target_input ).before( previewImage );
+			$( delSelect ).show();
 		} );
 
 		//Open the uploader dialog
@@ -55,11 +65,12 @@
 
 	function _delete() {
 
-		target_input = $( this ).prevAll( '.scriptless-image-id' );
-		var previewView = $( this ).prevAll( '.scriptless-image-preview' );
+		target_input = $( this ).prevAll( targetSelect );
+		var previewView = $( this ).prevAll( '.' + previewClass );
 
 		$( target_input ).val( '' );
 		$( previewView ).remove();
+		$( delSelect ).hide();
 	}
 
 	Scriptless.params = typeof scriptlessL10n === 'undefined' ? '' : scriptlessL10n;

@@ -95,12 +95,11 @@ class ScriptlessSocialSharingPostMetaFields {
 			esc_attr( $id ),
 			esc_attr__( 'Select Pinterest Image', 'scriptless-social-sharing' )
 		);
-		if ( ! empty( $meta ) ) {
-			printf(
-				' <input type="button" class="scriptless-delete button-secondary hide-if-no-js" value="%s" />',
-				esc_attr__( 'Delete Image', 'scriptless-social-sharing' )
-			);
-		}
+		printf(
+			' <input type="button" class="scriptless-delete button-secondary hide-if-no-js" value="%s" style="%s" />',
+			esc_attr__( 'Delete Image', 'scriptless-social-sharing' ),
+			esc_attr( empty( $meta ) ? 'display:none;' : '' )
+		);
 	}
 
 	/**
