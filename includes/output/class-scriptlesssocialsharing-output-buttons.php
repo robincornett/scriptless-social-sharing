@@ -76,8 +76,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 				}
 			}
 		}
-		$attributes = $this->get_attributes();
-		if ( ! $attributes['image'] && ! $attributes['pinterest'] ) {
+		if ( ! $this->can_do_pinterest() ) {
 			unset( $buttons['pinterest'] );
 		}
 
@@ -88,6 +87,6 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		 * filter, due to potential errors with a button being in this array, but not
 		 * actually selected for output.
 		 */
-		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $attributes );
+		return apply_filters( 'scriptlesssocialsharing_default_buttons', $buttons, $this->get_attributes() );
 	}
 }

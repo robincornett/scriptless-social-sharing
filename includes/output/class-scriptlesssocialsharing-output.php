@@ -315,4 +315,15 @@ class ScriptlessSocialSharingOutput {
 
 		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', $heading_element, $heading );
 	}
+
+	/**
+	 * See if the Pinterest button can be output.
+	 * @return bool
+	 * @since 3.0.0
+	 */
+	protected function can_do_pinterest() {
+		$attributes = $this->get_attributes();
+
+		return (bool) ( $attributes['image'] || $attributes['pinterest'] );
+	}
 }
