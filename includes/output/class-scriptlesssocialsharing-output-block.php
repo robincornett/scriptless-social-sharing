@@ -168,9 +168,9 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 		$networks = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
 		$fields   = array();
 		$i        = 0;
-		$setting  = scriptlesssocialsharing_get_setting();
+		$setting  = $this->get_setting( 'buttons' );
 		foreach ( $networks as $network ) {
-			if ( 'sms' === $network['name'] && empty( $setting['buttons']['sms'] ) ) {
+			if ( 'sms' === $network['name'] && empty( $setting['sms'] ) ) {
 				continue;
 			}
 			$fields[ $network['name'] ] = array(

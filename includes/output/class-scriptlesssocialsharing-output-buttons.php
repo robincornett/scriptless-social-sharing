@@ -68,8 +68,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 			return $this->buttons;
 		}
 		$buttons     = $this->get_all_buttons();
-		$setting     = $this->get_setting();
-		$set_buttons = $setting['buttons'];
+		$set_buttons = $this->get_setting( 'buttons' );
 		if ( $set_buttons ) {
 			foreach ( $buttons as $key => $value ) {
 				if ( ! isset( $set_buttons[ $value['name'] ] ) || ! $set_buttons[ $value['name'] ] ) {

@@ -71,12 +71,12 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 		$output      = '';
 		$attributes  = $this->get_attributes();
 		$pinterest   = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_pinterest', true );
-		$setting     = $this->get_setting();
+		$setting     = $this->get_setting( 'buttons' );
 		foreach ( $all_buttons as $button ) {
 			if ( 'pinterest' === $button['name'] && ! $attributes['image'] && ! $pinterest ) {
 				continue;
 			}
-			if ( ( empty( $passed ) && ! empty( $setting['buttons'][ $button['name'] ] ) ) || in_array( $button['name'], $passed, true ) ) {
+			if ( ( empty( $passed ) && ! empty( $setting[ $button['name'] ] ) ) || in_array( $button['name'], $passed, true ) ) {
 				$output .= $this->build_link_markup( $button );
 			}
 		}

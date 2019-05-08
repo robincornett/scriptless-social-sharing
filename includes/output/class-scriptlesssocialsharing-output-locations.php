@@ -19,13 +19,13 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 			return;
 		}
 		$post_type = get_post_type();
-		$setting   = $this->get_setting();
+		$setting   = $this->get_setting( 'post_types' );
 		$locations = $this->get_locations();
 		foreach ( $locations as $location => $args ) {
 			if ( ! in_array( $location, array( 'before', 'after' ), true ) ) {
 				continue;
 			}
-			if ( empty( $setting['post_types'][ $post_type ][ $location ] ) ) {
+			if ( empty( $setting[ $post_type ][ $location ] ) ) {
 				continue;
 			}
 			if ( $args['hook'] ) {
@@ -71,8 +71,7 @@ class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutp
 		if ( 'genesis' !== get_template() ) {
 			return false;
 		}
-		$setting     = $this->get_setting();
-		$use_genesis = apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', $setting['genesis'] );
+		$use_genesis = apply_filters( 'scriptlesssocialsharing_prefer_genesis_hooks', $this->get_setting( 'genesis' ) );
 		if ( ! $use_genesis ) {
 			return false;
 		}

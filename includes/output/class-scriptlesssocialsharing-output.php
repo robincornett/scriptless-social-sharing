@@ -81,15 +81,18 @@ class ScriptlessSocialSharingOutput {
 
 	/**
 	 * Get the current plugin setting.
+	 *
+	 * @param string $key
+	 *
 	 * @return mixed|\ScriptlessSocialSharingSettings
 	 */
-	protected function get_setting() {
+	protected function get_setting( $key = '' ) {
 		if ( isset( $this->setting ) ) {
-			return $this->setting;
+			return $key ? $this->setting[ $key ] : $this->setting;
 		}
 		$this->setting = scriptlesssocialsharing_get_setting();
 
-		return $this->setting;
+		return $key ? $this->setting[ $key ] : $this->setting;
 	}
 
 	/**
@@ -137,8 +140,8 @@ class ScriptlessSocialSharingOutput {
 	 */
 	private function get_label_class() {
 		$class   = 'sss-name';
-		$setting = $this->get_setting();
-		if ( 0 === $setting['button_style'] ) {
+		$setting = $this->get_setting( 'button_style' );
+		if ( 0 === $setting ) {
 			$class = 'screen-reader-text';
 		}
 
@@ -255,12 +258,12 @@ class ScriptlessSocialSharingOutput {
 	 */
 	protected function get_buttons_in_order() {
 		$buttons = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
-		$setting = $this->get_setting();
-		if ( ! $setting['order'] ) {
+		$setting = $this->get_setting( 'order' );
+		if ( ! $setting ) {
 			return $buttons;
 		}
 
-		return array_merge( $setting['order'], $buttons );
+		return array_merge( $setting, $buttons );
 	}
 
 	/**
