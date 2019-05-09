@@ -62,10 +62,10 @@
 
 	@each $socialnetwork, $color, $glyph in $social {
 		.button.#{$socialnetwork} {
-			@include color-opacity($color, .8);
+			background-color: rgba($color, .8);
 
 			&:hover {
-				@include color-opacity($color, 1);
+				background-color: $color;
 			}
 		}
 	}
