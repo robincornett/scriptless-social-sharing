@@ -10,8 +10,8 @@ $fields = array(
 		'type'        => 'radio',
 		'section'     => 'icons',
 		'choices'     => array(
-			'svg'  => __( 'SVG (defined and styled by Scriptless)', 'scriptless-social-sharing' ),
-			'font' => __( 'Web font (styled by Scriptless)', 'scriptless-social-sharing' ),
+			'svg'  => __( 'SVG', 'scriptless-social-sharing' ),
+			'font' => __( 'Web font', 'scriptless-social-sharing' ),
 			'none' => __( 'Custom icons', 'scriptless-social-sharing' ),
 		),
 		'legend'      => __( 'Choose whether to output social media icons as SVG or icon font', 'scriptless-social-sharing' ),
