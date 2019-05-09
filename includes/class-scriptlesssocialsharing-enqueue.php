@@ -86,7 +86,7 @@ class ScriptlessSocialSharingEnqueue {
 		if ( in_array( $this->setting['icons'], array( 'svg', 'none' ), true ) ) {
 			return;
 		}
-		if ( 2 === $this->setting['button_style'] ) {
+		if ( 3 === $this->setting['button_style'] ) {
 			return;
 		}
 		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );

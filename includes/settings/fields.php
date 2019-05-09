@@ -86,8 +86,9 @@ $fields = array(
 		'section' => 'icons',
 		'choices' => array(
 			0 => __( 'Icon Only', 'scriptless-social-sharing' ),
-			1 => __( 'Icon Plus Text', 'scriptless-social-sharing' ),
-			2 => __( 'Text Only', 'scriptless-social-sharing' ),
+			1 => __( 'Icon + Text (hide text on small screens)', 'scriptless-social-sharing' ),
+			2 => __( 'Icon + Text (always show text)', 'scriptless-social-sharing' ),
+			3 => __( 'Text Only', 'scriptless-social-sharing' ),
 		),
 		'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
 	),

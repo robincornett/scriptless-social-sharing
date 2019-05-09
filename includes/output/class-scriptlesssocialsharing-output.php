@@ -160,7 +160,7 @@ class ScriptlessSocialSharingOutput {
 		if ( 'svg' !== $setting['icons'] ) {
 			return '';
 		}
-		if ( 2 === $setting['button_style'] ) {
+		if ( 3 === $setting['button_style'] ) {
 			return '';
 		}
 
@@ -292,7 +292,7 @@ class ScriptlessSocialSharingOutput {
 		$prefix    = 'scriptlesssocialsharing';
 		$suffix    = 'buttons';
 		$container = 'flex' === $setting['css_style'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
-		if ( 2 === $setting['button_style'] ) {
+		if ( 3 === $setting['button_style'] ) {
 			$container .= ' no-icons';
 		}
 
