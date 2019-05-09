@@ -38,6 +38,29 @@ _Screenshot of the Scriptless Social Sharing Buttons on a Post._
 
 ## Frequently Asked Questions
 
+### How are the social network icons/buttons displayed?
+
+In version 3.0, very differently than they have been before. Originally, Scriptless used the Font Awesome webfont (version 4.7) to display icons, or you could roll your own. You still can roll your own, but as of 3.0, Scriptless has updated to Font Awesome 5.8.1. SVG icons are now the default. The webfont is still an option, and previous users will need to update their settings to switch to SVG.
+
+Text only buttons are now an option as well. And if you prefer flexbox for styling items in rows instead of table CSS, that's now available on the settings page.
+
+### What social networks are supported?
+
+Scriptless Social Sharing currently supports the following social networks:
+
+* Twitter
+* Facebook
+* Pinterest
+* LinkedIn
+* Reddit
+* WhatsApp
+* Pocket
+* Telegram
+* SMS
+* Email
+
+Google+ is dead and has been removed from the plugin. Instagram does not support social sharing buttons.
+
 ### What if I want to move where the buttons are output?
 
 Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
@@ -70,11 +93,11 @@ function prefix_change_sss_locations( $locations ) {
 }
 ```
 
-If you use the Genesis Framework, you can tell the plugin to prefer Genesis specific action hooks with this very simple filter:
+If you use the Genesis Framework, there is a setting to tell the plugin to use Genesis hooks instead.
 
-```php
-add_filter( 'scriptlesssocialsharing_prefer_genesis_hooks', '__return_true' );
-```
+### Is there a Scriptless block?
+
+Yes! Introduced in version 3.0, the new sharing block allows you to put sharing buttons anywhere in your content. Add just a few buttons, or rely on the default configuration defined on the settings page.
 
 ### What about a shortcode?
 
@@ -142,7 +165,12 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 ### 3.0.0
 * added: SVG icons
 * added: buttons for Telegram and SMS
+* added: show buttons as icons only, icon + text, or text only
+* added: select default CSS style: table (old) or flexbox (new, now default)
+* added: a block!
 * added: Finnish translation, props Hannu Jaatinen of Jargon Oy
+* changed: icon only buttons use screen-reader-text class for label
+* changed: shortcodes/blocks can now use any button, not just those selected in settings
 * updated: Font Awesome is now 5.8.1 when using the webfont
 * removed: Google+
 * removed: media uploader no longer shows only images attached to the current post

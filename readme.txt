@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.4
 Tested up to: 5.2
-Stable tag: 3.0.0
+Stable tag: 2.3.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -30,6 +30,29 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](https://gratisography.
 1. Visit the Settings > Scriptless Social Sharing page to change the default behavior of the plugin.
 
 == Frequently Asked Questions ==
+
+= How are the social network icons/buttons displayed? =
+
+In version 3.0, very differently than they have been before. Originally, Scriptless used the Font Awesome webfont (version 4.7) to display icons, or you could roll your own. You still can roll your own, but as of 3.0, Scriptless has updated to Font Awesome 5.8.1. SVG icons are now the default. The webfont is still an option, and previous users will need to update their settings to switch to SVG.
+
+Text only buttons are now an option as well. And if you prefer flexbox for styling items in rows instead of table CSS, that's now available on the settings page.
+
+= What social networks are supported? =
+
+Scriptless Social Sharing currently supports the following social networks:
+
+* Twitter
+* Facebook
+* Pinterest
+* LinkedIn
+* Reddit
+* WhatsApp
+* Pocket
+* Telegram
+* SMS
+* Email
+
+Google+ is dead and has been removed from the plugin. Instagram does not support social sharing buttons.
 
 = What if I want to move where the buttons are output? =
 
@@ -61,9 +84,11 @@ The best way to change the button output location is by using a filter. This exa
 		return $locations;
 	}
 
-If you use the Genesis Framework, you can tell the plugin to prefer Genesis specific action hooks with this very simple filter:
+If you use the Genesis Framework, there is a setting to tell the plugin to use Genesis hooks instead.
 
-	add_filter( 'scriptlesssocialsharing_prefer_genesis_hooks', '__return_true' );
+= Is there a Scriptless block? =
+
+Yes! Introduced in version 3.0, the new sharing block allows you to put sharing buttons anywhere in your content. Add just a few buttons, or rely on the default configuration defined on the settings page.
 
 = What about a shortcode? =
 
@@ -123,7 +148,7 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-2.3.0 adds sharing buttons for Pocket and WhatsApp, as well as the ability to easily reorder the buttons!
+3.0.0: this is a significant update with possible breaking changes! New icon options, button display options, updated Font Awesome, and optional SVG support.
 
 == Changelog ==
 
