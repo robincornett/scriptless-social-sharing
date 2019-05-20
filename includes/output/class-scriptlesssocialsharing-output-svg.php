@@ -41,9 +41,9 @@ class ScriptlessSocialSharingOutputSVG {
 			return;
 		}
 
-		add_action( 'wp_footer', array( self::$instance, 'load_svg' ) );
-		add_action( 'admin_footer-post.php', array( self::$instance, 'load_svg' ) );
-		add_filter( 'wp_kses_allowed_html', array( self::$instance, 'filter_allowed_html' ), 10, 2 );
+		add_action( 'wp_footer', array( $this, 'load_svg' ) );
+		add_action( 'admin_footer-post.php', array( $this, 'load_svg' ) );
+		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
 	}
 
 	/**
