@@ -61,6 +61,35 @@ Scriptless Social Sharing currently supports the following social networks:
 
 Google+ is dead and has been removed from the plugin. Instagram does not support social sharing buttons.
 
+### Can I change the SVG icons?
+
+Yes, using a filter, you can change which SVG icons are used. The plugin provides SVG alternatives for social networks if they are available. Want to use an icon not provided by the plugin? Load your own icons in your theme.
+
+Here's an example of how you could switch to using the "square" icons for each network (not all networks have one):
+
+```php
+add_filter( 'scriptlesssocialsharing_svg_icons', 'rgc_use_square_icons' );
+/**
+ * Change the Scriptless Social Sharing SVG icons to use the square versions when available.
+ *
+ * @param $icons
+ *
+ * @return array
+ */
+function rgc_use_square_icons( $icons ) {
+	$square_icons = array(
+		'email'     => 'envelope-square',
+		'facebook'  => 'facebook-square',
+		'pinterest' => 'pinterest-square',
+		'reddit'    => 'reddit-square',
+		'twitter'   => 'twitter-square',
+		'whatsapp'  => 'whatsapp-square',
+	);
+
+	return array_merge( $icons, $square_icons );
+}
+```
+
 ### What if I want to move where the buttons are output?
 
 Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
@@ -154,7 +183,7 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 ### What is this "Custom Pinterest Image"?
 
-As of version 1.5.0, you can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image.
+You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image.
 
 ### How can I change the order of the sharing buttons?
 
@@ -171,7 +200,7 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 * added: Finnish translation, props Hannu Jaatinen of Jargon Oy
 * changed: icon only buttons use screen-reader-text class for label
 * changed: shortcodes/blocks can now use any button, not just those selected in settings
-* updated: Font Awesome is now 5.8.1 when using the webfont
+* updated: Font Awesome is now 5.8.2 when using the webfont
 * removed: Google+
 * removed: media uploader no longer shows only images attached to the current post
 * fixed: Pinterest buttons properly pass on hashtags
