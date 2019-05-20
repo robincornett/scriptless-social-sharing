@@ -48,7 +48,7 @@
 				class: previewClass
 			} ).append( $( '<img/>', {
 				style: 'max-width:100%;',
-				src: attachment.url,
+				src: _getImageURL( attachment ),
 				alt: Scriptless.params.pinterest
 			} ) );
 			$( target_input ).val( attachment.id );
@@ -61,6 +61,16 @@
 
 		//Open the uploader dialog
 		custom_uploader.open();
+	}
+
+	/**
+	 * Get the medium size image, if it exists.
+	 * @param image
+	 * @return {*}
+	 * @private
+	 */
+	function _getImageURL( image ) {
+		return image.sizes.medium ? image.sizes.medium.url : image.url;
 	}
 
 	function _delete() {
