@@ -116,7 +116,7 @@ class ScriptlessSocialSharingSettings {
 			$this->setting['icons'] = $db_setting['styles']['font_css'] ? 'font' : 'none';
 			unset( $this->setting['styles']['font_css'] );
 		}
-		if ( empty( $db_setting['css_style'] ) && 'font' === $this->setting['icons'] ) {
+		if ( empty( $db_setting['css_style'] ) ) {
 			$this->setting['css_style'] = 'table';
 		}
 
