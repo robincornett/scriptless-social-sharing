@@ -61,7 +61,7 @@ class ScriptlessSocialSharingEnqueue {
 	 * Add the inline stylesheet to the plugin stylesheet.
 	 */
 	protected function add_inline_style() {
-		wp_add_inline_style( 'scriptlesssocialsharing', sanitize_text_field( $this->get_inline_style() ) );
+		wp_add_inline_style( 'scriptlesssocialsharing', wp_strip_all_tags( $this->get_inline_style() ) );
 	}
 
 	/**
