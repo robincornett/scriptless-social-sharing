@@ -8,179 +8,207 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: includes/class-scriptlesssocialsharing.php:117
+#: includes/class-scriptlesssocialsharing.php:120
 msgid "Settings"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta-fields.php:96
-msgid "Select Pinterest Image"
-msgstr ""
-
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta-fields.php:101
-msgid "Delete Image"
-msgstr ""
-
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:46, includes/settings/class-scriptlesssocialsharing-settings.php:30
+#: includes/output/class-scriptlesssocialsharing-output-block.php:117, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:46, includes/settings/class-scriptlesssocialsharing-settings.php:30
 msgid "Scriptless Social Sharing"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:74
-msgid "Select Image"
+#: includes/output/class-scriptlesssocialsharing-output-block.php:118
+msgid "Add sharing buttons anywhere."
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:104
-msgid "Custom Pinterest Image"
+#: includes/output/class-scriptlesssocialsharing-output-block.php:120
+msgid "Social Share"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:109
-msgid "Custom Pinterest Description"
-msgstr ""
-
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:110
-msgid "Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own."
-msgstr ""
-
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:115
-msgid "Don't show sharing buttons for this post"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:35, includes/settings/class-scriptlesssocialsharing-settings.php:138
-msgid "Style Settings"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:40, includes/settings/class-scriptlesssocialsharing-settings.php:143
-msgid "Button Settings"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:45, includes/settings/class-scriptlesssocialsharing-settings.php:148, includes/settings/fields.php:64
-msgid "Content Types"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:50, includes/settings/class-scriptlesssocialsharing-settings.php:153
-msgid "Network Settings"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:61
-msgid "SSS loads three style related items: 1) the main stylesheet to handle the button layouts and colors; 2) Font Awesome (the font itself); and 3) a small Font Awesome related stylesheet to add the icons to the buttons."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:62
-msgid "You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don't load it again here."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:63
-msgid "Note that the button styles options--text/icons, container width, and padding--will take effect only if the main stylesheet is enabled."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:64
-msgid "The buttons are output as a table. The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, this option may result in buttons that overflow the content area assigned to them."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:75, includes/settings/fields.php:21
-msgid "Heading"
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:76
-msgid "This is the heading above the sharing buttons."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-help.php:85
+#: includes/output/class-scriptlesssocialsharing-output-block.php:121, includes/settings/class-scriptlesssocialsharing-settings-help.php:103
 msgid "Sharing Buttons"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:86
-msgid "Pick which social network buttons you would like to show. Custom buttons can be added via a filter."
+#: includes/output/class-scriptlesssocialsharing-output-block.php:125
+msgid "Optional Settings"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:96, includes/settings/fields.php:35
-msgid "Button Order"
+#: includes/output/class-scriptlesssocialsharing-output-block.php:130, includes/settings/class-scriptlesssocialsharing-settings-help.php:45, includes/settings/sections.php:19
+msgid "Button Settings"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:97
-msgid "Buttons can be reordered either by changing the number input values, or by dragging and dropping the buttons. If the number input values are changed, drag/drop functionality will be disabled until the settings have been saved."
+#: includes/output/class-scriptlesssocialsharing-output-block.php:157, includes/settings/class-scriptlesssocialsharing-settings-help.php:93, includes/settings/fields.php:33
+msgid "Heading"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:107
-msgid "By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement."
+#: includes/output/class-scriptlesssocialsharing-output-block.php:183
+msgid "Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:108
-msgid "If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not."
+#: includes/output/class-scriptlesssocialsharing-output-block.php:187
+msgid " (will not show if there is no image)"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:119, includes/settings/fields.php:43
-msgid "Twitter Handle"
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta-fields.php:111
+msgid "Select Pinterest Image"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:120
-msgid "The Twitter username you want to be credited for each tweet/post."
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta-fields.php:115
+msgid "Delete Image"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:121, includes/settings/fields.php:46
-msgid "Do not include the @ -- just the user name."
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:78
+msgid "Select Image"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:132, includes/settings/fields.php:50
-msgid "Email Subject"
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:79, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:110
+msgid "Custom Pinterest Image"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:133
-msgid "The post/page title will be added to the subject."
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:115
+msgid "Custom Pinterest Description"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:134, includes/settings/fields.php:57
-msgid "Email Content"
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:116
+msgid "Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-help.php:135, includes/settings/fields.php:60
-msgid "Keep this simple--whatever you put here is added to your email button markup. The link to the post will be added at the end of the email content."
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:121
+msgid "Don't show sharing buttons for this post"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:219
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:243
 msgid "Before Content"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:220
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:244
 msgid "After Content"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:221
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:245
 msgid "Manual Placement"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:266
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:291
 msgid "Since you have changed the order of the buttons using the visual/number inputs, updating the order by dragging has been disabled."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:35, includes/settings/sections.php:9
+msgid "Icon Settings"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:40, includes/settings/sections.php:14
+msgid "Style Settings"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:50, includes/settings/fields.php:76
+msgid "Content Types"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:55
+msgid "Network Settings"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:66
+msgid "Icons"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:67
+msgid "Select how you want to handle social media icons. You can use the plugin SVG icons, the Font Awesome web font, or use your own custom icons. Selecting SVG or webfont will load the appropriate plugin style. To define your own styles completely, select the custom icons."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:68
+msgid "Additionally, choose whether you want the buttons to show 1) icons only; 2) icons + text, but hide the text on small screens; 3) icons + text on all screens; or 4) text labels only."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:78
+msgid "Styles"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:79
+msgid "Optionally, have the plugin load the main stylesheet to handle the button layouts and colors and/or Font Awesome (the font itself). The second option is if you want to use the web font of Font Awesome and are not already loading it."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:80
+msgid "You can use as much or as little of the plugin styles as you like. For example, if your site already loads Font Awesome, don't load it again here."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:81
+msgid "Note that the button styles options--container padding, container width, and button padding--will take effect only if the main stylesheet is enabled."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:82
+msgid "The buttons are output with CSS for either Flexbox (new default) or as table (old option). The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, the table CSS option may result in buttons that overflow the content area assigned to them."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:94
+msgid "This is the heading above the sharing buttons."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:104
+msgid "Pick which social network buttons you would like to show. Custom buttons can be added via a filter."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:114, includes/settings/fields.php:47
+msgid "Button Order"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:115
+msgid "Buttons can be reordered either by changing the number input values, or by dragging and dropping the buttons. If the number input values are changed, drag/drop functionality will be disabled until the settings have been saved."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:125
+msgid "By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:126
+msgid "If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:128
+msgid "Since you are using a Genesis theme, you can have the plugin use Genesis hooks instead of the default filters for placing the buttons."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:140, includes/settings/fields.php:55
+msgid "Twitter Handle"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:141
+msgid "The Twitter username you want to be credited for each tweet/post."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:142, includes/settings/fields.php:58
+msgid "Do not include the @ -- just the user name."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:153, includes/settings/fields.php:62
+msgid "Email Subject"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:154
+msgid "The post/page title will be added to the subject."
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:155, includes/settings/fields.php:69
+msgid "Email Content"
+msgstr ""
+
+#: includes/settings/class-scriptlesssocialsharing-settings-help.php:156, includes/settings/fields.php:72
+msgid "Keep this simple--whatever you put here is added to your email button markup. The link to the post will be added at the end of the email content."
 msgstr ""
 
 #: includes/settings/class-scriptlesssocialsharing-settings.php:29
 msgid "Scriptless Social Sharing Settings"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:139
-msgid "Choose what plugin styles you want to enable or disable."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-settings.php:144
-msgid "Include an optional heading with your buttons and select which social network buttons to show."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-settings.php:149
-msgid "You now have granular control over sharing buttons for each type of content on your site."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-settings.php:154
-msgid "Some social networks need a little extra information."
-msgstr ""
-
-#: includes/settings/class-scriptlesssocialsharing-settings.php:292
+#: includes/settings/class-scriptlesssocialsharing-settings.php:285
 msgid "Scriptless Social Sharing 2.0 makes <strong>significant</strong> changes to how buttons are managed for each type of content on your site. Settings for button locations and content types have changed. If you've removed the default buttons and replaced them with code, you'll want to check the Manual option for affected content types, and uncheck the specific locations for those content types."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:293
+#: includes/settings/class-scriptlesssocialsharing-settings.php:286
 msgid "The buttons on your site will not change until you have updated the settings here. Once you've saved the new settings, this notice will not show again."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:309
+#: includes/settings/class-scriptlesssocialsharing-settings.php:302
 msgid "Something unexpected happened. Please try again."
 msgstr ""
 
@@ -188,88 +216,140 @@ msgstr ""
 msgid "Share this post:"
 msgstr ""
 
-#: includes/settings/defaults.php:25
+#: includes/settings/defaults.php:27
 msgid "A post worth sharing:"
 msgstr ""
 
-#: includes/settings/defaults.php:26
+#: includes/settings/defaults.php:28
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
 #: includes/settings/fields.php:9
-msgid "Plugin Styles"
+msgid "Button Icons/Style"
 msgstr ""
 
 #: includes/settings/fields.php:13
-msgid "Load the main stylesheet? (colors and layout)"
+msgid "SVG"
 msgstr ""
 
 #: includes/settings/fields.php:14
-msgid "Load Font Awesome? (just the font)"
+msgid "Web font"
 msgstr ""
 
 #: includes/settings/fields.php:15
-msgid "Use plugin Font Awesome CSS? (adds the icons to the buttons)"
+msgid "Custom icons"
 msgstr ""
 
-#: includes/settings/fields.php:24
+#: includes/settings/fields.php:17
+msgid "Choose whether to output social media icons as SVG or icon font"
+msgstr ""
+
+#: includes/settings/fields.php:18
+msgid "Choose how social network icons will be displayed on your sharing buttons. Choose \"custom icons\" if you are adding icons your own way."
+msgstr ""
+
+#: includes/settings/fields.php:22
+msgid "Plugin Styles"
+msgstr ""
+
+#: includes/settings/fields.php:26
+msgid "Load the main stylesheet? (colors and layout)"
+msgstr ""
+
+#: includes/settings/fields.php:27
+msgid "Load Font Awesome? (this is not needed if you are using the SVG option)"
+msgstr ""
+
+#: includes/settings/fields.php:36
 msgid "Heading above sharing buttons"
 msgstr ""
 
-#: includes/settings/fields.php:28
+#: includes/settings/fields.php:40
 msgid "Buttons"
 msgstr ""
 
-#: includes/settings/fields.php:39
+#: includes/settings/fields.php:51
 msgid "Reorder the buttons by dragging/dropping, or by using the number inputs."
 msgstr ""
 
-#: includes/settings/fields.php:53
+#: includes/settings/fields.php:65
 msgid "The post title will be appended to whatever you add here."
 msgstr ""
 
-#: includes/settings/fields.php:68
+#: includes/settings/fields.php:80
 msgid "Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode."
 msgstr ""
 
-#: includes/settings/fields.php:72
-msgid "Button Styles"
-msgstr ""
-
-#: includes/settings/fields.php:76
-msgid "Icon Only"
-msgstr ""
-
-#: includes/settings/fields.php:77
-msgid "Icon Plus Text"
-msgstr ""
-
-#: includes/settings/fields.php:79
-msgid "Button styles for larger screens"
-msgstr ""
-
-#: includes/settings/fields.php:83
-msgid "Button Container Width"
-msgstr ""
-
-#: includes/settings/fields.php:87
-msgid "Full Width"
+#: includes/settings/fields.php:84
+msgid "Button Output"
 msgstr ""
 
 #: includes/settings/fields.php:88
-msgid "Auto"
+msgid "Icon Only"
+msgstr ""
+
+#: includes/settings/fields.php:89
+msgid "Icon + Text (hide text on small screens)"
 msgstr ""
 
 #: includes/settings/fields.php:90
-msgid "Width of button container"
+msgid "Icon + Text (always show text)"
 msgstr ""
 
-#: includes/settings/fields.php:94
-msgid "Button Padding"
+#: includes/settings/fields.php:91
+msgid "Text Only"
+msgstr ""
+
+#: includes/settings/fields.php:93
+msgid "Button styles for larger screens"
 msgstr ""
 
 #: includes/settings/fields.php:97
+msgid "Button Container CSS"
+msgstr ""
+
+#: includes/settings/fields.php:101
+msgid "Flexbox"
+msgstr ""
+
+#: includes/settings/fields.php:102
+msgid "Table"
+msgstr ""
+
+#: includes/settings/fields.php:104
+msgid "CSS options for the button container"
+msgstr ""
+
+#: includes/settings/fields.php:108
+msgid "Button Container Width"
+msgstr ""
+
+#: includes/settings/fields.php:112
+msgid "Full Width"
+msgstr ""
+
+#: includes/settings/fields.php:113
+msgid "Auto"
+msgstr ""
+
+#: includes/settings/fields.php:115
+msgid "Width of button container"
+msgstr ""
+
+#: includes/settings/fields.php:119
+msgid "Button Padding"
+msgstr ""
+
+#: includes/settings/fields.php:122
 msgid " pixels"
+msgstr ""
+
+#: includes/settings/fields.php:131
+msgid "Genesis Framework"
+msgstr ""
+
+#: includes/settings/fields.php:134
+msgid "Use Genesis Framework hooks for button locations."
 msgstr ""
 
 #: includes/settings/networks.php:11
@@ -281,29 +361,61 @@ msgid "Facebook"
 msgstr ""
 
 #: includes/settings/networks.php:21
-msgid "Google+"
-msgstr ""
-
-#: includes/settings/networks.php:26
 msgid "Pinterest"
 msgstr ""
 
-#: includes/settings/networks.php:31
+#: includes/settings/networks.php:26
 msgid "Linkedin"
 msgstr ""
 
-#: includes/settings/networks.php:36
+#: includes/settings/networks.php:31
 msgid "Email"
 msgstr ""
 
-#: includes/settings/networks.php:41
+#: includes/settings/networks.php:36
 msgid "Reddit"
 msgstr ""
 
-#: includes/settings/networks.php:46
+#: includes/settings/networks.php:41
 msgid "WhatsApp"
 msgstr ""
 
-#: includes/settings/networks.php:51
+#: includes/settings/networks.php:46
 msgid "Pocket"
+msgstr ""
+
+#: includes/settings/networks.php:51
+msgid "Telegram"
+msgstr ""
+
+#: includes/settings/networks.php:56
+msgid "SMS"
+msgstr ""
+
+#: includes/settings/sections.php:10
+msgid "Choose your icon types and source."
+msgstr ""
+
+#: includes/settings/sections.php:15
+msgid "Choose what plugin styles you want to enable or disable."
+msgstr ""
+
+#: includes/settings/sections.php:20
+msgid "Include an optional heading with your buttons and select which social network buttons to show."
+msgstr ""
+
+#: includes/settings/sections.php:24
+msgid "Button Location Settings"
+msgstr ""
+
+#: includes/settings/sections.php:25
+msgid "You now have granular control over sharing buttons for each type of content on your site."
+msgstr ""
+
+#: includes/settings/sections.php:29
+msgid "Social Network Settings"
+msgstr ""
+
+#: includes/settings/sections.php:30
+msgid "Some social networks need a little extra information."
 msgstr ""
