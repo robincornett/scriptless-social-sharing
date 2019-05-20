@@ -11,8 +11,10 @@
 	a.button {
 		border: none;
 		border-radius: 0;
+		box-shadow: none;
 		color: white;
 		line-height: 1;
+		margin: 0;
 		text-align: center;
 		text-decoration: none;
 
@@ -45,7 +47,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			margin-bottom: 0;
 		}
 	}
 
