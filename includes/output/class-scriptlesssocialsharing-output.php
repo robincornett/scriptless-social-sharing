@@ -37,11 +37,8 @@ class ScriptlessSocialSharingOutput {
 		if ( is_singular() ) {
 			$cando = $this->check_singular_post( $cando );
 		}
-		if ( function_exists( 'get_current_screen' ) ) {
-			$screen = get_current_screen();
-			if ( method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
-				return true;
-			}
+		if ( $this->is_block_editor() ) {
+			return true;
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_can_do_buttons', $cando );
@@ -66,6 +63,23 @@ class ScriptlessSocialSharingOutput {
 		}
 
 		return $cando;
+	}
+
+	/**
+	 * Check if we are in the block editor, in which case buttons are always enabled for the block.
+	 * @return bool
+	 * @since 3.1.0
+	 */
+	private function is_block_editor() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return false;
+		}
+		$screen = get_current_screen();
+		if ( method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
