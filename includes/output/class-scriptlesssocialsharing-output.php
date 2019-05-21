@@ -247,9 +247,10 @@ class ScriptlessSocialSharingOutput {
 	protected function get_individual_button_url( $button, $attributes, $setting ) {
 		$url  = '';
 		$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
-		if ( file_exists( $file ) ) {
-			include_once $file;
+		if ( ! file_exists( $file ) ) {
+			return $url;
 		}
+		include_once $file;
 		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
 		if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
 			$class = new $proper_name( $button['name'], $attributes, $setting );
