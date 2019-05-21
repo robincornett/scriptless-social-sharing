@@ -90,7 +90,7 @@ $fields = array(
 			2 => __( 'Icon + Text (always show text)', 'scriptless-social-sharing' ),
 			3 => __( 'Text Only', 'scriptless-social-sharing' ),
 		),
-		'legend'  => __( 'Button styles for larger screens', 'scriptless-social-sharing' ),
+		'legend'  => __( 'Button styles', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'      => 'css_style',
