@@ -21,7 +21,6 @@ return array(
 		'pocket'    => 0,
 		'telegram'  => 0,
 		'sms'       => 0,
-//		'yummly'    => 0,
 	),
 	'twitter_handle' => '',
 	'email_subject'  => __( 'A post worth sharing:', 'scriptless-social-sharing' ),
