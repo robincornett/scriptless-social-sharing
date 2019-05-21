@@ -35,9 +35,7 @@ class ScriptlessSocialSharingSettings {
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( "load-settings_page_{$this->page}", array( $this, 'build_settings_page' ) );
-		include_once 'class-scriptlesssocialsharing-settings-help.php';
-		$help = new ScriptlessSocialSharingSettingsHelp();
-		add_action( "load-settings_page_{$this->page}", array( $help, 'help' ) );
+		add_action( "load-settings_page_{$this->page}", array( $this, 'help' ) );
 	}
 
 	/**
@@ -50,6 +48,16 @@ class ScriptlessSocialSharingSettings {
 		$this->add_fields( $this->register_fields(), $sections );
 		add_action( 'admin_notices', array( $this, 'notice' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+	}
+
+	/**
+	 * Initialize the help tabs.
+	 * @since 3.0.0
+	 */
+	public function help() {
+		include_once 'class-scriptlesssocialsharing-settings-help.php';
+		$help = new ScriptlessSocialSharingSettingsHelp();
+		$help->help();
 	}
 
 	/**
