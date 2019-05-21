@@ -57,7 +57,7 @@ class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingButton
 	 * add twitter handle to URL
 	 * @return string twitter handle (default is empty)
 	 */
-	protected function twitter_handle() {
+	private function twitter_handle() {
 		return apply_filters( 'scriptlesssocialsharing_twitter_handle', $this->setting['twitter_handle'] );
 	}
 }
