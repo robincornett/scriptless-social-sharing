@@ -130,8 +130,8 @@ class ScriptlessSocialSharing {
 	 * @return mixed
 	 */
 	public function filter_allowed_protocols( $protocols ) {
-		$setting = scriptlesssocialsharing_get_setting();
-		if ( empty( $setting['buttons']['sms'] ) ) {
+		$setting = scriptlesssocialsharing_get_setting( 'buttons' );
+		if ( empty( $setting['sms'] ) ) {
 			return $protocols;
 		}
 		$protocols[] = 'sms';

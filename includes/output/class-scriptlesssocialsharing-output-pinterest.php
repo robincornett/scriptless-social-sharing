@@ -76,8 +76,8 @@ class ScriptlessSocialSharingOutputPinterest {
 	 * @since 3.0.0
 	 */
 	private function is_pinterest_button_enabled() {
-		$setting = scriptlesssocialsharing_get_setting();
+		$setting = scriptlesssocialsharing_get_setting( 'buttons' );
 
-		return ! empty( $setting['buttons']['pinterest'] );
+		return ! empty( $setting['pinterest'] );
 	}
 }

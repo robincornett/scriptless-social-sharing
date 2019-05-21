@@ -36,8 +36,8 @@ class ScriptlessSocialSharingOutputSVG {
 	 * @since 3.0.0
 	 */
 	public function maybe_add_svg() {
-		$setting = scriptlesssocialsharing_get_setting();
-		if ( 'svg' !== $setting['icons'] ) {
+		$setting = scriptlesssocialsharing_get_setting( 'icons' );
+		if ( 'svg' !== $setting ) {
 			return;
 		}
 
