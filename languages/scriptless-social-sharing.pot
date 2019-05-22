@@ -137,7 +137,7 @@ msgid "Note that the button styles options--container padding, container width, 
 msgstr ""
 
 #: includes/settings/class-scriptlesssocialsharing-settings-help.php:82
-msgid "The buttons are output with CSS for either Flexbox (new default) or as table (old option). The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, the table CSS option may result in buttons that overflow the content area assigned to them."
+msgid "The buttons are output with CSS for either Flexbox (new default) or as table (old option). The default is for them to span the width of the content space, but you can set it to automatically be just the size of the buttons instead. Note that on sites with many buttons and not much space, the table CSS option may result in buttons that overflow the content area assigned to them. Not sure which option is best? I would recommend flexbox."
 msgstr ""
 
 #: includes/settings/class-scriptlesssocialsharing-settings-help.php:94
@@ -200,15 +200,15 @@ msgstr ""
 msgid "Scriptless Social Sharing Settings"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:285
+#: includes/settings/class-scriptlesssocialsharing-settings.php:296
 msgid "Scriptless Social Sharing 2.0 makes <strong>significant</strong> changes to how buttons are managed for each type of content on your site. Settings for button locations and content types have changed. If you've removed the default buttons and replaced them with code, you'll want to check the Manual option for affected content types, and uncheck the specific locations for those content types."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:286
+#: includes/settings/class-scriptlesssocialsharing-settings.php:297
 msgid "The buttons on your site will not change until you have updated the settings here. Once you've saved the new settings, this notice will not show again."
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings.php:302
+#: includes/settings/class-scriptlesssocialsharing-settings.php:313
 msgid "Something unexpected happened. Please try again."
 msgstr ""
 
@@ -216,11 +216,11 @@ msgstr ""
 msgid "Share this post:"
 msgstr ""
 
-#: includes/settings/defaults.php:27
+#: includes/settings/defaults.php:26
 msgid "A post worth sharing:"
 msgstr ""
 
-#: includes/settings/defaults.php:28
+#: includes/settings/defaults.php:27
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgid "Text Only"
 msgstr ""
 
 #: includes/settings/fields.php:93
-msgid "Button styles for larger screens"
+msgid "Button styles"
 msgstr ""
 
 #: includes/settings/fields.php:97

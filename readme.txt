@@ -175,7 +175,7 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-3.0.0: this is a significant update with possible breaking changes! New icon options, button display options, updated Font Awesome, and optional SVG support.
+3.0.0: this is a significant update with possible breaking changes! New buttons, icon options, button display options, updated Font Awesome, and optional SVG support. Please double check your buttons and settings after updating!
 
 == Changelog ==
 
