@@ -75,7 +75,8 @@ class ScriptlessSocialSharingEnqueue {
 		}
 
 		$fa_version = apply_filters( 'scriptlesssocialsharing_fontawesome_version', '5.8.2' );
-		wp_enqueue_style( 'font-awesome', "https://use.fontawesome.com/releases/v{$fa_version}/css/all.css", array(), $fa_version );
+		$fa_url     = apply_filters( 'scriptlesssocialsharing_fontawesome_url', "https://use.fontawesome.com/releases/v{$fa_version}/css/all.css", $fa_version );
+		wp_enqueue_style( 'font-awesome', $fa_url, array(), $fa_version );
 	}
 
 	/**
