@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -175,9 +175,13 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
+3.0.1: fixes a compatibility issue with WordPress versions before 5.0
 3.0.0: this is a significant update with possible breaking changes! New buttons, icon options, button display options, updated Font Awesome, and optional SVG support. Please double check your buttons and settings after updating!
 
 == Changelog ==
+
+= 3.0.1 =
+* fixed: compatibility issue with WordPress versions before 5.0
 
 = 3.0.0 =
 * added: SVG icons

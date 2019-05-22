@@ -191,6 +191,9 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.0.1
+* fixed: compatibility issue with WordPress versions before 5.0
+
 ### 3.0.0
 * added: SVG icons
 * added: buttons for Telegram and SMS
