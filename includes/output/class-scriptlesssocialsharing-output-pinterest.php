@@ -35,6 +35,7 @@ class ScriptlessSocialSharingOutputPinterest {
 				'data-pin-media' => 'true',
 				'style'          => 'display:none;',
 				'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
+				'class'          => 'scriptless__pinterest-image'
 			)
 		);
 	}
