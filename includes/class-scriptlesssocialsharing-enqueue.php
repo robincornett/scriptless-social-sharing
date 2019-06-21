@@ -65,7 +65,7 @@ class ScriptlessSocialSharingEnqueue {
 	}
 
 	/**
-	 * If it's enabled, enqueue Font Awesome 5.8.1
+	 * If it's enabled, enqueue Font Awesome 5.9.0
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
@@ -74,7 +74,7 @@ class ScriptlessSocialSharingEnqueue {
 			return;
 		}
 
-		$fa_version = apply_filters( 'scriptlesssocialsharing_fontawesome_version', '5.8.2' );
+		$fa_version = apply_filters( 'scriptlesssocialsharing_fontawesome_version', '5.9.0' );
 		$fa_url     = apply_filters( 'scriptlesssocialsharing_fontawesome_url', "https://use.fontawesome.com/releases/v{$fa_version}/css/all.css", $fa_version );
 		wp_enqueue_style( 'font-awesome', $fa_url, array(), $fa_version );
 	}
