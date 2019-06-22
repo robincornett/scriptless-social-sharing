@@ -154,7 +154,12 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	private function get_link_target( $button ) {
-		return 'email' === $button ? '' : ' target="_blank"';
+		$target = '';
+		if ( 'email' === $button ) {
+			$target = ' target="_blank"';
+		}
+
+		return apply_filters( 'scriptlesssocialsharing_link_target', $target, $button );
 	}
 
 	/**
