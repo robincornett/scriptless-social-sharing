@@ -122,17 +122,28 @@ class ScriptlessSocialSharingOutput {
 		return apply_filters(
 			'scriptlesssocialsharing_link_markup',
 			sprintf(
-				'<a class="button %1$s"%2$s href="%3$s" rel="noopener" %4$s>%5$s<span class="%6$s">%7$s</span></a>',
+				'<a class="button %1$s"%2$s href="%3$s" rel="%8$s" %4$s>%5$s<span class="%6$s">%7$s</span></a>',
 				esc_attr( $button['name'] ),
 				$this->get_link_target( $button['name'] ),
 				esc_url( $button['url'] ),
 				$button['data'],
 				$this->get_svg( $button['name'] ),
 				$this->get_label_class(),
-				$button['label']
+				$button['label'],
+				esc_attr( $this->get_link_rel( $button ) )
 			),
 			$button
 		);
+	}
+
+	/**
+	 * Get the button rel attribute. Set to noopener, noreferrer, nofollow by default; filterable.
+	 *
+	 * @param array $button
+	 * @return mixed|void
+	 */
+	private function get_link_rel( $button ) {
+		return apply_filters( 'scriptlesssocialsharing_link_rel', 'noopener noreferrer nofollow', $button );
 	}
 
 	/**
