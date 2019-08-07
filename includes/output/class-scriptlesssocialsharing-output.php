@@ -35,7 +35,7 @@ class ScriptlessSocialSharingOutput {
 			$cando = false;
 		}
 		if ( is_singular() ) {
-			$cando = $this->check_singular_post( $cando );
+			$cando = $this->check_singular_post();
 		}
 		if ( $this->is_block_editor() ) {
 			return true;
@@ -49,7 +49,7 @@ class ScriptlessSocialSharingOutput {
 	 *
 	 * @return bool
 	 */
-	private function check_singular_post( $cando ) {
+	private function check_singular_post() {
 		$has_block = function_exists( 'has_block' ) && has_block( 'scriptlesssocialsharing/buttons' );
 		if ( has_shortcode( get_post_field( 'post_content' ), 'scriptless' ) || $has_block ) {
 			return true;
@@ -63,7 +63,7 @@ class ScriptlessSocialSharingOutput {
 			return true;
 		}
 
-		return $cando;
+		return false;
 	}
 
 	/**
