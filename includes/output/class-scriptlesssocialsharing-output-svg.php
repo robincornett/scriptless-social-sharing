@@ -24,8 +24,7 @@ class ScriptlessSocialSharingOutputSVG {
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof SixTenPressSVG ) ) {
 			self::$instance = new ScriptlessSocialSharingOutputSVG();
-
-			add_action( 'init', array( self::$instance, 'maybe_add_svg' ) );
+			self::$instance->maybe_add_svg();
 		}
 
 		return self::$instance;
@@ -224,5 +223,3 @@ class ScriptlessSocialSharingOutputSVG {
 function scriptlesssocialsharing_svg() {
 	return ScriptlessSocialSharingOutputSVG::instance();
 }
-
-scriptlesssocialsharing_svg();
