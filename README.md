@@ -30,10 +30,10 @@ Using git, browse to your `/wp-content/plugins/` directory and clone this reposi
 Then go to your Plugins screen and click __Activate__.
 
 ## Screenshots
-![Screenshot of the Scriptless Social Sharing Settings Page](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-1.png)  
+![Screenshot of the Scriptless Social Sharing Settings Page](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-1.png)
 _Screenshot of the Scriptless Social Sharing Settings Page._
 
-![Screenshot of the Scriptless Social Sharing Buttons on a Post](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-2.png)  
+![Screenshot of the Scriptless Social Sharing Buttons on a Post](https://github.com/robincornett/scriptless-social-sharing/blob/develop/assets/screenshot-2.png)
 _Screenshot of the Scriptless Social Sharing Buttons on a Post._
 
 ## Frequently Asked Questions
@@ -190,6 +190,15 @@ You can add an image for the plugin to use specifically for Pinterest, instead o
 As of version 2.3, the sharing buttons order can be changed on the settings page, either by dragging buttons to your desired order, or by updating the numbered inputs.
 
 ## Changelog
+
+### 3.1.0
+* added: links opening in new tabs are no noopener, noreferrer, and nofollow by default, and can be filtered
+* added: filter on the link target
+* added: custom class on the hidden Pinterest image
+* changed: source SVG is set to role="img"
+* updated: Font Awesome 5.10.1
+* fixed: SVG role and aria attributes
+* fixed: singular post check which was always returning true
 
 ### 3.0.1
 * fixed: compatibility issue with WordPress versions before 5.0

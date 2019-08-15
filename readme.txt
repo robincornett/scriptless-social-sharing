@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 3.0.1
+Stable tag: 3.1.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -182,6 +182,15 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 = 3.0.1 =
 * fixed: compatibility issue with WordPress versions before 5.0
+
+= 3.1.0 =
+* added: links opening in new tabs are no noopener, noreferrer, and nofollow by default, and can be filtered
+* added: filter on the link target
+* added: custom class on the hidden Pinterest image
+* changed: source SVG is set to role="img"
+* updated: Font Awesome 5.10.1
+* fixed: SVG role and aria attributes
+* fixed: singular post check which was always returning true
 
 = 3.0.0 =
 * added: SVG icons
