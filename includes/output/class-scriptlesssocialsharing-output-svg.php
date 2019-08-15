@@ -79,7 +79,10 @@ class ScriptlessSocialSharingOutputSVG {
 
 		if ( 'post' === $context ) {
 			$allowed['svg'] = array(
-				'class' => true,
+				'class'           => true,
+				'role'            => true,
+				'aria-hidden'     => true,
+				'aria-labelledby' => true,
 			);
 			$allowed['use'] = array(
 				'xlink:href' => true,
