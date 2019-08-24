@@ -147,6 +147,10 @@ class ScriptlessSocialSharing {
 		if ( ! function_exists( 'register_block_type' ) ) {
 			return;
 		}
+		$setting = scriptlesssocialsharing_get_setting( 'disable_block' );
+		if ( $setting ) {
+			return;
+		}
 		add_action( 'enqueue_block_editor_assets', array( $this->output, 'load_styles' ) );
 		$block = new ScriptlessSocialSharingOutputBlock();
 		$block->init();

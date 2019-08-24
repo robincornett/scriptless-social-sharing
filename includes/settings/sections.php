@@ -14,8 +14,8 @@ return array(
 		'title'       => __( 'Style Settings', 'scriptless-social-sharing' ),
 		'description' => __( 'Choose what plugin styles you want to enable or disable.', 'scriptless-social-sharing' ),
 	),
-	'general'       => array(
-		'id'          => 'general',
+	'buttons'       => array(
+		'id'          => 'buttons',
 		'title'       => __( 'Button Settings', 'scriptless-social-sharing' ),
 		'description' => __( 'Include an optional heading with your buttons and select which social network buttons to show.', 'scriptless-social-sharing' ),
 	),
@@ -28,5 +28,9 @@ return array(
 		'id'          => 'networks',
 		'title'       => __( 'Social Network Settings', 'scriptless-social-sharing' ),
 		'description' => __( 'Some social networks need a little extra information.', 'scriptless-social-sharing' ),
+	),
+	'general'       => array(
+		'id'          => 'general',
+		'title'       => __( 'General Settings', 'scriptless-social-sharing' ),
 	),
 );

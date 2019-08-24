@@ -39,4 +39,5 @@ return array(
 	'order'          => array(),
 	'genesis'        => 0,
 	'css_style'      => 'flex',
+	'disable_block'  => 0,
 );
