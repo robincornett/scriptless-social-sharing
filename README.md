@@ -195,6 +195,7 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 * added: links opening in new tabs are no noopener, noreferrer, and nofollow by default, and can be filtered
 * added: filter on the link target
 * added: custom class on the hidden Pinterest image
+* added: option to prevent the Scriptless block from being registered
 * changed: source SVG is set to role="img"
 * updated: Font Awesome 5.10.1
 * fixed: SVG role and aria attributes

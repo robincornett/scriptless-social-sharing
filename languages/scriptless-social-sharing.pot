@@ -344,11 +344,19 @@ msgstr ""
 msgid " pixels"
 msgstr ""
 
+#: includes/settings/fields.php:128
+msgid "Disable Block"
+msgstr ""
+
 #: includes/settings/fields.php:131
+msgid "Disable the sharing buttons block."
+msgstr ""
+
+#: includes/settings/fields.php:138
 msgid "Genesis Framework"
 msgstr ""
 
-#: includes/settings/fields.php:134
+#: includes/settings/fields.php:141
 msgid "Use Genesis Framework hooks for button locations."
 msgstr ""
 
@@ -418,4 +426,8 @@ msgstr ""
 
 #: includes/settings/sections.php:30
 msgid "Some social networks need a little extra information."
+msgstr ""
+
+#: includes/settings/sections.php:34
+msgid "General Settings"
 msgstr ""
