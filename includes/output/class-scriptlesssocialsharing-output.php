@@ -155,7 +155,7 @@ class ScriptlessSocialSharingOutput {
 	 */
 	private function get_link_target( $button ) {
 		$target = '';
-		if ( 'email' === $button ) {
+		if ( 'email' !== $button ) {
 			$target = ' target="_blank"';
 		}
 
