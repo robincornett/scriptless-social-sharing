@@ -25,17 +25,32 @@ class ScriptlessSocialSharingOutputPinterest {
 		if ( ! $pinterest_image ) {
 			return $content;
 		}
-		$alt_text = get_post_meta( $pinterest_image, '_wp_attachment_image_alt', true );
 
 		return $content . wp_get_attachment_image(
 			$pinterest_image,
 			'large',
 			false,
+			$this->get_image_args( $pinterest_image )
+		);
+	}
+
+	/**
+	 * Get the Pinterest image attributes.
+	 *
+	 * @param string $pinterest_image
+	 * @return array
+	 * @since 3.1.0
+	 */
+	private function get_image_args( $pinterest_image ) {
+		$alt_text = get_post_meta( $pinterest_image, '_wp_attachment_image_alt', true );
+
+		return apply_filters(
+			'scriptlesssocialsharing_pinterest_image_attributes',
 			array(
 				'data-pin-media' => 'true',
 				'style'          => 'display:none;',
 				'alt'            => $alt_text ? $alt_text : the_title_attribute( 'echo=0' ),
-				'class'          => 'scriptless__pinterest-image'
+				'class'          => 'scriptless__pinterest-image',
 			)
 		);
 	}
@@ -58,6 +73,7 @@ class ScriptlessSocialSharingOutputPinterest {
 			$allowed['a']['data-pin-no-hover']    = true;
 			$allowed['a']['data-pin-do']          = true;
 			$allowed['a']['data-pin-description'] = true;
+			$allowed['img']['data-pin-id']        = true;
 		}
 
 		return $allowed;
