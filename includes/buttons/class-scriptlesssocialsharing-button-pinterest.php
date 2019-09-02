@@ -20,7 +20,7 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingButt
 		return array(
 			'url'         => $this->get_permalink(),
 			'media'       => esc_url( $this->get_image_url( $pinterest_img ) ),
-			'description' => rawurlencode( rawurldecode( $this->get_pinterest_description() ) ),
+			'description' => $this->get_pinterest_description(),
 		);
 	}
 

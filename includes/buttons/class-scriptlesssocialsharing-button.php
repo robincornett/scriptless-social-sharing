@@ -55,12 +55,20 @@ abstract class ScriptlessSocialSharingButton {
 
 	/**
 	 * Get the query args, passed through a dynamic filter.
+	 * Each query arg is decoded/encoded here, to prevent things
+	 * like hashtags breaking twitter titles.
+	 *
 	 * @since 3.0.0
 	 *
 	 * @return mixed|void|null
 	 */
 	private function get_filtered_query_args() {
-		return apply_filters( "scriptlesssocialsharing_{$this->button_name}_query_args", $this->get_query_args(), $this->button_name, $this->attributes, $this->setting );
+		$query_args = apply_filters( "scriptlesssocialsharing_{$this->button_name}_query_args", $this->get_query_args(), $this->button_name, $this->attributes, $this->setting );
+		foreach ( $query_args as $key => &$value ) {
+			$query_args[ $key ] = rawurlencode( rawurldecode( $value ) );
+		}
+
+		return $query_args;
 	}
 
 	/**
@@ -97,13 +105,11 @@ abstract class ScriptlessSocialSharingButton {
 	 * @return string The URL to be shared.
 	 */
 	protected function get_permalink() {
-		return rawurlencode(
-			apply_filters(
-				'scriptlesssocialsharing_get_permalink',
-				$this->attributes['permalink'],
-				$this->button_name,
-				$this->attributes
-			)
+		return apply_filters(
+			'scriptlesssocialsharing_get_permalink',
+			$this->attributes['permalink'],
+			$this->button_name,
+			$this->attributes
 		);
 	}
 

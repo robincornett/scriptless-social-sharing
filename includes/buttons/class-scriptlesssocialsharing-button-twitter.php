@@ -47,7 +47,7 @@ class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingButton
 	private function get_twitter_title( $title ) {
 		$yoast = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
 		if ( $yoast ) {
-			$title = rawurlencode( html_entity_decode( $yoast ) );
+			$title = $yoast;
 		}
 
 		return apply_filters( 'scriptlesssocialsharing_twitter_text', $title );
