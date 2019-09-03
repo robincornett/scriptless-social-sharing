@@ -175,21 +175,19 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-3.0.1: fixes a compatibility issue with WordPress versions before 5.0
-3.0.0: this is a significant update with possible breaking changes! New buttons, icon options, button display options, updated Font Awesome, and optional SVG support. Please double check your buttons and settings after updating!
+3.1.0: new filters on link output, improvements in link encoding, improved SVG/styles loading
 
 == Changelog ==
-
-= 3.1.0 =
-Adds filters on button links, ability to prevent block registration, improvements on SVG output.
 
 = 3.1.0 =
 * added: links opening in new tabs are no noopener, noreferrer, and nofollow by default, and can be filtered
 * added: filter on the link target
 * added: custom class on the hidden Pinterest image
 * added: option to prevent the Scriptless block from being registered
+* improved: scriptlesssocialsharing_link_markup filter has access to all link attributes
+* improved: link parameter decoding/encoding
 * changed: source SVG is set to role="img"
-* updated: Font Awesome 5.10.1
+* updated: Font Awesome 5.10.2
 * fixed: SVG role and aria attributes
 * fixed: singular post check which was always returning true
 

@@ -196,8 +196,10 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 * added: filter on the link target
 * added: custom class on the hidden Pinterest image
 * added: option to prevent the Scriptless block from being registered
+* improved: scriptlesssocialsharing_link_markup filter has access to all link attributes
+* improved: link parameter decoding/encoding
 * changed: source SVG is set to role="img"
-* updated: Font Awesome 5.10.1
+* updated: Font Awesome 5.10.2
 * fixed: SVG role and aria attributes
 * fixed: singular post check which was always returning true
 
