@@ -123,6 +123,16 @@ class ScriptlessSocialSharingOutput {
 		$svg         = $this->get_svg( $button['name'] );
 		$label_class = $this->get_label_class();
 		$link_rel    = $this->get_link_rel( $button );
+
+		/**
+		 * Apply a filter to the entire link markup.
+		 * @param string              the link output/markup
+		 * @param array  $button      an array containing the button name, label, url, and possible data
+		 * @param string $link_target the link's target if it's not an email button
+		 * @param string $svg         if applicable, the button SVG icon
+		 * @param string $label_class the CSS class for the button label
+		 * @param string $link_rel    the link's "rel" attribute, set to noopener, noreferrer, nofollow
+		 */
 		return apply_filters(
 			'scriptlesssocialsharing_link_markup',
 			sprintf(
