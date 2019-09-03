@@ -119,20 +119,28 @@ class ScriptlessSocialSharingOutput {
 	 * @return string
 	 */
 	protected function build_link_markup( $button ) {
+		$link_target = $this->get_link_target( $button['name'] );
+		$svg         = $this->get_svg( $button['name'] );
+		$label_class = $this->get_label_class();
+		$link_rel    = $this->get_link_rel( $button );
 		return apply_filters(
 			'scriptlesssocialsharing_link_markup',
 			sprintf(
 				'<a class="button %1$s"%2$s href="%3$s" rel="%8$s" %4$s>%5$s<span class="%6$s">%7$s</span></a>',
 				esc_attr( $button['name'] ),
-				$this->get_link_target( $button['name'] ),
+				$link_target,
 				esc_url( $button['url'] ),
 				$button['data'],
-				$this->get_svg( $button['name'] ),
-				$this->get_label_class(),
+				$svg,
+				esc_attr( $label_class ),
 				$button['label'],
-				esc_attr( $this->get_link_rel( $button ) )
+				esc_attr( $link_rel )
 			),
-			$button
+			$button,
+			$link_target,
+			$svg,
+			$label_class,
+			$link_rel
 		);
 	}
 
