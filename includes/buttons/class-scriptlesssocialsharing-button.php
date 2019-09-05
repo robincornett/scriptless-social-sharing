@@ -65,7 +65,7 @@ abstract class ScriptlessSocialSharingButton {
 	private function get_filtered_query_args() {
 		$query_args = apply_filters( "scriptlesssocialsharing_{$this->button_name}_query_args", $this->get_query_args(), $this->button_name, $this->attributes, $this->setting );
 		foreach ( $query_args as $key => &$value ) {
-			$query_args[ $key ] = rawurlencode( rawurldecode( $value ) );
+			$query_args[ $key ] = rawurlencode( html_entity_decode( $value ) );
 		}
 
 		return $query_args;
