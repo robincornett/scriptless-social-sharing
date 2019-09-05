@@ -27,6 +27,6 @@ class ScriptlessSocialSharingButtonWhatsApp extends ScriptlessSocialSharingButto
 	 * @return mixed
 	 */
 	protected function get_url_base() {
-		return 'https://wa.me';
+		return 'https://api.whatsapp.com/send';
 	}
 }
