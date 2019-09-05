@@ -191,6 +191,10 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.1
+* changed: HTML character decoding before URL encoding
+* fixed: updated WhatsApp URL to use the API link instead of the shortened link due to issues on mobile
+
 ### 3.1.0
 * added: links opening in new tabs are no noopener, noreferrer, and nofollow by default, and can be filtered
 * added: filter on the link target
