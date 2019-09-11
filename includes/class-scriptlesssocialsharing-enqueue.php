@@ -178,12 +178,16 @@ class ScriptlessSocialSharingEnqueue {
 		if ( ! $rgb ) {
 			return '';
 		}
+		$prefix    = 'scriptlesssocialsharing';
+		$suffix    = 'buttons';
+		$container = 'flex' === $this->setting['css_style'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
 
 		return sprintf(
-			'.scriptlesssocialsharing-buttons .button.%3$s{ background-color:%1$s;background-color:rgba(%2$s,.8); } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }',
+			'.%4$s .button.%3$s{ background-color:%1$s;background-color:rgba(%2$s,.8); } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }',
 			$button['color'],
 			$rgb,
-			$button['name']
+			$button['name'],
+			$container
 		);
 	}
 
