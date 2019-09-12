@@ -89,7 +89,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 	 */
 	public function register_script_style() {
 		wp_register_style( $this->block . '-block', plugin_dir_url( dirname( __FILE__ ) ) . 'css/scriptlesssocialsharing-block.css', array(), SCRIPTLESSOCIALSHARING_VERSION, 'all' );
-		$minify  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : ' . min';
+		$minify  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$version = $minify ? SCRIPTLESSOCIALSHARING_VERSION : SCRIPTLESSOCIALSHARING_VERSION . current_time( 'gmt' );
 		wp_register_script(
 			$this->block . '-block',
