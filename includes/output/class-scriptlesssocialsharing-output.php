@@ -280,10 +280,9 @@ class ScriptlessSocialSharingOutput {
 	 * @since 3.0.0
 	 */
 	protected function get_individual_button_url( $button, $attributes, $setting ) {
-		$url  = '';
 		$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
 		if ( ! file_exists( $file ) ) {
-			return $url;
+			$file = plugin_dir_path( dirname( __FILE__ ) ) . 'buttons/class-scriptlesssocialsharing-button-fallback.php';
 		}
 		include_once $file;
 		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
@@ -292,10 +291,11 @@ class ScriptlessSocialSharingOutput {
 			if ( 'pinterest' === $button['name'] ) {
 				add_filter( 'scriptlesssocialsharing_pinterest_data', array( $class, 'add_pinterest_data' ) );
 			}
-			$url = $class->get_url();
+		} else {
+			$class = new ScriptlessSocialSharingButtonFallback( $button['name'], $attributes, $setting );
 		}
 
-		return $url;
+		return $class->get_url();
 	}
 
 	/**
