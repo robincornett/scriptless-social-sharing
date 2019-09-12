@@ -16,7 +16,7 @@ class ScriptlessSocialSharingButtonSMS extends ScriptlessSocialSharingButton {
 	 */
 	protected function get_query_args() {
 		return array(
-			'body' => $this->attributes['title'] . ' ' . $this->get_permalink(),
+			'&amp;body' => $this->attributes['title'] . ' ' . $this->get_permalink(),
 		);
 	}
 
