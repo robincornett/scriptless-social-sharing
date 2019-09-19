@@ -33,6 +33,9 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 			return $output;
 		}
 
+		if ( ! wp_style_is( 'scriptlesssocialsharing', 'enqueued' ) ) {
+			wp_enqueue_style( 'scriptlesssocialsharing' );
+		}
 		$setting = $this->get_setting();
 		$output  = '<div class="scriptlesssocialsharing">';
 		if ( $heading ) {
@@ -52,10 +55,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 	 * Enqueue CSS files
 	 */
 	public function load_styles() {
-		if ( false === $this->can_do_buttons() ) {
-			return;
-		}
-		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->get_available_buttons() );
+		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->get_available_buttons(), $this->can_do_buttons() );
 		$enqueue->load_styles();
 	}
 

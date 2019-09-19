@@ -18,6 +18,13 @@ class ScriptlessSocialSharingEnqueue {
 	protected $buttons;
 
 	/**
+	 * Can the buttons be output?
+	 *
+	 * @var boolean
+	 */
+	private $enabled;
+
+	/**
 	 * @var string current plugin version
 	 */
 	protected $version = SCRIPTLESSOCIALSHARING_VERSION;
@@ -25,12 +32,14 @@ class ScriptlessSocialSharingEnqueue {
 	/**
 	 * ScriptlessSocialSharingEnqueue constructor.
 	 *
-	 * @param $setting array
-	 * @param $buttons array
+	 * @param array   $setting
+	 * @param array   $buttons
+	 * @param boolean $enabled
 	 */
-	public function __construct( $setting, $buttons ) {
+	public function __construct( $setting, $buttons, $enabled ) {
 		$this->setting = $setting;
 		$this->buttons = $buttons;
+		$this->enabled = $enabled;
 	}
 
 	/**
@@ -52,8 +61,11 @@ class ScriptlessSocialSharingEnqueue {
 		}
 		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
 		if ( $css_file ) {
-			wp_enqueue_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'all' );
+			wp_register_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'all' );
 			$this->add_inline_style();
+			if ( $this->enabled ) {
+				wp_enqueue_style( 'scriptlesssocialsharing' );
+			}
 		}
 	}
 
@@ -69,6 +81,9 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
+		if ( ! $this->enabled ) {
+			return;
+		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
 		if ( ! $this->setting['styles']['font'] || ! $fontawesome ) {
 			return;
@@ -84,6 +99,9 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_icons() {
+		if ( ! $this->enabled ) {
+			return;
+		}
 		if ( in_array( $this->setting['icons'], array( 'svg', 'none' ), true ) ) {
 			return;
 		}
