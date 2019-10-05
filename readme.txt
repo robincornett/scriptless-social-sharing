@@ -4,8 +4,8 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.8
-Tested up to: 5.2
-Stable tag: 3.1.1
+Tested up to: 5.3
+Stable tag: 3.1.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -175,10 +175,17 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
+3.1.2: fixed SMS link, additional services behavior
 3.1.1: fixed WhatsApp link behavior
 3.1.0: new filters on link output, improvements in link encoding, improved SVG/styles loading
 
 == Changelog ==
+
+= 3.1.2 =
+* fixed: SMS link behavior
+* fixed: custom color CSS for custom buttons when using flexbox
+* fixed: block script enqueue
+* fixed: custom buttons now have access to query args, base URL filters, which are preferable to filtering the final URL
 
 = 3.1.1 =
 * changed: HTML character decoding before URL encoding

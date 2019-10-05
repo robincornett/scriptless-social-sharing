@@ -191,6 +191,12 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.2
+* fixed: SMS link behavior
+* fixed: custom color CSS for custom buttons when using flexbox
+* fixed: block script enqueue
+* fixed: custom buttons now have access to query args, base URL filters, which are preferable to filtering the final URL
+
 ### 3.1.1
 * changed: HTML character decoding before URL encoding
 * fixed: updated WhatsApp URL to use the API link instead of the shortened link due to issues on mobile
