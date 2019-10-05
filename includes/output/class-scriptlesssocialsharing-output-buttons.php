@@ -32,10 +32,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( ! $buttons ) {
 			return $output;
 		}
-
-		if ( ! wp_style_is( 'scriptlesssocialsharing', 'enqueued' ) ) {
-			wp_enqueue_style( 'scriptlesssocialsharing' );
-		}
+		wp_print_styles( 'scriptlesssocialsharing' );
 		$setting = $this->get_setting();
 		$output  = '<div class="scriptlesssocialsharing">';
 		if ( $heading ) {
