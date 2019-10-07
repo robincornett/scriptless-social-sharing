@@ -191,6 +191,9 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.3
+* fixed: fatal error for fallback button class
+
 ### 3.1.2
 * fixed: SMS link behavior
 * fixed: custom color CSS for custom buttons when using flexbox
