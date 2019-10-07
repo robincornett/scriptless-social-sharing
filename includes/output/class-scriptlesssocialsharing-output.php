@@ -286,16 +286,18 @@ class ScriptlessSocialSharingOutput {
 		}
 		include_once $file;
 		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
+		if ( ! class_exists( $proper_name ) ) {
+			$proper_name = 'ScriptlessSocialSharingButtonFallback';
+		}
 		if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
 			$class = new $proper_name( $button['name'], $attributes, $setting );
 			if ( 'pinterest' === $button['name'] ) {
 				add_filter( 'scriptlesssocialsharing_pinterest_data', array( $class, 'add_pinterest_data' ) );
 			}
-		} else {
-			$class = new ScriptlessSocialSharingButtonFallback( $button['name'], $attributes, $setting );
+			return $class->get_url();
 		}
 
-		return $class->get_url();
+		return '';
 	}
 
 	/**
