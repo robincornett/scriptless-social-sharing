@@ -50,12 +50,13 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 	 */
 	private function get_defaults() {
 		$setting = $this->get_setting();
+		$div     = apply_filters( 'scriptlesssocialsharing_buttons_container_element', 'div' );
 
 		return array(
 			'before'       => '<div class="scriptlesssocialsharing">',
 			'after'        => '</div>',
-			'inner_before' => '<div class="' . $this->get_button_container_class( $setting ) . '">',
-			'inner_after'  => '</div>',
+			'inner_before' => '<' . esc_attr( $div ) . ' class="' . $this->get_button_container_class( $setting ) . '">',
+			'inner_after'  => '</' . esc_attr( $div ) . '>',
 			'heading'      => $setting['heading'],
 			'buttons'      => '',
 		);
