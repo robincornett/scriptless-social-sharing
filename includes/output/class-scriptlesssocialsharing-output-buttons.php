@@ -38,11 +38,12 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( $heading ) {
 			$output .= $this->heading( $setting['heading'] );
 		}
-		$output .= '<div class="' . esc_attr( $this->get_button_container_class( $setting ) ) . '">';
+		$div     = apply_filters( 'scriptlesssocialsharing_buttons_container_element', 'div' );
+		$output .= '<' . $div . ' class="' . esc_attr( $this->get_button_container_class( $setting ) ) . '">';
 		foreach ( $buttons as $button ) {
 			$output .= $this->build_link_markup( $button );
 		}
-		$output .= '</div>';
+		$output .= '</' . $div . '>';
 		$output .= '</div>';
 
 		return wp_kses_post( $output );
