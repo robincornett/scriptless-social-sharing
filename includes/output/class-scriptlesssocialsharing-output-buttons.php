@@ -39,11 +39,11 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 			$output .= $this->heading( $setting['heading'] );
 		}
 		$div     = apply_filters( 'scriptlesssocialsharing_buttons_container_element', 'div' );
-		$output .= '<' . $div . ' class="' . esc_attr( $this->get_button_container_class( $setting ) ) . '">';
+		$output .= '<' . esc_attr( $div ) . ' class="' . esc_attr( $this->get_button_container_class( $setting ) ) . '">';
 		foreach ( $buttons as $button ) {
 			$output .= $this->build_link_markup( $button );
 		}
-		$output .= '</' . $div . '>';
+		$output .= '</' . esc_attr( $div ) . '>';
 		$output .= '</div>';
 
 		return wp_kses_post( $output );
