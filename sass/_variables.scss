@@ -1,7 +1,6 @@
-
 $email: #333;
 $facebook: #3b5998;
-$twitter: #55acee;
+$twitter: #1da1f2;
 $pinterest: #bd081c;
 $linkedin: #0077b5;
 $reddit: #ff4500;
@@ -61,20 +60,21 @@ $sms-icon: \f7cd;
 	height: auto;
 }
 
-@mixin color-opacity($color,$opacity) {
+@mixin color-opacity($color, $opacity) {
 	background-color: $color;
-	@if $opacity != 1 {
-		background-color: rgba($color,$opacity);
+
+	@if $opacity !=1 {
+		background-color: rgba($color, $opacity);
 	}
 }
 
-$social: ( 'email', $email, $email-icon ),
-		( 'twitter', $twitter, $twitter-icon ),
-		( 'facebook', $facebook, $facebook-icon ),
-		( 'linkedin', $linkedin, $linkedin-icon ),
-		( 'pinterest', $pinterest, $pinterest-icon ),
-		( 'reddit', $reddit, $reddit-icon ),
-		( 'whatsapp', $whatsapp, $whatsapp-icon ),
-		( 'pocket', $pocket, $pocket-icon ),
-		( 'telegram', $telegram, $telegram-icon ),
-		( 'sms', $sms, $sms-icon );
+$social: ('email', $email, $email-icon),
+('twitter', $twitter, $twitter-icon),
+('facebook', $facebook, $facebook-icon),
+('linkedin', $linkedin, $linkedin-icon),
+('pinterest', $pinterest, $pinterest-icon),
+('reddit', $reddit, $reddit-icon),
+('whatsapp', $whatsapp, $whatsapp-icon),
+('pocket', $pocket, $pocket-icon),
+('telegram', $telegram, $telegram-icon),
+('sms', $sms, $sms-icon);
