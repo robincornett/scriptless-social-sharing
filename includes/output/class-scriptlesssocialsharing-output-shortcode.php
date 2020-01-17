@@ -19,6 +19,7 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 		if ( ! $buttons ) {
 			return '';
 		}
+		wp_print_styles( 'scriptlesssocialsharing' );
 		$output  = $atts['before'];
 		$output .= $this->heading( $atts['heading'] );
 		$output .= $atts['inner_before'];
