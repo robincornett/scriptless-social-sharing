@@ -2,11 +2,11 @@
 
 /**
  * Class to correctly build the SMS URL.
- * Class ScriptlessSocialSharingButtonSMS
+ * Class ScriptlessSocialSharingButtonSms
  *
  * @since 3.0.0
  */
-class ScriptlessSocialSharingButtonSMS extends ScriptlessSocialSharingButton {
+class ScriptlessSocialSharingButtonSms extends ScriptlessSocialSharingButton {
 
 	/**
 	 * Get the button query args.

@@ -285,7 +285,7 @@ class ScriptlessSocialSharingOutput {
 			$file = plugin_dir_path( dirname( __FILE__ ) ) . 'buttons/class-scriptlesssocialsharing-button-fallback.php';
 		}
 		include_once $file;
-		$proper_name = "ScriptlessSocialSharingButton{$button['label']}";
+		$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button['name'] );
 		if ( ! class_exists( $proper_name ) ) {
 			$proper_name = 'ScriptlessSocialSharingButtonFallback';
 		}

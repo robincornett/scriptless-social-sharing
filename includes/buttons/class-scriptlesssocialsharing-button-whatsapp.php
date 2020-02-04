@@ -6,7 +6,7 @@
  *
  * @since 2.3.0
  */
-class ScriptlessSocialSharingButtonWhatsApp extends ScriptlessSocialSharingButton {
+class ScriptlessSocialSharingButtonWhatsapp extends ScriptlessSocialSharingButton {
 
 	/**
 	 * Get the button query args.
