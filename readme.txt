@@ -5,7 +5,7 @@ Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.8
 Tested up to: 5.3
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -175,12 +175,15 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-3.1.3: fixes potential error related to fallback button class
-3.1.2: fixed SMS link, additional services behavior
-3.1.1: fixed WhatsApp link behavior
-3.1.0: new filters on link output, improvements in link encoding, improved SVG/styles loading
+3.1.4: fixes buttons not working in certain cases
 
 == Changelog ==
+
+= 3.1.4 =
+* added: filter on button container element
+* updated: Twitter color
+* fixed: button class instantiation when button names are translated
+* fixed: styles not loading on shortcodes outside of content
 
 = 3.1.3 =
 * fixed: fatal error for fallback button class

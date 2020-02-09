@@ -191,6 +191,12 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.4
+* added: filter on button container element
+* updated: Twitter color
+* fixed: button class instantiation when button names are translated
+* fixed: styles not loading on shortcodes outside of content
+
 ### 3.1.3
 * fixed: fatal error for fallback button class
 
