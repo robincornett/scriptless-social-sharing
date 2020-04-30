@@ -23,7 +23,7 @@ return apply_filters(
 		),
 		'linkedin'  => array(
 			'name'  => 'linkedin',
-			'label' => __( 'Linkedin', 'scriptless-social-sharing' ),
+			'label' => __( 'LinkedIn', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
 		'email'     => array(
