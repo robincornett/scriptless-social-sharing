@@ -49,6 +49,7 @@ Scriptless Social Sharing currently supports the following social networks:
 * WhatsApp
 * Pocket
 * Telegram
+* Hatena Bookmark
 * SMS
 * Email
 

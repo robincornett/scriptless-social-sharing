@@ -8,6 +8,7 @@ $whatsapp: #25d366;
 $pocket: #ef4056;
 $telegram: #0088cc;
 $sms: #009933;
+$hatena: #00a4de;
 $yummly: #e16120;
 
 $email-icon: \f0e0;
@@ -19,6 +20,7 @@ $reddit-icon: \f281;
 $whatsapp-icon: \f232;
 $pocket-icon: \f265;
 $telegram-icon: \f3fe;
+$hatena-icon: \f02e; // not official
 $sms-icon: \f7cd;
 
 @function add-content($glyph) {
@@ -77,4 +79,5 @@ $social: ('email', $email, $email-icon),
 ('whatsapp', $whatsapp, $whatsapp-icon),
 ('pocket', $pocket, $pocket-icon),
 ('telegram', $telegram, $telegram-icon),
+('hatena', $hatena, $hatena-icon),
 ('sms', $sms, $sms-icon);
