@@ -373,7 +373,7 @@ msgid "Pinterest"
 msgstr ""
 
 #: includes/settings/networks.php:26
-msgid "Linkedin"
+msgid "LinkedIn"
 msgstr ""
 
 #: includes/settings/networks.php:31

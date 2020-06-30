@@ -191,6 +191,10 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.5
+* updated: tested to WordPress 5.4
+* fixed: LinkedIn label
+
 ### 3.1.4
 * added: filter on button container element
 * updated: Twitter color
