@@ -28,7 +28,7 @@ class ScriptlessSocialSharingOutputPinterest {
 
 		return $content . wp_get_attachment_image(
 			$pinterest_image,
-			'large',
+			apply_filters( 'scriptlesssocialsharing_pinterest_image_size', 'large' ),
 			false,
 			$this->get_image_args( $pinterest_image )
 		);
