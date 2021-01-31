@@ -176,7 +176,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 			$fields[ $network['name'] ] = array(
 				'type'    => 'boolean',
 				'default' => 0,
-				'label'   => $network['label'],
+				'label'   => empty( $network['label'] ) ? $network['name'] : $network['label'],
 				'method'  => 'checkbox',
 			);
 			if ( ! $i ) {
