@@ -4,8 +4,8 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.8
-Tested up to: 5.4
-Stable tag: 3.1.5
+Tested up to: 5.6
+Stable tag: 3.1.6
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -178,6 +178,11 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 3.1.5: update the LinkedIn label
 
 == Changelog ==
+
+= 3.1.6 =
+* added: filter for the Pinterest image size
+* improved: screen reader text on sharing buttons (buttons now say "Share on ...")
+* fixed: post meta sanitization was using a function deprecated in PHP 7.4
 
 = 3.1.5 =
 * updated: tested to WordPress 5.4

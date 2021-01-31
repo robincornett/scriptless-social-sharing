@@ -1,4 +1,4 @@
-# Copyright (C) 2020 Scriptless Social Sharing
+# Copyright (C) 2021 Scriptless Social Sharing
 # This file is distributed under the same license as the Scriptless Social Sharing package.
 msgid ""
 msgstr ""
@@ -46,6 +46,11 @@ msgstr ""
 
 #: includes/output/class-scriptlesssocialsharing-output-block.php:187
 msgid " (will not show if there is no image)"
+msgstr ""
+
+#. translators: 1. opening span tag; do not translate 2. closing span tag, do not translate 3. the social network name
+#: includes/output/class-scriptlesssocialsharing-output.php:129
+msgid "%1$sShare on %2$s%3$s"
 msgstr ""
 
 #: includes/postmeta/class-scriptlesssocialsharing-postmeta-fields.php:111

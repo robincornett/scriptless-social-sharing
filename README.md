@@ -191,6 +191,11 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 ## Changelog
 
+### 3.1.6
+* added: filter for the Pinterest image size
+* improved: screen reader text on sharing buttons (buttons now say "Share on ...")
+* fixed: post meta sanitization was using a function deprecated in PHP 7.4
+
 ### 3.1.5
 * updated: tested to WordPress 5.4
 * fixed: LinkedIn label
