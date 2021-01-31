@@ -123,6 +123,14 @@ class ScriptlessSocialSharingOutput {
 		$svg         = $this->get_svg( $button['name'] );
 		$label_class = $this->get_label_class();
 		$link_rel    = $this->get_link_rel( $button );
+		$hidden      = 'screen-reader-text' === $label_class;
+		$label       = sprintf(
+			/* translators: 1. opening span tag; do not translate 2. closing span tag, do not translate 3. the social network name */
+			__( '%1$sShare on %2$s%3$s', 'scriptless-social-sharing' ),
+			$hidden ? '' : '<span class="screen-reader-text">',
+			$hidden ? '' : '</span>',
+			$button['label']
+		);
 
 		/**
 		 * Apply a filter to the entire link markup.
@@ -143,7 +151,7 @@ class ScriptlessSocialSharingOutput {
 				$button['data'],
 				$svg,
 				esc_attr( $label_class ),
-				$button['label'],
+				$label,
 				esc_attr( $link_rel )
 			),
 			$button,
