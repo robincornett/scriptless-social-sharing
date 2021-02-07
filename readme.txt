@@ -175,7 +175,7 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-3.1.5: update the LinkedIn label
+3.1.6: PHP 8 fix, improved screen reader text
 
 == Changelog ==
 

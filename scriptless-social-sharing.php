@@ -33,7 +33,7 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 }
 
 if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
-	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.1.4' );
+	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.1.6' );
 }
 
 // Include classes
