@@ -173,7 +173,8 @@ class ScriptlessSocialSharingPostMeta {
 		foreach ( $fields as $field ) {
 			switch ( $field['type'] ) {
 				case 'textarea':
-					$value = sanitize_text_field( filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_ADD_SLASHES ) );
+					$filter = defined( 'FILTER_SANITIZE_ADD_SLASHES' ) ? FILTER_SANITIZE_ADD_SLASHES : FILTER_SANITIZE_MAGIC_QUOTES;
+					$value  = sanitize_text_field( filter_input( INPUT_POST, $field['id'], $filter ) );
 					break;
 
 				default:
