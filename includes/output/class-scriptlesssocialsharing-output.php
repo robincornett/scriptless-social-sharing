@@ -76,7 +76,7 @@ class ScriptlessSocialSharingOutput {
 			return false;
 		}
 		$screen = get_current_screen();
-		if ( method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
+		if ( $screen instanceof \WP_Screen && $screen->is_block_editor() ) {
 			return true;
 		}
 
