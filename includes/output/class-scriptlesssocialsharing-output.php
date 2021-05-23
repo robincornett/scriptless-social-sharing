@@ -76,7 +76,8 @@ class ScriptlessSocialSharingOutput {
 			return false;
 		}
 		$screen = get_current_screen();
-		if ( $screen instanceof \WP_Screen && $screen->is_block_editor() ) {
+		// The method_exists is required until Scriptless' minimum WP is 5.0.
+		if ( $screen instanceof \WP_Screen && method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
 			return true;
 		}
 
