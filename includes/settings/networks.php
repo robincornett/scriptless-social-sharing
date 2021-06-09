@@ -51,6 +51,11 @@ return apply_filters(
 			'label' => __( 'Telegram', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
+		'hatena'  => array(
+			'name'  => 'hatena',
+			'label' => __( 'Hatena', 'scriptless-social-sharing' ),
+			'order' => 0,
+		),
 		'sms'       => array(
 			'name'  => 'sms',
 			'label' => __( 'SMS', 'scriptless-social-sharing' ),
