@@ -95,11 +95,24 @@ class ScriptlessSocialSharingButtonMaker {
 	public function query_args( $query_args, $id, $attributes, $setting ) {
 
 		foreach ( $this->args['query_args'] as $key => $arg ) {
-			$updated_arg = strtolower( str_replace( '%%', '', $arg ) );
-			if ( ! empty( $attributes[ $updated_arg ] ) ) {
-				$query_args[ $key ] = $attributes[ $updated_arg ];
+			if ( is_array( $arg ) ) {
+				$string = '';
+				foreach ( $arg as $variable ) {
+					$updated_arg = strtolower( str_replace( '%%', '', $variable ) );
+					if ( ! empty( $attributes[ $updated_arg ] ) ) {
+						$string .= ' ' . $attributes[ $updated_arg ];
+					}
+				}
+				if ( ! empty( $string ) ) {
+					$query_args[ $key ] = $string;
+				}
 			} else {
-				$query_args[ $key ] = $arg;
+				$updated_arg = strtolower( str_replace( '%%', '', $arg ) );
+				if ( ! empty( $attributes[ $updated_arg ] ) ) {
+					$query_args[ $key ] = $attributes[ $updated_arg ];
+				} else {
+					$query_args[ $key ] = $arg;
+				}
 			}
 		}
 
