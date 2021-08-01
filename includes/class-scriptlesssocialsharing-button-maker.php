@@ -42,6 +42,9 @@ class ScriptlessSocialSharingButtonMaker {
 		if ( ! empty( $this->args['svg'] ) ) {
 			add_filter( 'scriptlesssocialsharing_svg_icons', array( $this, 'add_svg' ) );
 		}
+		if ( ! empty( $this->args['target_self'] ) ) {
+			add_filter( 'scriptlesssocialsharing_link_target', '__return_empty_string' );
+		}
 	}
 
 	/**
