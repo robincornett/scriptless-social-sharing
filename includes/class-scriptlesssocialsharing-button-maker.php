@@ -29,7 +29,7 @@ class ScriptlessSocialSharingButtonMaker {
 	 */
 	public function __construct( $id, $args ) {
 
-		if ( empty( $id ) || empty( $args['label'] ) || empty( $args['url_base'] ) || empty( $args['query_args'] ) ) {
+		if ( empty( $id ) || empty( $args['label'] ) || empty( $args['url_base'] ) ) {
 			return;
 		}
 
@@ -93,6 +93,10 @@ class ScriptlessSocialSharingButtonMaker {
 	 * @return array
 	 */
 	public function query_args( $query_args, $id, $attributes, $setting ) {
+
+		if ( empty( $this->args['query_args'] ) ) {
+			return $query_args;
+		}
 
 		foreach ( $this->args['query_args'] as $key => $arg ) {
 			if ( is_array( $arg ) ) {
