@@ -52,6 +52,7 @@ function scriptlesssocialsharing_require() {
 		'postmeta/class-scriptlesssocialsharing-postmeta',
 		'settings/class-scriptlesssocialsharing-settings',
 		'helper-functions',
+		'class-scriptlesssocialsharing-button-maker',
 	);
 
 	foreach ( $files as $file ) {
