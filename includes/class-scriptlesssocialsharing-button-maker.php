@@ -14,7 +14,21 @@ class ScriptlessSocialSharingButtonMaker {
 	private $id;
 
 	/**
-	 * The array of parameters to define the sharing button.
+	 * The label (proper name) for the network.
+	 *
+	 * @var string
+	 */
+	private $label;
+
+	/**
+	 * The base part of the URL (before parameters are added).
+	 *
+	 * @var string
+	 */
+	private $url_base;
+
+	/**
+	 * The array of parameters to further define the sharing button.
 	 *
 	 * @var array
 	 */
@@ -27,14 +41,16 @@ class ScriptlessSocialSharingButtonMaker {
 	 * @param string $id
 	 * @param array  $args
 	 */
-	public function __construct( $id, $args ) {
+	public function __construct( $id, $label, $url_base, $args = array() ) {
 
-		if ( empty( $id ) || empty( $args['label'] ) || empty( $args['url_base'] ) ) {
+		if ( empty( $id ) || empty( $label ) || empty( $url_base ) ) {
 			return;
 		}
 
-		$this->id   = $id;
-		$this->args = $this->get_args( $args );
+		$this->id       = $id;
+		$this->label    = $label;
+		$this->url_base = $url_base;
+		$this->args     = $this->get_args( $args );
 
 		add_filter( 'scriptlesssocialsharing_networks', array( $this, 'add_network' ) );
 		add_filter( "scriptlesssocialsharing_{$this->id}_query_args", array( $this, 'query_args' ), 10, 4 );
@@ -58,10 +74,8 @@ class ScriptlessSocialSharingButtonMaker {
 		return wp_parse_args(
 			$args,
 			array(
-				'label'      => '',
 				'icon'       => '',
 				'color'      => '#333',
-				'url_base'   => '',
 				'query_args' => array(),
 			)
 		);
@@ -77,7 +91,7 @@ class ScriptlessSocialSharingButtonMaker {
 	public function add_network( $networks ) {
 		$networks[ $this->id ] = array(
 			'name'  => $this->id,
-			'label' => $this->args['label'],
+			'label' => $this->label,
 			'icon'  => $this->args['icon'],
 			'color' => $this->args['color'],
 		);
@@ -133,7 +147,7 @@ class ScriptlessSocialSharingButtonMaker {
 	 * @return string
 	 */
 	public function url_base() {
-		return $this->args['url_base'];
+		return $this->url_base;
 	}
 
 	/**
