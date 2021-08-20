@@ -24,25 +24,173 @@ class ScriptlessSocialSharingOutputSVG {
 	public static function instance() {
 		if ( ! isset( self::$instance ) && ! ( self::$instance instanceof ScriptlessSocialSharingOutputSVG ) ) {
 			self::$instance = new ScriptlessSocialSharingOutputSVG();
-			self::$instance->maybe_add_svg();
 		}
+		add_filter( 'wp_kses_allowed_html', array( self::$instance, 'filter_allowed_html' ), 10, 2 );
 
 		return self::$instance;
 	}
 
 	/**
-	 * If SVG icons are enabled, add them to the footer and allowed HTML.
-	 * @since 3.0.0
+	 * Gets the SVG icon directly from an SVG file (new) or sprite file.
+	 *
+	 * @since 3.2.0
+	 * @param string $icon
+	 * @param array $args
+	 * @return string
 	 */
-	public function maybe_add_svg() {
-		$setting = scriptlesssocialsharing_get_setting( 'icons' );
-		if ( 'svg' !== $setting ) {
-			return;
+	public function svg( $icon, $args = array() ) {
+		$contents = $this->get_icon_file_contents( $icon );
+		if ( $contents ) {
+			return $this->update_svg(
+				$contents,
+				$this->get_icon_args( $icon, $args )
+			);
 		}
 
 		add_action( 'wp_footer', array( $this, 'load_svg' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'load_svg' ) );
-		add_filter( 'wp_kses_allowed_html', array( $this, 'filter_allowed_html' ), 10, 2 );
+
+		return $this->get_svg_icon( $icon, $args );
+	}
+
+	/**
+	 * Get the icon args, merged with defaults.
+	 *
+	 * @since 3.2.0
+	 * @param array $args
+	 * @return array
+	 */
+	private function get_icon_args( $icon, $args ) {
+		$defaults = array(
+			'class' => "scriptlesssocialsharing__icon {$icon}",
+		);
+
+		return wp_parse_args( $args, $defaults );
+	}
+
+	/**
+	 * Get the icon file to include.
+	 *
+	 * @since 3.2.0
+	 * @param string $icon
+	 * @return string
+	 */
+	private function get_icon_file_contents( $icon ) {
+		$icon         = $this->replace_icon_name( $icon );
+		$located_icon = $this->locate_icon( $icon );
+
+		return file_exists( $located_icon ) ? file_get_contents( $located_icon ) : false;
+	}
+
+	/**
+	 * Get the path for the icons.
+	 * To use custom icons from your theme, add two folders to the theme's /images directory:
+	 * /sprites/icons.svg (containing custom icons)
+	 * /svg  with all custom icon svg files
+	 * The filter should return a directory which contains the following directory structure:
+	 * /sprites/ which contains sprite files
+	 * /svg/ which contains subdirectories for the chosen weight(s) and brands
+	 *
+	 * @since 3.2.0
+	 * @return array
+	 */
+	public function get_icon_paths() {
+		return array(
+			trailingslashit( get_stylesheet_directory() . '/assets' ),
+			trailingslashit( get_stylesheet_directory() . '/images' ),
+			trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ),
+		);
+	}
+
+	/**
+	 * Locate a specific icon.
+	 *
+	 * @since 3.2.0
+	 * @param string $icon
+	 * @return string|boolean
+	 */
+	private function locate_icon( $icon ) {
+		$located   = false;
+		$locations = $this->get_icon_paths();
+		foreach ( $locations as $location ) {
+			$path = trailingslashit( "{$location}svg" );
+			if ( file_exists( "{$path}{$icon}.svg" ) ) {
+				$located = "{$path}{$icon}.svg";
+				break;
+			}
+		}
+
+		return $located;
+	}
+
+	/**
+	 * Update the SVG icon with class, style, a11y attributes.
+	 *
+	 * @since 3.2.0
+	 * @param string $svg  The SVG.
+	 * @param array  $args
+	 * @return string
+	 */
+	private function update_svg( $svg, $args ) {
+		$html = '';
+		if ( ! $svg ) {
+			return $html;
+		}
+		$dom = $this->get_document( $svg );
+
+		foreach ( $dom->getElementsByTagName( 'svg' ) as $item ) {
+			foreach ( $this->svg_attributes( $args ) as $key => $value ) {
+				if ( $value ) {
+					$item->setAttribute( $key, $value );
+				}
+			}
+
+			return $dom->saveHTML();
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Get all of the attributes to be added to the SVG.
+	 *
+	 * @since 3.2.0
+	 * @param array $args
+	 * @return array
+	 */
+	private function svg_attributes( $args ) {
+		return array(
+			'class'       => $args['class'],
+			'fill'        => 'currentcolor',
+			'height'      => '1em',
+			'width'       => '1em',
+			'aria-hidden' => 'true',
+			'focusable'   => 'false',
+			'role'        => 'img',
+		);
+	}
+
+	/**
+	 * Get the SVG content as an object.
+	 *
+	 * @since 3.2.0
+	 * @param string $svg The SVG.
+	 * @return object
+	 */
+	private function get_document( $svg ) {
+		$doc = new DOMDocument();
+
+		libxml_use_internal_errors( true ); // turn off errors for HTML5
+		$currentencoding = mb_internal_encoding();
+		$content         = mb_convert_encoding( $svg, 'HTML-ENTITIES', $currentencoding );
+		if ( defined( 'LIBXML_HTML_NOIMPLIED' ) && defined( 'LIBXML_HTML_NODEFDTD' ) ) {
+			$doc->LoadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		} else {
+			$doc->LoadHTML( $content );
+		}
+		libxml_clear_errors(); // now that it's loaded, go ahead
+
+		return $doc;
 	}
 
 	/**
@@ -78,14 +226,24 @@ class ScriptlessSocialSharingOutputSVG {
 	public function filter_allowed_html( $allowed, $context ) {
 
 		if ( 'post' === $context ) {
-			$allowed['svg'] = array(
+			$allowed['svg']  = array(
 				'class'           => true,
 				'role'            => true,
 				'aria-hidden'     => true,
 				'aria-labelledby' => true,
+				'style'           => true,
+				'fill'            => true,
+				'height'          => true,
+				'width'           => true,
+				'focusable'       => true,
+				'xmlns'           => true,
+				'viewbox'         => true,
 			);
-			$allowed['use'] = array(
+			$allowed['use']  = array(
 				'xlink:href' => true,
+			);
+			$allowed['path'] = array(
+				'd' => true,
 			);
 		}
 
@@ -93,8 +251,13 @@ class ScriptlessSocialSharingOutputSVG {
 	}
 
 	/**
-	 * Return SVG markup.
+	 * Returns SVG markup. This is the old/original way of retrieving the SVG icons from
+	 * a sprite file loaded in the footer. The new way (individual SVGs) is preferred.
+	 *
+	 * Originally named svg(); in 3.2.0 updated to get_svg_icon() and used as a fallback.
+	 *
 	 * @since 2.4.0
+	 * @since 3.2.0
 	 *
 	 * @param string $icon
 	 * @param array  $args    {
@@ -102,7 +265,7 @@ class ScriptlessSocialSharingOutputSVG {
 	 *
 	 * @return string SVG markup.
 	 */
-	public function svg( $icon, $args = array() ) {
+	public function get_svg_icon( $icon, $args = array() ) {
 		if ( ! $icon ) {
 			return false;
 		}
