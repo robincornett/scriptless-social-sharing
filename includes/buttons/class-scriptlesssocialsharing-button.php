@@ -47,10 +47,12 @@ abstract class ScriptlessSocialSharingButton {
 	 * @return string
 	 */
 	public function get_url() {
-		return add_query_arg(
+		$url = add_query_arg(
 			$this->get_filtered_query_args(),
 			$this->get_filtered_url_base()
 		);
+
+		return filter_var( $url, FILTER_VALIDATE_URL ) ? esc_url( $url ) : $url;
 	}
 
 	/**

@@ -148,7 +148,7 @@ class ScriptlessSocialSharingOutput {
 				'<a class="button %1$s"%2$s href="%3$s" rel="%8$s" %4$s>%5$s<span class="%6$s">%7$s</span></a>',
 				esc_attr( $button['name'] ),
 				$link_target,
-				esc_url( $button['url'] ),
+				$button['url'],
 				$button['data'],
 				$svg,
 				esc_attr( $label_class ),
