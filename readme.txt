@@ -162,7 +162,7 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 = What is this "Custom Pinterest Image"? =
 
-You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image.
+You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image. Scroll down in the post editor sidebar to find where to add the custom image.
 
 = How can I change the order of the sharing buttons? =
 
