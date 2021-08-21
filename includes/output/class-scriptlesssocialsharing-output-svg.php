@@ -83,26 +83,24 @@ class ScriptlessSocialSharingOutputSVG {
 		$icon         = $this->replace_icon_name( $icon );
 		$located_icon = $this->locate_icon( $icon );
 
-		return file_exists( $located_icon ) ? file_get_contents( $located_icon ) : false;
+		return $located_icon && file_exists( $located_icon ) ? file_get_contents( $located_icon ) : false;
 	}
 
 	/**
-	 * Get the path for the icons.
-	 * To use custom icons from your theme, add two folders to the theme's /images directory:
-	 * /sprites/icons.svg (containing custom icons)
-	 * /svg  with all custom icon svg files
-	 * The filter should return a directory which contains the following directory structure:
-	 * /sprites/ which contains sprite files
-	 * /svg/ which contains subdirectories for the chosen weight(s) and brands
+	 * Gets the path for the icons. To use a custom icon, add the svg files
+	 * to the theme, in an `assets/svg` directory. Theme icons will take
+	 * precedence over the plugin icons.
 	 *
 	 * @since 3.2.0
 	 * @return array
 	 */
 	public function get_icon_paths() {
-		return array(
-			trailingslashit( get_stylesheet_directory() . '/assets' ),
-			trailingslashit( get_stylesheet_directory() . '/images' ),
-			trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ),
+		return apply_filters(
+			'scriptlesssocialsharing_svg_paths',
+			array(
+				trailingslashit( get_stylesheet_directory() . '/assets' ),
+				trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ),
+			)
 		);
 	}
 
