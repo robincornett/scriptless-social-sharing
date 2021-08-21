@@ -235,12 +235,10 @@ class ScriptlessSocialSharingOutputSVG {
 				'role'            => true,
 				'aria-hidden'     => true,
 				'aria-labelledby' => true,
-				'style'           => true,
 				'fill'            => true,
 				'height'          => true,
 				'width'           => true,
 				'focusable'       => true,
-				'xmlns'           => true,
 				'viewbox'         => true,
 			);
 			$allowed['use']  = array(
