@@ -39,12 +39,16 @@ class ScriptlessSocialSharingOutputSVG {
 	 * @return string
 	 */
 	public function svg( $icon, $args = array() ) {
-		$contents = $this->get_icon_file_contents( $icon );
-		if ( $contents ) {
-			return $this->update_svg(
-				$contents,
-				$this->get_icon_args( $icon, $args )
-			);
+		// If the original sprite path was customized, that should take precedence over the new icons.
+		$filter = apply_filters( 'scriptlesssocialsharing_svg', false );
+		if ( empty( $filter['styles'] ) ) {
+			$contents = $this->get_icon_file_contents( $icon );
+			if ( $contents ) {
+				return $this->update_svg(
+					$contents,
+					$this->get_icon_args( $icon, $args )
+				);
+			}
 		}
 
 		add_action( 'wp_footer', array( $this, 'load_svg' ) );
