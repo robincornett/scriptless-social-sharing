@@ -50,7 +50,7 @@ class ScriptlessSocialSharingOutputSVG {
 		add_action( 'wp_footer', array( $this, 'load_svg' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'load_svg' ) );
 
-		return $this->get_svg_icon( $icon, $args );
+		return $this->get_svg_from_sprite( $icon, $args );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class ScriptlessSocialSharingOutputSVG {
 	 * Returns SVG markup. This is the old/original way of retrieving the SVG icons from
 	 * a sprite file loaded in the footer. The new way (individual SVGs) is preferred.
 	 *
-	 * Originally named svg(); in 3.2.0 updated to get_svg_icon() and used as a fallback.
+	 * Originally named svg(); in 3.2.0 updated to get_svg_from_sprite() and used as a fallback.
 	 *
 	 * @since 2.4.0
 	 * @since 3.2.0
@@ -265,7 +265,7 @@ class ScriptlessSocialSharingOutputSVG {
 	 *
 	 * @return string SVG markup.
 	 */
-	public function get_svg_icon( $icon, $args = array() ) {
+	public function get_svg_from_sprite( $icon, $args = array() ) {
 		if ( ! $icon ) {
 			return false;
 		}
