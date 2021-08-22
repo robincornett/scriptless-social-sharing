@@ -2,12 +2,12 @@
 
 var gulp = require( 'gulp' );
 
-gulp.task( 'translate', function () {
+gulp.task( 'translate', () => {
 
-	var pot    = require( 'gulp-wp-pot' ),
+	var pot = require( 'gulp-wp-pot' ),
 		config = require( '../config' );
 
-	gulp.src( [config.paths.potSource] )
+	return gulp.src( [ config.paths.potSource ] )
 		.pipe( pot( {
 			domain: config.projectName,
 			package: config.projectTitle,

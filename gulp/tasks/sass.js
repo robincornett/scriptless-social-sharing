@@ -2,24 +2,24 @@
 
 var gulp = require( 'gulp' );
 
-gulp.task( 'sass', function () {
+gulp.task( 'sass', () => {
 
-	var autoprefixer  = require( 'autoprefixer' ),
-		postcss       = require( 'gulp-postcss' ),
-		sass          = require( 'gulp-sass' ),
-		notify        = require( 'gulp-notify' ),
-		atImport      = require( 'postcss-import' ),
-		mqpacker      = require( 'css-mqpacker' ),
-		config        = require( '../config' ),
+	var autoprefixer = require( 'autoprefixer' ),
+		postcss = require( 'gulp-postcss' ),
+		sass = require( 'gulp-sass' )( require( 'sass' ) ),
+		notify = require( 'gulp-notify' ),
+		atImport = require( 'postcss-import' ),
+		mqpacker = require( 'css-mqpacker' ),
+		config = require( '../config' ),
 		perfectionist = require( 'perfectionist' ),
-		browserSync   = require( 'browser-sync' ),
-		processors    = [
+		browserSync = require( 'browser-sync' ),
+		processors = [
 			atImport,
 			autoprefixer( {
 				cascade: false,
 				remove: false
 			} ),
-			mqpacker( {sort: true} ),
+			mqpacker( { sort: true } ),
 			perfectionist( {
 				cascade: true,
 				format: config.output.style,
@@ -30,12 +30,12 @@ gulp.task( 'sass', function () {
 				sourcemap: true
 			} )
 		];
-	gulp.src( config.paths.sassPath )
-		.pipe( sass( {outputStyle: config.output.style} ).on( 'error', sass.logError ) )
+	return gulp.src( config.paths.sassPath )
+		.pipe( sass( { outputStyle: config.output.style } ).on( 'error', sass.logError ) )
 		.pipe( postcss( processors ) )
 		.pipe( gulp.dest( config.output.styleDestination ) )
 		.pipe( browserSync.reload( {
 			stream: true
 		} ) )
-		.pipe( notify( {message: 'you sassed the shit out of that.', onLast: true} ) );
+		.pipe( notify( { message: 'you sassed the shit out of that.', onLast: true } ) );
 } );

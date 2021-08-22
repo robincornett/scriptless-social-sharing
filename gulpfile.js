@@ -3,8 +3,17 @@
  */
 'use strict';
 
-var gulp       = require( 'gulp' );
-var requireDir = require( 'require-dir' );
+var gulp = require( 'gulp' );
 
-// Require all tasks in gulp/tasks, including subfolders
-requireDir( './gulp/tasks', { recurse: true } );
+function getTask ( task ) {
+	var taskDir = './gulp/tasks/' + task;
+
+	return require( taskDir );
+}
+
+var tasks = [ 'sass', 'js', 'sprites', 'translate', 'zip' ];
+for ( var index in tasks ) {
+	getTask( tasks[ index ] );
+}
+
+gulp.task( 'build', gulp.series( [ 'sass', 'js', 'sprites', 'translate', 'zip' ] ) );

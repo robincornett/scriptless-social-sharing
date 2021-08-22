@@ -2,12 +2,13 @@
 
 var gulp = require( 'gulp' );
 
-gulp.task( 'js', function () {
+gulp.task( 'js', () => {
 
 	var uglify = require( 'gulp-uglify-es' ).default,
-	    rename = require( 'gulp-rename' ),
-	    config = require( '../config' );
-	gulp.src( config.paths.jsPath )
+		rename = require( 'gulp-rename' ),
+		config = require( '../config' );
+
+	return gulp.src( config.paths.jsPath )
 		.pipe( uglify() )
 		.pipe( rename( {
 			extname: '.min.js'

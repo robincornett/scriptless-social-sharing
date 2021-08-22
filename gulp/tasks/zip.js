@@ -2,10 +2,10 @@
 
 var gulp = require( 'gulp' );
 
-gulp.task( 'zip' , function () {
+gulp.task( 'zip', () => {
 
-	var chmod  = require( 'gulp-chmod' ),
-		zip    = require( 'gulp-zip' ),
+	var chmod = require( 'gulp-chmod' ),
+		zip = require( 'gulp-zip' ),
 		config = require( '../config' );
 
 	return gulp.src( config.buildInclude, { base: '../' } )
