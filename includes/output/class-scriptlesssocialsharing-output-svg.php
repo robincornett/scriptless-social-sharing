@@ -98,8 +98,8 @@ class ScriptlessSocialSharingOutputSVG {
 		return apply_filters(
 			'scriptlesssocialsharing_svg_paths',
 			array(
-				trailingslashit( get_stylesheet_directory() . '/assets' ),
-				trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ),
+				trailingslashit( get_stylesheet_directory() ) . 'assets/svg',
+				trailingslashit( plugin_dir_path( dirname( __FILE__ ) ) ) . 'svg',
 			)
 		);
 	}
@@ -115,9 +115,9 @@ class ScriptlessSocialSharingOutputSVG {
 		$located   = false;
 		$locations = $this->get_icon_paths();
 		foreach ( $locations as $location ) {
-			$path = trailingslashit( "{$location}svg" );
-			if ( file_exists( "{$path}{$icon}.svg" ) ) {
-				$located = "{$path}{$icon}.svg";
+			$file = trailingslashit( $location ) . "{$icon}.svg";
+			if ( file_exists( $file ) ) {
+				$located = $file;
 				break;
 			}
 		}
