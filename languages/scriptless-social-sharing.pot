@@ -49,7 +49,7 @@ msgid " (will not show if there is no image)"
 msgstr ""
 
 #. translators: 1. opening span tag; do not translate 2. closing span tag, do not translate 3. the social network name
-#: includes/output/class-scriptlesssocialsharing-output.php:129
+#: includes/output/class-scriptlesssocialsharing-output.php:130
 msgid "%1$sShare on %2$s%3$s"
 msgstr ""
 
@@ -81,19 +81,19 @@ msgstr ""
 msgid "Don't show sharing buttons for this post"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:243
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:247
 msgid "Before Content"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:244
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:248
 msgid "After Content"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:245
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:249
 msgid "Manual Placement"
 msgstr ""
 
-#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:291
+#: includes/settings/class-scriptlesssocialsharing-settings-fields.php:295
 msgid "Since you have changed the order of the buttons using the visual/number inputs, updating the order by dragging has been disabled."
 msgstr ""
 
@@ -221,11 +221,11 @@ msgstr ""
 msgid "Share this post:"
 msgstr ""
 
-#: includes/settings/defaults.php:26
+#: includes/settings/defaults.php:27
 msgid "A post worth sharing:"
 msgstr ""
 
-#: includes/settings/defaults.php:27
+#: includes/settings/defaults.php:28
 msgid "I read this post and wanted to share it with you. Here's the link:"
 msgstr ""
 
@@ -402,6 +402,10 @@ msgid "Telegram"
 msgstr ""
 
 #: includes/settings/networks.php:56
+msgid "Hatena"
+msgstr ""
+
+#: includes/settings/networks.php:61
 msgid "SMS"
 msgstr ""
 
