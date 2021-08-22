@@ -245,6 +245,11 @@ class ScriptlessSocialSharingOutputSVG {
 			$allowed['path'] = array(
 				'd' => true,
 			);
+			$allowed['rect'] = array(
+				'x'      => true,
+				'width'  => true,
+				'height' => true,
+			);
 		}
 
 		return $allowed;
