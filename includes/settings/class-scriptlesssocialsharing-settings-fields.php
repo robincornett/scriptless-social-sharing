@@ -64,13 +64,16 @@ class ScriptlessSocialSharingSettingsFields {
 	 */
 	protected function do_checkbox( $args ) {
 		$setting = $this->get_checkbox_setting( $args );
+		echo '<div class="scriptlesssocialsharing__checkbox">';
 		printf( '<input type="hidden" name="%s[%s]" value="0" />', esc_attr( $this->page ), esc_attr( $args['id'] ) );
-		printf( '<label for="%1$s[%2$s]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s]" id="%1$s[%2$s]" value="1" %3$s class="code" />%4$s</label>',
+		printf(
+			'<label for="%1$s[%2$s]" style="margin-right:12px;"><input type="checkbox" name="%1$s[%2$s]" id="%1$s[%2$s]" value="1" %3$s class="code" />%4$s</label>',
 			esc_attr( $this->page ),
 			esc_attr( $args['id'] ),
 			checked( 1, esc_attr( $setting ), false ),
 			esc_attr( $args['label'] )
 		);
+		echo '</div>';
 	}
 
 	/**
@@ -104,6 +107,7 @@ class ScriptlessSocialSharingSettingsFields {
 			if ( 'post_types' === $args['id'] && ! isset( $this->setting[ $args['id'] ][ $key ] ) ) {
 				$setting = in_array( $key, $this->setting['post_types'], true );
 			}
+			echo '<div class="scriptlesssocialsharing__checkbox-array">';
 			printf(
 				'<input type="hidden" name="%1$s[%2$s][%3$s]" value="0" />',
 				esc_attr( $this->page ),
@@ -111,14 +115,14 @@ class ScriptlessSocialSharingSettingsFields {
 				esc_attr( $key )
 			);
 			printf(
-				'<label for="%4$s[%5$s][%1$s]" style="margin-right:12px;"><input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code" data-attr="%1$s"/>%3$s</label>',
+				'<input type="checkbox" name="%4$s[%5$s][%1$s]" id="%4$s[%5$s][%1$s]" value="1"%2$s class="code" data-attr="%1$s"/><label for="%4$s[%5$s][%1$s]">%3$s</label>',
 				esc_attr( $key ),
 				checked( 1, $setting, false ),
 				esc_html( $label ),
 				esc_attr( $this->page ),
 				esc_attr( $args['id'] )
 			);
-			echo isset( $args['clear'] ) && $args['clear'] ? '<br />' : '';
+			echo '</div>';
 		}
 	}
 
