@@ -7,6 +7,7 @@ gulp.task( 'sass', () => {
 	var autoprefixer = require( 'autoprefixer' ),
 		postcss = require( 'gulp-postcss' ),
 		sass = require( 'gulp-sass' )( require( 'sass' ) ),
+		sassunicode = require( 'gulp-sass-unicode' ),
 		notify = require( 'gulp-notify' ),
 		atImport = require( 'postcss-import' ),
 		mqpacker = require( 'css-mqpacker' ),
@@ -32,6 +33,7 @@ gulp.task( 'sass', () => {
 		];
 	return gulp.src( config.paths.sassPath )
 		.pipe( sass( { outputStyle: config.output.style } ).on( 'error', sass.logError ) )
+		.pipe( sassunicode() )
 		.pipe( postcss( processors ) )
 		.pipe( gulp.dest( config.output.styleDestination ) )
 		.pipe( browserSync.reload( {

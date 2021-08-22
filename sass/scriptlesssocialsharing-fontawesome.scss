@@ -1,5 +1,6 @@
 @import "_variables.scss";
 
+@charset "UTF-8";
 .scriptlesssocialsharing {
 	.button {
 		.sss-name {
@@ -19,7 +20,7 @@
 				content: add-content($glyph);
 			}
 
-			@if index( ( 'email', 'sms' ), $network ) {
+			@if index( ( 'email', 'sms', 'hatena' ), $network ) {
 				font-family: 'Font Awesome 5 Free', 'FontAwesome';
 				font-weight: 900;
 			}
