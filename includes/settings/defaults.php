@@ -20,6 +20,7 @@ return array(
 		'whatsapp'  => 0,
 		'pocket'    => 0,
 		'telegram'  => 0,
+		'hatena'    => 0,
 		'sms'       => 0,
 	),
 	'twitter_handle' => '',
