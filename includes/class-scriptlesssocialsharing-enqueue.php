@@ -173,10 +173,10 @@ class ScriptlessSocialSharingEnqueue {
 	private function get_button_styles() {
 		$style = '';
 		foreach ( $this->buttons as $button ) {
-			if ( isset( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
+			if ( ! empty( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
 				$style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
 			}
-			if ( isset( $button['color'] ) && isset( $button['name'] ) ) {
+			if ( ! empty( $button['color'] ) && ! empty( $button['name'] ) ) {
 				$style .= $this->get_button_color( $button );
 			}
 		}
