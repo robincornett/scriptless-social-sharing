@@ -1,6 +1,6 @@
 # Scriptless Social Sharing
 
-This plugin adds super simple social sharing buttons to the end of posts.
+This plugin adds super simple social sharing buttons to your content.
 
 _Scriptless Social Sharing_ is a wee plugin to add buttons to your posts/pages, to make it easier for your readers to share your content on social networks.
 
@@ -60,7 +60,7 @@ Scriptless Social Sharing currently supports the following social networks:
 * SMS
 * Email
 
-Google+ is dead and has been removed from the plugin. Instagram does not support social sharing buttons.
+Instagram does not support social sharing buttons.
 
 ### Can I change the SVG icons?
 
@@ -91,9 +91,11 @@ function rgc_use_square_icons( $icons ) {
 }
 ```
 
+Want to use an icon not provided by the plugin? Load your own icons in your theme. As of version 3.2.0, the plugin uses SVG files directly, instead of sprite files. To use your own SVG files instead of the plugin's, add them to your theme, in `assets/svg`. The plugin will use the theme icons in preference of the plugin.
+
 ### What if I want to move where the buttons are output?
 
-Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
+Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
 
 * Before Content: at the beginning of the post/entry, within the post/entry content.
 * After Content: at the end of the post/entry, within the post/entry content.
@@ -184,13 +186,56 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 ### What is this "Custom Pinterest Image"?
 
-You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image.
+You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image. Scroll down in the post editor sidebar to find where to add the custom image.
 
 ### How can I change the order of the sharing buttons?
 
 As of version 2.3, the sharing buttons order can be changed on the settings page, either by dragging buttons to your desired order, or by updating the numbered inputs.
 
+### How can I add a custom sharing button?
+
+It has always been possible to add a custom sharing button with custom code, but version 3.2.0 makes this a little easier by creating a new helper function. You'll access the helper function by using a filter. Here's an example of how to add a button to share a post to Tumblr:
+
+```php
+add_filter( 'scriptlesssocialsharing_register', 'prefix_scriptless_add_tumblr_button' );
+/**
+* Adds a custom sharing button to Scriptless Social Sharing.
+*
+* @return void
+*/
+function prefix_scriptless_add_tumblr_button( $buttons ) {
+	$buttons['tumblr'] = array(
+		'label'    => __( 'Tumblr', 'scriptless-social-sharing' ),
+		'url_base' => 'https://www.tumblr.com/share/link',
+		'args'     => array(
+			'query_args' => array(
+				'name' => '%%title%%',
+				'url'  => '%%permalink%%',
+			),
+			'color'      => '#35465c',
+			'svg'        => 'tumblr-square', // Use this with the SVG icons and add the SVG file to your theme's `assets/svg` folder
+			'icon'       => 'f173', // Use this when using the FontAwesome font for icons
+		),
+	);
+
+	return $buttons;
+}
+```
+
+The `%%` are used to designate placeholders for the attribute variables that the plugin will apply when building the button.
+
+Note that there is both an `svg` and an `icon` argument in the code sample. `svg` is preferred, but only applies if you are using the SVG option for the sharing icons. To add a new icon, upload it to your theme's `assets/svg` directory and the plugin will use it automatically. If you are using the older FontAwesome option, use `icon` to add the CSS unicode for the icon.
 ## Changelog
+
+### 3.2.0
+* new: adding custom buttons is easier than ever with the new `scriptlesssocialsharing_register` filter (use described in FAQ)
+* new/improved: SVG icons are now used directly, instead of from a sprite file
+* added: Hatena Bookmark sharing button (props @kyontan)
+* added: minimum PHP version is 5.6
+* updated: FontAwesome 5.15.4
+* fixed: block editor check for old versions of WordPress
+* fixed: PHP constants for older versions of PHP
+* note: this is the final version of Scriptless which will support WordPress versions earlier than 5.2
 
 ### 3.1.6
 * added: filter for the Pinterest image size

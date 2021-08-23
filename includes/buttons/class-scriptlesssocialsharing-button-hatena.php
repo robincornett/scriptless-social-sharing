@@ -4,13 +4,13 @@
  * Class to correctly build the Hatena Bookmark URL.
  * Class ScriptlessSocialSharingButtonHatena
  *
- * @since 2.x.x
+ * @since 3.2.0
  */
 class ScriptlessSocialSharingButtonHatena extends ScriptlessSocialSharingButton {
 
 	/**
 	 * Get the button query args.
-	 * @since 3.0.0
+	 * @since 3.2.0
 	 *
 	 * @return array
 	 */
@@ -28,7 +28,7 @@ class ScriptlessSocialSharingButtonHatena extends ScriptlessSocialSharingButton 
 
 	/**
 	 * Get the base part of the URL.
-	 * @since 3.0.0
+	 * @since 3.2.0
 	 *
 	 * @return mixed
 	 */

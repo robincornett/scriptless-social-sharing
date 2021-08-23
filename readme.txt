@@ -3,9 +3,10 @@
 Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
-Requires at least: 4.8
-Tested up to: 5.6
-Stable tag: 3.1.6
+Requires at least: 4.9
+Tested up to: 5.8
+Requires PHP: 5.6
+Stable tag: 3.2.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -33,9 +34,9 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](https://gratisography.
 
 = How are the social network icons/buttons displayed? =
 
-In version 3.0, very differently than they have been before. Originally, Scriptless used the Font Awesome webfont (version 4.7) to display icons, or you could roll your own. You still can roll your own, but as of 3.0, Scriptless has updated to Font Awesome 5.8.1. SVG icons are now the default. The webfont is still an option, and previous users will need to update their settings to switch to SVG.
+Scriptless uses SVG files to display the social network icons, or you can revert to using the old FontAwesome webfont.
 
-Text only buttons are now an option as well. And if you prefer flexbox for styling items in rows instead of table CSS, that's now available on the settings page.
+Text only buttons are an option as well. And if you prefer flexbox for styling items in rows instead of table CSS, that's now available on the settings page.
 
 = What social networks are supported? =
 
@@ -53,11 +54,11 @@ Scriptless Social Sharing currently supports the following social networks:
 * SMS
 * Email
 
-Google+ is dead and has been removed from the plugin. Instagram does not support social sharing buttons.
+Instagram does not support social sharing buttons.
 
 = Can I change the SVG icons? =
 
-Yes, using a filter, you can change which SVG icons are used. The plugin provides SVG alternatives for social networks if they are available. Want to use an icon not provided by the plugin? Load your own icons in your theme.
+Yes, using a filter, you can change which SVG icons are used. The plugin provides SVG alternatives for social networks if they are available.
 
 Here's an example of how you could switch to using the "square" icons for each network (not all networks have one):
 
@@ -82,9 +83,11 @@ Here's an example of how you could switch to using the "square" icons for each n
 		return array_merge( $icons, $square_icons );
 	}
 
+Want to use an icon not provided by the plugin? Load your own icons in your theme. As of version 3.2.0, the plugin uses SVG files directly, instead of sprite files. To use your own SVG files instead of the plugin's, add them to your theme, in `assets/svg`. The plugin will use the theme icons in preference of the plugin.
+
 = What if I want to move where the buttons are output? =
 
-Version 2.0.0 changes everything here. The plugin now offers options for adding sharing buttons to each and every type of content on your site. Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
+Buttons can be added in multiple places, or easily add support so you can add buttons anywhere you like. The default button locations are:
 
 * Before Content: at the beginning of the post/entry, within the post/entry content.
 * After Content: at the end of the post/entry, within the post/entry content.
@@ -165,9 +168,37 @@ Yes, this is intentional. Pinterest really really _really_ wants your posts to h
 
 You can add an image for the plugin to use specifically for Pinterest, instead of the post's featured image. This image will be added to the Pinterest sharing button as well as hidden in your content, so that the Pinterest bookmarklet will be able to "see" the image. Scroll down in the post editor sidebar to find where to add the custom image.
 
-= How can I change the order of the sharing buttons? =
+= How can I add a custom sharing button? =
 
-As of version 2.3, the sharing buttons order can be changed on the settings page, either by dragging buttons to your desired order, or by updating the numbered inputs.
+It has always been possible to add a custom sharing button with custom code, but version 3.2.0 makes this a little easier by creating a new helper function. You'll access the helper function by using a filter. Here's an example of how to add a button to share a post to Tumblr:
+
+	add_filter( 'scriptlesssocialsharing_register', 'prefix_scriptless_add_tumblr_button' );
+	/**
+	* Adds a custom sharing button to Scriptless Social Sharing.
+	*
+	* @return void
+	*/
+	function prefix_scriptless_add_tumblr_button( $buttons ) {
+		$buttons['tumblr'] = array(
+			'label'    => __( 'Tumblr', 'scriptless-social-sharing' ),
+			'url_base' => 'https://www.tumblr.com/share/link',
+			'args'     => array(
+				'query_args' => array(
+					'name' => '%%title%%',
+					'url'  => '%%permalink%%',
+				),
+				'color'      => '#35465c',
+				'svg'        => 'tumblr-square', // Use this with the SVG icons and add the SVG file to your theme's `assets/svg` folder
+				'icon'       => 'f173', // Use this when using the FontAwesome font for icons
+			),
+		);
+
+		return $buttons;
+	}
+
+The `%%` are used to designate placeholders for the attribute variables that the plugin will apply when building the button.
+
+Note that there is both an `svg` and an `icon` argument in the code sample. `svg` is preferred, but only applies if you are using the SVG option for the sharing icons. To add a new icon, upload it to your theme's `assets/svg` directory and the plugin will use it automatically. If you are using the older FontAwesome option, use `icon` to add the CSS unicode for the icon.
 
 == Screenshots ==
 
@@ -176,9 +207,19 @@ As of version 2.3, the sharing buttons order can be changed on the settings page
 
 == Upgrade Notice ==
 
-3.1.6: PHP 8 fix, improved screen reader text
+3.2.0 - new custom buttons one stop helper function; improved SVG icons, new Hatena Bookmark sharing button
 
 == Changelog ==
+
+= 3.2.0 =
+* new: adding custom buttons is easier than ever with the new `scriptlesssocialsharing_register` filter (use described in FAQ)
+* new/improved: SVG icons are now used directly, instead of from a sprite file
+* added: Hatena Bookmark sharing button (props @kyontan)
+* added: minimum PHP version is 5.6
+* updated: FontAwesome 5.15.4
+* fixed: block editor check for old versions of WordPress
+* fixed: PHP constants for older versions of PHP
+* note: this is the final version of Scriptless which will support WordPress versions earlier than 5.2
 
 = 3.1.6 =
 * added: filter for the Pinterest image size
