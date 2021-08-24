@@ -26,10 +26,11 @@
   },
   "dependencies": {
     "@wordpress/browserslist-config": "4.1.0",
+    "glob-parent": ">=5.1.2",
     "gulp-sass-unicode": "^1.0.5",
     "gulp-svg-sprites": "^4.1.2",
     "normalize.css": "8.0.1",
-    "postcss": "^8.3.6"
+    "trim-newlines": ">=3.0.1"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"
