@@ -39,9 +39,16 @@ class ScriptlessSocialSharingOutputSVG {
 	 * @return string
 	 */
 	public function svg( $icon, $args = array() ) {
-		// If the original sprite path was customized, that should take precedence over the new icons.
-		$filter = apply_filters( 'scriptlesssocialsharing_svg', false );
-		if ( empty( $filter['styles'] ) ) {
+		/**
+		 * If the original sprite path was customized, that should take precedence over the new icons.
+		 * The original filter could have returned a populated array with style and path, or
+		 * simply returned `false` to short-circuit the paths. Checking specifically for an
+		 * empty array should not conflict with the original filter.
+		 *
+		 * @since 3.2.0
+		 */
+		$use_svg = apply_filters( 'scriptlesssocialsharing_svg', array() );
+		if ( empty( $use_svg ) && is_array( $use_svg ) ) {
 			$contents = $this->get_icon_file_contents( $icon );
 			if ( $contents ) {
 				return $this->update_svg(
