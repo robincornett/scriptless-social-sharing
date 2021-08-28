@@ -6,7 +6,7 @@ Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.9
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 3.2.0
+Stable tag: 3.2.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -207,9 +207,14 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
+3.2.1 - bugfixes for specific server configuation, previous filter override
 3.2.0 - new custom buttons one stop helper function; improved SVG icons, new Hatena Bookmark sharing button
 
 == Changelog ==
+
+= 3.2.1 =
+* fixed: fatal error for sites without the mbstring extension installed
+* fixed: new icons should not override the original SVG filter usage
 
 = 3.2.0 =
 * new: adding custom buttons is easier than ever with the new `scriptlesssocialsharing_register` filter (use described in FAQ)
