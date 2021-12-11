@@ -5,8 +5,8 @@
   "private": true,
   "license": "GPL-2.0+",
   "devDependencies": {
-    "autoprefixer": "10.3.4",
-    "browser-sync": "2.27.5",
+    "autoprefixer": "10.4.0",
+    "browser-sync": "2.27.7",
     "css-mqpacker": "7.0.0",
     "del": "6.0.0",
     "gulp": "^4.0.2",
@@ -20,7 +20,7 @@
     "gulp-wp-pot": "^2.3.2",
     "gulp-zip": "5.1.0",
     "perfectionist": "^2.4.0",
-    "postcss": "^8.3.6",
+    "postcss": "^8.4.4",
     "postcss-import": "14.0.2",
     "sass": "^1.41.1"
   },
@@ -32,7 +32,8 @@
     "normalize.css": "8.0.1",
     "trim-newlines": ">=3.0.1",
     "set-value": ">=4.0.1",
-    "axios": ">=0.21.2"
+    "axios": ">=0.24.0",
+    "nth-check": ">=2.0.1"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"
