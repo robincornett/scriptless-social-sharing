@@ -42,14 +42,26 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingButt
 	 * @return string
 	 */
 	protected function get_pinterest_description() {
+		$description   = $this->attributes['title'];
 		$pinterest_alt = get_post_meta( get_the_ID(), '_scriptlesssocialsharing_description', true );
-		if ( $pinterest_alt ) {
-			return $pinterest_alt;
+		$image         = $this->attributes['image'];
+		if ( ! $pinterest_alt && $this->pinterest_image() ) {
+			$image         = $this->pinterest_image();
+			$pinterest_alt = get_post_meta( $image, '_wp_attachment_image_alt', true );
 		}
-		$pinterest_img = $this->pinterest_image() ? $this->pinterest_image() : $this->attributes['image'];
-		$pinterest_alt = get_post_meta( $pinterest_img, '_wp_attachment_image_alt', true );
 
-		return $pinterest_alt ? $pinterest_alt : $this->attributes['title'];
+		if ( $pinterest_alt ) {
+			$description = $pinterest_alt;
+		}
+
+		/**
+		 * Filters the custom Pinterest description.
+		 *
+		 * @param string $description The Pinterest description.
+		 * @param int    $image       The image ID.
+		 * @param array  $attributes  The attributes for the sharing button.
+		 */
+		return apply_filters( 'scriptlesssocialsharing_pinterest_description', $description, $image, $this->attributes );
 	}
 
 	/**
