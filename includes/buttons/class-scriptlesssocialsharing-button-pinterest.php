@@ -89,8 +89,9 @@ class ScriptlessSocialSharingButtonPinterest extends ScriptlessSocialSharingButt
 	 * @return string
 	 */
 	protected function get_image_url( $id ) {
-		$source = wp_get_attachment_image_src( $id, 'large', false );
-		$url    = isset( $source[0] ) ? $source[0] : '';
+		$image_size = apply_filters( 'scriptlesssocialsharing_pinterest_image_size', 'large' );
+		$source     = wp_get_attachment_image_src( $id, $image_size, false );
+		$url        = isset( $source[0] ) ? $source[0] : '';
 
 		/**
 		 * Allow the image URL to be changed with a filter.
