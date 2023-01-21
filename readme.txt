@@ -3,7 +3,7 @@
 Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
-Requires at least: 4.9
+Requires at least: 5.2
 Tested up to: 6.1
 Requires PHP: 5.6
 Stable tag: 3.2.2
@@ -215,7 +215,8 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 = 3.2.2 =
 * updated: script dependencies for the Scriptless block
 * improved: Scriptless metabox can now be loaded regardless of location settings
-* fixed: imporoved CSS class handling for the block
+* fixed: improved CSS class handling for the block
+* dev: Scriptless now requires WordPress 5.2 or higher
 
 = 3.2.1 =
 * fixed: fatal error for sites without the mbstring extension installed

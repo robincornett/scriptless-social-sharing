@@ -230,7 +230,8 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 ### 3.2.2
 * updated: script dependencies for the Scriptless block
 * improved: Scriptless metabox can now be loaded regardless of location settings
-* fixed: imporoved CSS class handling for the block
+* fixed: improved CSS class handling for the block
+* dev: Scriptless now requires WordPress 5.2 or higher
 
 ### 3.2.1
 * fixed: fatal error for sites without the mbstring extension installed
