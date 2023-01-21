@@ -4,7 +4,7 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.9
-Tested up to: 5.8
+Tested up to: 6.1
 Requires PHP: 5.6
 Stable tag: 3.2.1
 License: GPL-2.0+
