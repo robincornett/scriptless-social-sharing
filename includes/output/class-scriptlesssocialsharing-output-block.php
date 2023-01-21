@@ -47,15 +47,9 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 	 * @return string
 	 */
 	public function render( $atts ) {
-		$classes = array(
-			'wp-block-' . $this->block,
-			$atts['className'],
-		);
-		if ( ! empty( $atts['blockAlignment'] ) ) {
-			$classes[] = 'align' . $atts['blockAlignment'];
-		}
-		$atts    = $this->parse_networks( $atts );
-		$output  = '<div class="' . implode( ' ', $classes ) . '">';
+		$atts = $this->parse_networks( $atts );
+
+		$output  = '<div class="' . implode( ' ', $this->get_block_classes( $atts ) ) . '">';
 		$output .= $this->shortcode( $atts );
 		$output .= '</div>';
 
@@ -82,6 +76,30 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 		$atts['buttons'] = $buttons;
 
 		return $atts;
+	}
+
+	/**
+	 * Gets the block HTML classes.
+	 *
+	 * @since 3.2.2
+	 * @param array $atts
+	 * @return array
+	 */
+	private function get_block_classes( $atts ) {
+		$classes = array(
+			"wp-block-{$this->block}",
+		);
+		if ( ! empty( $atts['blockAlignment'] ) ) {
+			$classes[] = 'align' . $atts['blockAlignment'];
+		}
+		if ( ! empty( $atts['className'] ) ) {
+			$additional_classes = explode( ' ', $atts['className'] );
+			if ( $additional_classes ) {
+				$classes = array_merge( $classes, $additional_classes );
+			}
+		}
+
+		return array_filter( array_unique( array_map( 'sanitize_html_class', $classes ) ) );
 	}
 
 	/**
