@@ -49,7 +49,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 	public function render( $atts ) {
 		$atts = $this->parse_networks( $atts );
 
-		$output  = '<div class="' . implode( ' ', $this->get_block_classes( $atts ) ) . '">';
+		$output  = '<div class="' . esc_attr( implode( ' ', $this->get_block_classes( $atts ) ) ) . '">';
 		$output .= $this->shortcode( $atts );
 		$output .= '</div>';
 
