@@ -41,6 +41,9 @@ class ScriptlessSocialSharingPostMeta {
 	 * Add a custom post metabox.
 	 */
 	public function add_meta_box() {
+		if ( ! $this->can_show_metabox() ) {
+			return;
+		}
 		add_meta_box(
 			'scriptless_social_sharing',
 			__( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
@@ -55,8 +58,7 @@ class ScriptlessSocialSharingPostMeta {
 	 * Enqueue javascript for image uploader.
 	 */
 	public function enqueue() {
-		$screen = get_current_screen();
-		if ( ! in_array( $screen->post_type, $this->post_types(), true ) ) {
+		if ( ! $this->can_show_metabox() ) {
 			return;
 		}
 		$handle = 'scriptless-upload';
@@ -211,5 +213,20 @@ class ScriptlessSocialSharingPostMeta {
 		}
 
 		return ( $is_nonce_set && $is_valid_nonce );
+	}
+
+	/**
+	 * Determines whether the Scriptless metabox can be output.
+	 *
+	 * @since 3.2.2
+	 * @return bool
+	 */
+	private function can_show_metabox() {
+		if ( scriptlesssocialsharing_get_setting( 'metabox' ) ) {
+			return true;
+		}
+		$screen = get_current_screen();
+
+		return in_array( $screen->post_type, $this->post_types(), true );
 	}
 }

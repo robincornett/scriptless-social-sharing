@@ -33,6 +33,7 @@ return array(
 			'manual' => 0,
 		),
 	),
+	'metabox'        => false,
 	'location'       => false,
 	'button_style'   => 1,
 	'button_padding' => 12,

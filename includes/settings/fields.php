@@ -80,6 +80,13 @@ $fields = array(
 		'intro'    => __( 'Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode.', 'scriptless-social-sharing' ),
 	),
 	array(
+		'id'      => 'metabox',
+		'title'   => __( 'Scriptless Sidebar', 'scriptless-social-sharing' ),
+		'type'    => 'checkbox',
+		'section' => 'content_types',
+		'label'   => __( 'Enable the Scriptless sidebar on all content types, even if the location settings are disabled (helpful if you are manually adding sharing buttons).', 'scriptless-social-sharing' ),
+	),
+	array(
 		'id'      => 'button_style',
 		'title'   => __( 'Button Output', 'scriptless-social-sharing' ),
 		'type'    => 'radio',
