@@ -227,6 +227,15 @@ The `%%` are used to designate placeholders for the attribute variables that the
 Note that there is both an `svg` and an `icon` argument in the code sample. `svg` is preferred, but only applies if you are using the SVG option for the sharing icons. To add a new icon, upload it to your theme's `assets/svg` directory and the plugin will use it automatically. If you are using the older FontAwesome option, use `icon` to add the CSS unicode for the icon.
 ## Changelog
 
+### 3.2.2
+* updated: script dependencies for the Scriptless block
+* improved: Scriptless metabox can now be loaded regardless of location settings
+* fixed: imporoved CSS class handling for the block
+
+### 3.2.1
+* fixed: fatal error for sites without the mbstring extension installed
+* fixed: new icons should not override the original SVG filter usage
+
 ### 3.2.0
 * new: adding custom buttons is easier than ever with the new `scriptlesssocialsharing_register` filter (use described in FAQ)
 * new/improved: SVG icons are now used directly, instead of from a sprite file

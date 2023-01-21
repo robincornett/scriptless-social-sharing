@@ -1,4 +1,4 @@
-# Copyright (C) 2021 Scriptless Social Sharing
+# Copyright (C) 2023 Scriptless Social Sharing
 # This file is distributed under the same license as the Scriptless Social Sharing package.
 msgid ""
 msgstr ""
@@ -6,45 +6,46 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-01-21 18:57+0000\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: includes/class-scriptlesssocialsharing.php:120
 msgid "Settings"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:117, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:46, includes/settings/class-scriptlesssocialsharing-settings.php:30
+#: includes/output/class-scriptlesssocialsharing-output-block.php:135, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:49, includes/settings/class-scriptlesssocialsharing-settings.php:30
 msgid "Scriptless Social Sharing"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:118
+#: includes/output/class-scriptlesssocialsharing-output-block.php:136
 msgid "Add sharing buttons anywhere."
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:120
+#: includes/output/class-scriptlesssocialsharing-output-block.php:138
 msgid "Social Share"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:121, includes/settings/class-scriptlesssocialsharing-settings-help.php:103
+#: includes/output/class-scriptlesssocialsharing-output-block.php:139, includes/settings/class-scriptlesssocialsharing-settings-help.php:103
 msgid "Sharing Buttons"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:125
+#: includes/output/class-scriptlesssocialsharing-output-block.php:143
 msgid "Optional Settings"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:130, includes/settings/class-scriptlesssocialsharing-settings-help.php:45, includes/settings/sections.php:19
+#: includes/output/class-scriptlesssocialsharing-output-block.php:148, includes/settings/class-scriptlesssocialsharing-settings-help.php:45, includes/settings/sections.php:19
 msgid "Button Settings"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:157, includes/settings/class-scriptlesssocialsharing-settings-help.php:93, includes/settings/fields.php:33
+#: includes/output/class-scriptlesssocialsharing-output-block.php:175, includes/settings/class-scriptlesssocialsharing-settings-help.php:93, includes/settings/fields.php:33
 msgid "Heading"
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:183
+#: includes/output/class-scriptlesssocialsharing-output-block.php:201
 msgid "Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings."
 msgstr ""
 
-#: includes/output/class-scriptlesssocialsharing-output-block.php:187
+#: includes/output/class-scriptlesssocialsharing-output-block.php:205
 msgid " (will not show if there is no image)"
 msgstr ""
 
@@ -61,23 +62,23 @@ msgstr ""
 msgid "Delete Image"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:78
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:80
 msgid "Select Image"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:79, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:110
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:81, includes/postmeta/class-scriptlesssocialsharing-postmeta.php:112
 msgid "Custom Pinterest Image"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:115
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:117
 msgid "Custom Pinterest Description"
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:116
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:118
 msgid "Optionally set a custom description for Pinterest pins. This can be used with a custom Pinterest image, or on its own."
 msgstr ""
 
-#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:121
+#: includes/postmeta/class-scriptlesssocialsharing-postmeta.php:123
 msgid "Don't show sharing buttons for this post"
 msgstr ""
 
@@ -286,82 +287,90 @@ msgid "Leave all options unchecked for no buttons. Before/after content are the 
 msgstr ""
 
 #: includes/settings/fields.php:84
-msgid "Button Output"
+msgid "Scriptless Sidebar"
 msgstr ""
 
-#: includes/settings/fields.php:88
-msgid "Icon Only"
-msgstr ""
-
-#: includes/settings/fields.php:89
-msgid "Icon + Text (hide text on small screens)"
-msgstr ""
-
-#: includes/settings/fields.php:90
-msgid "Icon + Text (always show text)"
+#: includes/settings/fields.php:87
+msgid "Enable the Scriptless sidebar on all content types, even if the location settings are disabled (helpful if you are manually adding sharing buttons)."
 msgstr ""
 
 #: includes/settings/fields.php:91
-msgid "Text Only"
+msgid "Button Output"
 msgstr ""
 
-#: includes/settings/fields.php:93
-msgid "Button styles"
+#: includes/settings/fields.php:95
+msgid "Icon Only"
+msgstr ""
+
+#: includes/settings/fields.php:96
+msgid "Icon + Text (hide text on small screens)"
 msgstr ""
 
 #: includes/settings/fields.php:97
-msgid "Button Container CSS"
+msgid "Icon + Text (always show text)"
 msgstr ""
 
-#: includes/settings/fields.php:101
-msgid "Flexbox"
+#: includes/settings/fields.php:98
+msgid "Text Only"
 msgstr ""
 
-#: includes/settings/fields.php:102
-msgid "Table"
+#: includes/settings/fields.php:100
+msgid "Button styles"
 msgstr ""
 
 #: includes/settings/fields.php:104
-msgid "CSS options for the button container"
+msgid "Button Container CSS"
 msgstr ""
 
 #: includes/settings/fields.php:108
-msgid "Button Container Width"
+msgid "Flexbox"
 msgstr ""
 
-#: includes/settings/fields.php:112
-msgid "Full Width"
+#: includes/settings/fields.php:109
+msgid "Table"
 msgstr ""
 
-#: includes/settings/fields.php:113
-msgid "Auto"
+#: includes/settings/fields.php:111
+msgid "CSS options for the button container"
 msgstr ""
 
 #: includes/settings/fields.php:115
-msgid "Width of button container"
+msgid "Button Container Width"
 msgstr ""
 
 #: includes/settings/fields.php:119
-msgid "Button Padding"
+msgid "Full Width"
+msgstr ""
+
+#: includes/settings/fields.php:120
+msgid "Auto"
 msgstr ""
 
 #: includes/settings/fields.php:122
+msgid "Width of button container"
+msgstr ""
+
+#: includes/settings/fields.php:126
+msgid "Button Padding"
+msgstr ""
+
+#: includes/settings/fields.php:129
 msgid " pixels"
 msgstr ""
 
-#: includes/settings/fields.php:128
+#: includes/settings/fields.php:135
 msgid "Disable Block"
 msgstr ""
 
-#: includes/settings/fields.php:131
+#: includes/settings/fields.php:138
 msgid "Disable the sharing buttons block."
 msgstr ""
 
-#: includes/settings/fields.php:138
+#: includes/settings/fields.php:145
 msgid "Genesis Framework"
 msgstr ""
 
-#: includes/settings/fields.php:141
+#: includes/settings/fields.php:148
 msgid "Use Genesis Framework hooks for button locations."
 msgstr ""
 

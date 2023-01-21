@@ -6,7 +6,7 @@ Tags: social networks, social sharing, sharing buttons
 Requires at least: 4.9
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -211,6 +211,11 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 3.2.0 - new custom buttons one stop helper function; improved SVG icons, new Hatena Bookmark sharing button
 
 == Changelog ==
+
+= 3.2.2 =
+* updated: script dependencies for the Scriptless block
+* improved: Scriptless metabox can now be loaded regardless of location settings
+* fixed: imporoved CSS class handling for the block
 
 = 3.2.1 =
 * fixed: fatal error for sites without the mbstring extension installed
