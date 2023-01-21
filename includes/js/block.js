@@ -13,8 +13,8 @@
 	 */
 	ScriptlessBlockObject.init = function () {
 		const registerBlockType = wp.blocks.registerBlockType,
-		      ServerSideRender  = wp.components.ServerSideRender,
-		      InspectorControls = wp.editor.InspectorControls;
+			ServerSideRender = wp.serverSideRender,
+			InspectorControls = wp.blockEditor.InspectorControls;
 
 		registerBlockType( ScriptlessBlockObject.params.block, {
 			title: ScriptlessBlockObject.params.title,
@@ -32,12 +32,12 @@
 
 			edit: props => {
 				const {
-					      attributes,
-					      setAttributes
-				      }                     = props,
-				      Fragment              = wp.element.Fragment,
-				      BlockControls         = wp.editor.BlockControls,
-				      BlockAlignmentToolbar = wp.editor.BlockAlignmentToolbar;
+					attributes,
+					setAttributes
+				} = props,
+					Fragment = wp.element.Fragment,
+					BlockControls = wp.blockEditor.BlockControls,
+					BlockAlignmentToolbar = wp.blockEditor.BlockAlignmentToolbar;
 				return [
 					ScriptlessBlockObject.el( ServerSideRender, {
 						block: ScriptlessBlockObject.params.block,
