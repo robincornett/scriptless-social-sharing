@@ -16,4 +16,4 @@ for ( var index in tasks ) {
 	getTask( tasks[ index ] );
 }
 
-gulp.task( 'build', gulp.series( [ 'sass', 'js', 'sprites', 'translate', 'zip' ] ) );
+gulp.task( 'build', gulp.series( [ 'sass', 'js', 'translate', 'zip' ] ) );

@@ -207,8 +207,7 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
-3.2.1 - bugfixes for specific server configuation, previous filter override
-3.2.0 - new custom buttons one stop helper function; improved SVG icons, new Hatena Bookmark sharing button
+3.2.2 - The minimum WordPress version for Scriptless is now 5.2 due to changes in block editor support.
 
 == Changelog ==
 
@@ -217,6 +216,7 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 * improved: Scriptless metabox can now be loaded regardless of location settings
 * fixed: improved CSS class handling for the block
 * dev: Scriptless now requires WordPress 5.2 or higher
+* dev: additional filters have been added for the Pinterest button
 
 = 3.2.1 =
 * fixed: fatal error for sites without the mbstring extension installed

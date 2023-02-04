@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-21 18:57+0000\n"
+"POT-Creation-Date: 2023-02-04 21:26+0000\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: includes/class-scriptlesssocialsharing.php:120
