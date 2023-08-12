@@ -4,9 +4,9 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 5.2
-Tested up to: 6.1
+Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -42,7 +42,7 @@ Text only buttons are an option as well. And if you prefer flexbox for styling i
 
 Scriptless Social Sharing currently supports the following social networks:
 
-* Twitter
+* X (Twitter)
 * Facebook
 * Pinterest
 * LinkedIn
@@ -207,9 +207,12 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
-3.2.2 - The minimum WordPress version for Scriptless is now 5.2 due to changes in block editor support.
+3.2.3 - The label and icon for the network formerly known as Twitter has been updated.
 
 == Changelog ==
+
+= 3.2.3 =
+* updated: Twitter is now X
 
 = 3.2.2 =
 * updated: script dependencies for the Scriptless block

@@ -12,9 +12,9 @@
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           3.2.2
+ * Version:           3.2.3
  * Requires at least: 5.2
- * Tested up to:      6.1
+ * Tested up to:      6.3
  * Requires PHP:      5.6
  * Author:            Robin Cornett
  * Author URI:        https://robincornett.com
@@ -36,7 +36,7 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 }
 
 if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
-	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.2.2' );
+	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.2.3' );
 }
 
 // Include classes
@@ -66,19 +66,13 @@ function scriptlesssocialsharing_require() {
 scriptlesssocialsharing_require();
 
 // Instantiate main class
-$scriptlesssocialsharing_locations = new ScriptlessSocialSharingOutputLocations();
-$scriptlesssocialsharing_output    = new ScriptlessSocialSharingOutputButtons();
-$scriptlesssocialsharing_pinterest = new ScriptlessSocialSharingOutputPinterest();
-$scriptlesssocialsharing_postmeta  = new ScriptlessSocialSharingPostMeta();
-$scriptlesssocialsharing_settings  = new ScriptlessSocialSharingSettings();
-$scriptlesssocialsharing_shortcode = new ScriptlessSocialSharingOutputShortcode();
-$scriptlesssocialsharing           = new ScriptlessSocialSharing(
-	$scriptlesssocialsharing_locations,
-	$scriptlesssocialsharing_output,
-	$scriptlesssocialsharing_pinterest,
-	$scriptlesssocialsharing_postmeta,
-	$scriptlesssocialsharing_settings,
-	$scriptlesssocialsharing_shortcode
+$scriptlesssocialsharing = new ScriptlessSocialSharing(
+	new ScriptlessSocialSharingOutputLocations(),
+	new ScriptlessSocialSharingOutputButtons(),
+	new ScriptlessSocialSharingOutputPinterest(),
+	new ScriptlessSocialSharingPostMeta(),
+	new ScriptlessSocialSharingSettings(),
+	new ScriptlessSocialSharingOutputShortcode()
 );
 
 // Run the plugin
