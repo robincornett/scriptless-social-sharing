@@ -65,9 +65,15 @@
 	@each $socialnetwork, $color, $glyph in $social {
 		.button.#{$socialnetwork} {
 			background-color: rgba($color, .8);
+			@if $socialnetwork == 'email' {
+				background-color: var(--wp--preset--color--theme-primary);
+			}
 
 			&:hover {
 				background-color: $color;
+				@if $socialnetwork == 'email' {
+					background-color: var(--wp--preset--color--theme-primary);
+				}
 			}
 		}
 	}

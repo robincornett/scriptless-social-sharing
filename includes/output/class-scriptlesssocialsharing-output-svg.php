@@ -379,6 +379,7 @@ class ScriptlessSocialSharingOutputSVG {
 				'email'    => 'envelope',
 				'reddit'   => 'reddit-alien',
 				'telegram' => 'telegram-plane',
+				'twitter'  => 'x-twitter',
 			)
 		);
 	}

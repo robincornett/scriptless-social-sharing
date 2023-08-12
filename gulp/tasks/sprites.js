@@ -7,7 +7,7 @@ gulp.task(
 	() => {
 		var svgSprite = require( 'gulp-svg-sprites' );
 
-		return gulp.src( 'includes/svg/*.svg' )
+		return gulp.src( [ 'includes/svg/*.svg', '!includes/svg.brands.svg' ] )
 			.pipe( svgSprite( {
 				svg: {
 					symbols: "brands.svg"

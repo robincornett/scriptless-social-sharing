@@ -8,7 +8,7 @@ return apply_filters(
 	array(
 		'twitter'   => array(
 			'name'  => 'twitter',
-			'label' => __( 'Twitter', 'scriptless-social-sharing' ),
+			'label' => __( 'X (Twitter)', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
 		'facebook'  => array(
