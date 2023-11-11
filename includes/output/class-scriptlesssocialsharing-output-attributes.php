@@ -61,7 +61,14 @@ class ScriptlessSocialSharingOutputAttributes {
 	 * @return string
 	 */
 	protected function title() {
-		$title = html_entity_decode( the_title_attribute( 'echo=0' ) );
+		$title = the_title_attribute(
+			array(
+				'echo' => false,
+			)
+		);
+		if ( $title ) {
+			$title = html_entity_decode( $title );
+		}
 
 		return apply_filters( 'scriptlesssocialsharing_posttitle', $title );
 	}
