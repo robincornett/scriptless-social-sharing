@@ -4,9 +4,9 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 5.2
-Tested up to: 6.3
-Requires PHP: 5.6
-Stable tag: 3.2.3
+Tested up to: 6.4
+Requires PHP: 7.4
+Stable tag: 3.2.4
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -207,9 +207,12 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
-3.2.3 - The label and icon for the network formerly known as Twitter has been updated.
+3.2.4 - PHP 8 compatibility
 
 == Changelog ==
+
+= 3.2.4 =
+* updated: SVG output has been updated for PHP 8 compatibility
 
 = 3.2.3 =
 * updated: Twitter is now X

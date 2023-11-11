@@ -12,10 +12,10 @@
  * Plugin Name:       Scriptless Social Sharing
  * Plugin URI:        https://github.com/robincornett/scriptless-social-sharing
  * Description:       A scriptless plugin to add sharing buttons.
- * Version:           3.2.3
+ * Version:           3.2.4
  * Requires at least: 5.2
- * Tested up to:      6.3
- * Requires PHP:      5.6
+ * Tested up to:      6.4
+ * Requires PHP:      7.4
  * Author:            Robin Cornett
  * Author URI:        https://robincornett.com
  * Text Domain:       scriptless-social-sharing
@@ -36,7 +36,7 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 }
 
 if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
-	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.2.3' );
+	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.2.4' );
 }
 
 // Include classes
