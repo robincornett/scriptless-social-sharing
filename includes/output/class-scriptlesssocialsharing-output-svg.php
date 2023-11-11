@@ -190,20 +190,10 @@ class ScriptlessSocialSharingOutputSVG {
 		$doc = new DOMDocument();
 
 		libxml_use_internal_errors( true ); // turn off errors for HTML5
-		if ( function_exists( 'mb_convert_encoding' ) ) {
-			$currentencoding = mb_internal_encoding();
-			$content         = mb_convert_encoding( $svg, 'HTML-ENTITIES', $currentencoding ); // convert the feed from XML to HTML
-		} elseif ( function_exists( 'iconv' ) ) {
-			// not sure this is an improvement over straight load (for special characters)
-			$currentencoding = iconv_get_encoding( 'internal_encoding' );
-			$content         = iconv( $currentencoding, 'ISO-8859-1//IGNORE', $svg );
-		} else {
-			$content = $svg;
-		}
 		if ( defined( 'LIBXML_HTML_NOIMPLIED' ) && defined( 'LIBXML_HTML_NODEFDTD' ) ) {
-			$doc->LoadHTML( $content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+			$doc->LoadHTML( $svg, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 		} else {
-			$doc->LoadHTML( $content );
+			$doc->LoadHTML( $svg );
 		}
 		libxml_clear_errors(); // now that it's loaded, go ahead
 
