@@ -117,21 +117,21 @@ class ScriptlessSocialSharingSettings {
 	 * @return array
 	 */
 	public function get_setting( $key = '' ) {
-		if ( isset( $this->setting ) ) {
-			return $key ? $this->setting[ $key ] : $this->setting;
+		$db_setting = $this->get_database_setting();
+		if (!is_array($db_setting)) {
+			$db_setting = [];
 		}
-		$db_setting    = $this->get_database_setting();
-		$defaults      = $this->defaults();
+		$defaults = $this->defaults();
 		$this->setting = wp_parse_args( $db_setting, $defaults );
-		if ( empty( $db_setting['css_style'] ) && isset( $db_setting['styles']['font_css'] ) ) {
+		if ( empty( $this->setting['css_style'] ) && isset( $this->setting['styles']['font_css'] ) ) {
 			$this->setting['css_style'] = 'table';
 		}
-		if ( empty( $db_setting['icons'] ) && ! empty( $db_setting['styles'] ) ) {
-			$this->setting['icons'] = $db_setting['styles']['font_css'] ? 'font' : 'none';
+		if ( empty( $this->setting['icons'] ) && ! empty( $this->setting['styles'] ) ) {
+			$this->setting['icons'] = $this->setting['styles']['font_css'] ? 'font' : 'none';
 			unset( $this->setting['styles']['font_css'] );
 		}
 
-		return $key ? $this->setting[ $key ] : $this->setting;
+		return $key ? ($this->setting[$key] ?? null) : $this->setting;
 	}
 
 	/**

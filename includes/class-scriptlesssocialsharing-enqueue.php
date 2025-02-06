@@ -81,7 +81,7 @@ class ScriptlessSocialSharingEnqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
-		if ( ! $this->enabled ) {
+		if ( !$this->enabled || empty($this->setting['styles']['font'] ?? false) ) {
 			return;
 		}
 		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );

@@ -90,7 +90,10 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		include_once 'class-scriptlesssocialsharing-postmeta-fields.php';
+		$file_path = plugin_dir_path(__FILE__) . 'class-scriptlesssocialsharing-postmeta-fields.php';
+		if (file_exists($file_path)) {
+			include_once $file_path;
+		}
 		$fields_class = new ScriptlessSocialSharingPostMetaFields( $post->ID );
 		$fields       = $this->get_fields();
 		foreach ( $fields as $field ) {

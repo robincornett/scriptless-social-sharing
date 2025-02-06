@@ -36,7 +36,7 @@ class ScriptlessSocialSharingButtonEmail extends ScriptlessSocialSharingButton {
 	 * @return string can be modified via filter
 	 */
 	protected function email_body() {
-		return apply_filters( 'scriptlesssocialsharing_email_body', $this->setting['email_body'] );
+		return apply_filters( 'scriptlesssocialsharing_email_body', $this->setting['email_body'] ?? '' );
 	}
 
 	/**
@@ -44,6 +44,6 @@ class ScriptlessSocialSharingButtonEmail extends ScriptlessSocialSharingButton {
 	 * @return string can be modified via filter
 	 */
 	protected function email_subject() {
-		return apply_filters( 'scriptlesssocialsharing_email_subject', $this->setting['email_subject'] );
+		return apply_filters( 'scriptlesssocialsharing_email_subject', $this->setting['email_subject'] ?? '' );
 	}
 }

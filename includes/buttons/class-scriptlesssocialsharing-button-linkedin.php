@@ -37,4 +37,14 @@ class ScriptlessSocialSharingButtonLinkedin extends ScriptlessSocialSharingButto
 	protected function get_url_base() {
 		return 'https://www.linkedin.com/shareArticle';
 	}
+
+	/**
+	 * Override parent description method to ensure string return.
+	 * 
+	 * @param string $description Optional description text
+	 * @return string
+	 */
+	protected function description( $description = '' ) {
+		return parent::description( $description ) ?? '';
+	}
 }
