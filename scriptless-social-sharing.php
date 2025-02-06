@@ -31,6 +31,21 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+add_action( 'init', 'scriptlesssocialsharing_load_textdomain' );
+
+/**
+ * Load plugin textdomain.
+ *
+ * @since 3.2.5
+ */
+function scriptlesssocialsharing_load_textdomain() {
+	load_plugin_textdomain( 
+		'scriptless-social-sharing', 
+		false, 
+		dirname( plugin_basename( __FILE__ ) ) . '/languages' 
+	);
+}
+
 if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_BASENAME', plugin_basename( __FILE__ ) );
 }
