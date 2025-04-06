@@ -78,7 +78,7 @@ class ScriptlessSocialSharing {
 		// Admin
 		add_action( 'admin_menu', array( $this->settings, 'do_submenu_page' ) );
 		add_filter( 'plugin_action_links_' . SCRIPTLESSOCIALSHARING_BASENAME, array( $this, 'add_settings_link' ) );
-		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
+		add_action( 'init', array( $this, 'load_textdomain' ) );
 
 		// Post Meta
 		add_action( 'add_meta_boxes', array( $this->post_meta, 'add_meta_box' ), 20 );
@@ -88,7 +88,7 @@ class ScriptlessSocialSharing {
 		// Output
 		add_filter( 'kses_allowed_protocols', array( $this, 'filter_allowed_protocols' ) );
 		add_action( 'wp_enqueue_scripts', array( $this->output, 'load_styles' ) );
-		add_action( 'wp_head', array( $this->locations, 'do_location' ) );
+		add_action( 'loop_start', array( $this->locations, 'do_location' ) );
 		add_shortcode( 'scriptless', array( $this->shortcode, 'shortcode' ) );
 		add_action( 'init', array( $this, 'maybe_register_block' ) );
 		add_filter( 'the_content', array( $this->pinterest, 'hide_pinterest_image' ), 99 );
@@ -130,6 +130,10 @@ class ScriptlessSocialSharing {
 	 * @return mixed
 	 */
 	public function filter_allowed_protocols( $protocols ) {
+		if ( ! did_action( 'init' ) ) {
+			return $protocols;
+		}
+
 		$setting = scriptlesssocialsharing_get_setting( 'buttons' );
 		if ( empty( $setting['sms'] ) ) {
 			return $protocols;
