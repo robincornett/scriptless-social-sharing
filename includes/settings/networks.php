@@ -51,7 +51,7 @@ return apply_filters(
 			'label' => __( 'Telegram', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
-		'hatena'  => array(
+		'hatena'    => array(
 			'name'  => 'hatena',
 			'label' => __( 'Hatena', 'scriptless-social-sharing' ),
 			'order' => 0,
@@ -59,6 +59,14 @@ return apply_filters(
 		'sms'       => array(
 			'name'  => 'sms',
 			'label' => __( 'SMS', 'scriptless-social-sharing' ),
+			'order' => 0,
+		),
+		'bluesky'   => array(
+			/**
+			 * Bluesky is a new social network, added in 3.3.0
+			 */
+			'name'  => 'bluesky',
+			'label' => __( 'Bluesky', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
 	)

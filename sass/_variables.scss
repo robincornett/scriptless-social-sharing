@@ -10,10 +10,11 @@ $telegram: #0088cc;
 $sms: #009933;
 $hatena: #00a4de;
 $yummly: #e16120;
+$bluesky: #1185fe;
 
 $email-icon: \f0e0;
 $facebook-icon: \f09a;
-$twitter-icon: \f099;
+$twitter-icon: \e61b;
 $pinterest-icon: \f0d2;
 $linkedin-icon: \f0e1;
 $reddit-icon: \f281;
@@ -22,6 +23,7 @@ $pocket-icon: \f265;
 $telegram-icon: \f3fe;
 $hatena-icon: \f02e; // not official
 $sms-icon: \f7cd;
+$bluesky-icon: \e671;
 
 @function add-content($glyph) {
 	@return unquote("\"#{ $glyph }\"");
@@ -80,4 +82,5 @@ $social: ('email', $email, $email-icon),
 ('pocket', $pocket, $pocket-icon),
 ('telegram', $telegram, $telegram-icon),
 ('hatena', $hatena, $hatena-icon),
-('sms', $sms, $sms-icon);
+('sms', $sms, $sms-icon),
+('bluesky', $bluesky, $bluesky-icon);
