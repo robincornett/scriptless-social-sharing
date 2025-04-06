@@ -50,8 +50,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return bool
 	 */
 	private function check_singular_post() {
-		$has_block = function_exists( 'has_block' ) && has_block( 'scriptlesssocialsharing/buttons' );
-		if ( has_shortcode( get_post_field( 'post_content' ), 'scriptless' ) || $has_block ) {
+		if ( has_block( 'scriptlesssocialsharing/buttons' ) || has_shortcode( get_post_field( 'post_content' ), 'scriptless' ) ) {
 			return true;
 		}
 		if ( $this->is_disabled() ) {
@@ -75,13 +74,10 @@ class ScriptlessSocialSharingOutput {
 		if ( ! function_exists( 'get_current_screen' ) ) {
 			return false;
 		}
-		$screen = get_current_screen();
-		// The method_exists is required until Scriptless' minimum WP is 5.0.
-		if ( $screen instanceof \WP_Screen && method_exists( $screen, 'is_block_editor' ) && $screen->is_block_editor() ) {
-			return true;
-		}
 
-		return false;
+		$screen = get_current_screen();
+
+		return $screen instanceof \WP_Screen && $screen->is_block_editor();
 	}
 
 	/**
@@ -289,9 +285,9 @@ class ScriptlessSocialSharingOutput {
 	 * @since 3.0.0
 	 */
 	protected function get_individual_button_url( $button, $attributes, $setting ) {
-		$file = plugin_dir_path( dirname( __FILE__ ) ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
+		$file = plugin_dir_path( __DIR__ ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
 		if ( ! file_exists( $file ) ) {
-			$file = plugin_dir_path( dirname( __FILE__ ) ) . 'buttons/class-scriptlesssocialsharing-button-fallback.php';
+			$file = plugin_dir_path( __DIR__ ) . 'buttons/class-scriptlesssocialsharing-button-fallback.php';
 		}
 		include_once $file;
 		$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button['name'] );
@@ -318,7 +314,7 @@ class ScriptlessSocialSharingOutput {
 	 * @return array
 	 */
 	protected function get_buttons_in_order() {
-		$buttons = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
+		$buttons = include plugin_dir_path( __DIR__ ) . 'settings/networks.php';
 		$setting = $this->get_setting( 'order' );
 		if ( ! $setting ) {
 			return $buttons;

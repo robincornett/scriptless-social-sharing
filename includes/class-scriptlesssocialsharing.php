@@ -148,9 +148,6 @@ class ScriptlessSocialSharing {
 	 * @since 3.0.0
 	 */
 	public function maybe_register_block() {
-		if ( ! function_exists( 'register_block_type' ) ) {
-			return;
-		}
 		$setting = scriptlesssocialsharing_get_setting( 'disable_block' );
 		if ( $setting ) {
 			return;
