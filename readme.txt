@@ -3,10 +3,10 @@
 Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
-Requires at least: 5.2
-Tested up to: 6.4
+Requires at least: 6.2
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.2.4
+Stable tag: 3.3.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -53,6 +53,7 @@ Scriptless Social Sharing currently supports the following social networks:
 * Hatena Bookmark
 * SMS
 * Email
+* Bluesky
 
 Instagram does not support social sharing buttons.
 
@@ -207,9 +208,16 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
-3.2.4 - PHP 8 compatibility
+3.3.0: Bluesky support has been added.
 
 == Changelog ==
+
+= 3.3.0 =
+* added: Bluesky sharing button
+* updated: FontAwesome version
+* fixed: textdomain handling
+* fixed: block theme compatibility
+* fixed: PHP compatibility, shortcode
 
 = 3.2.4 =
 * updated: SVG output has been updated for PHP 8 compatibility

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Scriptless Social Sharing
+# Copyright (C) 2025 Scriptless Social Sharing
 # This file is distributed under the same license as the Scriptless Social Sharing package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-11-11 16:30+0000\n"
+"POT-Creation-Date: 2025-04-12 18:07+0000\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: includes/class-scriptlesssocialsharing.php:120
@@ -50,7 +50,7 @@ msgid " (will not show if there is no image)"
 msgstr ""
 
 #. translators: 1. opening span tag; do not translate 2. closing span tag, do not translate 3. the social network name
-#: includes/output/class-scriptlesssocialsharing-output.php:130
+#: includes/output/class-scriptlesssocialsharing-output.php:126
 msgid "%1$sShare on %2$s%3$s"
 msgstr ""
 
@@ -416,6 +416,10 @@ msgstr ""
 
 #: includes/settings/networks.php:61
 msgid "SMS"
+msgstr ""
+
+#: includes/settings/networks.php:69
+msgid "Bluesky"
 msgstr ""
 
 #: includes/settings/sections.php:10
