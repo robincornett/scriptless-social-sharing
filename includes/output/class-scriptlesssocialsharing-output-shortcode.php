@@ -20,9 +20,9 @@ class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutp
 			return '';
 		}
 		wp_print_styles( 'scriptlesssocialsharing' );
-		$output  = $atts['before'];
+		$output  = wp_kses_post( $atts['before'] );
 		$output .= $this->heading( $atts['heading'] );
-		$output .= $atts['inner_before'];
+		$output .= wp_kses_post( $atts['inner_before'] );
 		$output .= $buttons;
 		$output .= $atts['inner_after'];
 		$output .= $atts['after'];

@@ -180,7 +180,7 @@ class ScriptlessSocialSharingPostMeta {
 					break;
 
 				default:
-					$value = (int) filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_STRING );
+					$value = (int) filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_NUMBER_INT );
 			}
 
 			if ( $value ) {
