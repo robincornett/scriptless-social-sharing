@@ -370,7 +370,7 @@ class ScriptlessSocialSharingOutput {
 		}
 		$heading_element = apply_filters( 'scriptlesssocialsharing_heading_element', 'h3' );
 
-		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', $heading_element, $heading );
+		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', esc_attr( $heading_element ), wp_kses_post( $heading ) );
 	}
 
 	/**
