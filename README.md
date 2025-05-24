@@ -228,6 +228,9 @@ The `%%` are used to designate placeholders for the attribute variables that the
 Note that there is both an `svg` and an `icon` argument in the code sample. `svg` is preferred, but only applies if you are using the SVG option for the sharing icons. To add a new icon, upload it to your theme's `assets/svg` directory and the plugin will use it automatically. If you are using the older FontAwesome option, use `icon` to add the CSS unicode for the icon.
 ## Changelog
 
+### 3.3.1
+* fixed: updated output sanitization
+
 ### 3.3.0
 * added: Bluesky sharing button
 * updated: FontAwesome version

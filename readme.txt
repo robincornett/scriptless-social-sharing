@@ -6,7 +6,7 @@ Tags: social networks, social sharing, sharing buttons
 Requires at least: 6.2
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.3.0
+Stable tag: 3.3.1
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -211,6 +211,9 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 3.3.0: Bluesky support has been added.
 
 == Changelog ==
+
+= 3.3.1 =
+* fixed: updated output sanitization
 
 = 3.3.0 =
 * added: Bluesky sharing button
