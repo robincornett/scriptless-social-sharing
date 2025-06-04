@@ -130,7 +130,7 @@ class ScriptlessSocialSharing {
 	 * @return mixed
 	 */
 	public function filter_allowed_protocols( $protocols ) {
-		if ( ! did_action( 'init' ) ) {
+		if ( ! did_action( 'template_redirect' ) ) {
 			return $protocols;
 		}
 
