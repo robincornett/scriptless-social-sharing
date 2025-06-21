@@ -370,7 +370,11 @@ class ScriptlessSocialSharingOutput {
 		}
 		$heading_element = apply_filters( 'scriptlesssocialsharing_heading_element', 'h3' );
 
-		return sprintf( '<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>', esc_attr( $heading_element ), wp_kses_post( $heading ) );
+		return sprintf(
+			'<%1$s class="scriptlesssocialsharing__heading">%2$s</%1$s>',
+			esc_attr( $heading_element ),
+			$this->kses_string( $heading )
+		);
 	}
 
 	/**
@@ -382,5 +386,25 @@ class ScriptlessSocialSharingOutput {
 		$attributes = $this->get_attributes();
 
 		return (bool) ( $attributes['image'] || $attributes['pinterest'] );
+	}
+
+	/**
+	 * KSES the content.
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	protected function kses_string( $content ) {
+		return wp_kses(
+			$content,
+			array(
+				'strong' => array(),
+				'em'     => array(),
+				'span'   => array(),
+				'div'    => array(
+					'class' => array(),
+				),
+			)
+		);
 	}
 }
