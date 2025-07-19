@@ -213,7 +213,7 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 == Changelog ==
 
 = 3.3.1 =
-* fixed: updated output sanitization
+* changed: update heading, shortcode output
 
 = 3.3.0 =
 * added: Bluesky sharing button
