@@ -103,9 +103,11 @@ class ScriptlessSocialSharing {
 	 * Set up text domain for translations
 	 *
 	 * @since 1.0.0
+	 * @deprecated 3.2.5 Moved to main plugin file
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'scriptless-social-sharing' );
+		// Deprecated - textdomain is now loaded in the main plugin file
+		return;
 	}
 
 	/**

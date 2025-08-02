@@ -45,12 +45,12 @@ class ScriptlessSocialSharingButtonTwitter extends ScriptlessSocialSharingButton
 	 * @return mixed|void|null
 	 */
 	private function get_twitter_title( $title ) {
-		$yoast = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true );
+		$yoast = get_post_meta( get_the_ID(), '_yoast_wpseo_twitter-title', true ) ?? '';
 		if ( $yoast ) {
 			$title = $yoast;
 		}
 
-		return apply_filters( 'scriptlesssocialsharing_twitter_text', $title );
+		return apply_filters( 'scriptlesssocialsharing_twitter_text', $title ?? '' );
 	}
 
 	/**

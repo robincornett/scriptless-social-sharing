@@ -65,8 +65,8 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 		if ( isset( $this->buttons ) && is_singular() ) {
 			return $this->buttons;
 		}
-		$buttons     = $this->get_all_buttons();
-		$set_buttons = $this->get_setting( 'buttons' );
+		$buttons     = (array)$this->get_all_buttons();
+		$set_buttons = (array)$this->get_setting( 'buttons' );
 		if ( $set_buttons ) {
 			foreach ( $buttons as $key => $value ) {
 				if ( empty( $set_buttons[ $value['name'] ] ) ) {
