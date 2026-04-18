@@ -53,7 +53,7 @@ class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput
 	 * Enqueue CSS files
 	 */
 	public function load_styles() {
-		$enqueue = new ScriptlessSocialSharingEnqueue( $this->get_setting(), $this->get_available_buttons(), $this->can_do_buttons() );
+		$enqueue = new \ScriptlessSocialSharing\Enqueue( $this->get_setting(), $this->get_available_buttons(), $this->can_do_buttons() );
 		$enqueue->load_styles();
 	}
 

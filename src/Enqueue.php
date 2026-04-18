@@ -1,9 +1,14 @@
 <?php
+/**
+ * Scriptless Social Sharing Enqueue
+ */
+
+namespace ScriptlessSocialSharing;
 
 /**
  * Class ScriptlessSocialSharingEnqueue
  */
-class ScriptlessSocialSharingEnqueue {
+class Enqueue {
 
 	/**
 	 * The plugin setting.

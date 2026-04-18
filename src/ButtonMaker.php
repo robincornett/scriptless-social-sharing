@@ -1,10 +1,15 @@
 <?php
+/**
+ * Scriptless Social Sharing Button Maker
+ */
+
+namespace ScriptlessSocialSharing;
 
 /**
  * The ScriptlessSocialSharingButtonMaker class registers a
  * new sharing button/network and builds the button.
  */
-class ScriptlessSocialSharingButtonMaker {
+class ButtonMaker {
 
 	/**
 	 * The network slug serves as the ID.
@@ -185,6 +190,6 @@ function scriptlesssocialsharing_register() {
 		if ( empty( $id ) || empty( $button['label'] || empty( $button['url_base'] ) ) ) {
 			continue;
 		}
-		new ScriptlessSocialSharingButtonMaker( $id, $button['label'], $button['url_base'], $button['args'] );
+		new ButtonMaker( $id, $button['label'], $button['url_base'], $button['args'] );
 	}
 }

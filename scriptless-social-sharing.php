@@ -43,7 +43,6 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'class-scriptlesssocialsharing',
-		'class-scriptlesssocialsharing-enqueue',
 		'output/class-scriptlesssocialsharing-output',
 		'output/class-scriptlesssocialsharing-output-buttons',
 		'output/class-scriptlesssocialsharing-output-locations',
@@ -55,7 +54,6 @@ function scriptlesssocialsharing_require() {
 		'postmeta/class-scriptlesssocialsharing-postmeta',
 		'settings/class-scriptlesssocialsharing-settings',
 		'helper-functions',
-		'class-scriptlesssocialsharing-button-maker',
 	);
 
 	foreach ( $files as $file ) {
