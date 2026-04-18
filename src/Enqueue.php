@@ -64,7 +64,7 @@ class Enqueue {
 		if ( ! $this->setting['styles']['plugin'] ) {
 			return;
 		}
-		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-style.css' );
+		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugins_url( 'assets/build/css/scriptlesssocialsharing-style.css', SCRIPTLESSOCIALSHARING_FILE ) );
 		if ( $css_file ) {
 			wp_register_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'all' );
 			$this->add_inline_style();
@@ -113,7 +113,7 @@ class Enqueue {
 		if ( 3 === $this->setting['button_style'] ) {
 			return;
 		}
-		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugin_dir_url( __FILE__ ) . 'css/scriptlesssocialsharing-fontawesome.css' );
+		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugins_url( 'assets/build/css/scriptlesssocialsharing-fontawesome.css', SCRIPTLESSOCIALSHARING_FILE ) );
 		if ( $fa_file ) {
 			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
 		}

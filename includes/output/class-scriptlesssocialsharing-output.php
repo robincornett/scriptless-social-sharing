@@ -285,14 +285,9 @@ class ScriptlessSocialSharingOutput {
 	 * @since 3.0.0
 	 */
 	protected function get_individual_button_url( $button, $attributes, $setting ) {
-		$file = plugin_dir_path( __DIR__ ) . "buttons/class-scriptlesssocialsharing-button-{$button['name']}.php";
-		if ( ! file_exists( $file ) ) {
-			$file = plugin_dir_path( __DIR__ ) . 'buttons/class-scriptlesssocialsharing-button-fallback.php';
-		}
-		include_once $file;
-		$proper_name = 'ScriptlessSocialSharingButton' . ucfirst( $button['name'] );
+		$proper_name = '\\ScriptlessSocialSharing\\Buttons\\' . ucfirst( $button['name'] );
 		if ( ! class_exists( $proper_name ) ) {
-			$proper_name = 'ScriptlessSocialSharingButtonFallback';
+			$proper_name = '\\ScriptlessSocialSharing\\Buttons\\Fallback';
 		}
 		if ( class_exists( $proper_name ) && is_callable( $proper_name, 'get_url' ) ) {
 			$class = new $proper_name( $button['name'], $attributes, $setting );

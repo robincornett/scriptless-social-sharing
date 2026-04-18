@@ -39,6 +39,10 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_VERSION' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_VERSION', '3.3.1' );
 }
 
+if ( ! defined( 'SCRIPTLESSOCIALSHARING_FILE' ) ) {
+	define( 'SCRIPTLESSOCIALSHARING_FILE', __FILE__ );
+}
+
 // Include classes
 function scriptlesssocialsharing_require() {
 	$files = array(
@@ -50,7 +54,6 @@ function scriptlesssocialsharing_require() {
 		'output/class-scriptlesssocialsharing-output-shortcode',
 		'output/class-scriptlesssocialsharing-output-block',
 		'output/class-scriptlesssocialsharing-output-svg',
-		'buttons/class-scriptlesssocialsharing-button',
 		'postmeta/class-scriptlesssocialsharing-postmeta',
 		'settings/class-scriptlesssocialsharing-settings',
 		'helper-functions',
