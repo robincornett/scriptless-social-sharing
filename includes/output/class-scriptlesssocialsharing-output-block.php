@@ -106,14 +106,12 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 	 * Register the block script and style.
 	 */
 	public function register_script_style() {
-		wp_register_style( $this->block . '-block', plugin_dir_url( dirname( __FILE__ ) ) . 'css/scriptlesssocialsharing-block.css', array(), SCRIPTLESSOCIALSHARING_VERSION, 'all' );
-		$minify  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		$version = $minify ? SCRIPTLESSOCIALSHARING_VERSION : SCRIPTLESSOCIALSHARING_VERSION . current_time( 'gmt' );
+		wp_register_style( $this->block . '-block', plugins_url( 'assets/build/css/scriptlesssocialsharing-block.css', SCRIPTLESSOCIALSHARING_FILE ), array(), SCRIPTLESSOCIALSHARING_VERSION, 'all' );
 		wp_register_script(
 			$this->block . '-block',
-			plugin_dir_url( dirname( __FILE__ ) ) . "js/block{$minify}.js",
+			plugins_url( 'assets/build/js/block.js', SCRIPTLESSOCIALSHARING_FILE ),
 			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor' ),
-			$version,
+			SCRIPTLESSOCIALSHARING_VERSION,
 			false
 		);
 	}

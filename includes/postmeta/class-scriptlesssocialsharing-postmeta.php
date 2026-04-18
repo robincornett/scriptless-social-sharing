@@ -62,10 +62,9 @@ class ScriptlessSocialSharingPostMeta {
 			return;
 		}
 		$handle = 'scriptless-upload';
-		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script(
 			$handle,
-			plugins_url( "/js/image-upload{$minify}.js", dirname( __FILE__ ) ),
+			plugins_url( 'assets/build/js/image-upload.js', SCRIPTLESSOCIALSHARING_FILE ),
 			array( 'jquery', 'media-upload', 'thickbox' ),
 			SCRIPTLESSOCIALSHARING_VERSION,
 			true

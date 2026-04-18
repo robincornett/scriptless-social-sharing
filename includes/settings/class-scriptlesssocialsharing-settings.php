@@ -83,17 +83,16 @@ class ScriptlessSocialSharingSettings {
 	 * @since 2.3.0
 	 */
 	public function enqueue() {
-		$minify = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_enqueue_script(
 			'scriptless-sortable',
-			plugins_url( "/js/scriptless-sortable{$minify}.js", dirname( __FILE__ ) ),
+			plugins_url( 'assets/build/js/scriptless-sortable.js', SCRIPTLESSOCIALSHARING_FILE ),
 			array( 'jquery', 'jquery-ui-sortable' ),
 			SCRIPTLESSOCIALSHARING_VERSION,
 			true
 		);
 		wp_enqueue_style(
 			'scriptless-sortable',
-			plugins_url( '/css/scriptlesssocialsharing-admin.css', dirname( __FILE__ ) ),
+			plugins_url( 'assets/build/css/scriptlesssocialsharing-admin.css', SCRIPTLESSOCIALSHARING_FILE ),
 			array(),
 			SCRIPTLESSOCIALSHARING_VERSION,
 			'all'
