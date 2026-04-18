@@ -41,11 +41,6 @@ return apply_filters(
 			'label' => __( 'WhatsApp', 'scriptless-social-sharing' ),
 			'order' => 0,
 		),
-		'pocket'    => array(
-			'name'  => 'pocket',
-			'label' => __( 'Pocket', 'scriptless-social-sharing' ),
-			'order' => 0,
-		),
 		'telegram'  => array(
 			'name'  => 'telegram',
 			'label' => __( 'Telegram', 'scriptless-social-sharing' ),

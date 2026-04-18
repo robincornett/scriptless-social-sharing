@@ -18,7 +18,6 @@ return array(
 		'email'     => 1,
 		'reddit'    => 0,
 		'whatsapp'  => 0,
-		'pocket'    => 0,
 		'telegram'  => 0,
 		'hatena'    => 0,
 		'sms'       => 0,
