@@ -351,7 +351,7 @@ class Output {
 	protected function get_button_container_class( $setting ) {
 		$prefix    = 'scriptlesssocialsharing';
 		$suffix    = 'buttons';
-		$container = 'flex' === $setting['css_style'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
+		$container = "{$prefix}__{$suffix}";
 		if ( 3 === $setting['button_style'] ) {
 			$container .= ' no-icons';
 		}

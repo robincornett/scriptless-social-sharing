@@ -129,12 +129,9 @@ class Settings {
 		$db_setting    = $this->get_database_setting();
 		$defaults      = $this->defaults();
 		$this->setting = wp_parse_args( $db_setting, $defaults );
-		if ( empty( $db_setting['css_style'] ) && isset( $db_setting['styles']['font_css'] ) ) {
-			$this->setting['css_style'] = 'table';
-		}
-		if ( empty( $db_setting['icons'] ) && ! empty( $db_setting['styles'] ) ) {
-			$this->setting['icons'] = $db_setting['styles']['font_css'] ? 'font' : 'none';
-			unset( $this->setting['styles']['font_css'] );
+
+		if ( 'icons' === $key && 'font' === $this->setting['icons'] ) {
+			$this->setting['icons'] = 'svg';
 		}
 
 		return $key ? $this->setting[ $key ] : $this->setting;

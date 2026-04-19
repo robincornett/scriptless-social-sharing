@@ -86,17 +86,7 @@ class Enqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
-		if ( ! $this->enabled ) {
-			return;
-		}
-		$fontawesome = apply_filters( 'scriptlesssocialsharing_use_fontawesome', true );
-		if ( ! $this->setting['styles']['font'] || ! $fontawesome ) {
-			return;
-		}
-
-		$fa_version = apply_filters( 'scriptlesssocialsharing_fontawesome_version', '6.7.2' );
-		$fa_url     = apply_filters( 'scriptlesssocialsharing_fontawesome_url', "https://use.fontawesome.com/releases/v{$fa_version}/css/all.css", $fa_version );
-		wp_enqueue_style( 'font-awesome', $fa_url, array(), $fa_version );
+		_deprecated_function( __FUNCTION__, '<next-version>' );
 	}
 
 	/**
@@ -104,19 +94,7 @@ class Enqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_icons() {
-		if ( ! $this->enabled ) {
-			return;
-		}
-		if ( in_array( $this->setting['icons'], array( 'svg', 'none' ), true ) ) {
-			return;
-		}
-		if ( 3 === $this->setting['button_style'] ) {
-			return;
-		}
-		$fa_file = apply_filters( 'scriptlesssocialsharing_fontawesome', plugins_url( 'assets/build/css/scriptlesssocialsharing-fontawesome.css', SCRIPTLESSOCIALSHARING_FILE ) );
-		if ( $fa_file ) {
-			wp_enqueue_style( 'scriptlesssocialsharing-fa-icons', esc_url( $fa_file ), array(), $this->version, 'screen' );
-		}
+		_deprecated_function( __FUNCTION__, '<next-version>' );
 	}
 
 	/**
@@ -139,18 +117,10 @@ class Enqueue {
 	 * @return string
 	 */
 	private function get_layout_styles() {
-		$style   = '';
-		$padding = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
-		if ( 'table' === $this->setting['css_style'] ) {
-			$table_width  = 'auto' === $this->setting['table_width'] ? 'auto' : '100%';
-			$style        = sprintf( '.scriptlesssocialsharing-buttons { width: %s }', $table_width );
-			$count        = count( $this->buttons ) > 0 ? count( $this->buttons ) : 1;
-			$button_width = 100 / $count . '%;';
-			$style       .= sprintf( '.scriptlesssocialsharing-buttons a.button { %s width: %s; }', $padding, esc_attr( $button_width ) );
-		} else {
-			$flex_grow = 'auto' === $this->setting['table_width'] ? 0 : 1;
-			$style    .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
-		}
+		$style     = '';
+		$padding   = sprintf( 'padding: %spx;', (int) $this->setting['button_padding'] );
+		$flex_grow = 'auto' === $this->setting['table_width'] ? 0 : 1;
+		$style    .= sprintf( '.scriptlesssocialsharing__buttons a.button { %s flex: %s; }', $padding, $flex_grow );
 
 		return $style;
 	}
@@ -178,9 +148,6 @@ class Enqueue {
 	private function get_button_styles() {
 		$style = '';
 		foreach ( $this->buttons as $button ) {
-			if ( ! empty( $button['icon'] ) && 'font' === $this->setting['icons'] ) {
-				$style .= sprintf( '.scriptlesssocialsharing-buttons .%s:before { content: "\%s"; }', $button['name'], $button['icon'] );
-			}
 			if ( ! empty( $button['color'] ) && ! empty( $button['name'] ) ) {
 				$style .= $this->get_button_color( $button );
 			}
@@ -203,7 +170,7 @@ class Enqueue {
 		}
 		$prefix    = 'scriptlesssocialsharing';
 		$suffix    = 'buttons';
-		$container = 'flex' === $this->setting['css_style'] ? "{$prefix}__{$suffix}" : "{$prefix}-{$suffix}";
+		$container = "{$prefix}__{$suffix}";
 
 		return sprintf(
 			'.%4$s .button.%3$s{ background-color:%1$s;background-color:rgba(%2$s,.8); } .scriptlesssocialsharing-buttons .button.%3$s:hover{ background-color:%1$s }',

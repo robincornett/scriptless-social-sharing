@@ -11,7 +11,6 @@ $fields = array(
 		'section'     => 'icons',
 		'choices'     => array(
 			'svg'  => __( 'SVG', 'scriptless-social-sharing' ),
-			'font' => __( 'Web font', 'scriptless-social-sharing' ),
 			'none' => __( 'Custom icons', 'scriptless-social-sharing' ),
 		),
 		'legend'      => __( 'Choose whether to output social media icons as SVG or icon font', 'scriptless-social-sharing' ),
@@ -24,7 +23,6 @@ $fields = array(
 		'section' => 'styles',
 		'choices' => array(
 			'plugin' => __( 'Load the main stylesheet? (colors and layout)', 'scriptless-social-sharing' ),
-			'font'   => __( 'Load Font Awesome? (this is not needed if you are using the SVG option)', 'scriptless-social-sharing' ),
 		),
 		'clear'   => true,
 	),
@@ -98,17 +96,6 @@ $fields = array(
 			3 => __( 'Text Only', 'scriptless-social-sharing' ),
 		),
 		'legend'  => __( 'Button styles', 'scriptless-social-sharing' ),
-	),
-	array(
-		'id'      => 'css_style',
-		'title'   => __( 'Button Container CSS', 'scriptless-social-sharing' ),
-		'type'    => 'radio',
-		'section' => 'styles',
-		'choices' => array(
-			'flex'  => __( 'Flexbox', 'scriptless-social-sharing' ),
-			'table' => __( 'Table', 'scriptless-social-sharing' ),
-		),
-		'legend'  => __( 'CSS options for the button container', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'      => 'table_width',
