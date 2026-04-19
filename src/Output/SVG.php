@@ -114,7 +114,7 @@ class SVG {
 			'scriptlesssocialsharing_svg_paths',
 			array(
 				trailingslashit( get_stylesheet_directory() ) . 'assets/svg',
-				trailingslashit( plugin_dir_path( __DIR__ ) ) . 'svg',
+				trailingslashit( SCRIPTLESSOCIALSHARING_DIR ) . 'includes/svg',
 			)
 		);
 	}
@@ -394,7 +394,7 @@ class SVG {
 			'scriptlesssocialsharing_svg',
 			array(
 				'styles' => 'brands',
-				'path'   => plugin_dir_path( __DIR__ ) . 'svg',
+				'path'   => SCRIPTLESSOCIALSHARING_DIR . '/includes/svg',
 			)
 		);
 	}
