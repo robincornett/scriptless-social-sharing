@@ -1,12 +1,19 @@
 <?php
+/**
+ * Scriptless Social Sharing Post Meta Fields
+ */
+
+namespace ScriptlessSocialSharing\PostMeta;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Post meta fields helper class.
- * Class ScriptlessSocialSharingPostMetaFields
+ * Class Fields
  *
  * @since 2.2.0
  */
-class ScriptlessSocialSharingPostMetaFields {
+class Fields {
 
 	/**
 	 * The current post ID.
@@ -15,7 +22,7 @@ class ScriptlessSocialSharingPostMetaFields {
 	private $post_id;
 
 	/**
-	 * ScriptlessSocialSharingPostMetaFields constructor.
+	 * Fields constructor.
 	 *
 	 * @param $post_id
 	 */

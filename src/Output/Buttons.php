@@ -1,10 +1,18 @@
 <?php
+/**
+ * Scriptless Social Sharing Output Buttons
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingOutputButtons
+ * Class Buttons
  * @since 2.2.0
  */
-class ScriptlessSocialSharingOutputButtons extends ScriptlessSocialSharingOutput {
+class Buttons extends Output {
 
 	/**
 	 * The array of buttons.

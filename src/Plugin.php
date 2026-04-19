@@ -10,16 +10,16 @@
  *
  */
 
+namespace ScriptlessSocialSharing;
+
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharing
+ * Class Plugin
  * main plugin class
  */
-class ScriptlessSocialSharing {
+class Plugin {
 
 	/**
 	 * @var $locations \ScriptlessSocialSharingOutputLocations

@@ -1,11 +1,21 @@
 <?php
-
 /**
  * Class for adding a new settings page to the WordPress admin, under Settings.
  *
  * @package ScriptlessSocialSharing
  */
-class ScriptlessSocialSharingSettings {
+
+namespace ScriptlessSocialSharing\Settings;
+
+use AIOSEO\Plugin\Common\Help\Help;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Class Settings
+ */
+class Settings {
 
 	/**
 	 * Option registered by plugin.
@@ -56,7 +66,7 @@ class ScriptlessSocialSharingSettings {
 	 */
 	public function help() {
 		include_once 'class-scriptlesssocialsharing-settings-help.php';
-		$help = new ScriptlessSocialSharingSettingsHelp();
+		$help = new Help();
 		$help->help();
 	}
 
@@ -192,8 +202,7 @@ class ScriptlessSocialSharingSettings {
 	 * @param $sections array
 	 */
 	protected function add_fields( $fields, $sections ) {
-		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-settings-fields.php';
-		$fields_class = new ScriptlessSocialSharingSettingsFields( $this->get_setting() );
+		$fields_class = new Fields( $this->get_setting() );
 		foreach ( $fields as $field ) {
 			add_settings_field(
 				$field['id'],
@@ -314,7 +323,7 @@ class ScriptlessSocialSharingSettings {
 		check_admin_referer( "{$this->page}_save-settings", "{$this->page}_nonce" );
 
 		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-settings-validate.php';
-		$validate = new ScriptlessSocialSharingSettingsValidate();
+		$validate = new Validate();
 
 		return $validate->validate( $this->register_fields(), $new_value );
 	}

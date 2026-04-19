@@ -1,10 +1,17 @@
 <?php
+/**
+ * Scriptless Social Sharing Post Meta
+ */
+
+namespace ScriptlessSocialSharing\PostMeta;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingPostMeta
- * @package ScriptlessSocialSharing
+ * Class Meta
  */
-class ScriptlessSocialSharingPostMeta {
+class Meta {
 
 	/**
 	 * The plugin setting
@@ -89,8 +96,7 @@ class ScriptlessSocialSharingPostMeta {
 	 */
 	public function do_metabox( $post ) {
 		wp_nonce_field( 'scriptlesssocialsharing_post_save', 'scriptlesssocialsharing_post_nonce' );
-		include_once 'class-scriptlesssocialsharing-postmeta-fields.php';
-		$fields_class = new ScriptlessSocialSharingPostMetaFields( $post->ID );
+		$fields_class = new Fields( $post->ID );
 		$fields       = $this->get_fields();
 		foreach ( $fields as $field ) {
 			$fields_class->do_field( $field );
@@ -174,8 +180,7 @@ class ScriptlessSocialSharingPostMeta {
 		foreach ( $fields as $field ) {
 			switch ( $field['type'] ) {
 				case 'textarea':
-					$filter = defined( 'FILTER_SANITIZE_ADD_SLASHES' ) ? FILTER_SANITIZE_ADD_SLASHES : FILTER_SANITIZE_MAGIC_QUOTES;
-					$value  = sanitize_text_field( filter_input( INPUT_POST, $field['id'], $filter ) );
+					$value = sanitize_text_field( filter_input( INPUT_POST, $field['id'], FILTER_SANITIZE_ADD_SLASHES ) );
 					break;
 
 				default:

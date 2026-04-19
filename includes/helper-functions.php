@@ -1,11 +1,11 @@
 <?php
 /**
  * Helper functions for Scriptless Social Sharing.
- * 
+ *
  * @package           ScriptlessSocialSharing
  * @author            Robin Cornett
  * @link              https://github.com/robincornett/scriptless-social-sharing
- * @copyright         2015-2019 Robin Cornett
+ * @copyright         2015 Robin Cornett
  * @license           GPL-2.0+
  * @since 1.5.0
  */
@@ -29,33 +29,6 @@ function scriptlesssocialsharing_do_buttons( $heading = true ) {
  */
 function scriptlesssocialsharing_get_setting( $key = '' ) {
 	return apply_filters( 'scriptlesssocialsharing_get_setting', $key );
-}
-
-/**
- * Adds the sharing buttons to the post content.
- * Deprecated in version 2.0.0
- *
- * @param $content
- *
- * @return string
- */
-function scriptlesssocialsharing_print_buttons( $content ) {
-	if ( ! is_main_query() || ! get_queried_object_id() ) {
-		return $content;
-	}
-	$setting = scriptlesssocialsharing_get_setting();
-	if ( ! $setting['location'] ) {
-		return $content;
-	}
-	_deprecated_function( __FUNCTION__, '2.0.0' );
-	$post_type = get_post_type();
-	if ( ! isset( $setting['post_types'][ $post_type ] ) || ! $setting['post_types'][ $post_type ] || is_array( $setting['post_types'][ $post_type ] ) ) {
-		return $content;
-	}
-	$buttons = scriptlesssocialsharing_do_buttons();
-	$before  = $setting['location']['before'] ? $buttons : '';
-	$after   = $setting['location']['after'] ? $buttons : '';
-	return $before . $content . $after;
 }
 
 /**
@@ -89,4 +62,26 @@ function scriptlesssocialsharing_post_types() {
 	}
 
 	return apply_filters( 'scriptlesssocialsharing_post_types', $post_types );
+}
+
+/**
+ * Instantiate the SVG class.
+ * @return \ScriptlessSocialSharing\Output\SVG
+ * @since 3.0.0
+ */
+function scriptlesssocialsharing_svg() {
+	return \ScriptlessSocialSharing\Output\SVG::instance();
+}
+
+/**
+ * Adds the sharing buttons to the post content.
+ * Deprecated in version 2.0.0
+ *
+ * @param $content
+ *
+ * @return string
+ */
+function scriptlesssocialsharing_print_buttons( $content ) {
+	_deprecated_function( __FUNCTION__, '2.0.0' );
+	return $content;
 }

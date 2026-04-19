@@ -1,10 +1,18 @@
 <?php
+/**
+ * Scriptless Social Sharing Output Shortcode
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingOutputShortcode
+ * Class Shortcode
  * @since 2.2.0
  */
-class ScriptlessSocialSharingOutputShortcode extends ScriptlessSocialSharingOutput {
+class Shortcode extends Output {
 
 	/**
 	 * Create a shortcode to insert sharing buttons within the post content.

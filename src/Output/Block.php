@@ -1,9 +1,17 @@
 <?php
+/**
+ * Scriptless Social Sharing Output Block
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingOutputBlock
+ * Class Block
  */
-class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputShortcode {
+class BLock extends Shortcode {
 
 	/**
 	 * The block name.
@@ -181,7 +189,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 	 * @return array
 	 */
 	private function networks() {
-		$networks = include plugin_dir_path( dirname( __FILE__ ) ) . 'settings/networks.php';
+		$networks = include __DIR__ . '/../settings/networks.php';
 		$fields   = array();
 		$i        = 0;
 		$setting  = $this->get_setting( 'buttons' );
@@ -197,7 +205,7 @@ class ScriptlessSocialSharingOutputBlock extends ScriptlessSocialSharingOutputSh
 			);
 			if ( ! $i ) {
 				$fields[ $network['name'] ]['heading'] = __( 'Leave all checkboxes empty to use the buttons set in the plugin settings. Use the checkboxes to override the plugin settings.', 'scriptless-social-sharing' );
-				$i++;
+				++$i;
 			}
 		}
 		$fields['pinterest']['label'] .= __( ' (will not show if there is no image)', 'scriptless-social-sharing' );

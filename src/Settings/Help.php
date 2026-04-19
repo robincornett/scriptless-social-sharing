@@ -1,11 +1,16 @@
 <?php
+/**
+ * Scriptless Social Sharing Settings Help
+ */
+namespace ScriptlessSocialSharing\Settings;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingHelp
- * @package   ScriptlessSocialSharing
- * @copyright 2016-2019 Robin Cornett
+ * Class Help
  */
-class ScriptlessSocialSharingSettingsHelp {
+class Help {
 
 	/**
 	 * Help tab for settings screen

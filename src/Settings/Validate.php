@@ -1,9 +1,17 @@
 <?php
+/**
+ * Scriptless Social Sharing Settings Validate
+ */
+
+namespace ScriptlessSocialSharing\Settings;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingSettingsValidate
+ * Class Validate
  */
-class ScriptlessSocialSharingSettingsValidate {
+class Validate {
 
 	/**
 	 * Validate all of the settings fields.

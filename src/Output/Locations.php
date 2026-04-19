@@ -1,10 +1,18 @@
 <?php
+/**
+ * Scriptless Social Sharing Output Locations
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingOutputLocations
+ * Class Locations
  * @since 2.2.0
  */
-class ScriptlessSocialSharingOutputLocations extends ScriptlessSocialSharingOutputButtons {
+class Locations extends Buttons {
 
 	/**
 	 * Decide where to add the sharing buttons.

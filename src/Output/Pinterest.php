@@ -1,11 +1,19 @@
 <?php
+/**
+ * Scriptless Social Sharing Output Pinterest
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * This class handles pinterest related functions which are not specific to the button output.
- * Class ScriptlessSocialSharingOutputPinterest
+ * Class Pinterest
  * @since 3.0.0
  */
-class ScriptlessSocialSharingOutputPinterest {
+class Pinterest {
 
 	/**
 	 * If a Pinterest specific image is set, add it to the content, but hidden.

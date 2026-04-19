@@ -1,9 +1,17 @@
 <?php
+/**
+ * Scriptless Social Sharing Settings Fields
+ */
+
+namespace ScriptlessSocialSharing\Settings;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingSettingsFields
+ * Class Fields
  */
-class ScriptlessSocialSharingSettingsFields {
+class Fields {
 
 	/**
 	 * Slug for settings page.
@@ -146,7 +154,6 @@ class ScriptlessSocialSharingSettingsFields {
 			esc_attr( $this->page ),
 			esc_attr( $args['label'] )
 		);
-
 	}
 
 	/**

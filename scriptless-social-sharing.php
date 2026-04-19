@@ -26,10 +26,10 @@
  * GitHub Branch:     master
  */
 
+namespace ScriptlessSocialSharing;
+
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'SCRIPTLESSOCIALSHARING_BASENAME' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_BASENAME', plugin_basename( __FILE__ ) );
@@ -46,34 +46,24 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_FILE' ) ) {
 // Include classes
 function scriptlesssocialsharing_require() {
 	$files = array(
-		'class-scriptlesssocialsharing',
-		'output/class-scriptlesssocialsharing-output',
-		'output/class-scriptlesssocialsharing-output-buttons',
-		'output/class-scriptlesssocialsharing-output-locations',
-		'output/class-scriptlesssocialsharing-output-pinterest',
-		'output/class-scriptlesssocialsharing-output-shortcode',
-		'output/class-scriptlesssocialsharing-output-block',
-		'output/class-scriptlesssocialsharing-output-svg',
-		'postmeta/class-scriptlesssocialsharing-postmeta',
-		'settings/class-scriptlesssocialsharing-settings',
 		'helper-functions',
 	);
 
 	foreach ( $files as $file ) {
-		require plugin_dir_path( __FILE__ ) . 'includes/' . $file . '.php';
+		require __DIR__ . '/src/' . $file . '.php';
 	}
 }
 
 scriptlesssocialsharing_require();
 
 // Instantiate main class
-$scriptlesssocialsharing = new ScriptlessSocialSharing(
-	new ScriptlessSocialSharingOutputLocations(),
-	new ScriptlessSocialSharingOutputButtons(),
-	new ScriptlessSocialSharingOutputPinterest(),
-	new ScriptlessSocialSharingPostMeta(),
-	new ScriptlessSocialSharingSettings(),
-	new ScriptlessSocialSharingOutputShortcode()
+$scriptlesssocialsharing = new Plugin(
+	new Output\Locations(),
+	new Output\Buttons(),
+	new Output\Pinterest(),
+	new PostMeta\Meta(),
+	new Settings\Settings(),
+	new Output\Shortcode()
 );
 
 // Run the plugin

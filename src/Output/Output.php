@@ -1,13 +1,21 @@
 <?php
+/**
+ * Scriptless Social Sharing Output
+ */
+
+namespace ScriptlessSocialSharing\Output;
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Class ScriptlessSocialSharingOutput
+ * Class Output
  * Plugin class for buttons output--all helper methods are here.
  * Primary implementation is now in ScriptlessSocialSharingOutputButtons.
  *
  * @package ScriptlessSocialSharing
  */
-class ScriptlessSocialSharingOutput {
+class Output {
 
 	/**
 	 * @var $setting ScriptlessSocialSharingSettings->get_setting
@@ -326,8 +334,8 @@ class ScriptlessSocialSharingOutput {
 		if ( isset( $this->attributes ) && is_singular() ) {
 			return $this->attributes;
 		}
-		include_once 'class-scriptlesssocialsharing-output-attributes.php';
-		$attributes       = new ScriptlessSocialSharingOutputAttributes( $this->get_setting() );
+
+		$attributes       = new Attributes( $this->get_setting() );
 		$this->attributes = $attributes->get_attributes();
 
 		return $this->attributes;
