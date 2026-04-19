@@ -7,8 +7,6 @@
 
 namespace ScriptlessSocialSharing\Settings;
 
-use AIOSEO\Plugin\Common\Help\Help;
-
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
@@ -65,7 +63,6 @@ class Settings {
 	 * @since 3.0.0
 	 */
 	public function help() {
-		include_once 'class-scriptlesssocialsharing-settings-help.php';
 		$help = new Help();
 		$help->help();
 	}
@@ -157,7 +154,7 @@ class Settings {
 	 * @since 1.3.0
 	 */
 	protected function defaults() {
-		return include plugin_dir_path( __FILE__ ) . 'defaults.php';
+		return include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/defaults.php';
 	}
 
 	/**
@@ -166,7 +163,7 @@ class Settings {
 	 * @since 3.0.0
 	 */
 	protected function register_sections() {
-		return include 'sections.php';
+		return include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/sections.php';
 	}
 
 	/**
@@ -192,7 +189,7 @@ class Settings {
 	 *
 	 */
 	protected function register_fields() {
-		return include plugin_dir_path( __FILE__ ) . 'fields.php';
+		return include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/fields.php';
 	}
 
 	/**
@@ -253,7 +250,7 @@ class Settings {
 	 * @return array
 	 */
 	public function get_networks() {
-		return include plugin_dir_path( __FILE__ ) . 'networks.php';
+		return include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/networks.php';
 	}
 
 	/**
@@ -322,7 +319,6 @@ class Settings {
 		}
 		check_admin_referer( "{$this->page}_save-settings", "{$this->page}_nonce" );
 
-		include_once plugin_dir_path( __FILE__ ) . 'class-scriptlesssocialsharing-settings-validate.php';
 		$validate = new Validate();
 
 		return $validate->validate( $this->register_fields(), $new_value );

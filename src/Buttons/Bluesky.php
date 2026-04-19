@@ -7,11 +7,10 @@ namespace ScriptlessSocialSharing\Buttons;
 
 /**
  * Class to correctly build the Bluesky URL.
- * Class ScriptlessSocialSharingButtonBluesky
  *
  * @since 2.2.0
  */
-class Bluesky extends ScriptlessSocialSharingButton {
+class Bluesky extends Button {
 
 	/**
 	 * Get the button query args.

@@ -153,7 +153,7 @@ class Plugin {
 			return;
 		}
 		add_action( 'enqueue_block_editor_assets', array( $this->output, 'load_styles' ) );
-		$block = new ScriptlessSocialSharingOutputBlock();
+		$block = new Output\Block();
 		$block->init();
 	}
 }

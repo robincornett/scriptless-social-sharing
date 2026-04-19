@@ -189,7 +189,7 @@ class BLock extends Shortcode {
 	 * @return array
 	 */
 	private function networks() {
-		$networks = include __DIR__ . '/../settings/networks.php';
+		$networks = include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/networks.php';
 		$fields   = array();
 		$i        = 0;
 		$setting  = $this->get_setting( 'buttons' );

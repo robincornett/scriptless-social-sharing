@@ -317,7 +317,7 @@ class Output {
 	 * @return array
 	 */
 	protected function get_buttons_in_order() {
-		$buttons = include plugin_dir_path( __DIR__ ) . 'settings/networks.php';
+		$buttons = include SCRIPTLESSOCIALSHARING_DIR . '/includes/settings/networks.php';
 		$setting = $this->get_setting( 'order' );
 		if ( ! $setting ) {
 			return $buttons;
