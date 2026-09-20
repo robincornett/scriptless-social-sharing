@@ -18,7 +18,6 @@ module.exports = function ( grunt ) {
 					'src/**',
 					'*.php',
 					'*.txt',
-					'!assets/build/**/*.asset.php',
 				],
 				dest: 'build/<%= pkg.name %>/',
 			},

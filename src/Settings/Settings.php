@@ -104,6 +104,7 @@ class Settings {
 			SCRIPTLESSOCIALSHARING_VERSION,
 			'all'
 		);
+		wp_style_add_data( 'scriptless-sortable', 'rtl', 'replace' );
 	}
 
 	/**

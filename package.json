@@ -5,9 +5,9 @@
   "private": true,
   "license": "GPL-2.0+",
   "scripts": {
-    "build": "wp-scripts build",
-    "dev": "wp-scripts start",
-    "translate": "wp i18n make-pot . languages/scriptless-social-sharing.pot --exclude=assets,build,node_modules,vendor",
+    "build": "wp-scripts build --source-path=assets/src",
+    "dev": "wp-scripts start --source-path=assets/src",
+    "translate": "wp i18n make-pot . languages/scriptless-social-sharing.pot --exclude=assets/build,build,node_modules,vendor",
     "package": "grunt clean && npm run translate && npm run build && grunt copy && grunt compress"
   },
   "devDependencies": {
@@ -17,8 +17,6 @@
     "grunt-contrib-compress": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "load-grunt-tasks": "^5.1.0",
-    "mini-css-extract-plugin": "^2.7.6",
-    "path": "^0.12.7",
     "webpack-remove-empty-scripts": "^1.1.1"
   },
   "browserslist": [

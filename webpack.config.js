@@ -1,25 +1,30 @@
 const path = require( 'path' );
-const MiniCSSExtractPlugin = require( 'mini-css-extract-plugin' );
 const RemoveEmptyScriptsPlugin = require( 'webpack-remove-empty-scripts' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config.js' );
 
+const scss = ( name ) => path.resolve( 'assets/src/scss', `${ name }.scss` );
+const js = ( name ) => path.resolve( 'assets/src/js', `${ name }.js` );
+
 module.exports = {
 	...defaultConfig,
-	entry: {
-		'css/scriptlesssocialsharing-style':      path.resolve( 'sass', 'scriptlesssocialsharing-style.scss' ),
-		'css/scriptlesssocialsharing-admin':       path.resolve( 'sass', 'scriptlesssocialsharing-admin.scss' ),
-		'css/scriptlesssocialsharing-fontawesome': path.resolve( 'sass', 'scriptlesssocialsharing-fontawesome.scss' ),
-		'blocks/buttons/index':                    path.resolve( 'src/blocks/buttons', 'index.js' ),
-		'js/block':                                path.resolve( 'assets/src/js', 'block.js' ),
-		'js/image-upload':                         path.resolve( 'assets/src/js', 'image-upload.js' ),
-		'js/scriptless-sortable':                  path.resolve( 'assets/src/js', 'scriptless-sortable.js' ),
-	},
+
+	// Extend the entries wp-scripts derives from block.json rather than replacing them.
+	entry: async () => ( {
+		...( await defaultConfig.entry() ),
+		'css/scriptlesssocialsharing-style': scss( 'scriptlesssocialsharing-style' ),
+		'css/scriptlesssocialsharing-admin': scss( 'scriptlesssocialsharing-admin' ),
+		'js/image-upload': js( 'image-upload' ),
+		'js/scriptless-sortable': js( 'scriptless-sortable' ),
+	} ),
+
 	output: {
+		...defaultConfig.output,
 		path: path.resolve( __dirname, 'assets/build' ),
 	},
+
 	plugins: [
 		...defaultConfig.plugins,
-		new MiniCSSExtractPlugin(),
+		// The stylesheet entries would each otherwise emit a stub .js and .asset.php.
 		new RemoveEmptyScriptsPlugin(),
 	],
 };

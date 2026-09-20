@@ -68,6 +68,7 @@
       "default": false
     }
   },
+  "textdomain": "scriptless-social-sharing",
   "editorScript": "file:./index.js",
   "editorStyle": "file:./index.css"
 }

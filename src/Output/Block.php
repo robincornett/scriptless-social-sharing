@@ -142,7 +142,7 @@ class Block extends Shortcode {
 	 */
 	public function localize() {
 		wp_add_inline_script(
-			'scriptlesssocialsharing-buttons-editor-script',
+			generate_block_asset_handle( $this->name, 'editorScript' ),
 			'var ScriptlessBlock = ' . wp_json_encode( $this->get_localization_data() ) . ';',
 			'before'
 		);

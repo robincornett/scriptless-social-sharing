@@ -1,10 +1,10 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { Disabled, PanelBody, TextControl, CheckboxControl } from '@wordpress/components';
-import ServerSideRender from '@wordpress/server-side-render';
+import { ServerSideRender } from '@wordpress/server-side-render';
 import { Fragment } from '@wordpress/element';
 
-import '../../../sass/scriptlesssocialsharing-block.scss';
+import './editor.scss';
 
 const BLOCK_NAME = 'scriptlesssocialsharing/buttons';
 const { panels } = globalThis.ScriptlessBlock ?? {};

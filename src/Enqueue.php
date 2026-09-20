@@ -62,9 +62,14 @@ class Enqueue {
 		if ( ! $this->setting['styles']['plugin'] ) {
 			return;
 		}
-		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', plugins_url( 'assets/build/css/scriptlesssocialsharing-style.css', SCRIPTLESSOCIALSHARING_FILE ) );
+		$default  = plugins_url( 'assets/build/css/scriptlesssocialsharing-style.css', SCRIPTLESSOCIALSHARING_FILE );
+		$css_file = apply_filters( 'scriptlesssocialsharing_default_css', $default );
 		if ( $css_file ) {
 			wp_register_style( 'scriptlesssocialsharing', esc_url( $css_file ), array(), $this->version, 'all' );
+			if ( $css_file === $default ) {
+				// Only the bundled stylesheet is known to ship an -rtl.css alongside it.
+				wp_style_add_data( 'scriptlesssocialsharing', 'rtl', 'replace' );
+			}
 			$this->add_inline_style();
 			if ( $this->enabled ) {
 				wp_enqueue_style( 'scriptlesssocialsharing' );
