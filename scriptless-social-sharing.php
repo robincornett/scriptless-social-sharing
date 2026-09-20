@@ -26,8 +26,6 @@
  * GitHub Branch:     master
  */
 
-namespace ScriptlessSocialSharing;
-
 // If this file is called directly, abort.
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +45,25 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_DIR' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_DIR', __DIR__ );
 }
 
-require_once SCRIPTLESSOCIALSHARING_DIR . '/vendor/autoload.php';
+spl_autoload_register( 'scriptlesssocialsharing_autoload' );
+
+/**
+ * Autoload the plugin classes from the src directory.
+ *
+ * @param string $class_name The fully qualified class name.
+ * @return void
+ */
+function scriptlesssocialsharing_autoload( $class_name ) {
+	$prefix = 'ScriptlessSocialSharing\\';
+	if ( 0 !== strpos( $class_name, $prefix ) ) {
+		return;
+	}
+
+	$file = SCRIPTLESSOCIALSHARING_DIR . '/src/' . str_replace( '\\', '/', substr( $class_name, strlen( $prefix ) ) ) . '.php';
+	if ( is_readable( $file ) ) {
+		require $file;
+	}
+}
 
 /**
  * Include the plugin files.
@@ -66,12 +82,12 @@ function scriptlesssocialsharing_require() {
 
 scriptlesssocialsharing_require();
 
-$scriptlesssocialsharing = new Plugin(
-	new Output\Locations(),
-	new Output\Buttons(),
-	new Output\Pinterest(),
-	new PostMeta\Meta(),
-	new Settings\Settings(),
-	new Output\Shortcode()
+$scriptlesssocialsharing = new ScriptlessSocialSharing\Plugin(
+	new ScriptlessSocialSharing\Output\Locations(),
+	new ScriptlessSocialSharing\Output\Buttons(),
+	new ScriptlessSocialSharing\Output\Pinterest(),
+	new ScriptlessSocialSharing\PostMeta\Meta(),
+	new ScriptlessSocialSharing\Settings\Settings(),
+	new ScriptlessSocialSharing\Output\Shortcode()
 );
 $scriptlesssocialsharing->run();
