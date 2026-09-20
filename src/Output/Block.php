@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class Block
  */
-class BLock extends Shortcode {
+class Block extends Shortcode {
 
 	/**
 	 * The block name.
@@ -21,12 +21,15 @@ class BLock extends Shortcode {
 	protected $name = 'scriptlesssocialsharing/buttons';
 
 	/**
+	 * The block slug.
+	 *
 	 * @var string
 	 */
 	protected $block = 'scriptless-social-sharing-buttons';
 
 	/**
 	 * The plugin setting.
+	 *
 	 * @var array
 	 */
 	protected $setting;
@@ -35,13 +38,11 @@ class BLock extends Shortcode {
 	 * Register our block type.
 	 */
 	public function init() {
-		$this->register_script_style();
+		wp_register_style( $this->block . '-editor', plugins_url( 'assets/build/css/scriptlesssocialsharing-block.css', SCRIPTLESSOCIALSHARING_FILE ), array(), SCRIPTLESSOCIALSHARING_VERSION );
+		add_filter( 'block_type_metadata', array( $this, 'set_heading_default' ) );
 		register_block_type(
-			$this->name,
+			SCRIPTLESSOCIALSHARING_DIR . '/assets/build/blocks/buttons',
 			array(
-				'editor_script'   => $this->block . '-block',
-				'editor_style'    => $this->block . '-block',
-				'attributes'      => array_merge( $this->fields(), $this->networks() ),
 				'render_callback' => array( $this, 'render' ),
 			)
 		);
@@ -49,16 +50,44 @@ class BLock extends Shortcode {
 	}
 
 	/**
+	 * Take the heading default from the plugin settings.
+	 *
+	 * Passing attributes to register_block_type() would replace the whole block.json
+	 * set, which breaks the block renderer endpoint, so the one dynamic default is
+	 * filtered into the metadata instead.
+	 *
+	 * @since <next-version>
+	 * @param array $metadata The block metadata.
+	 * @return array
+	 */
+	public function set_heading_default( $metadata ) {
+		if ( $this->name === $metadata['name'] ) {
+			$metadata['attributes']['heading']['default'] = $this->get_setting( 'heading' );
+		}
+
+		return $metadata;
+	}
+
+	/**
 	 * Render the widget in a container div.
 	 *
-	 * @param $atts
+	 * @param array $atts The block attributes.
 	 * @return string
 	 */
 	public function render( $atts ) {
 		$atts = $this->parse_networks( $atts );
+		if ( ! wp_style_is( 'scriptlesssocialsharing' ) ) {
+			$enqueue = new \ScriptlessSocialSharing\Enqueue( $this->get_setting(), $atts['buttons'], $this->can_do_buttons() );
+			$enqueue->load_styles();
+		}
+
+		// The shortcode prints the stylesheet, which would corrupt the block renderer's JSON response.
+		ob_start();
+		$buttons = $this->shortcode( $atts );
+		$styles  = ob_get_clean();
 
 		$output  = '<div class="' . esc_attr( implode( ' ', $this->get_block_classes( $atts ) ) ) . '">';
-		$output .= $this->shortcode( $atts );
+		$output .= $styles . $buttons;
 		$output .= '</div>';
 
 		return $output;
@@ -111,24 +140,14 @@ class BLock extends Shortcode {
 	}
 
 	/**
-	 * Register the block script and style.
-	 */
-	public function register_script_style() {
-		wp_register_style( $this->block . '-block', plugins_url( 'assets/build/css/scriptlesssocialsharing-block.css', SCRIPTLESSOCIALSHARING_FILE ), array(), SCRIPTLESSOCIALSHARING_VERSION, 'all' );
-		wp_register_script(
-			$this->block . '-block',
-			plugins_url( 'assets/build/js/block.js', SCRIPTLESSOCIALSHARING_FILE ),
-			array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor' ),
-			SCRIPTLESSOCIALSHARING_VERSION,
-			false
-		);
-	}
-
-	/**
 	 * Localize.
 	 */
 	public function localize() {
-		wp_localize_script( $this->block . '-block', 'ScriptlessBlock', $this->get_localization_data() );
+		wp_add_inline_script(
+			'scriptlesssocialsharing-buttons-editor-script',
+			'var ScriptlessBlock = ' . wp_json_encode( $this->get_localization_data() ) . ';',
+			'before'
+		);
 	}
 
 	/**
@@ -137,14 +156,7 @@ class BLock extends Shortcode {
 	 */
 	protected function get_localization_data() {
 		return array(
-			'block'       => $this->name,
-			'title'       => __( 'Scriptless Social Sharing', 'scriptless-social-sharing' ),
-			'description' => __( 'Add sharing buttons anywhere.', 'scriptless-social-sharing' ),
-			'keywords'    => array(
-				__( 'Social Share', 'scriptless-social-sharing' ),
-				__( 'Sharing Buttons', 'scriptless-social-sharing' ),
-			),
-			'panels'      => array(
+			'panels' => array(
 				'heading' => array(
 					'title'       => __( 'Optional Settings', 'scriptless-social-sharing' ),
 					'initialOpen' => true,
@@ -156,8 +168,6 @@ class BLock extends Shortcode {
 					'attributes'  => $this->networks(),
 				),
 			),
-			'icon'        => 'share-alt',
-			'category'    => 'widgets',
 		);
 	}
 

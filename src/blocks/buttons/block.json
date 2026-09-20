@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "scriptlesssocialsharing/buttons",
+	"title": "Scriptless Social Sharing",
+	"description": "Add sharing buttons anywhere.",
+	"category": "widgets",
+	"icon": "share-alt",
+	"keywords": [ "Social Share", "Sharing Buttons" ],
+	"supports": {
+		"align": [ "wide", "full" ],
+		"html": false
+	},
+	"attributes": {
+		"blockAlignment": {
+			"type": "string",
+			"default": ""
+		},
+		"className": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "string",
+			"default": ""
+		},
+		"twitter": {
+			"type": "boolean",
+			"default": false
+		},
+		"facebook": {
+			"type": "boolean",
+			"default": false
+		},
+		"pinterest": {
+			"type": "boolean",
+			"default": false
+		},
+		"linkedin": {
+			"type": "boolean",
+			"default": false
+		},
+		"email": {
+			"type": "boolean",
+			"default": false
+		},
+		"reddit": {
+			"type": "boolean",
+			"default": false
+		},
+		"whatsapp": {
+			"type": "boolean",
+			"default": false
+		},
+		"telegram": {
+			"type": "boolean",
+			"default": false
+		},
+		"hatena": {
+			"type": "boolean",
+			"default": false
+		},
+		"sms": {
+			"type": "boolean",
+			"default": false
+		},
+		"bluesky": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"editorScript": "file:./index.js"
+}

@@ -52,8 +52,6 @@ class Enqueue {
 	 */
 	public function load_styles() {
 		$this->load_plugin_style();
-		$this->load_fontawesome_font();
-		$this->load_fontawesome_icons();
 	}
 
 	/**

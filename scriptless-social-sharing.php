@@ -47,9 +47,13 @@ if ( ! defined( 'SCRIPTLESSOCIALSHARING_DIR' ) ) {
 	define( 'SCRIPTLESSOCIALSHARING_DIR', __DIR__ );
 }
 
-require_once 'vendor/autoload.php';
+require_once SCRIPTLESSOCIALSHARING_DIR . '/vendor/autoload.php';
 
-// Include classes
+/**
+ * Include the plugin files.
+ *
+ * @return void
+ */
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'helper-functions',
@@ -62,7 +66,6 @@ function scriptlesssocialsharing_require() {
 
 scriptlesssocialsharing_require();
 
-// Instantiate main class
 $scriptlesssocialsharing = new Plugin(
 	new Output\Locations(),
 	new Output\Buttons(),
@@ -71,6 +74,4 @@ $scriptlesssocialsharing = new Plugin(
 	new Settings\Settings(),
 	new Output\Shortcode()
 );
-
-// Run the plugin
 $scriptlesssocialsharing->run();
