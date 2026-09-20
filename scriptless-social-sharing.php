@@ -73,6 +73,7 @@ function scriptlesssocialsharing_autoload( $class_name ) {
 function scriptlesssocialsharing_require() {
 	$files = array(
 		'helper-functions',
+		'legacy-classes',
 	);
 
 	foreach ( $files as $file ) {
