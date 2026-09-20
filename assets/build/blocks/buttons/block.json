@@ -15,17 +15,10 @@
       "wide",
       "full"
     ],
+    "className": false,
     "html": false
   },
   "attributes": {
-    "blockAlignment": {
-      "type": "string",
-      "default": ""
-    },
-    "className": {
-      "type": "string",
-      "default": ""
-    },
     "heading": {
       "type": "string",
       "default": ""
@@ -75,5 +68,6 @@
       "default": false
     }
   },
-  "editorScript": "file:./index.js"
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css"
 }

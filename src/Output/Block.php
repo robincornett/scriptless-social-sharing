@@ -38,7 +38,6 @@ class Block extends Shortcode {
 	 * Register our block type.
 	 */
 	public function init() {
-		wp_register_style( $this->block . '-editor', plugins_url( 'assets/build/css/scriptlesssocialsharing-block.css', SCRIPTLESSOCIALSHARING_FILE ), array(), SCRIPTLESSOCIALSHARING_VERSION );
 		add_filter( 'block_type_metadata', array( $this, 'set_heading_default' ) );
 		register_block_type(
 			SCRIPTLESSOCIALSHARING_DIR . '/assets/build/blocks/buttons',
@@ -46,7 +45,30 @@ class Block extends Shortcode {
 				'render_callback' => array( $this, 'render' ),
 			)
 		);
+		add_filter( 'render_block_data', array( $this, 'migrate_block_alignment' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'localize' ) );
+	}
+
+	/**
+	 * Carry the alignment saved by earlier versions over to the align support.
+	 *
+	 * Blocks saved before <next-version> stored alignment in their own attribute,
+	 * which the align support does not know about, so those posts would lose their
+	 * alignment until they were opened and saved again.
+	 *
+	 * @since <next-version>
+	 * @param array $parsed_block The parsed block.
+	 * @return array
+	 */
+	public function migrate_block_alignment( $parsed_block ) {
+		if ( $this->name !== $parsed_block['blockName'] ) {
+			return $parsed_block;
+		}
+		if ( ! empty( $parsed_block['attrs']['blockAlignment'] ) && empty( $parsed_block['attrs']['align'] ) ) {
+			$parsed_block['attrs']['align'] = $parsed_block['attrs']['blockAlignment'];
+		}
+
+		return $parsed_block;
 	}
 
 	/**
@@ -86,7 +108,7 @@ class Block extends Shortcode {
 		$buttons = $this->shortcode( $atts );
 		$styles  = ob_get_clean();
 
-		$output  = '<div class="' . esc_attr( implode( ' ', $this->get_block_classes( $atts ) ) ) . '">';
+		$output  = '<div ' . get_block_wrapper_attributes( array( 'class' => "wp-block-{$this->block}" ) ) . '>';
 		$output .= $styles . $buttons;
 		$output .= '</div>';
 
@@ -113,30 +135,6 @@ class Block extends Shortcode {
 		$atts['buttons'] = $buttons;
 
 		return $atts;
-	}
-
-	/**
-	 * Gets the block HTML classes.
-	 *
-	 * @since 3.2.2
-	 * @param array $atts
-	 * @return array
-	 */
-	private function get_block_classes( $atts ) {
-		$classes = array(
-			"wp-block-{$this->block}",
-		);
-		if ( ! empty( $atts['blockAlignment'] ) ) {
-			$classes[] = 'align' . $atts['blockAlignment'];
-		}
-		if ( ! empty( $atts['className'] ) ) {
-			$additional_classes = explode( ' ', $atts['className'] );
-			if ( $additional_classes ) {
-				$classes = array_merge( $classes, $additional_classes );
-			}
-		}
-
-		return array_filter( array_unique( array_map( 'sanitize_html_class', $classes ) ) );
 	}
 
 	/**
@@ -177,15 +175,7 @@ class Block extends Shortcode {
 	 */
 	private function fields() {
 		return array(
-			'blockAlignment' => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'className'      => array(
-				'type'    => 'string',
-				'default' => '',
-			),
-			'heading'        => array(
+			'heading' => array(
 				'type'    => 'string',
 				'default' => $this->get_setting( 'heading' ),
 				'label'   => __( 'Heading', 'scriptless-social-sharing' ),

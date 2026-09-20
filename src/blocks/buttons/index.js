@@ -1,8 +1,10 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, CheckboxControl } from '@wordpress/components';
+import { Disabled, PanelBody, TextControl, CheckboxControl } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 import { Fragment } from '@wordpress/element';
+
+import '../../../sass/scriptlesssocialsharing-block.scss';
 
 const BLOCK_NAME = 'scriptlesssocialsharing/buttons';
 const { panels } = globalThis.ScriptlessBlock ?? {};
@@ -25,7 +27,6 @@ function getPanels( { attributes, setAttributes } ) {
 
 function getControls( fields, attributes, setAttributes ) {
 	return Object.entries( fields )
-		.filter( ( [ key ] ) => key !== 'blockAlignment' && key !== 'className' )
 		.map( ( [ key, field ] ) => {
 			if ( field.method === 'checkbox' ) {
 				return (
@@ -57,10 +58,12 @@ registerBlockType( BLOCK_NAME, {
 		return (
 			<Fragment>
 				<div { ...blockProps }>
-					<ServerSideRender
-						block={ BLOCK_NAME }
-						attributes={ attributes }
-					/>
+					<Disabled>
+						<ServerSideRender
+							block={ BLOCK_NAME }
+							attributes={ attributes }
+						/>
+					</Disabled>
 				</div>
 				<InspectorControls>
 					{ getPanels( { attributes, setAttributes } ) }
