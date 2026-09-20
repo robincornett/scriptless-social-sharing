@@ -4,9 +4,9 @@ Contributors: littler.chicken
 Donate link: https://robincornett.com/donate/
 Tags: social networks, social sharing, sharing buttons
 Requires at least: 6.9
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.3.1
+Stable tag: 4.0.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -207,9 +207,16 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 
 == Upgrade Notice ==
 
-3.3.0: Bluesky support has been added.
+4.0.0: possible breaking changes: complete block overhaul, general makeover
 
 == Changelog ==
+
+= 4.0.0 =
+* updated: the block has been updated for modern block compatibility
+* removed: enqueueing FontAwesome is no longer an option; icons are rendered as SVG instead
+* removed: support for Pocket
+* changed: the plugin now uses namespaced classes and autoloading
+* changed: the new minimum WordPress version is 6.9
 
 = 3.3.1 =
 * changed: update heading, shortcode output

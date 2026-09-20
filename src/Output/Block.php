@@ -52,11 +52,11 @@ class Block extends Shortcode {
 	/**
 	 * Carry the alignment saved by earlier versions over to the align support.
 	 *
-	 * Blocks saved before <next-version> stored alignment in their own attribute,
+	 * Blocks saved before 4.0.0 stored alignment in their own attribute,
 	 * which the align support does not know about, so those posts would lose their
 	 * alignment until they were opened and saved again.
 	 *
-	 * @since <next-version>
+	 * @since 4.0.0
 	 * @param array $parsed_block The parsed block.
 	 * @return array
 	 */
@@ -78,7 +78,7 @@ class Block extends Shortcode {
 	 * set, which breaks the block renderer endpoint, so the one dynamic default is
 	 * filtered into the metadata instead.
 	 *
-	 * @since <next-version>
+	 * @since 4.0.0
 	 * @param array $metadata The block metadata.
 	 * @return array
 	 */

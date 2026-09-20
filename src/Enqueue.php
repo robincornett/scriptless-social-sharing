@@ -89,7 +89,7 @@ class Enqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_font() {
-		_deprecated_function( __FUNCTION__, '<next-version>' );
+		_deprecated_function( __FUNCTION__, '4.0.0' );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Enqueue {
 	 * @since 2.4.0
 	 */
 	protected function load_fontawesome_icons() {
-		_deprecated_function( __FUNCTION__, '<next-version>' );
+		_deprecated_function( __FUNCTION__, '4.0.0' );
 	}
 
 	/**
