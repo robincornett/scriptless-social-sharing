@@ -1,38 +1,59 @@
 @import "variables";
 
 .scriptless-sortable-buttons {
-	margin: 1.33em auto;
-	display: flex;
-	gap: 6px;
-}
+	margin: 0 0 8px;
+	max-width: 320px;
 
-.change-warning {
-	display: none;
-}
+	&__item {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		margin: 0;
+		padding: 6px 8px;
+		background: #fff;
+		border: 1px solid #dcdcde;
+		border-radius: 3px;
 
-.button.sortable-button {
-	display: flex;
+		& + & {
+			margin-top: 4px;
+		}
 
-	input {
-		background: transparent;
-		border: none;
-		box-shadow: none;
-		width: 40px;
-		height: auto;
-		appearance: textfield;
+		label {
+			flex: 1;
+			cursor: pointer;
+		}
 
-		&::-webkit-outer-spin-button,
-		&::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
+		&.is-dragging {
+			opacity: 0.5;
+			border-style: dashed;
 		}
 	}
-}
 
-.ui-sortable-disabled {
-	.button:hover,
-	label:hover {
-		cursor: default;
+	&__handle {
+		padding: 0;
+		width: 24px;
+		height: 24px;
+		background: none;
+		border: none;
+		color: #787c82;
+		cursor: grab;
+
+		&:hover,
+		&:focus {
+			color: #1d2327;
+		}
+
+		&:focus {
+			box-shadow: 0 0 0 2px #2271b1;
+			border-radius: 2px;
+			outline: 2px solid transparent;
+		}
+	}
+
+	// The glyph sits on its own hidden element so it stays out of the button's accessible name.
+	&__icon::before {
+		content: "\f333";
+		font: normal 20px/1 dashicons;
+		-webkit-font-smoothing: antialiased;
 	}
 }
-

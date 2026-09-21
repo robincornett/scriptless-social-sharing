@@ -34,19 +34,12 @@ $fields = array(
 		'description' => __( 'Heading above sharing buttons', 'scriptless-social-sharing' ),
 	),
 	array(
-		'id'      => 'buttons',
-		'title'   => __( 'Buttons', 'scriptless-social-sharing' ),
-		'type'    => 'checkbox_array',
-		'section' => 'buttons',
-		'choices' => array( $this, 'get_buttons' ),
-	),
-	array(
-		'id'       => 'order',
-		'title'    => __( 'Button Order', 'scriptless-social-sharing' ),
-		'callback' => 'do_custom_order',
+		'id'       => 'buttons',
+		'title'    => __( 'Buttons', 'scriptless-social-sharing' ),
+		'callback' => 'do_buttons',
 		'section'  => 'buttons',
 		'choices'  => array( $this, 'get_buttons' ),
-		'intro'    => __( 'Reorder the buttons by dragging/dropping, or by using the number inputs.', 'scriptless-social-sharing' ),
+		'legend'   => __( 'Choose which sharing buttons to use, and the order in which they appear', 'scriptless-social-sharing' ),
 	),
 	array(
 		'id'          => 'twitter_handle',

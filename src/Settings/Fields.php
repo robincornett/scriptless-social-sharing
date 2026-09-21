@@ -271,53 +271,69 @@ class Fields {
 	}
 
 	/**
-	 * Allow users to sort the buttons into a custom order.
+	 * Allow users to choose which sharing buttons to use, and the order in which they appear.
 	 *
-	 * @since 2.3.0
-	 * @param $args
+	 * @since 4.0.0
+	 * @param array $args The field arguments.
 	 */
-	public function do_custom_order( $args ) {
-		$this->do_description( $args['intro'] );
-		$choices = $this->get_choices( $args['choices'] );
-		$buttons = $this->get_buttons( $choices );
-		$counts  = array_count_values( $this->setting['buttons'] );
-		echo '<div class="scriptless-sortable-buttons">';
+	protected function do_buttons( $args ) {
+		$buttons     = $this->get_ordered_buttons( $this->get_choices( $args['choices'] ) );
+		$instruction = 'scriptless-sortable-buttons__instructions';
+		$position    = 1;
+		echo '<fieldset>';
+		printf( '<legend class="screen-reader-text">%s</legend>', esc_html( $args['legend'] ) );
+		echo '<ul class="scriptless-sortable-buttons">';
 		foreach ( $buttons as $key => $label ) {
-			if ( empty( $this->setting['buttons'][ $key ] ) ) {
-				continue;
-			}
-			$value = ! empty( $this->setting['order'][ $key ] ) ? $this->setting['order'][ $key ] : 0;
+			$id = sprintf( '%s[buttons][%s]', $this->page, $key );
+			printf( '<li class="scriptless-sortable-buttons__item" data-key="%s">', esc_attr( $key ) );
 			printf(
-				'<div class="button sortable-button"><input type="number" name="%3$s[order][%4$s]" min="1" max="%5$s" value="%2$s" data-initial-value="%2$s"><label for="%3$s[order][%4$s]">%1$s</label></div>',
-				esc_html( $label ),
-				(int) $value,
+				'<input type="hidden" class="scriptless-sortable-buttons__order" name="%1$s[order][%2$s]" value="%3$s" />',
 				esc_attr( $this->page ),
 				esc_attr( $key ),
-				esc_attr( $counts[1] )
+				(int) $position
 			);
+			printf( '<input type="hidden" name="%s" value="0" />', esc_attr( $id ) );
+			printf(
+				'<input type="checkbox" id="%1$s" name="%1$s" value="1"%2$s class="code" /><label for="%1$s">%3$s</label>',
+				esc_attr( $id ),
+				checked( 1, empty( $this->setting['buttons'][ $key ] ) ? 0 : 1, false ),
+				esc_html( $label )
+			);
+			printf(
+				'<button type="button" class="scriptless-sortable-buttons__handle" draggable="true" aria-describedby="%1$s"><span class="scriptless-sortable-buttons__icon" aria-hidden="true"></span><span class="screen-reader-text">%2$s</span></button>',
+				esc_attr( $instruction ),
+				/* translators: %s: Social network name */
+				esc_html( sprintf( __( 'Reorder %s', 'scriptless-social-sharing' ), $label ) )
+			);
+			echo '</li>';
+			++$position;
 		}
-		echo '</div>';
+		echo '</ul>';
+		echo '</fieldset>';
 		printf(
-			'<p class="description change-warning">%s</p>',
-			wp_kses_post( __( 'Since you have changed the order of the buttons using the visual/number inputs, updating the order by dragging has been disabled.', 'scriptless-social-sharing' ) )
+			'<p class="description" id="%s">%s</p>',
+			esc_attr( $instruction ),
+			esc_html__( 'Drag a button by its handle, or focus the handle and press the up or down arrow keys, to change the order in which the buttons appear.', 'scriptless-social-sharing' )
 		);
 	}
 
 	/**
-	 * Get the active buttons which can be sorted into a custom order.
+	 * Sort the button choices into the saved custom order.
+	 *
+	 * The order is the key order of the saved array, matching how the buttons are
+	 * ordered for output. Networks added since the order was last saved fall to
+	 * the end of the list.
 	 *
 	 * @since 2.3.0
-	 * @param $buttons
+	 * @param array $buttons The available networks, keyed by network name.
 	 * @return array
 	 */
-	private function get_buttons( $buttons ) {
-		if ( ! $this->setting['order'] ) {
-			return $buttons;
-		}
-		asort( $this->setting['order'] );
+	private function get_ordered_buttons( $buttons ) {
+		$order = array_intersect_key( (array) $this->setting['order'], $buttons );
 
-		return array_merge( $this->setting['order'], $buttons );
+		return $order ? array_merge( $order, $buttons ) : $buttons;
 	}
+
 	/**
 	 * Check the database setting
 	 *
@@ -379,5 +395,15 @@ class Fields {
 		}
 
 		return call_user_func( $choices );
+	}
+
+	/**
+	 * Deprecated custom order function. Use do_buttons() instead.
+	 *
+	 * @deprecated 4.0.0
+	 * @param array $args The field arguments.
+	 */
+	public function do_custom_order( $args ) {
+		_deprecated_function( __METHOD__, '4.0.0', __CLASS__ . '::do_buttons()' );
 	}
 }

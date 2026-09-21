@@ -1,139 +1,156 @@
 /*
- * Copyright (c) 2018 Robin Cornett
+ * Copyright (c) 2026 Robin Cornett
  * @package ScriptlessSocialSharing
  */
 
-;(function ( document, $, undefined ) {
-	'use strict';
+import { speak } from '@wordpress/a11y';
 
-	var ScriptlessSort = {},
-	    item           = '.sortable-button',
-	    $container     = $( '.scriptless-sortable-buttons' ),
-	    $items         = $container.find( 'input[type="number"]' ),
-	    changed        = false;
+const list = globalThis.document.querySelector( '.scriptless-sortable-buttons' );
+const itemSelector = '.scriptless-sortable-buttons__item';
+const handleSelector = '.scriptless-sortable-buttons__handle';
 
-	/**
-	 * Initialize the script.
-	 */
-	ScriptlessSort.init = function () {
-		if ( ! $container.length ) {
-			return;
+let dragging = null;
+let startIndex = null;
+
+const items = () => Array.from( list.querySelectorAll( itemSelector ) );
+
+/**
+ * Renumber the hidden order inputs to match the current list order.
+ *
+ * The saved order is the key order of the posted array, so the numbers exist
+ * only to keep the stored value readable.
+ */
+const renumber = () => {
+	items().forEach( ( item, index ) => {
+		const input = item.querySelector( '.scriptless-sortable-buttons__order' );
+		if ( input ) {
+			input.value = index + 1;
 		}
-		_updateOrder();
-		$( 'label[for^="scriptlesssocialsharing[buttons]"] input' ).on( 'change.scriptless-buttons', ScriptlessSort.manageButtons );
-		$container.on( 'change', 'input[type="number"]', function () {
-			updateAllNumbers( $( this ) )
-		} );
-		ScriptlessSort.sort();
-	};
+	} );
+};
 
-	/**
-	 * Add/remove buttons as needed.
-	 */
-	ScriptlessSort.manageButtons = function () {
-		var key     = $( this ).attr( 'data-attr' ),
-		    label   = $( this ).parent().text(),
-		    $items  = $container.find( 'input[type="number"]' ),
-		    new_max = $items.length + 1;
-		if ( $( this ).prop( 'checked' ) ) {
-			var $button = $( '<div />', {
-				'class': 'button sortable-button',
-				'style': 'margin-right:4px;'
-			} )
-				.append( $( '<input>', {
-					'type': 'number',
-					'name': 'scriptlesssocialsharing[order][' + key + ']',
-					'value': new_max,
-					'data-initial-value': new_max,
-					'min': 1,
-					'max': new_max
-				} ) )
-				.append( label );
-			$container.append( $button );
-		} else {
-			$( item + ':contains(' + label + ')' ).remove();
-			new_max = new_max - 2;
-		}
-		$.each( $items, function() {
-			$( this ).attr( 'max', new_max );
-		} );
-		_updateOrder();
-	};
+/**
+ * Announce an item's new position to screen readers.
+ *
+ * @param {HTMLElement} item
+ */
+const announce = ( item ) => {
+	const label = item.querySelector( 'label' );
+	const all = items();
+	const template = globalThis.scriptlessSortableL10n?.moved;
 
-	/**
-	 * Implement the sortable script to move the buttons around.
-	 */
-	ScriptlessSort.sort = function () {
-		$container.sortable( {
-			containment: 'parent',
-			cursor: 'move',
-			items: item,
-			tolerance: 'pointer',
-			stop: function ( event, ui ) {
-				_updateOrder();
-			}
-		} );
-	};
-
-	/**
-	 * Update the order of the buttons.
-	 * @private
-	 */
-	function _updateOrder() {
-		if ( changed ) {
-			return;
-		}
-		var items = $( item ).find( 'input' ),
-		    i     = 1;
-		$.each( items, function () {
-			var value = $( this ).val();
-			$( this ).attr( 'data-initial-value', value );
-			$( this ).attr( 'value', i );
-			i ++;
-		} );
+	if ( ! label || ! template ) {
+		return;
 	}
 
-	/**
-	 * Update button/number inputs if values have been changed using the inputs instead of dragging.
-	 *
-	 * https://codepen.io/barrytsmith/pen/kfiqj
-	 * @param currObj
-	 */
-	function updateAllNumbers( currObj ) {
-		var targets   = $container.find( 'input[type="number"]' ),
-		    delta     = currObj.val() - currObj.attr( 'data-initial-value' ), //if positive, the object went down in order. If negative, it went up.
-		    new_value = parseInt( currObj.val(), 10 ),
-		    old_value = parseInt( currObj.attr( 'data-initial-value' ), 10 ),
-		    top       = $( targets ).length;
+	speak(
+		template
+			.replace( '%1$s', label.textContent.trim() )
+			.replace( '%2$d', all.indexOf( item ) + 1 )
+			.replace( '%3$d', all.length )
+	);
+};
 
-		if ( new_value > top ) {
-			currObj.val( top );
-		} else if ( new_value < 1 ) {
-			currObj.val( 1 );
-		}
-
-		$( targets ).not( $( currObj ) ).each( function () {
-			var v = parseInt( $( this ).val(), 10 );
-
-			if ( v >= new_value && v < old_value && delta < 0 ) {
-				$( this ).val( v + 1 );
-			} else if ( v <= new_value && v > old_value && delta > 0 ) {
-				$( this ).val( v - 1 );
-			}
-		} ).promise().done( function () {
-			$( targets ).each( function () {
-				if ( $( this ).val() !== '' ) {
-					$( this ).attr( 'data-initial-value', $( this ).val() );
-				}
-			} );
-		} );
-		if ( changed ) {
-			return;
-		}
-		$( '.change-warning' ).show();
-		$container.sortable( 'disable' );
-		changed = true;
+/**
+ * Move an item up or down the list, then report where it landed.
+ *
+ * @param {HTMLElement} item
+ * @param {number}      offset -1 to move up, 1 to move down.
+ */
+const move = ( item, offset ) => {
+	const neighbor = offset < 0 ? item.previousElementSibling : item.nextElementSibling;
+	if ( ! neighbor ) {
+		return;
 	}
 
-	ScriptlessSort.init();
-})( document, jQuery );
+	if ( offset < 0 ) {
+		neighbor.before( item );
+	} else {
+		neighbor.after( item );
+	}
+
+	renumber();
+	announce( item );
+};
+
+/**
+ * Find the item the pointer is currently over, ignoring the one being dragged.
+ *
+ * @param {number} y The pointer's vertical position.
+ * @return {HTMLElement|null} The item under the pointer.
+ */
+const itemAt = ( y ) => items().find( ( item ) => {
+	if ( item === dragging ) {
+		return false;
+	}
+	const box = item.getBoundingClientRect();
+
+	return y >= box.top && y <= box.bottom;
+} ) ?? null;
+
+const onDragStart = ( event ) => {
+	const handle = event.target.closest( handleSelector );
+	if ( ! handle ) {
+		return;
+	}
+
+	dragging = handle.closest( itemSelector );
+	startIndex = items().indexOf( dragging );
+	dragging.classList.add( 'is-dragging' );
+	event.dataTransfer.effectAllowed = 'move';
+	// Firefox will not start a drag without data on the transfer.
+	event.dataTransfer.setData( 'text/plain', dragging.dataset.key );
+};
+
+const onDragOver = ( event ) => {
+	if ( ! dragging ) {
+		return;
+	}
+	event.preventDefault();
+	event.dataTransfer.dropEffect = 'move';
+
+	const target = itemAt( event.clientY );
+	if ( ! target ) {
+		return;
+	}
+
+	const box = target.getBoundingClientRect();
+	if ( event.clientY < box.top + box.height / 2 ) {
+		target.before( dragging );
+	} else {
+		target.after( dragging );
+	}
+};
+
+const onDragEnd = () => {
+	if ( ! dragging ) {
+		return;
+	}
+
+	dragging.classList.remove( 'is-dragging' );
+	renumber();
+	if ( startIndex !== items().indexOf( dragging ) ) {
+		announce( dragging );
+	}
+	dragging = null;
+	startIndex = null;
+};
+
+const onKeyDown = ( event ) => {
+	const handle = event.target.closest( handleSelector );
+	if ( ! handle || ( 'ArrowUp' !== event.key && 'ArrowDown' !== event.key ) ) {
+		return;
+	}
+
+	event.preventDefault();
+	move( handle.closest( itemSelector ), 'ArrowUp' === event.key ? -1 : 1 );
+	handle.focus();
+};
+
+if ( list ) {
+	list.addEventListener( 'dragstart', onDragStart );
+	list.addEventListener( 'dragover', onDragOver );
+	list.addEventListener( 'dragend', onDragEnd );
+	list.addEventListener( 'drop', ( event ) => event.preventDefault() );
+	list.addEventListener( 'keydown', onKeyDown );
+}

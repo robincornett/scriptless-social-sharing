@@ -48,7 +48,7 @@ class Help {
 			array(
 				'id'      => 'scriptlesssocialsharing_buttons-help',
 				'title'   => __( 'Button Settings', 'scriptless-social-sharing' ),
-				'content' => $this->heading() . $this->buttons() . $this->button_order(),
+				'content' => $this->heading() . $this->buttons(),
 			),
 			array(
 				'id'      => 'scriptlesssocialsharing_types-help',
@@ -107,17 +107,7 @@ class Help {
 	protected function buttons() {
 		$help  = '<h3>' . __( 'Sharing Buttons', 'scriptless-social-sharing' ) . '</h3>';
 		$help .= '<p>' . __( 'Pick which social network buttons you would like to show. Custom buttons can be added via a filter.', 'scriptless-social-sharing' ) . '</p>';
-
-		return $help;
-	}
-
-	/**
-	 * Description for the button order.
-	 * @return string
-	 */
-	protected function button_order() {
-		$help  = '<h3>' . __( 'Button Order', 'scriptless-social-sharing' ) . '</h3>';
-		$help .= '<p>' . __( 'Buttons can be reordered either by changing the number input values, or by dragging and dropping the buttons. If the number input values are changed, drag/drop functionality will be disabled until the settings have been saved.', 'scriptless-social-sharing' ) . '</p>';
+		$help .= '<p>' . __( 'Buttons appear in the order they are listed. To reorder them, drag a button by the handle at the end of its row, or move focus to the handle and press the up or down arrow keys. Buttons you have not checked can be reordered too, so their position is kept if you turn them on later.', 'scriptless-social-sharing' ) . '</p>';
 
 		return $help;
 	}

@@ -90,12 +90,21 @@ class Settings {
 	 * @since 2.3.0
 	 */
 	public function enqueue() {
+		$asset = require SCRIPTLESSOCIALSHARING_DIR . '/assets/build/js/scriptless-sortable.asset.php';
 		wp_enqueue_script(
 			'scriptless-sortable',
 			plugins_url( 'assets/build/js/scriptless-sortable.js', SCRIPTLESSOCIALSHARING_FILE ),
-			array( 'jquery', 'jquery-ui-sortable' ),
+			$asset['dependencies'],
 			SCRIPTLESSOCIALSHARING_VERSION,
 			true
+		);
+		wp_localize_script(
+			'scriptless-sortable',
+			'scriptlessSortableL10n',
+			array(
+				/* translators: 1: Social network name, 2: The button's new position, 3: The total number of buttons */
+				'moved' => __( '%1$s moved to position %2$d of %3$d.', 'scriptless-social-sharing' ),
+			)
 		);
 		wp_enqueue_style(
 			'scriptless-sortable',

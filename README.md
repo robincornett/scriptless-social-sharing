@@ -231,6 +231,7 @@ Note that there is both an `svg` and an `icon` argument in the code sample. `svg
 * updated: the block has been updated for modern block compatibility
 * removed: enqueueing FontAwesome is no longer an option; icons are rendered as SVG instead
 * removed: support for Pocket
+* changed: the settings to enable and order buttons have been combined
 * changed: the plugin now uses namespaced classes and autoloading
 * changed: the new minimum WordPress version is 6.9
 

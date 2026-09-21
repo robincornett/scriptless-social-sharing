@@ -28,6 +28,7 @@ class Validate {
 				$new_value[ $field['id'] ] = $this->callback_switcher( $new_value[ $field['id'] ], $field );
 			}
 		}
+		$new_value['order']    = $this->validate_order( isset( $new_value['order'] ) ? $new_value['order'] : array() );
 		$new_value['location'] = false;
 
 		return $new_value;
@@ -57,13 +58,7 @@ class Validate {
 				break;
 
 			case 'checkbox_array':
-				$choices = $field['choices'];
-				if ( is_callable( $choices ) ) {
-					$choices = call_user_func( $choices );
-				}
-				foreach ( $choices as $key => $label ) {
-					$new_value[ $key ] = $this->one_zero( $new_value[ $key ] );
-				}
+				$new_value = $this->validate_checkboxes( $new_value, $field );
 				break;
 
 			case 'radio':
@@ -97,8 +92,8 @@ class Validate {
 				array_walk_recursive( $new_value, array( $this, 'validate_content_types' ) );
 				break;
 
-			case 'do_custom_order':
-				array_walk_recursive( $new_value, array( $this, 'validate_order' ) );
+			case 'do_buttons':
+				$new_value = $this->validate_checkboxes( $new_value, $field );
 				break;
 		}
 
@@ -130,13 +125,41 @@ class Validate {
 	}
 
 	/**
+	 * Validate a set of checkboxes against the field's own choices.
+	 *
+	 * @since 4.0.0
+	 * @param array $new_value The posted values, keyed by choice.
+	 * @param array $field     The field being validated.
+	 * @return array
+	 */
+	protected function validate_checkboxes( $new_value, $field ) {
+		$choices = $field['choices'];
+		if ( is_callable( $choices ) ) {
+			$choices = call_user_func( $choices );
+		}
+		foreach ( array_keys( $choices ) as $key ) {
+			$new_value[ $key ] = $this->one_zero( isset( $new_value[ $key ] ) ? $new_value[ $key ] : 0 );
+		}
+
+		return $new_value;
+	}
+
+	/**
 	 * Validate the custom button order.
 	 *
+	 * The order is carried by the key order of the array, which arrives in the
+	 * order the inputs appear in the form, so only the values need sanitizing.
+	 *
 	 * @since 2.3.0
-	 * @param $new_value
-	 * @param $key
+	 * @since 4.0.0 Accepts and returns the whole order array.
+	 * @param array $order The posted order, keyed by network name.
+	 * @return array
 	 */
-	protected function validate_order( &$new_value, $key ) {
-		$new_value = (int) $new_value;
+	protected function validate_order( $order ) {
+		if ( ! is_array( $order ) ) {
+			return array();
+		}
+
+		return array_map( 'absint', $order );
 	}
 }
