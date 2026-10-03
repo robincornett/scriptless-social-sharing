@@ -36,7 +36,7 @@ Banner/icon image credit: [Ryan McGuire on Gratisography](https://gratisography.
 
 Scriptless uses SVG files to display the social network icons, or you can revert to using the old FontAwesome webfont.
 
-Text only buttons are an option as well. And if you prefer flexbox for styling items in rows instead of table CSS, that's now available on the settings page.
+Text only buttons are an option as well.
 
 = What social networks are supported? =
 

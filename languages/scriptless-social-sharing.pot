@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-20T23:27:05+00:00\n"
+"POT-Creation-Date: 2026-10-03T15:36:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: scriptless-social-sharing\n"
@@ -95,122 +95,117 @@ msgstr ""
 msgid "Buttons"
 msgstr ""
 
-#: includes/settings/fields.php:45
-#: src/Settings/Help.php:119
-msgid "Button Order"
+#: includes/settings/fields.php:42
+msgid "Choose which sharing buttons to use, and the order in which they appear"
 msgstr ""
 
-#: includes/settings/fields.php:49
-msgid "Reorder the buttons by dragging/dropping, or by using the number inputs."
-msgstr ""
-
-#: includes/settings/fields.php:53
-#: src/Settings/Help.php:145
+#: includes/settings/fields.php:46
+#: src/Settings/Help.php:135
 msgid "Twitter Handle"
 msgstr ""
 
-#: includes/settings/fields.php:56
-#: src/Settings/Help.php:147
+#: includes/settings/fields.php:49
+#: src/Settings/Help.php:137
 msgid "Do not include the @ -- just the user name."
 msgstr ""
 
-#: includes/settings/fields.php:60
-#: src/Settings/Help.php:158
+#: includes/settings/fields.php:53
+#: src/Settings/Help.php:148
 msgid "Email Subject"
 msgstr ""
 
-#: includes/settings/fields.php:63
+#: includes/settings/fields.php:56
 msgid "The post title will be appended to whatever you add here."
 msgstr ""
 
-#: includes/settings/fields.php:67
-#: src/Settings/Help.php:160
+#: includes/settings/fields.php:60
+#: src/Settings/Help.php:150
 msgid "Email Content"
 msgstr ""
 
-#: includes/settings/fields.php:70
-#: src/Settings/Help.php:161
+#: includes/settings/fields.php:63
+#: src/Settings/Help.php:151
 msgid "Keep this simple--whatever you put here is added to your email button markup. The link to the post will be added at the end of the email content."
 msgstr ""
 
-#: includes/settings/fields.php:74
+#: includes/settings/fields.php:67
 #: src/Settings/Help.php:55
 msgid "Content Types"
 msgstr ""
 
-#: includes/settings/fields.php:78
+#: includes/settings/fields.php:71
 msgid "Leave all options unchecked for no buttons. Before/after content are the traditional Scriptless Social Sharing locations (within the post/entry content). Checking manual placement will allow the plugin styles to load as needed, if you are adding the buttons using code. You do not need to check any settings to use the shortcode."
 msgstr ""
 
-#: includes/settings/fields.php:82
+#: includes/settings/fields.php:75
 msgid "Scriptless Sidebar"
 msgstr ""
 
-#: includes/settings/fields.php:85
+#: includes/settings/fields.php:78
 msgid "Enable the Scriptless sidebar on all content types, even if the location settings are disabled (helpful if you are manually adding sharing buttons)."
 msgstr ""
 
-#: includes/settings/fields.php:89
+#: includes/settings/fields.php:82
 msgid "Button Output"
 msgstr ""
 
-#: includes/settings/fields.php:93
+#: includes/settings/fields.php:86
 msgid "Icon Only"
 msgstr ""
 
-#: includes/settings/fields.php:94
+#: includes/settings/fields.php:87
 msgid "Icon + Text (hide text on small screens)"
 msgstr ""
 
-#: includes/settings/fields.php:95
+#: includes/settings/fields.php:88
 msgid "Icon + Text (always show text)"
 msgstr ""
 
-#: includes/settings/fields.php:96
+#: includes/settings/fields.php:89
 msgid "Text Only"
 msgstr ""
 
-#: includes/settings/fields.php:98
+#: includes/settings/fields.php:91
 msgid "Button styles"
 msgstr ""
 
-#: includes/settings/fields.php:102
+#: includes/settings/fields.php:95
 msgid "Button Container Width"
 msgstr ""
 
-#: includes/settings/fields.php:106
+#: includes/settings/fields.php:99
 msgid "Full Width"
 msgstr ""
 
-#: includes/settings/fields.php:107
+#: includes/settings/fields.php:100
 msgid "Auto"
 msgstr ""
 
-#: includes/settings/fields.php:109
+#: includes/settings/fields.php:102
 msgid "Width of button container"
 msgstr ""
 
-#: includes/settings/fields.php:113
+#: includes/settings/fields.php:106
 msgid "Button Padding"
 msgstr ""
 
-#: includes/settings/fields.php:116
+#: includes/settings/fields.php:109
 msgid " pixels"
 msgstr ""
 
-#: includes/settings/fields.php:122
+#: includes/settings/fields.php:115
 msgid "Disable Block"
 msgstr ""
 
-#: includes/settings/fields.php:125
+#: includes/settings/fields.php:118
 msgid "Disable the sharing buttons block."
 msgstr ""
 
-#: includes/settings/fields.php:132
+#: includes/settings/fields.php:125
 msgid "Genesis Framework"
 msgstr ""
 
-#: includes/settings/fields.php:135
+#: includes/settings/fields.php:128
 msgid "Use Genesis Framework hooks for button locations."
 msgstr ""
 
@@ -369,8 +364,14 @@ msgstr ""
 msgid "Manual Placement"
 msgstr ""
 
-#: src/Settings/Fields.php:302
-msgid "Since you have changed the order of the buttons using the visual/number inputs, updating the order by dragging has been disabled."
+#. translators: %s: Social network name
+#: src/Settings/Fields.php:306
+#, php-format
+msgid "Reorder %s"
+msgstr ""
+
+#: src/Settings/Fields.php:316
+msgid "Drag a button by its handle, or focus the handle and press the up or down arrow keys, to change the order in which the buttons appear."
 msgstr ""
 
 #: src/Settings/Help.php:60
@@ -421,27 +422,27 @@ msgstr ""
 msgid "Pick which social network buttons you would like to show. Custom buttons can be added via a filter."
 msgstr ""
 
-#: src/Settings/Help.php:120
-msgid "Buttons can be reordered either by changing the number input values, or by dragging and dropping the buttons. If the number input values are changed, drag/drop functionality will be disabled until the settings have been saved."
+#: src/Settings/Help.php:110
+msgid "Buttons appear in the order they are listed. To reorder them, drag a button by the handle at the end of its row, or move focus to the handle and press the up or down arrow keys. Buttons you have not checked can be reordered too, so their position is kept if you turn them on later."
 msgstr ""
 
-#: src/Settings/Help.php:130
+#: src/Settings/Help.php:120
 msgid "By default, sharing buttons are added only to posts, but you can add them to any custom content types on your site. For each content type to which you plan to add sharing buttons via code, select manual placement."
 msgstr ""
 
-#: src/Settings/Help.php:131
+#: src/Settings/Help.php:121
 msgid "If you want to place sharing buttons manually via the shortcode, you can do that regardless of what location settings are checked or not."
 msgstr ""
 
-#: src/Settings/Help.php:133
+#: src/Settings/Help.php:123
 msgid "Since you are using a Genesis theme, you can have the plugin use Genesis hooks instead of the default filters for placing the buttons."
 msgstr ""
 
-#: src/Settings/Help.php:146
+#: src/Settings/Help.php:136
 msgid "The Twitter username you want to be credited for each tweet/post."
 msgstr ""
 
-#: src/Settings/Help.php:159
+#: src/Settings/Help.php:149
 msgid "The post/page title will be added to the subject."
 msgstr ""
 
@@ -449,15 +450,21 @@ msgstr ""
 msgid "Scriptless Social Sharing Settings"
 msgstr ""
 
-#: src/Settings/Settings.php:299
+#. translators: 1: Social network name, 2: The button's new position, 3: The total number of buttons
+#: src/Settings/Settings.php:106
+#, php-format
+msgid "%1$s moved to position %2$d of %3$d."
+msgstr ""
+
+#: src/Settings/Settings.php:308
 msgid "Scriptless Social Sharing 2.0 makes <strong>significant</strong> changes to how buttons are managed for each type of content on your site. Settings for button locations and content types have changed. If you've removed the default buttons and replaced them with code, you'll want to check the Manual option for affected content types, and uncheck the specific locations for those content types."
 msgstr ""
 
-#: src/Settings/Settings.php:300
+#: src/Settings/Settings.php:309
 msgid "The buttons on your site will not change until you have updated the settings here. Once you've saved the new settings, this notice will not show again."
 msgstr ""
 
-#: src/Settings/Settings.php:316
+#: src/Settings/Settings.php:325
 msgid "Something unexpected happened. Please try again."
 msgstr ""
 
